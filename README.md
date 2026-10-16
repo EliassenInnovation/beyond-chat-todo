@@ -3,7 +3,16 @@
 Principles, a working example, and evaluation tools from Eliassen Innovations to help you
 build or improve an agent inside your application or website.
 
-[Run the sample](#setup) · [Follow the walkthrough](docs/guides/walkthrough.md) · [Read the principles](docs/principles/principles.md) · [View the evaluation report](https://bobfischer.github.io/beyond-chat-todo/)
+## Contents
+
+- [Why build an agent, and what this sample demonstrates](#help-people-get-the-job-done)
+- [Configuring LLMs](docs/guides/models.md)
+- [Running the app](#setup)
+- [Adding Langfuse (optional)](docs/guides/langfuse.md)
+- [Running tests and evaluations](#test)
+- [Running exploratory personas](#watch-personas-or-run-them-unattended)
+- [Reading the evaluation report](#read-the-report)
+- [Finding your way through the code](#follow-the-implementation)
 
 ## Help people get the job done
 
