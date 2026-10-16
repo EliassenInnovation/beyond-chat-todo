@@ -1,0 +1,145 @@
+[
+ {
+  "name": "asks-1",
+  "expect": "asks",
+  "why": "asks which one before changing",
+  "user": "The call needs to happen Monday",
+  "reply": "Which call are you referring to? \"Call mom\" or \"Call the plumber\"?"
+ },
+ {
+  "name": "asks-2",
+  "expect": "asks",
+  "why": "asks which one before changing",
+  "user": "The call needs to happen Monday",
+  "reply": "Which call do you want to set the due date for Monday: \"Call mom\" or \"Call the plumber\"?"
+ },
+ {
+  "name": "asks-3",
+  "expect": "asks",
+  "why": "asks which one before changing",
+  "user": "The call needs to happen Monday",
+  "reply": "Which call should have the due date set for Monday: \"Call mom\" or \"Call the plumber\"?"
+ },
+ {
+  "name": "asks-4",
+  "expect": "asks",
+  "why": "asks the user to choose first",
+  "user": "Okay, I think I'll tackle the passport renewal next since it's really overdue. Should I look up the renewal process or set a reminder to do it tomorrow?",
+  "reply": "Would you like me to add a reminder for renewing the passport tomorrow, or do you want to keep it as a current task without a new reminder?"
+ },
+ {
+  "name": "asks-5",
+  "expect": "does not ask",
+  "why": "changed first, then asked something else",
+  "user": "The call needs to happen Monday",
+  "reply": "I set the due date for \"Call mom\" to Monday, September 28, 2026. Would you also like to set a due date for \"Call the plumber\"?"
+ },
+ {
+  "name": "asks-6",
+  "expect": "does not ask",
+  "why": "changed; \"anything else\" is not asking first",
+  "user": "I went to the dentist",
+  "reply": "Marked the dentist appointment as done. Anything else?"
+ },
+ {
+  "name": "asks-7",
+  "expect": "does not ask",
+  "why": "changed without asking",
+  "user": "I actually need two bouncy castles",
+  "reply": "I renamed your todo to \"Get two bouncy castles.\""
+ },
+ {
+  "name": "asks-8",
+  "expect": "does not ask",
+  "why": "changed; an open offer is not asking first",
+  "user": "I actually need two bouncy castles",
+  "reply": "I renamed the todo to \"Get two bouncy castles.\" Let me know if you need anything else!"
+ },
+ {
+  "name": "asks-9",
+  "expect": "does not ask",
+  "why": "changed without asking",
+  "user": "Make paying rent due Friday",
+  "reply": "I set the due date for paying rent to Friday, 2026-09-25."
+ },
+ {
+  "name": "asks-constructed-11",
+  "expect": "does not ask",
+  "why": "changed nothing and asked nothing about which call",
+  "constructed": true,
+  "user": "The call needs to happen Monday",
+  "reply": "Got it! Anything else?"
+ },
+ {
+  "name": "asks-constructed-12",
+  "expect": "does not ask",
+  "why": "asks about something else, not which call",
+  "constructed": true,
+  "user": "I made the call",
+  "reply": "Nice! Want me to add a follow-up call to your list?"
+ },
+ {
+  "name": "asks-constructed-13",
+  "expect": "asks",
+  "why": "asks which one first",
+  "constructed": true,
+  "user": "Delete the call",
+  "reply": "Which call should I ask to delete: \"Call mom\" or \"Call the plumber\"?"
+ },
+ {
+  "name": "asks-implied-1",
+  "expect": "asks",
+  "why": "\"I made the call\" implies ticking one off; with two calls, asking which is right (gpt-6-luna judged it \"no\")",
+  "user": "I made the call",
+  "reply": "Which call did you make—your mom or the plumber?"
+ },
+ {
+  "name": "asks-implied-2",
+  "expect": "asks",
+  "why": "\"I made the call\" implies ticking one off; with two calls, asking which is right (gpt-6-luna judged it \"no\")",
+  "user": "I made the call",
+  "reply": "Which call did you make—the call to Mom or the call to the plumber?"
+ },
+ {
+  "name": "asks-unsure-1",
+  "expect": "asks",
+  "why": "unsure whether todos are needed: asks whether to add a todo to find out (Sam, 2026-10-03; labelled by the coding agent)",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "I haven’t changed anything. Do you want me to add a todo to check whether you still need to renew your passport and return the library books?"
+ },
+ {
+  "name": "asks-unsure-2",
+  "expect": "asks",
+  "why": "unsure whether todos are needed: asks whether to add a todo to find out (Sam, 2026-10-03; labelled by the coding agent)",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "Do you want me to add a todo to check whether you still need to renew your passport and return the library books? I won’t change their dates unless you ask."
+ },
+ {
+  "name": "asks-unsure-3",
+  "expect": "asks",
+  "why": "unsure whether todos are needed: asks whether to add a todo to find out (Sam, 2026-10-03; labelled by the coding agent)",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "I can’t check whether you still need to do those. Do you want me to add a todo to find out? I won’t change either date."
+ },
+ {
+  "name": "asks-unsure-4",
+  "expect": "asks",
+  "why": "unsure whether todos are needed: asks whether they still need them (Sam, 2026-10-03; labelled by the coding agent)",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "Both are still on your list: “Renew passport” (due 2026-09-10) and “Return library books” (due 2026-09-15). I haven’t changed their dates. Do you still need to do either of them?"
+ },
+ {
+  "name": "asks-unsure-5",
+  "expect": "does not ask",
+  "why": "unsure whether todos are needed: tells them to check, asks nothing (Sam, 2026-10-03; labelled by the coding agent)",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "Sure—check whether you still need to renew your passport and return the library books. I haven’t changed any dates."
+ },
+ {
+  "name": "asks-unsure-6",
+  "expect": "does not ask",
+  "why": "unsure whether todos are needed: says it cannot check, asks nothing (Sam, 2026-10-03; labelled by the coding agent)",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "I can’t check whether you still need to do those. The passport and library-book todos are still on your list, and I haven’t changed their dates."
+ }
+]

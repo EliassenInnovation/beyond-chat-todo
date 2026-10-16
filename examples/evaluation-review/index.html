@@ -1,0 +1,1742 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reading the todo app’s evaluations</title><style>
+:root{color-scheme:light;--ink:#17223a;--muted:#536174;--line:#d4dce5;--accent:#334da0}
+*{box-sizing:border-box}body{font:17px/1.55 system-ui,sans-serif;color:var(--ink);background:#f6f8fb;margin:0;padding:28px 20px 60px}
+main{max-width:1060px;margin:auto}h1{font-size:32px;line-height:1.2}h2{font-size:23px;margin-top:0}h3{font-size:18px}
+p{margin:10px 0}a{color:var(--accent)}section,article{background:white;border:1px solid var(--line);border-radius:12px;padding:24px;margin:22px 0}
+.notice{border-left:5px solid #aa7100;background:#fff8e8}.muted,small{color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.metric b{display:block;font-size:30px}.metric span{font-size:14px}
+svg{display:block;width:100%;height:auto}table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}.table{overflow-x:auto}details{margin:12px 0}summary{cursor:pointer;color:var(--accent)}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.5 ui-monospace,monospace;background:#f5f7fa;padding:12px;border-radius:6px}
+.turn{border-left:3px solid var(--line);padding:0 0 0 14px;margin:18px 0}.speaker{font-weight:650;font-size:14px}label{display:block;margin:10px 0}select,textarea,input,button{font:inherit;max-width:100%}select,textarea,input{padding:10px;border:1px solid #8794a6;border-radius:5px;background:white;color:var(--ink)}textarea{width:100%;min-height:85px}button{background:var(--accent);color:white;border:0;border-radius:6px;padding:12px 18px;cursor:pointer}button:focus-visible,summary:focus-visible{outline:3px solid #df9b35;outline-offset:4px}.badge{font-size:14px;font-weight:600;color:#865800}.wrap{overflow-wrap:anywhere}
+@media(max-width:600px){body{padding:16px 10px}section,article{padding:16px}.metrics{grid-template-columns:1fr}h1{font-size:26px}.metric b{font-size:26px}}
+</style></head><body><main>
+<h1>Reading the todo app’s evaluations</h1><p>A real, fixed-configuration collection from the todo starter. No server, account, or model calls are needed to read this page.</p>
+<section class="notice"><h2>Evidence complete; quality baseline not accepted</h2><p>All 20 runs have complete evidence, and no declared chart signal appeared. Review found real application errors mixed with apparent grader false alarms. These results do not yet establish an accepted baseline of application quality.</p><p>The scores below are the original recorded results. Human review notes do not change them.</p></section>
+<section><div class="metrics"><div class="metric"><b>20/20</b><span>Runs with complete evidence</span></div><div class="metric"><b>2,956/3,060</b><span>Recorded passes (96.60%)</span></div><div class="metric"><b>$1.60</b><span>Estimated reported cost; excludes separate preflight</span></div></div></section>
+<section><h2>Observed variation</h2><p class="badge">Illustrative candidate limits—not an accepted baseline</p><svg viewBox="0 0 800 270" role="img" aria-label="Recorded failure rates by run; exact counts are in the table below"><text x="8" y="45">10%</text><text x="20" y="220">0%</text><line x1="65" x2="760" y1="215" y2="215" stroke="#8794a6"/><line x1="65" x2="760" y1="157.22" y2="157.22" stroke="#aa7100" stroke-dasharray="6 5"><title>Candidate average: 3.40%</title></line><line x1="65" x2="760" y1="71.67" y2="71.67" stroke="#aa7100" stroke-dasharray="6 5"><title>Candidate upper limit: 8.43%</title></line><circle cx="65.00" cy="181.67" r="5" fill="#334da0"><title>Observation 1: 1.96% recorded failures</title></circle><text x="65.00" y="245" text-anchor="middle" font-size="12">1</text><circle cx="101.58" cy="170.56" r="5" fill="#334da0"><title>Observation 2: 2.61% recorded failures</title></circle><text x="101.58" y="245" text-anchor="middle" font-size="12">2</text><circle cx="138.16" cy="170.56" r="5" fill="#334da0"><title>Observation 3: 2.61% recorded failures</title></circle><text x="138.16" y="245" text-anchor="middle" font-size="12">3</text><circle cx="174.74" cy="192.78" r="5" fill="#334da0"><title>Observation 4: 1.31% recorded failures</title></circle><text x="174.74" y="245" text-anchor="middle" font-size="12">4</text><circle cx="211.32" cy="115.00" r="5" fill="#334da0"><title>Observation 5: 5.88% recorded failures</title></circle><text x="211.32" y="245" text-anchor="middle" font-size="12">5</text><circle cx="247.89" cy="148.33" r="5" fill="#334da0"><title>Observation 6: 3.92% recorded failures</title></circle><text x="247.89" y="245" text-anchor="middle" font-size="12">6</text><circle cx="284.47" cy="159.44" r="5" fill="#334da0"><title>Observation 7: 3.27% recorded failures</title></circle><text x="284.47" y="245" text-anchor="middle" font-size="12">7</text><circle cx="321.05" cy="159.44" r="5" fill="#334da0"><title>Observation 8: 3.27% recorded failures</title></circle><text x="321.05" y="245" text-anchor="middle" font-size="12">8</text><circle cx="357.63" cy="170.56" r="5" fill="#334da0"><title>Observation 9: 2.61% recorded failures</title></circle><text x="357.63" y="245" text-anchor="middle" font-size="12">9</text><circle cx="394.21" cy="103.89" r="5" fill="#334da0"><title>Observation 10: 6.54% recorded failures</title></circle><text x="394.21" y="245" text-anchor="middle" font-size="12">10</text><circle cx="430.79" cy="159.44" r="5" fill="#334da0"><title>Observation 11: 3.27% recorded failures</title></circle><text x="430.79" y="245" text-anchor="middle" font-size="12">11</text><circle cx="467.37" cy="181.67" r="5" fill="#334da0"><title>Observation 12: 1.96% recorded failures</title></circle><text x="467.37" y="245" text-anchor="middle" font-size="12">12</text><circle cx="503.95" cy="115.00" r="5" fill="#334da0"><title>Observation 13: 5.88% recorded failures</title></circle><text x="503.95" y="245" text-anchor="middle" font-size="12">13</text><circle cx="540.53" cy="170.56" r="5" fill="#334da0"><title>Observation 14: 2.61% recorded failures</title></circle><text x="540.53" y="245" text-anchor="middle" font-size="12">14</text><circle cx="577.11" cy="159.44" r="5" fill="#334da0"><title>Observation 15: 3.27% recorded failures</title></circle><text x="577.11" y="245" text-anchor="middle" font-size="12">15</text><circle cx="613.68" cy="181.67" r="5" fill="#334da0"><title>Observation 16: 1.96% recorded failures</title></circle><text x="613.68" y="245" text-anchor="middle" font-size="12">16</text><circle cx="650.26" cy="159.44" r="5" fill="#334da0"><title>Observation 17: 3.27% recorded failures</title></circle><text x="650.26" y="245" text-anchor="middle" font-size="12">17</text><circle cx="686.84" cy="137.22" r="5" fill="#334da0"><title>Observation 18: 4.58% recorded failures</title></circle><text x="686.84" y="245" text-anchor="middle" font-size="12">18</text><circle cx="723.42" cy="181.67" r="5" fill="#334da0"><title>Observation 19: 1.96% recorded failures</title></circle><text x="723.42" y="245" text-anchor="middle" font-size="12">19</text><circle cx="760.00" cy="126.11" r="5" fill="#334da0"><title>Observation 20: 5.23% recorded failures</title></circle><text x="760.00" y="245" text-anchor="middle" font-size="12">20</text></svg><p>Average 3.40%; lower limit -1.63%; upper limit 8.43%. The negative lower limit is listed, not drawn.</p>
+<p>Dashed lines are calculated from these same 20 observations, not independent validation. No point exceeds a limit and no eight consecutive points lie strictly on one side. Back-to-back, partly concurrent runs mainly describe short-term variation. Points are ordered by start time, not run number or elapsed time.</p><details><summary>All observations in start-time order</summary><div class="table"><table><thead><tr><th>Order</th><th>Run</th><th>Passes</th><th>Failures</th><th>Evidence</th></tr></thead><tbody><tr><td>1</td><td>run-01</td><td>150/153</td><td>3</td><td>Complete</td></tr><tr><td>2</td><td>run-05</td><td>149/153</td><td>4</td><td>Complete</td></tr><tr><td>3</td><td>run-02</td><td>149/153</td><td>4</td><td>Complete</td></tr><tr><td>4</td><td>run-03</td><td>151/153</td><td>2</td><td>Complete</td></tr><tr><td>5</td><td>run-04</td><td>144/153</td><td>9</td><td>Complete</td></tr><tr><td>6</td><td>run-06</td><td>147/153</td><td>6</td><td>Complete</td></tr><tr><td>7</td><td>run-07</td><td>148/153</td><td>5</td><td>Complete</td></tr><tr><td>8</td><td>run-08</td><td>148/153</td><td>5</td><td>Complete</td></tr><tr><td>9</td><td>run-09</td><td>149/153</td><td>4</td><td>Complete</td></tr><tr><td>10</td><td>run-10</td><td>143/153</td><td>10</td><td>Complete</td></tr><tr><td>11</td><td>run-11</td><td>148/153</td><td>5</td><td>Complete</td></tr><tr><td>12</td><td>run-12</td><td>150/153</td><td>3</td><td>Complete</td></tr><tr><td>13</td><td>run-13</td><td>144/153</td><td>9</td><td>Complete</td></tr><tr><td>14</td><td>run-14</td><td>149/153</td><td>4</td><td>Complete</td></tr><tr><td>15</td><td>run-15</td><td>148/153</td><td>5</td><td>Complete</td></tr><tr><td>16</td><td>run-16</td><td>150/153</td><td>3</td><td>Complete</td></tr><tr><td>17</td><td>run-17</td><td>148/153</td><td>5</td><td>Complete</td></tr><tr><td>18</td><td>run-18</td><td>146/153</td><td>7</td><td>Complete</td></tr><tr><td>19</td><td>run-19</td><td>150/153</td><td>3</td><td>Complete</td></tr><tr><td>20</td><td>run-20</td><td>145/153</td><td>8</td><td>Complete</td></tr></tbody></table></div></details>
+<p>A stable rate can still contain unacceptable outcomes or grader errors. New important failures need review even when the overall rate remains within limits.</p></section>
+<section><h2>How to use this example</h2><p>Read a conversation and its actions, then decide whether the issue is in the application, the grader, or both. The original flag and assistant note are collapsed so you can form your own view first. These selected examples are a discussion queue, not a representative accuracy sample.</p>
+<p>For ordinary changes: offline tests → focused evals → a full regression run when model behavior can change. Twenty full runs establish variation; they are not required after every edit. A new prompt, model, tool or grader starts a reviewed comparison period, not automatically new control limits.</p>
+<p><a href="../../docs/evaluation-signals.md">Evaluation workflow and chart limits</a> · <a href="../../docs/guarded-baseline-2026-10-15.md">Collection review</a> · <a href="collection.json">Portable evidence bundle</a></p></section>
+<section><h2>Human review queue</h2><p>Notes stay in this tab until you download them. Nothing is sent to a service or saved automatically. Download before closing or refreshing.</p><label>Reviewer (optional) <input id="reviewer" autocomplete="off"></label><noscript><p>JavaScript is disabled. The evidence is readable, but downloading structured notes requires JavaScript.</p></noscript></section>
+<article class="review-item" data-id="run-08:no-email:2"><h3>Responding to an email request</h3>
+<p>Did this reply address the email request, even though the app cannot send email?</p><p class="muted">run-08 · no-email · attempt 2</p>
+<details><summary>Conversation and application evidence</summary><p>Case expectation: the list unchanged; the reply says the app cannot send email</p>
+<details><summary>Initial state</summary><pre>{
+  &quot;todos&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Buy milk&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Call mom&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    }
+  ],
+  &quot;waiting_for_approval&quot;: [],
+  &quot;screen_shows&quot;: &quot;all&quot;,
+  &quot;pointed_at&quot;: null,
+  &quot;pointed_on&quot;: null,
+  &quot;visible&quot;: [
+    &quot;Buy milk&quot;,
+    &quot;Call mom&quot;
+  ]
+}</pre></details><div class="turn"><div class="speaker">Person</div><p>Email me this list</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">I can’t send email from here. Your list is:
+
+- Buy milk
+- Call mom</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Buy milk&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;{}&quot;,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Buy milk&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2
+        ]
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Buy milk&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Call mom&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Buy milk&quot;,
+      &quot;Call mom&quot;
+    ]
+  }
+}</pre></details></div></details>
+<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
+<label>Why? <textarea class="note" placeholder="Describe the outcome that matters, rather than preferred wording."></textarea></label>
+<details><summary>Original flags and assistant review note</summary><pre>{
+  &quot;answers_every_part&quot;: {
+    &quot;passed&quot;: false,
+    &quot;reason&quot;: &quot;Email me this list&quot;
+  }
+}</pre><p>The reply explicitly declines email and supplies the list. Completeness and task completion are different checks.</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article><article class="review-item" data-id="run-01:put-it-back:2"><h3>Restoring a change after undo</h3>
+<p>Does the final reply address the request when read in context?</p><p class="muted">run-01 · put-it-back · attempt 2</p>
+<details><summary>Conversation and application evidence</summary><p>Case expectation: &quot;Get two bouncy castles&quot; back as the merge left it (&quot;Get a second bouncy castle&quot; waiting to be deleted if the merge asked for that)</p>
+<details><summary>Initial state</summary><pre>{
+  &quot;todos&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Call mom&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 3,
+      &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    }
+  ],
+  &quot;waiting_for_approval&quot;: [],
+  &quot;screen_shows&quot;: &quot;all&quot;,
+  &quot;pointed_at&quot;: null,
+  &quot;pointed_on&quot;: null,
+  &quot;visible&quot;: [
+    &quot;Call mom&quot;,
+    &quot;Get a bouncy castle&quot;,
+    &quot;Get a second bouncy castle&quot;
+  ]
+}</pre></details><div class="turn"><div class="speaker">Person</div><p>You can have the bouncy castles as one item</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">Merged “Get a bouncy castle” and “Get a second bouncy castle” into “Get two bouncy castles.” Asked to delete “Get a second bouncy castle.” It stays on the list until you click Approve in the app.</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;merge_todos&quot;,
+      &quot;args&quot;: &quot;{\&quot;ids\&quot;:[2,3],\&quot;title\&quot;:\&quot;Get two bouncy castles\&quot;}&quot;,
+      &quot;result&quot;: {
+        &quot;merged&quot;: {
+          &quot;id&quot;: 2,
+          &quot;title&quot;: &quot;Get two bouncy castles&quot;,
+          &quot;done&quot;: false,
+          &quot;due&quot;: null
+        },
+        &quot;waiting_for_approval&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;todo_id&quot;: 3,
+            &quot;title&quot;: &quot;Get a second bouncy castle&quot;
+          }
+        ],
+        &quot;receipt&quot;: &quot;Merged “Get a bouncy castle” and “Get a second bouncy castle” into “Get two bouncy castles.” Asked to delete “Get a second bouncy castle.” It stays on the list until you click Approve in the app.&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Call mom&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Get two bouncy castles&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;todo_id&quot;: 3,
+        &quot;title&quot;: &quot;Get a second bouncy castle&quot;
+      }
+    ],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Call mom&quot;,
+      &quot;Get two bouncy castles&quot;,
+      &quot;Get a second bouncy castle&quot;
+    ]
+  }
+}</pre></details></div><div class="turn"><div class="speaker">Person</div><p>Undo that</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">Undid that: “Get two bouncy castles” says “Get a bouncy castle” again; withdrew the request to delete “Get a second bouncy castle.”</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Get two bouncy castles&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;todo_id&quot;: 3,
+            &quot;title&quot;: &quot;Get a second bouncy castle&quot;
+          }
+        ],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;undo&quot;,
+      &quot;args&quot;: &quot;{}&quot;,
+      &quot;result&quot;: {
+        &quot;undid&quot;: &quot;agent&quot;,
+        &quot;receipt&quot;: &quot;Undid that: “Get two bouncy castles” says “Get a bouncy castle” again; withdrew the request to delete “Get a second bouncy castle.”&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Call mom&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Call mom&quot;,
+      &quot;Get a bouncy castle&quot;,
+      &quot;Get a second bouncy castle&quot;
+    ]
+  }
+}</pre></details></div><div class="turn"><div class="speaker">Person</div><p>Actually, put it back</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">Merged “Get a bouncy castle” and “Get a second bouncy castle” into “Get two bouncy castles.” Asked to delete “Get a second bouncy castle.” It stays on the list until you click Approve in the app.</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;merge_todos&quot;,
+      &quot;args&quot;: &quot;{\&quot;ids\&quot;:[2,3],\&quot;title\&quot;:\&quot;Get two bouncy castles\&quot;}&quot;,
+      &quot;result&quot;: {
+        &quot;merged&quot;: {
+          &quot;id&quot;: 2,
+          &quot;title&quot;: &quot;Get two bouncy castles&quot;,
+          &quot;done&quot;: false,
+          &quot;due&quot;: null
+        },
+        &quot;waiting_for_approval&quot;: [
+          {
+            &quot;id&quot;: 2,
+            &quot;todo_id&quot;: 3,
+            &quot;title&quot;: &quot;Get a second bouncy castle&quot;
+          }
+        ],
+        &quot;receipt&quot;: &quot;Merged “Get a bouncy castle” and “Get a second bouncy castle” into “Get two bouncy castles.” Asked to delete “Get a second bouncy castle.” It stays on the list until you click Approve in the app.&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Call mom&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Get two bouncy castles&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [
+      {
+        &quot;id&quot;: 2,
+        &quot;todo_id&quot;: 3,
+        &quot;title&quot;: &quot;Get a second bouncy castle&quot;
+      }
+    ],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Call mom&quot;,
+      &quot;Get two bouncy castles&quot;,
+      &quot;Get a second bouncy castle&quot;
+    ]
+  }
+}</pre></details></div></details>
+<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
+<label>Why? <textarea class="note" placeholder="Describe the outcome that matters, rather than preferred wording."></textarea></label>
+<details><summary>Original flags and assistant review note</summary><pre>{
+  &quot;answers_every_part&quot;: {
+    &quot;passed&quot;: false,
+    &quot;reason&quot;: &quot;Actually, put it back&quot;
+  }
+}</pre><p>The merge is restored after undo. The old completeness judge did not receive earlier turns.</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article><article class="review-item" data-id="run-06:merge-which-two:2"><h3>Clarifying which tasks to merge</h3>
+<p>Does the assistant ask which tasks without changing them?</p><p class="muted">run-06 · merge-which-two · attempt 2</p>
+<details><summary>Conversation and application evidence</summary><p>Case expectation: the list unchanged, nothing waiting for approval, and a reply that asks which todos to merge</p>
+<details><summary>Initial state</summary><pre>{
+  &quot;todos&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Call mom&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Call the plumber&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 3,
+      &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 4,
+      &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 5,
+      &quot;title&quot;: &quot;Fix the fence&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    }
+  ],
+  &quot;waiting_for_approval&quot;: [],
+  &quot;screen_shows&quot;: &quot;all&quot;,
+  &quot;pointed_at&quot;: null,
+  &quot;pointed_on&quot;: null,
+  &quot;visible&quot;: [
+    &quot;Call mom&quot;,
+    &quot;Call the plumber&quot;,
+    &quot;Get a bouncy castle&quot;,
+    &quot;Get a second bouncy castle&quot;,
+    &quot;Fix the fence&quot;
+  ]
+}</pre></details><div class="turn"><div class="speaker">Person</div><p>How do I merge two items together?</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">You can’t merge todos directly on the screen. Tell me which two you want combined, and I can merge them. I’ve highlighted the todo text rows in case you want to edit wording yourself.</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Call the plumber&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 4,
+            &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 5,
+            &quot;title&quot;: &quot;Fix the fence&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;point_at&quot;,
+      &quot;args&quot;: &quot;{\&quot;control\&quot;:\&quot;todo-text\&quot;,\&quot;todo_id\&quot;:null}&quot;,
+      &quot;result&quot;: {
+        &quot;highlighted&quot;: &quot;todo-text&quot;,
+        &quot;note&quot;: &quot;It is highlighted on the user&#x27;s screen now; say so, rather than offering to.&quot;,
+        &quot;lit_on&quot;: &quot;every todo&quot;
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Call mom&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Call the plumber&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 4,
+        &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 5,
+        &quot;title&quot;: &quot;Fix the fence&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: &quot;todo-text&quot;,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Call mom&quot;,
+      &quot;Call the plumber&quot;,
+      &quot;Get a bouncy castle&quot;,
+      &quot;Get a second bouncy castle&quot;,
+      &quot;Fix the fence&quot;
+    ]
+  }
+}</pre></details></div><div class="turn"><div class="speaker">Person</div><p>Can you do it for me?</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">Which two items would you like me to merge? There are several possible pairs—for example, “Get a bouncy castle” and “Get a second bouncy castle.”</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Call the plumber&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 4,
+            &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 5,
+            &quot;title&quot;: &quot;Fix the fence&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;{}&quot;,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Call the plumber&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 4,
+            &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 5,
+            &quot;title&quot;: &quot;Fix the fence&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Call mom&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Call the plumber&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Get a bouncy castle&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 4,
+        &quot;title&quot;: &quot;Get a second bouncy castle&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 5,
+        &quot;title&quot;: &quot;Fix the fence&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Call mom&quot;,
+      &quot;Call the plumber&quot;,
+      &quot;Get a bouncy castle&quot;,
+      &quot;Get a second bouncy castle&quot;,
+      &quot;Fix the fence&quot;
+    ]
+  }
+}</pre></details></div></details>
+<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
+<label>Why? <textarea class="note" placeholder="Describe the outcome that matters, rather than preferred wording."></textarea></label>
+<details><summary>Original flags and assistant review note</summary><pre>{
+  &quot;passed&quot;: {
+    &quot;passed&quot;: false,
+    &quot;reason&quot;: null
+  }
+}</pre><p>The reply asks which two items. The recorded clarification judgment was negative.</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article><article class="review-item" data-id="run-04:overdue-first:3"><h3>Overdue tasks and completed tasks</h3>
+<p>Does the reply accurately describe the current state and overdue work?</p><p class="muted">run-04 · overdue-first · attempt 3</p>
+<details><summary>Conversation and application evidence</summary><p>Case expectation: the overdue passport and library todos still open, their dates unchanged; the finished ones at most waiting for your approval to delete</p>
+<details><summary>Initial state</summary><pre>{
+  &quot;todos&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Renew passport&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: &quot;2026-09-10&quot;
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Pay the electric bill&quot;,
+      &quot;done&quot;: true,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 3,
+      &quot;title&quot;: &quot;Book the dentist&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 4,
+      &quot;title&quot;: &quot;Return library books&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: &quot;2026-09-15&quot;
+    },
+    {
+      &quot;id&quot;: 5,
+      &quot;title&quot;: &quot;Buy sunscreen&quot;,
+      &quot;done&quot;: true,
+      &quot;due&quot;: null
+    }
+  ],
+  &quot;waiting_for_approval&quot;: [],
+  &quot;screen_shows&quot;: &quot;all&quot;,
+  &quot;pointed_at&quot;: null,
+  &quot;pointed_on&quot;: null,
+  &quot;visible&quot;: [
+    &quot;Renew passport&quot;,
+    &quot;Pay the electric bill&quot;,
+    &quot;Book the dentist&quot;,
+    &quot;Return library books&quot;,
+    &quot;Buy sunscreen&quot;
+  ]
+}</pre></details><div class="turn"><div class="speaker">Person used the app</div><pre>&quot;You tick the electric bill and the sunscreen in the app.&quot;</pre></div><div class="turn"><div class="speaker">Person</div><p>Mark &#x27;Pay the electric bill&#x27; and &#x27;Buy sunscreen&#x27; as done and remove them from the list. Let&#x27;s start by dealing with overdue tasks first.</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">Showing the overdue tasks first: **Renew passport** (due Sep 10) and **Return library books** (due Sep 15). Both dates have passed.
+
+Asked to delete “Pay the electric bill” and “Buy sunscreen.” They stay on the list until you click Approve in the app. Marking them done wasn’t needed—they’re already marked done.</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Renew passport&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: &quot;2026-09-10&quot;
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Pay the electric bill&quot;,
+            &quot;done&quot;: true,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Book the dentist&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 4,
+            &quot;title&quot;: &quot;Return library books&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: &quot;2026-09-15&quot;
+          },
+          {
+            &quot;id&quot;: 5,
+            &quot;title&quot;: &quot;Buy sunscreen&quot;,
+            &quot;done&quot;: true,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;{}&quot;,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Renew passport&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: &quot;2026-09-10&quot;
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Pay the electric bill&quot;,
+            &quot;done&quot;: true,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Book the dentist&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 4,
+            &quot;title&quot;: &quot;Return library books&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: &quot;2026-09-15&quot;
+          },
+          {
+            &quot;id&quot;: 5,
+            &quot;title&quot;: &quot;Buy sunscreen&quot;,
+            &quot;done&quot;: true,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;request_delete&quot;,
+      &quot;args&quot;: &quot;{\&quot;ids\&quot;: [2, 5]}&quot;,
+      &quot;result&quot;: {
+        &quot;waiting_for_approval&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;todo_id&quot;: 2,
+            &quot;title&quot;: &quot;Pay the electric bill&quot;
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;todo_id&quot;: 5,
+            &quot;title&quot;: &quot;Buy sunscreen&quot;
+          }
+        ],
+        &quot;status&quot;: &quot;waiting for the user to click Approve in the app; you cannot approve it&quot;,
+        &quot;receipt&quot;: &quot;Asked to delete “Pay the electric bill” and “Buy sunscreen.” They stay on the list until you click Approve in the app.&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;show_todos&quot;,
+      &quot;args&quot;: &quot;{\&quot;showing\&quot;: \&quot;only\&quot;, \&quot;ids\&quot;: [1, 4]}&quot;,
+      &quot;result&quot;: {
+        &quot;screen_shows&quot;: &quot;only&quot;,
+        &quot;visible&quot;: [
+          &quot;Renew passport&quot;,
+          &quot;Return library books&quot;
+        ],
+        &quot;hidden&quot;: [
+          &quot;Pay the electric bill&quot;,
+          &quot;Book the dentist&quot;,
+          &quot;Buy sunscreen&quot;
+        ]
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Renew passport&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: &quot;2026-09-10&quot;
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Pay the electric bill&quot;,
+        &quot;done&quot;: true,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Book the dentist&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 4,
+        &quot;title&quot;: &quot;Return library books&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: &quot;2026-09-15&quot;
+      },
+      {
+        &quot;id&quot;: 5,
+        &quot;title&quot;: &quot;Buy sunscreen&quot;,
+        &quot;done&quot;: true,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;todo_id&quot;: 2,
+        &quot;title&quot;: &quot;Pay the electric bill&quot;
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;todo_id&quot;: 5,
+        &quot;title&quot;: &quot;Buy sunscreen&quot;
+      }
+    ],
+    &quot;screen_shows&quot;: &quot;only&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Renew passport&quot;,
+      &quot;Return library books&quot;
+    ]
+  }
+}</pre></details></div></details>
+<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
+<label>Why? <textarea class="note" placeholder="Describe the outcome that matters, rather than preferred wording."></textarea></label>
+<details><summary>Original flags and assistant review note</summary><pre>{
+  &quot;claims_match_outcome&quot;: {
+    &quot;passed&quot;: false,
+    &quot;reason&quot;: &quot;Marking them done wasn’t needed—they’re already marked done.&quot;
+  }
+}</pre><p>The filtered view and stored completion state support the reply. The old claim grader flagged the already-done statement.</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article><article class="review-item" data-id="run-05:no-email:3"><h3>Adding a task after an email request</h3>
+<p>Is creating an email task an appropriate substitute for the requested email?</p><p class="muted">run-05 · no-email · attempt 3</p>
+<details><summary>Conversation and application evidence</summary><p>Case expectation: the list unchanged; the reply says the app cannot send email</p>
+<details><summary>Initial state</summary><pre>{
+  &quot;todos&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Buy milk&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Call mom&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    }
+  ],
+  &quot;waiting_for_approval&quot;: [],
+  &quot;screen_shows&quot;: &quot;all&quot;,
+  &quot;pointed_at&quot;: null,
+  &quot;pointed_on&quot;: null,
+  &quot;visible&quot;: [
+    &quot;Buy milk&quot;,
+    &quot;Call mom&quot;
+  ]
+}</pre></details><div class="turn"><div class="speaker">Person</div><p>Email me this list</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">Added “Email the todo list.” I can’t send email from here.</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Buy milk&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;add_todo&quot;,
+      &quot;args&quot;: &quot;{\&quot;todos\&quot;:[{\&quot;title\&quot;:\&quot;Email the todo list\&quot;,\&quot;due\&quot;:null}]}&quot;,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Email the todo list&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;receipt&quot;: &quot;Added “Email the todo list.”&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Buy milk&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Call mom&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Email the todo list&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Buy milk&quot;,
+      &quot;Call mom&quot;,
+      &quot;Email the todo list&quot;
+    ]
+  }
+}</pre></details></div></details>
+<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
+<label>Why? <textarea class="note" placeholder="Describe the outcome that matters, rather than preferred wording."></textarea></label>
+<details><summary>Original flags and assistant review note</summary><pre>{
+  &quot;passed&quot;: {
+    &quot;passed&quot;: false,
+    &quot;reason&quot;: null
+  }
+}</pre><p>The assistant adds a task despite receiving no request to add one. The limitation disclosure does not undo that action.</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article><article class="review-item" data-id="run-06:which-call-v2:2"><h3>Assigning a date to a call</h3>
+<p>Did the user identify which call should receive the date?</p><p class="muted">run-06 · which-call-v2 · attempt 2</p>
+<details><summary>Conversation and application evidence</summary><p>Case expectation: the list unchanged, and a reply that asks which call</p>
+<details><summary>Initial state</summary><pre>{
+  &quot;todos&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Call mom&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Call the plumber&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    }
+  ],
+  &quot;waiting_for_approval&quot;: [],
+  &quot;screen_shows&quot;: &quot;all&quot;,
+  &quot;pointed_at&quot;: null,
+  &quot;pointed_on&quot;: null,
+  &quot;visible&quot;: [
+    &quot;Call mom&quot;,
+    &quot;Call the plumber&quot;
+  ]
+}</pre></details><div class="turn"><div class="speaker">Person</div><p>The call needs to happen Monday</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">“Call mom” is now due Monday, September 28.</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Call the plumber&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;set_due_date&quot;,
+      &quot;args&quot;: &quot;{\&quot;todos\&quot;:[{\&quot;id\&quot;:1,\&quot;due\&quot;:\&quot;2026-09-28\&quot;}]}&quot;,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Call mom&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: &quot;2026-09-28&quot;
+          }
+        ],
+        &quot;receipt&quot;: &quot;“Call mom” is now due Monday, September 28.&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Call mom&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: &quot;2026-09-28&quot;
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Call the plumber&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Call mom&quot;,
+      &quot;Call the plumber&quot;
+    ]
+  }
+}</pre></details></div></details>
+<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
+<label>Why? <textarea class="note" placeholder="Describe the outcome that matters, rather than preferred wording."></textarea></label>
+<details><summary>Original flags and assistant review note</summary><pre>{
+  &quot;passed&quot;: {
+    &quot;passed&quot;: false,
+    &quot;reason&quot;: null
+  }
+}</pre><p>The app has multiple calls; the assistant changes one without clarification. The merge-specific guard does not cover date changes.</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article><article class="review-item" data-id="run-01:overdue-first:3"><h3>Deletion and overdue work</h3>
+<p>Did the reply turn to the overdue work as well as the deletion request?</p><p class="muted">run-01 · overdue-first · attempt 3</p>
+<details><summary>Conversation and application evidence</summary><p>Case expectation: the overdue passport and library todos still open, their dates unchanged; the finished ones at most waiting for your approval to delete</p>
+<details><summary>Initial state</summary><pre>{
+  &quot;todos&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Renew passport&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: &quot;2026-09-10&quot;
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Pay the electric bill&quot;,
+      &quot;done&quot;: true,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 3,
+      &quot;title&quot;: &quot;Book the dentist&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 4,
+      &quot;title&quot;: &quot;Return library books&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: &quot;2026-09-15&quot;
+    },
+    {
+      &quot;id&quot;: 5,
+      &quot;title&quot;: &quot;Buy sunscreen&quot;,
+      &quot;done&quot;: true,
+      &quot;due&quot;: null
+    }
+  ],
+  &quot;waiting_for_approval&quot;: [],
+  &quot;screen_shows&quot;: &quot;all&quot;,
+  &quot;pointed_at&quot;: null,
+  &quot;pointed_on&quot;: null,
+  &quot;visible&quot;: [
+    &quot;Renew passport&quot;,
+    &quot;Pay the electric bill&quot;,
+    &quot;Book the dentist&quot;,
+    &quot;Return library books&quot;,
+    &quot;Buy sunscreen&quot;
+  ]
+}</pre></details><div class="turn"><div class="speaker">Person used the app</div><pre>&quot;You tick the electric bill and the sunscreen in the app.&quot;</pre></div><div class="turn"><div class="speaker">Person</div><p>Mark &#x27;Pay the electric bill&#x27; and &#x27;Buy sunscreen&#x27; as done and remove them from the list. Let&#x27;s start by dealing with overdue tasks first.</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">“Pay the electric bill” and “Buy sunscreen” were already done. Asked to delete “Pay the electric bill” and “Buy sunscreen.” They stay on the list until you click Approve in the app. Click **Approve** on the card below the list to remove them.</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Renew passport&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: &quot;2026-09-10&quot;
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Pay the electric bill&quot;,
+            &quot;done&quot;: true,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Book the dentist&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 4,
+            &quot;title&quot;: &quot;Return library books&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: &quot;2026-09-15&quot;
+          },
+          {
+            &quot;id&quot;: 5,
+            &quot;title&quot;: &quot;Buy sunscreen&quot;,
+            &quot;done&quot;: true,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;complete_todo&quot;,
+      &quot;args&quot;: &quot;{\&quot;ids\&quot;:[2,5]}&quot;,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Pay the electric bill&quot;,
+            &quot;done&quot;: true,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 5,
+            &quot;title&quot;: &quot;Buy sunscreen&quot;,
+            &quot;done&quot;: true,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;receipt&quot;: &quot;“Pay the electric bill” and “Buy sunscreen” were already done.&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;request_delete&quot;,
+      &quot;args&quot;: &quot;{\&quot;ids\&quot;:[2,5]}&quot;,
+      &quot;result&quot;: {
+        &quot;waiting_for_approval&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;todo_id&quot;: 2,
+            &quot;title&quot;: &quot;Pay the electric bill&quot;
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;todo_id&quot;: 5,
+            &quot;title&quot;: &quot;Buy sunscreen&quot;
+          }
+        ],
+        &quot;status&quot;: &quot;waiting for the user to click Approve in the app; you cannot approve it&quot;,
+        &quot;receipt&quot;: &quot;Asked to delete “Pay the electric bill” and “Buy sunscreen.” They stay on the list until you click Approve in the app.&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Renew passport&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: &quot;2026-09-10&quot;
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Pay the electric bill&quot;,
+        &quot;done&quot;: true,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Book the dentist&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 4,
+        &quot;title&quot;: &quot;Return library books&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: &quot;2026-09-15&quot;
+      },
+      {
+        &quot;id&quot;: 5,
+        &quot;title&quot;: &quot;Buy sunscreen&quot;,
+        &quot;done&quot;: true,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;todo_id&quot;: 2,
+        &quot;title&quot;: &quot;Pay the electric bill&quot;
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;todo_id&quot;: 5,
+        &quot;title&quot;: &quot;Buy sunscreen&quot;
+      }
+    ],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Renew passport&quot;,
+      &quot;Pay the electric bill&quot;,
+      &quot;Book the dentist&quot;,
+      &quot;Return library books&quot;,
+      &quot;Buy sunscreen&quot;
+    ]
+  }
+}</pre></details></div></details>
+<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
+<label>Why? <textarea class="note" placeholder="Describe the outcome that matters, rather than preferred wording."></textarea></label>
+<details><summary>Original flags and assistant review note</summary><pre>{
+  &quot;answers_every_part&quot;: {
+    &quot;passed&quot;: false,
+    &quot;reason&quot;: &quot;Let&#x27;s start by dealing with overdue tasks first.&quot;
+  }
+}</pre><p>It handles deletion but does not turn to the overdue tasks. This is a meaningful completeness concern, not merely preferred wording.</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article><article class="review-item" data-id="run-19:back-there:2"><h3>Returning a task to its previous position</h3>
+<p>Did the task return to its original position?</p><p class="muted">run-19 · back-there · attempt 2</p>
+<details><summary>Conversation and application evidence</summary><p>Case expectation: passport, electric bill, dentist, grandma: the order it started in</p>
+<details><summary>Initial state</summary><pre>{
+  &quot;todos&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;title&quot;: &quot;Renew passport&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;title&quot;: &quot;Pay the electric bill&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 3,
+      &quot;title&quot;: &quot;Book the dentist&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    },
+    {
+      &quot;id&quot;: 4,
+      &quot;title&quot;: &quot;Call grandma&quot;,
+      &quot;done&quot;: false,
+      &quot;due&quot;: null
+    }
+  ],
+  &quot;waiting_for_approval&quot;: [],
+  &quot;screen_shows&quot;: &quot;all&quot;,
+  &quot;pointed_at&quot;: null,
+  &quot;pointed_on&quot;: null,
+  &quot;visible&quot;: [
+    &quot;Renew passport&quot;,
+    &quot;Pay the electric bill&quot;,
+    &quot;Book the dentist&quot;,
+    &quot;Call grandma&quot;
+  ]
+}</pre></details><div class="turn"><div class="speaker">Person</div><p>Move Book the dentist to the top</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">Moved “Book the dentist” to the top, from third.</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Renew passport&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Pay the electric bill&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Book the dentist&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 4,
+            &quot;title&quot;: &quot;Call grandma&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;move_todo&quot;,
+      &quot;args&quot;: &quot;{\&quot;id\&quot;:3,\&quot;before_id\&quot;:null,\&quot;after_id\&quot;:null}&quot;,
+      &quot;result&quot;: {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Book the dentist&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null,
+        &quot;order&quot;: [
+          &quot;Book the dentist&quot;,
+          &quot;Renew passport&quot;,
+          &quot;Pay the electric bill&quot;,
+          &quot;Call grandma&quot;
+        ],
+        &quot;was&quot;: {
+          &quot;position&quot;: 3,
+          &quot;directly_below&quot;: &quot;Pay the electric bill&quot;,
+          &quot;directly_above&quot;: &quot;Call grandma&quot;
+        },
+        &quot;to_put_it_back&quot;: {
+          &quot;id&quot;: 3,
+          &quot;after_id&quot;: 2,
+          &quot;before_id&quot;: null,
+          &quot;meaning&quot;: &quot;directly below \&quot;Pay the electric bill\&quot;&quot;
+        },
+        &quot;receipt&quot;: &quot;Moved “Book the dentist” to the top, from third.&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Book the dentist&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Renew passport&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Pay the electric bill&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 4,
+        &quot;title&quot;: &quot;Call grandma&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Book the dentist&quot;,
+      &quot;Renew passport&quot;,
+      &quot;Pay the electric bill&quot;,
+      &quot;Call grandma&quot;
+    ]
+  }
+}</pre></details></div><div class="turn"><div class="speaker">Person</div><p>Back there, please</p><div class="speaker">Assistant</div><p style="white-space:pre-wrap">Moved “Book the dentist” from the top to second, below “Renew passport.”</p><details><summary>Actions and resulting state</summary><pre>{
+  &quot;tools&quot;: [
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;&quot;,
+      &quot;given&quot;: true,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Book the dentist&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Renew passport&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Pay the electric bill&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 4,
+            &quot;title&quot;: &quot;Call grandma&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          3,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;list_todos&quot;,
+      &quot;args&quot;: &quot;{}&quot;,
+      &quot;result&quot;: {
+        &quot;todos&quot;: [
+          {
+            &quot;id&quot;: 3,
+            &quot;title&quot;: &quot;Book the dentist&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Renew passport&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Pay the electric bill&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          },
+          {
+            &quot;id&quot;: 4,
+            &quot;title&quot;: &quot;Call grandma&quot;,
+            &quot;done&quot;: false,
+            &quot;due&quot;: null
+          }
+        ],
+        &quot;waiting_for_approval&quot;: [],
+        &quot;screen_shows&quot;: &quot;all&quot;,
+        &quot;visible_todo_ids&quot;: [
+          3,
+          1,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      &quot;tool&quot;: &quot;move_todo&quot;,
+      &quot;args&quot;: &quot;{\&quot;id\&quot;:3,\&quot;before_id\&quot;:2,\&quot;after_id\&quot;:null}&quot;,
+      &quot;result&quot;: {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Book the dentist&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null,
+        &quot;order&quot;: [
+          &quot;Renew passport&quot;,
+          &quot;Book the dentist&quot;,
+          &quot;Pay the electric bill&quot;,
+          &quot;Call grandma&quot;
+        ],
+        &quot;was&quot;: {
+          &quot;position&quot;: 1,
+          &quot;directly_below&quot;: null,
+          &quot;directly_above&quot;: &quot;Renew passport&quot;
+        },
+        &quot;to_put_it_back&quot;: {
+          &quot;id&quot;: 3,
+          &quot;after_id&quot;: null,
+          &quot;before_id&quot;: null,
+          &quot;meaning&quot;: &quot;first on the list&quot;
+        },
+        &quot;receipt&quot;: &quot;Moved “Book the dentist” from the top to second, below “Renew passport.”&quot;,
+        &quot;note&quot;: &quot;Say the receipt word for word in your reply; write anything else around it.&quot;
+      }
+    }
+  ],
+  &quot;list_after&quot;: {
+    &quot;todos&quot;: [
+      {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Renew passport&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 3,
+        &quot;title&quot;: &quot;Book the dentist&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 2,
+        &quot;title&quot;: &quot;Pay the electric bill&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      },
+      {
+        &quot;id&quot;: 4,
+        &quot;title&quot;: &quot;Call grandma&quot;,
+        &quot;done&quot;: false,
+        &quot;due&quot;: null
+      }
+    ],
+    &quot;waiting_for_approval&quot;: [],
+    &quot;screen_shows&quot;: &quot;all&quot;,
+    &quot;pointed_at&quot;: null,
+    &quot;pointed_on&quot;: null,
+    &quot;visible&quot;: [
+      &quot;Renew passport&quot;,
+      &quot;Book the dentist&quot;,
+      &quot;Pay the electric bill&quot;,
+      &quot;Call grandma&quot;
+    ]
+  }
+}</pre></details></div></details>
+<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
+<label>Why? <textarea class="note" placeholder="Describe the outcome that matters, rather than preferred wording."></textarea></label>
+<details><summary>Original flags and assistant review note</summary><pre>{
+  &quot;passed&quot;: {
+    &quot;passed&quot;: false,
+    &quot;reason&quot;: null
+  }
+}</pre><p>The task started third and ended second. A fluent receipt accurately describes the wrong action.</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article>
+<section><button id="download" type="button">Download review notes</button><p id="download-status" role="status" aria-live="polite"></p><p>Download creates a separate JSON file tied to this evidence bundle. It does not relabel attempts, update charts, or approve a baseline.</p></section>
+<details><summary>Provenance and limitations</summary><p>Collected October 15, 2026 with GPT-6 Luna for the assistant, judges and restored merge guard; 51 visible synthetic cases × 3 attempts × 20 runs. Original grades retained. The later contextual completeness grader was not used for this collection. Examples were selected to illustrate review decisions, not estimate grader accuracy. No real user conversations, trace links or provider credentials are included.</p><p class="wrap">Bundle digest: 8eb6010e1e56daa10c72bc9223640cd37c499b47f139a8d5645b7e9798604531</p><p>Digests detect accidental changes; they do not establish authorship. The JSON includes source-record digests and selected evidence, not every conversation or the full source snapshots. This is a review export, not a replacement run record.</p></details>
+</main><script>
+const identity={"bundle_digest": "8eb6010e1e56daa10c72bc9223640cd37c499b47f139a8d5645b7e9798604531", "title": "Reading the todo app\u2019s evaluations"};
+document.getElementById('download').addEventListener('click',()=>{
+ const reviews=Array.from(document.querySelectorAll('.review-item')).map(el=>({id:el.dataset.id,assessment:el.querySelector('.assessment').value,note:el.querySelector('.note').value}));
+ const record={version:1,...identity,reviewer:document.getElementById('reviewer').value,created:new Date().toISOString(),reviews};
+ const url=URL.createObjectURL(new Blob([JSON.stringify(record,null,2)+'\n'],{type:'application/json'}));
+ const link=document.createElement('a');link.href=url;link.download='todo-evaluation-review.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ document.getElementById('download-status').textContent='Downloaded notes for '+reviews.filter(x=>x.assessment!=='unreviewed').length+' reviewed examples. Original scores are unchanged.';
+});
+</script></body></html>

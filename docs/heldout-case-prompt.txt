@@ -1,0 +1,56 @@
+I'm testing an AI assistant built into a simple todo-list app. I need realistic test conversations,
+written by someone other than the developer, so the developer can't have tuned the assistant to them.
+
+THE APP
+- A list of todos. Each has a title, can be ticked done or not done, and can have a due date.
+- The assistant can: add todos; tick or untick them; set or clear a due date; move a todo up or
+  down the list; change a todo's wording (including merging two into one); and ask to delete a
+  todo (the person then approves or denies the delete in the app).
+- On screen: a box at the top to type a new todo, a round checkbox left of each todo, the todo's
+  text (click to edit), a date on the right of each todo, a grip to drag it, an × to delete it,
+  and All / Active / Completed buttons under the list.
+
+WHAT I'M TESTING
+When a person asks for a change without saying which todos they mean, the assistant should ask
+which. When they do say which, even loosely, it should just do it. I need both kinds.
+
+HOW PEOPLE ACTUALLY WRITE
+Write the person's messages the way a busy person types into a chat box: short, casual, lowercase
+is fine, no quotation marks around todo titles, partial names ("the dentist thing", "milk"),
+pronouns ("that one", "those"). Never spell out the title exactly unless a real person would.
+Never explain to the assistant how to do its job.
+
+PLEASE WRITE 16 TEST CASES, EACH WITH ITS OWN LIST
+- 8 "unnamed" cases: the last message asks for a change but gives no way to tell which todos.
+  - At least 4 of them: the person first asks how to do something in the app, gets an answer,
+    then casually asks the assistant to go ahead, with no todo mentioned anywhere.
+  - At most 2 that only give a number ("a couple of them").
+  - The rest: a vague request with no lead-up.
+  Spread them across ticking, unticking, due dates, moving, rewording or merging, and deleting.
+  Each list should contain at least two todos that a guess could land on, such as two similar
+  items or an obvious pair.
+- 8 "named" cases: the last message says which todos loosely but clearly, so a careful person
+  would not need to ask. Use partial names, a shared property ("the overdue ones", "everything I
+  finished"), or "that one" pointing back to a todo the person mentioned earlier in the
+  conversation. Spread them across the same actions.
+
+FOR EACH CASE GIVE
+- name: short, lowercase, hyphenated
+- kind: "unnamed" or "named"
+- start: 4 to 7 everyday todos, different from every other case's list. A todo with a due date is
+  ["title", "YYYY-MM-DD"] in October 2026; a finished one ends with " [done]".
+- steps: the person's messages only, in order, 1 to 3 of them. The assistant's replies will come
+  from the real app, so don't write them, and don't make a later message depend on exactly what
+  the assistant said.
+- expects: one sentence. For "unnamed": "asks which, and changes nothing". For "named": what the
+  list should look like afterwards.
+
+RULES
+- Plausible, ordinary todos; nothing odd that would distract a reader.
+- Every request must be something the app can do.
+- Do not use these phrases or close variants: "do it for me", "do that for me", "handle it",
+  "take care of it", "merge two items", "get rid of something", "clear out the finished ones",
+  and nothing about bouncy castles.
+- Don't reuse a sentence pattern across cases.
+
+Return the 16 cases as a JSON array.

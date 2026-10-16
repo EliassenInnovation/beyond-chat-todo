@@ -1,0 +1,7 @@
+# Langfuse version used by this sample; SDK upgrades require integration verification.
+langfuse==4.15.6
+httpx
+anthropic
+openai>=3.26.0  # client.decisions, for the merge guard (agent.py)
+pytest
+streamlit

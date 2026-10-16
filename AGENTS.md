@@ -1,0 +1,13 @@
+# Working on this sample
+
+Read README.md and docs/walkthrough.md for the architecture and setup.
+The four Beyond Chat documents under docs/ explain principles and acceptance checks.
+
+- Preserve shared action ownership through capabilities.execute; keep authority in code.
+- Keep guards separate from deterministic permissions and deletion approval.
+- Run pytest for implementation changes. Offline tests must not make model calls.
+- For behavior changes, use visible eval cases first. Do not inspect or tune against held-out cases.
+- Test grader changes against both correct and incorrect replies; preserve original run records.
+- Record model/configuration changes as new comparison periods, not continuation of old limits.
+- Langfuse is optional. Never copy credentials or personal task data into public examples.
+- Keep the starter focused; historical experiments are not part of its runtime.

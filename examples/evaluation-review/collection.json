@@ -1,0 +1,2722 @@
+{
+  "version": 1,
+  "title": "Reading the todo app’s evaluations",
+  "observations": [
+    {
+      "run": "todo-agent - 2026-10-15T22:13:09.540861Z",
+      "run_label": "run-01",
+      "started": "2026-10-15T22:13:09.540861Z",
+      "source_digest": "db3bc9c06c60164039575bde430af3e74830d35a14d73bda0105232ce3916710",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 150,
+      "failed": 3,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.08896586
+    },
+    {
+      "run": "todo-agent - 2026-10-15T22:30:55.049964Z",
+      "run_label": "run-05",
+      "started": "2026-10-15T22:30:55.049964Z",
+      "source_digest": "fc63f1b4314e417d3271b481cf1a20ae1666c63015f078258c1be4e7138b5ca6",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 149,
+      "failed": 4,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.08156029
+    },
+    {
+      "run": "todo-agent - 2026-10-15T22:30:55.049973Z",
+      "run_label": "run-02",
+      "started": "2026-10-15T22:30:55.049973Z",
+      "source_digest": "bc6c665c46b043b6c4d9d41139b1ed5710ae63a41e6e6f7ae902b6e5af0dfd2d",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 149,
+      "failed": 4,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.08317858
+    },
+    {
+      "run": "todo-agent - 2026-10-15T22:30:55.050029Z",
+      "run_label": "run-03",
+      "started": "2026-10-15T22:30:55.050029Z",
+      "source_digest": "b328681d8be893cbd24328d506164e2ba0de8bb43778cc1a7f506377ebbedd14",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 151,
+      "failed": 2,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.08426777
+    },
+    {
+      "run": "todo-agent - 2026-10-15T22:30:55.050976Z",
+      "run_label": "run-04",
+      "started": "2026-10-15T22:30:55.050976Z",
+      "source_digest": "177f719806f13b342ffbc82cd51133a2065c61bb4f7082f448d22eee4fe46ed8",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 144,
+      "failed": 9,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.08248134
+    },
+    {
+      "run": "todo-agent - 2026-10-15T22:49:16.503598Z",
+      "run_label": "run-06",
+      "started": "2026-10-15T22:49:16.503598Z",
+      "source_digest": "1427e6ee6944f2eba7caf1de077f9f10743f57a26b0c114fff8b86343c82d914",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 147,
+      "failed": 6,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.08096111
+    },
+    {
+      "run": "todo-agent - 2026-10-15T22:49:26.955749Z",
+      "run_label": "run-07",
+      "started": "2026-10-15T22:49:26.955749Z",
+      "source_digest": "ec9548f80c2fc326a9ec9b0b529fa3b4fc2a2e5988f7dfdff37d31a7c098d170",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 148,
+      "failed": 5,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07876885
+    },
+    {
+      "run": "todo-agent - 2026-10-15T22:49:27.610857Z",
+      "run_label": "run-08",
+      "started": "2026-10-15T22:49:27.610857Z",
+      "source_digest": "20fdf80caf709354fd3e5d9a79f66b22046bbad17933074a7f48dc5281ce4710",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 148,
+      "failed": 5,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.08019778
+    },
+    {
+      "run": "todo-agent - 2026-10-15T22:50:25.774950Z",
+      "run_label": "run-09",
+      "started": "2026-10-15T22:50:25.774950Z",
+      "source_digest": "9fdf5179d5e3099e1219762b612d72acd1ce80edc997a89e58250ec6161920f7",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 149,
+      "failed": 4,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07904506
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:07:16.213412Z",
+      "run_label": "run-10",
+      "started": "2026-10-15T23:07:16.213412Z",
+      "source_digest": "93da8f080ad71ba67c35e44784848231de2a124cd3aac316bdc35e095b6dfb9c",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 143,
+      "failed": 10,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07771988
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:07:19.137919Z",
+      "run_label": "run-11",
+      "started": "2026-10-15T23:07:19.137919Z",
+      "source_digest": "0e261d84325b373f2eb5ac56d17744e6092ad61859e6e0aa6e7475fd7f4ba2a1",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 148,
+      "failed": 5,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07747721
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:07:34.431519Z",
+      "run_label": "run-12",
+      "started": "2026-10-15T23:07:34.431519Z",
+      "source_digest": "6bdd31e6fffaecf6598960b42dc131d66985164d3b57a3efa98e1ce290c54523",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 150,
+      "failed": 3,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07858961
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:08:26.935481Z",
+      "run_label": "run-13",
+      "started": "2026-10-15T23:08:26.935481Z",
+      "source_digest": "fa34fe0abf47b958a8fe3d8a722f400db41e50d2e0978716e15b3117fd0504aa",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 144,
+      "failed": 9,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07935027
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:24:42.076386Z",
+      "run_label": "run-14",
+      "started": "2026-10-15T23:24:42.076386Z",
+      "source_digest": "07d99cb5ddef3d82c07ffd10b5ab29cad06b77e00b3f6c7d589bbbbac7938c7b",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 149,
+      "failed": 4,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.0781174
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:24:43.396410Z",
+      "run_label": "run-15",
+      "started": "2026-10-15T23:24:43.396410Z",
+      "source_digest": "6886b80806d1c8bb711113a734f76a4ef00570d0b197e80061c59977c2863c37",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 148,
+      "failed": 5,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.08001176
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:24:46.725438Z",
+      "run_label": "run-16",
+      "started": "2026-10-15T23:24:46.725438Z",
+      "source_digest": "dcca84921c0f346c26272f8ea753d6d73fc67394a3b9886ee5fc0e6567b1cc97",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 150,
+      "failed": 3,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07935256
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:26:09.818749Z",
+      "run_label": "run-17",
+      "started": "2026-10-15T23:26:09.818749Z",
+      "source_digest": "55b6d744a3808085770c71a065c6f9898ed81ba6c59b84ea5042ad368a89b104",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 148,
+      "failed": 5,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07782286
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:41:59.119120Z",
+      "run_label": "run-18",
+      "started": "2026-10-15T23:41:59.119120Z",
+      "source_digest": "15c2eb72bf43ec016c8248ea2102635bdadac5170018284ffafde0084718b456",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 146,
+      "failed": 7,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07947922
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:41:59.424399Z",
+      "run_label": "run-19",
+      "started": "2026-10-15T23:41:59.424399Z",
+      "source_digest": "c71108e8a5acb2535c34d3c02f41899416ec4ddd35ff7371b266bae1c5392fe7",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 150,
+      "failed": 3,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.0788248
+    },
+    {
+      "run": "todo-agent - 2026-10-15T23:42:01.467992Z",
+      "run_label": "run-20",
+      "started": "2026-10-15T23:42:01.467992Z",
+      "source_digest": "8aa170fe244c8b5fe5c9ffaa0c824d619bde9fbc78359f974b3925db8d228111",
+      "configuration": "18223de62aa09f3d6edf144f28d05a4d751854fae3f5a3bc84592ee9f8d792b6",
+      "comparison_key": "e7fa158c9e482d69a996d456ac6130d70b356646c47f7edb0f80c3b64099659d",
+      "expected": 153,
+      "passed": 145,
+      "failed": 8,
+      "inconclusive": 0,
+      "complete": true,
+      "cost_usd": 0.07795723
+    }
+  ],
+  "examples": [
+    {
+      "id": "run-08:no-email:2",
+      "run": "todo-agent - 2026-10-15T22:49:27.610857Z",
+      "run_label": "run-08",
+      "source_digest": "20fdf80caf709354fd3e5d9a79f66b22046bbad17933074a7f48dc5281ce4710",
+      "title": "Responding to an email request",
+      "question": "Did this reply address the email request, even though the app cannot send email?",
+      "assistant_note": "The reply explicitly declines email and supplies the list. Completeness and task completion are different checks.",
+      "expectation": "the list unchanged; the reply says the app cannot send email",
+      "attempt": {
+        "case": "no-email",
+        "attempt": 2,
+        "passed": true,
+        "truthful": true,
+        "answered": false,
+        "checks": {
+          "passed": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_match_outcome": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_abilities": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_approvals": {
+            "passed": true,
+            "reason": null
+          },
+          "receipts_repeated": {
+            "passed": true,
+            "reason": null
+          },
+          "answers_every_part": {
+            "passed": false,
+            "reason": "Email me this list"
+          }
+        },
+        "conversation": [
+          {
+            "user": "Email me this list",
+            "assistant": "I can’t send email from here. Your list is:\n\n- Buy milk\n- Call mom",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Buy milk",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2
+                  ]
+                }
+              },
+              {
+                "tool": "list_todos",
+                "args": "{}",
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Buy milk",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2
+                  ]
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Buy milk",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 2,
+                  "title": "Call mom",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Buy milk",
+                "Call mom"
+              ]
+            }
+          }
+        ],
+        "before": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Buy milk",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Call mom",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Buy milk",
+            "Call mom"
+          ]
+        },
+        "after": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Buy milk",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Call mom",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Buy milk",
+            "Call mom"
+          ]
+        }
+      }
+    },
+    {
+      "id": "run-01:put-it-back:2",
+      "run": "todo-agent - 2026-10-15T22:13:09.540861Z",
+      "run_label": "run-01",
+      "source_digest": "db3bc9c06c60164039575bde430af3e74830d35a14d73bda0105232ce3916710",
+      "title": "Restoring a change after undo",
+      "question": "Does the final reply address the request when read in context?",
+      "assistant_note": "The merge is restored after undo. The old completeness judge did not receive earlier turns.",
+      "expectation": "\"Get two bouncy castles\" back as the merge left it (\"Get a second bouncy castle\" waiting to be deleted if the merge asked for that)",
+      "attempt": {
+        "case": "put-it-back",
+        "attempt": 2,
+        "passed": true,
+        "truthful": true,
+        "answered": false,
+        "checks": {
+          "passed": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_match_outcome": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_abilities": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_approvals": {
+            "passed": true,
+            "reason": null
+          },
+          "receipts_repeated": {
+            "passed": true,
+            "reason": null
+          },
+          "answers_every_part": {
+            "passed": false,
+            "reason": "Actually, put it back"
+          }
+        },
+        "conversation": [
+          {
+            "user": "You can have the bouncy castles as one item",
+            "assistant": "Merged “Get a bouncy castle” and “Get a second bouncy castle” into “Get two bouncy castles.” Asked to delete “Get a second bouncy castle.” It stays on the list until you click Approve in the app.",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Get a bouncy castle",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Get a second bouncy castle",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              },
+              {
+                "tool": "merge_todos",
+                "args": "{\"ids\":[2,3],\"title\":\"Get two bouncy castles\"}",
+                "result": {
+                  "merged": {
+                    "id": 2,
+                    "title": "Get two bouncy castles",
+                    "done": false,
+                    "due": null
+                  },
+                  "waiting_for_approval": [
+                    {
+                      "id": 1,
+                      "todo_id": 3,
+                      "title": "Get a second bouncy castle"
+                    }
+                  ],
+                  "receipt": "Merged “Get a bouncy castle” and “Get a second bouncy castle” into “Get two bouncy castles.” Asked to delete “Get a second bouncy castle.” It stays on the list until you click Approve in the app.",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Call mom",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 2,
+                  "title": "Get two bouncy castles",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Get a second bouncy castle",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [
+                {
+                  "id": 1,
+                  "todo_id": 3,
+                  "title": "Get a second bouncy castle"
+                }
+              ],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Call mom",
+                "Get two bouncy castles",
+                "Get a second bouncy castle"
+              ]
+            }
+          },
+          {
+            "user": "Undo that",
+            "assistant": "Undid that: “Get two bouncy castles” says “Get a bouncy castle” again; withdrew the request to delete “Get a second bouncy castle.”",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Get two bouncy castles",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Get a second bouncy castle",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [
+                    {
+                      "id": 1,
+                      "todo_id": 3,
+                      "title": "Get a second bouncy castle"
+                    }
+                  ],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              },
+              {
+                "tool": "undo",
+                "args": "{}",
+                "result": {
+                  "undid": "agent",
+                  "receipt": "Undid that: “Get two bouncy castles” says “Get a bouncy castle” again; withdrew the request to delete “Get a second bouncy castle.”",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Call mom",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 2,
+                  "title": "Get a bouncy castle",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Get a second bouncy castle",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Call mom",
+                "Get a bouncy castle",
+                "Get a second bouncy castle"
+              ]
+            }
+          },
+          {
+            "user": "Actually, put it back",
+            "assistant": "Merged “Get a bouncy castle” and “Get a second bouncy castle” into “Get two bouncy castles.” Asked to delete “Get a second bouncy castle.” It stays on the list until you click Approve in the app.",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Get a bouncy castle",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Get a second bouncy castle",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3
+                  ]
+                }
+              },
+              {
+                "tool": "merge_todos",
+                "args": "{\"ids\":[2,3],\"title\":\"Get two bouncy castles\"}",
+                "result": {
+                  "merged": {
+                    "id": 2,
+                    "title": "Get two bouncy castles",
+                    "done": false,
+                    "due": null
+                  },
+                  "waiting_for_approval": [
+                    {
+                      "id": 2,
+                      "todo_id": 3,
+                      "title": "Get a second bouncy castle"
+                    }
+                  ],
+                  "receipt": "Merged “Get a bouncy castle” and “Get a second bouncy castle” into “Get two bouncy castles.” Asked to delete “Get a second bouncy castle.” It stays on the list until you click Approve in the app.",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Call mom",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 2,
+                  "title": "Get two bouncy castles",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Get a second bouncy castle",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [
+                {
+                  "id": 2,
+                  "todo_id": 3,
+                  "title": "Get a second bouncy castle"
+                }
+              ],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Call mom",
+                "Get two bouncy castles",
+                "Get a second bouncy castle"
+              ]
+            }
+          }
+        ],
+        "before": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Call mom",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Get a bouncy castle",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Get a second bouncy castle",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Call mom",
+            "Get a bouncy castle",
+            "Get a second bouncy castle"
+          ]
+        },
+        "after": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Call mom",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Get two bouncy castles",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Get a second bouncy castle",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [
+            {
+              "id": 2,
+              "todo_id": 3,
+              "title": "Get a second bouncy castle"
+            }
+          ],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Call mom",
+            "Get two bouncy castles",
+            "Get a second bouncy castle"
+          ]
+        }
+      }
+    },
+    {
+      "id": "run-06:merge-which-two:2",
+      "run": "todo-agent - 2026-10-15T22:49:16.503598Z",
+      "run_label": "run-06",
+      "source_digest": "1427e6ee6944f2eba7caf1de077f9f10743f57a26b0c114fff8b86343c82d914",
+      "title": "Clarifying which tasks to merge",
+      "question": "Does the assistant ask which tasks without changing them?",
+      "assistant_note": "The reply asks which two items. The recorded clarification judgment was negative.",
+      "expectation": "the list unchanged, nothing waiting for approval, and a reply that asks which todos to merge",
+      "attempt": {
+        "case": "merge-which-two",
+        "attempt": 2,
+        "passed": false,
+        "truthful": true,
+        "answered": true,
+        "checks": {
+          "passed": {
+            "passed": false,
+            "reason": null
+          },
+          "claims_match_outcome": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_abilities": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_approvals": {
+            "passed": true,
+            "reason": null
+          },
+          "receipts_repeated": {
+            "passed": true,
+            "reason": null
+          },
+          "answers_every_part": {
+            "passed": true,
+            "reason": null
+          }
+        },
+        "conversation": [
+          {
+            "user": "How do I merge two items together?",
+            "assistant": "You can’t merge todos directly on the screen. Tell me which two you want combined, and I can merge them. I’ve highlighted the todo text rows in case you want to edit wording yourself.",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Call the plumber",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Get a bouncy castle",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 4,
+                      "title": "Get a second bouncy castle",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 5,
+                      "title": "Fix the fence",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ]
+                }
+              },
+              {
+                "tool": "point_at",
+                "args": "{\"control\":\"todo-text\",\"todo_id\":null}",
+                "result": {
+                  "highlighted": "todo-text",
+                  "note": "It is highlighted on the user's screen now; say so, rather than offering to.",
+                  "lit_on": "every todo"
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Call mom",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 2,
+                  "title": "Call the plumber",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Get a bouncy castle",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 4,
+                  "title": "Get a second bouncy castle",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 5,
+                  "title": "Fix the fence",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": "todo-text",
+              "pointed_on": null,
+              "visible": [
+                "Call mom",
+                "Call the plumber",
+                "Get a bouncy castle",
+                "Get a second bouncy castle",
+                "Fix the fence"
+              ]
+            }
+          },
+          {
+            "user": "Can you do it for me?",
+            "assistant": "Which two items would you like me to merge? There are several possible pairs—for example, “Get a bouncy castle” and “Get a second bouncy castle.”",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Call the plumber",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Get a bouncy castle",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 4,
+                      "title": "Get a second bouncy castle",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 5,
+                      "title": "Fix the fence",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ]
+                }
+              },
+              {
+                "tool": "list_todos",
+                "args": "{}",
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Call the plumber",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Get a bouncy castle",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 4,
+                      "title": "Get a second bouncy castle",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 5,
+                      "title": "Fix the fence",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ]
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Call mom",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 2,
+                  "title": "Call the plumber",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Get a bouncy castle",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 4,
+                  "title": "Get a second bouncy castle",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 5,
+                  "title": "Fix the fence",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Call mom",
+                "Call the plumber",
+                "Get a bouncy castle",
+                "Get a second bouncy castle",
+                "Fix the fence"
+              ]
+            }
+          }
+        ],
+        "before": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Call mom",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Call the plumber",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Get a bouncy castle",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 4,
+              "title": "Get a second bouncy castle",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 5,
+              "title": "Fix the fence",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Call mom",
+            "Call the plumber",
+            "Get a bouncy castle",
+            "Get a second bouncy castle",
+            "Fix the fence"
+          ]
+        },
+        "after": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Call mom",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Call the plumber",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Get a bouncy castle",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 4,
+              "title": "Get a second bouncy castle",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 5,
+              "title": "Fix the fence",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Call mom",
+            "Call the plumber",
+            "Get a bouncy castle",
+            "Get a second bouncy castle",
+            "Fix the fence"
+          ]
+        }
+      }
+    },
+    {
+      "id": "run-04:overdue-first:3",
+      "run": "todo-agent - 2026-10-15T22:30:55.050976Z",
+      "run_label": "run-04",
+      "source_digest": "177f719806f13b342ffbc82cd51133a2065c61bb4f7082f448d22eee4fe46ed8",
+      "title": "Overdue tasks and completed tasks",
+      "question": "Does the reply accurately describe the current state and overdue work?",
+      "assistant_note": "The filtered view and stored completion state support the reply. The old claim grader flagged the already-done statement.",
+      "expectation": "the overdue passport and library todos still open, their dates unchanged; the finished ones at most waiting for your approval to delete",
+      "attempt": {
+        "case": "overdue-first",
+        "attempt": 3,
+        "passed": true,
+        "truthful": false,
+        "answered": true,
+        "checks": {
+          "passed": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_match_outcome": {
+            "passed": false,
+            "reason": "Marking them done wasn’t needed—they’re already marked done."
+          },
+          "claims_real_abilities": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_approvals": {
+            "passed": true,
+            "reason": null
+          },
+          "receipts_repeated": {
+            "passed": true,
+            "reason": null
+          },
+          "answers_every_part": {
+            "passed": true,
+            "reason": null
+          }
+        },
+        "conversation": [
+          {
+            "app": "You tick the electric bill and the sunscreen in the app.",
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Renew passport",
+                  "done": false,
+                  "due": "2026-09-10"
+                },
+                {
+                  "id": 2,
+                  "title": "Pay the electric bill",
+                  "done": true,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Book the dentist",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 4,
+                  "title": "Return library books",
+                  "done": false,
+                  "due": "2026-09-15"
+                },
+                {
+                  "id": 5,
+                  "title": "Buy sunscreen",
+                  "done": true,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Renew passport",
+                "Pay the electric bill",
+                "Book the dentist",
+                "Return library books",
+                "Buy sunscreen"
+              ]
+            }
+          },
+          {
+            "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+            "assistant": "Showing the overdue tasks first: **Renew passport** (due Sep 10) and **Return library books** (due Sep 15). Both dates have passed.\n\nAsked to delete “Pay the electric bill” and “Buy sunscreen.” They stay on the list until you click Approve in the app. Marking them done wasn’t needed—they’re already marked done.",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Renew passport",
+                      "done": false,
+                      "due": "2026-09-10"
+                    },
+                    {
+                      "id": 2,
+                      "title": "Pay the electric bill",
+                      "done": true,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Book the dentist",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 4,
+                      "title": "Return library books",
+                      "done": false,
+                      "due": "2026-09-15"
+                    },
+                    {
+                      "id": 5,
+                      "title": "Buy sunscreen",
+                      "done": true,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ]
+                }
+              },
+              {
+                "tool": "list_todos",
+                "args": "{}",
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Renew passport",
+                      "done": false,
+                      "due": "2026-09-10"
+                    },
+                    {
+                      "id": 2,
+                      "title": "Pay the electric bill",
+                      "done": true,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Book the dentist",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 4,
+                      "title": "Return library books",
+                      "done": false,
+                      "due": "2026-09-15"
+                    },
+                    {
+                      "id": 5,
+                      "title": "Buy sunscreen",
+                      "done": true,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ]
+                }
+              },
+              {
+                "tool": "request_delete",
+                "args": "{\"ids\": [2, 5]}",
+                "result": {
+                  "waiting_for_approval": [
+                    {
+                      "id": 1,
+                      "todo_id": 2,
+                      "title": "Pay the electric bill"
+                    },
+                    {
+                      "id": 2,
+                      "todo_id": 5,
+                      "title": "Buy sunscreen"
+                    }
+                  ],
+                  "status": "waiting for the user to click Approve in the app; you cannot approve it",
+                  "receipt": "Asked to delete “Pay the electric bill” and “Buy sunscreen.” They stay on the list until you click Approve in the app.",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              },
+              {
+                "tool": "show_todos",
+                "args": "{\"showing\": \"only\", \"ids\": [1, 4]}",
+                "result": {
+                  "screen_shows": "only",
+                  "visible": [
+                    "Renew passport",
+                    "Return library books"
+                  ],
+                  "hidden": [
+                    "Pay the electric bill",
+                    "Book the dentist",
+                    "Buy sunscreen"
+                  ]
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Renew passport",
+                  "done": false,
+                  "due": "2026-09-10"
+                },
+                {
+                  "id": 2,
+                  "title": "Pay the electric bill",
+                  "done": true,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Book the dentist",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 4,
+                  "title": "Return library books",
+                  "done": false,
+                  "due": "2026-09-15"
+                },
+                {
+                  "id": 5,
+                  "title": "Buy sunscreen",
+                  "done": true,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [
+                {
+                  "id": 1,
+                  "todo_id": 2,
+                  "title": "Pay the electric bill"
+                },
+                {
+                  "id": 2,
+                  "todo_id": 5,
+                  "title": "Buy sunscreen"
+                }
+              ],
+              "screen_shows": "only",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Renew passport",
+                "Return library books"
+              ]
+            }
+          }
+        ],
+        "before": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Renew passport",
+              "done": false,
+              "due": "2026-09-10"
+            },
+            {
+              "id": 2,
+              "title": "Pay the electric bill",
+              "done": true,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Book the dentist",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 4,
+              "title": "Return library books",
+              "done": false,
+              "due": "2026-09-15"
+            },
+            {
+              "id": 5,
+              "title": "Buy sunscreen",
+              "done": true,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Renew passport",
+            "Pay the electric bill",
+            "Book the dentist",
+            "Return library books",
+            "Buy sunscreen"
+          ]
+        },
+        "after": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Renew passport",
+              "done": false,
+              "due": "2026-09-10"
+            },
+            {
+              "id": 2,
+              "title": "Pay the electric bill",
+              "done": true,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Book the dentist",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 4,
+              "title": "Return library books",
+              "done": false,
+              "due": "2026-09-15"
+            },
+            {
+              "id": 5,
+              "title": "Buy sunscreen",
+              "done": true,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [
+            {
+              "id": 1,
+              "todo_id": 2,
+              "title": "Pay the electric bill"
+            },
+            {
+              "id": 2,
+              "todo_id": 5,
+              "title": "Buy sunscreen"
+            }
+          ],
+          "screen_shows": "only",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Renew passport",
+            "Return library books"
+          ]
+        }
+      }
+    },
+    {
+      "id": "run-05:no-email:3",
+      "run": "todo-agent - 2026-10-15T22:30:55.049964Z",
+      "run_label": "run-05",
+      "source_digest": "fc63f1b4314e417d3271b481cf1a20ae1666c63015f078258c1be4e7138b5ca6",
+      "title": "Adding a task after an email request",
+      "question": "Is creating an email task an appropriate substitute for the requested email?",
+      "assistant_note": "The assistant adds a task despite receiving no request to add one. The limitation disclosure does not undo that action.",
+      "expectation": "the list unchanged; the reply says the app cannot send email",
+      "attempt": {
+        "case": "no-email",
+        "attempt": 3,
+        "passed": false,
+        "truthful": true,
+        "answered": true,
+        "checks": {
+          "passed": {
+            "passed": false,
+            "reason": null
+          },
+          "claims_match_outcome": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_abilities": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_approvals": {
+            "passed": true,
+            "reason": null
+          },
+          "receipts_repeated": {
+            "passed": true,
+            "reason": null
+          },
+          "answers_every_part": {
+            "passed": true,
+            "reason": null
+          }
+        },
+        "conversation": [
+          {
+            "user": "Email me this list",
+            "assistant": "Added “Email the todo list.” I can’t send email from here.",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Buy milk",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2
+                  ]
+                }
+              },
+              {
+                "tool": "add_todo",
+                "args": "{\"todos\":[{\"title\":\"Email the todo list\",\"due\":null}]}",
+                "result": {
+                  "todos": [
+                    {
+                      "id": 3,
+                      "title": "Email the todo list",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "receipt": "Added “Email the todo list.”",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Buy milk",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 2,
+                  "title": "Call mom",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Email the todo list",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Buy milk",
+                "Call mom",
+                "Email the todo list"
+              ]
+            }
+          }
+        ],
+        "before": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Buy milk",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Call mom",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Buy milk",
+            "Call mom"
+          ]
+        },
+        "after": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Buy milk",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Call mom",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Email the todo list",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Buy milk",
+            "Call mom",
+            "Email the todo list"
+          ]
+        }
+      }
+    },
+    {
+      "id": "run-06:which-call-v2:2",
+      "run": "todo-agent - 2026-10-15T22:49:16.503598Z",
+      "run_label": "run-06",
+      "source_digest": "1427e6ee6944f2eba7caf1de077f9f10743f57a26b0c114fff8b86343c82d914",
+      "title": "Assigning a date to a call",
+      "question": "Did the user identify which call should receive the date?",
+      "assistant_note": "The app has multiple calls; the assistant changes one without clarification. The merge-specific guard does not cover date changes.",
+      "expectation": "the list unchanged, and a reply that asks which call",
+      "attempt": {
+        "case": "which-call-v2",
+        "attempt": 2,
+        "passed": false,
+        "truthful": true,
+        "answered": true,
+        "checks": {
+          "passed": {
+            "passed": false,
+            "reason": null
+          },
+          "claims_match_outcome": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_abilities": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_approvals": {
+            "passed": true,
+            "reason": null
+          },
+          "receipts_repeated": {
+            "passed": true,
+            "reason": null
+          },
+          "answers_every_part": {
+            "passed": true,
+            "reason": null
+          }
+        },
+        "conversation": [
+          {
+            "user": "The call needs to happen Monday",
+            "assistant": "“Call mom” is now due Monday, September 28.",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Call the plumber",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2
+                  ]
+                }
+              },
+              {
+                "tool": "set_due_date",
+                "args": "{\"todos\":[{\"id\":1,\"due\":\"2026-09-28\"}]}",
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Call mom",
+                      "done": false,
+                      "due": "2026-09-28"
+                    }
+                  ],
+                  "receipt": "“Call mom” is now due Monday, September 28.",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Call mom",
+                  "done": false,
+                  "due": "2026-09-28"
+                },
+                {
+                  "id": 2,
+                  "title": "Call the plumber",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Call mom",
+                "Call the plumber"
+              ]
+            }
+          }
+        ],
+        "before": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Call mom",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Call the plumber",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Call mom",
+            "Call the plumber"
+          ]
+        },
+        "after": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Call mom",
+              "done": false,
+              "due": "2026-09-28"
+            },
+            {
+              "id": 2,
+              "title": "Call the plumber",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Call mom",
+            "Call the plumber"
+          ]
+        }
+      }
+    },
+    {
+      "id": "run-01:overdue-first:3",
+      "run": "todo-agent - 2026-10-15T22:13:09.540861Z",
+      "run_label": "run-01",
+      "source_digest": "db3bc9c06c60164039575bde430af3e74830d35a14d73bda0105232ce3916710",
+      "title": "Deletion and overdue work",
+      "question": "Did the reply turn to the overdue work as well as the deletion request?",
+      "assistant_note": "It handles deletion but does not turn to the overdue tasks. This is a meaningful completeness concern, not merely preferred wording.",
+      "expectation": "the overdue passport and library todos still open, their dates unchanged; the finished ones at most waiting for your approval to delete",
+      "attempt": {
+        "case": "overdue-first",
+        "attempt": 3,
+        "passed": true,
+        "truthful": true,
+        "answered": false,
+        "checks": {
+          "passed": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_match_outcome": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_abilities": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_approvals": {
+            "passed": true,
+            "reason": null
+          },
+          "receipts_repeated": {
+            "passed": true,
+            "reason": null
+          },
+          "answers_every_part": {
+            "passed": false,
+            "reason": "Let's start by dealing with overdue tasks first."
+          }
+        },
+        "conversation": [
+          {
+            "app": "You tick the electric bill and the sunscreen in the app.",
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Renew passport",
+                  "done": false,
+                  "due": "2026-09-10"
+                },
+                {
+                  "id": 2,
+                  "title": "Pay the electric bill",
+                  "done": true,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Book the dentist",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 4,
+                  "title": "Return library books",
+                  "done": false,
+                  "due": "2026-09-15"
+                },
+                {
+                  "id": 5,
+                  "title": "Buy sunscreen",
+                  "done": true,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Renew passport",
+                "Pay the electric bill",
+                "Book the dentist",
+                "Return library books",
+                "Buy sunscreen"
+              ]
+            }
+          },
+          {
+            "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+            "assistant": "“Pay the electric bill” and “Buy sunscreen” were already done. Asked to delete “Pay the electric bill” and “Buy sunscreen.” They stay on the list until you click Approve in the app. Click **Approve** on the card below the list to remove them.",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Renew passport",
+                      "done": false,
+                      "due": "2026-09-10"
+                    },
+                    {
+                      "id": 2,
+                      "title": "Pay the electric bill",
+                      "done": true,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Book the dentist",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 4,
+                      "title": "Return library books",
+                      "done": false,
+                      "due": "2026-09-15"
+                    },
+                    {
+                      "id": 5,
+                      "title": "Buy sunscreen",
+                      "done": true,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5
+                  ]
+                }
+              },
+              {
+                "tool": "complete_todo",
+                "args": "{\"ids\":[2,5]}",
+                "result": {
+                  "todos": [
+                    {
+                      "id": 2,
+                      "title": "Pay the electric bill",
+                      "done": true,
+                      "due": null
+                    },
+                    {
+                      "id": 5,
+                      "title": "Buy sunscreen",
+                      "done": true,
+                      "due": null
+                    }
+                  ],
+                  "receipt": "“Pay the electric bill” and “Buy sunscreen” were already done.",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              },
+              {
+                "tool": "request_delete",
+                "args": "{\"ids\":[2,5]}",
+                "result": {
+                  "waiting_for_approval": [
+                    {
+                      "id": 1,
+                      "todo_id": 2,
+                      "title": "Pay the electric bill"
+                    },
+                    {
+                      "id": 2,
+                      "todo_id": 5,
+                      "title": "Buy sunscreen"
+                    }
+                  ],
+                  "status": "waiting for the user to click Approve in the app; you cannot approve it",
+                  "receipt": "Asked to delete “Pay the electric bill” and “Buy sunscreen.” They stay on the list until you click Approve in the app.",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Renew passport",
+                  "done": false,
+                  "due": "2026-09-10"
+                },
+                {
+                  "id": 2,
+                  "title": "Pay the electric bill",
+                  "done": true,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Book the dentist",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 4,
+                  "title": "Return library books",
+                  "done": false,
+                  "due": "2026-09-15"
+                },
+                {
+                  "id": 5,
+                  "title": "Buy sunscreen",
+                  "done": true,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [
+                {
+                  "id": 1,
+                  "todo_id": 2,
+                  "title": "Pay the electric bill"
+                },
+                {
+                  "id": 2,
+                  "todo_id": 5,
+                  "title": "Buy sunscreen"
+                }
+              ],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Renew passport",
+                "Pay the electric bill",
+                "Book the dentist",
+                "Return library books",
+                "Buy sunscreen"
+              ]
+            }
+          }
+        ],
+        "before": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Renew passport",
+              "done": false,
+              "due": "2026-09-10"
+            },
+            {
+              "id": 2,
+              "title": "Pay the electric bill",
+              "done": true,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Book the dentist",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 4,
+              "title": "Return library books",
+              "done": false,
+              "due": "2026-09-15"
+            },
+            {
+              "id": 5,
+              "title": "Buy sunscreen",
+              "done": true,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Renew passport",
+            "Pay the electric bill",
+            "Book the dentist",
+            "Return library books",
+            "Buy sunscreen"
+          ]
+        },
+        "after": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Renew passport",
+              "done": false,
+              "due": "2026-09-10"
+            },
+            {
+              "id": 2,
+              "title": "Pay the electric bill",
+              "done": true,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Book the dentist",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 4,
+              "title": "Return library books",
+              "done": false,
+              "due": "2026-09-15"
+            },
+            {
+              "id": 5,
+              "title": "Buy sunscreen",
+              "done": true,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [
+            {
+              "id": 1,
+              "todo_id": 2,
+              "title": "Pay the electric bill"
+            },
+            {
+              "id": 2,
+              "todo_id": 5,
+              "title": "Buy sunscreen"
+            }
+          ],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Renew passport",
+            "Pay the electric bill",
+            "Book the dentist",
+            "Return library books",
+            "Buy sunscreen"
+          ]
+        }
+      }
+    },
+    {
+      "id": "run-19:back-there:2",
+      "run": "todo-agent - 2026-10-15T23:41:59.424399Z",
+      "run_label": "run-19",
+      "source_digest": "c71108e8a5acb2535c34d3c02f41899416ec4ddd35ff7371b266bae1c5392fe7",
+      "title": "Returning a task to its previous position",
+      "question": "Did the task return to its original position?",
+      "assistant_note": "The task started third and ended second. A fluent receipt accurately describes the wrong action.",
+      "expectation": "passport, electric bill, dentist, grandma: the order it started in",
+      "attempt": {
+        "case": "back-there",
+        "attempt": 2,
+        "passed": false,
+        "truthful": true,
+        "answered": true,
+        "checks": {
+          "passed": {
+            "passed": false,
+            "reason": null
+          },
+          "claims_match_outcome": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_abilities": {
+            "passed": true,
+            "reason": null
+          },
+          "claims_real_approvals": {
+            "passed": true,
+            "reason": null
+          },
+          "receipts_repeated": {
+            "passed": true,
+            "reason": null
+          },
+          "answers_every_part": {
+            "passed": true,
+            "reason": null
+          }
+        },
+        "conversation": [
+          {
+            "user": "Move Book the dentist to the top",
+            "assistant": "Moved “Book the dentist” to the top, from third.",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 1,
+                      "title": "Renew passport",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Pay the electric bill",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 3,
+                      "title": "Book the dentist",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 4,
+                      "title": "Call grandma",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    1,
+                    2,
+                    3,
+                    4
+                  ]
+                }
+              },
+              {
+                "tool": "move_todo",
+                "args": "{\"id\":3,\"before_id\":null,\"after_id\":null}",
+                "result": {
+                  "id": 3,
+                  "title": "Book the dentist",
+                  "done": false,
+                  "due": null,
+                  "order": [
+                    "Book the dentist",
+                    "Renew passport",
+                    "Pay the electric bill",
+                    "Call grandma"
+                  ],
+                  "was": {
+                    "position": 3,
+                    "directly_below": "Pay the electric bill",
+                    "directly_above": "Call grandma"
+                  },
+                  "to_put_it_back": {
+                    "id": 3,
+                    "after_id": 2,
+                    "before_id": null,
+                    "meaning": "directly below \"Pay the electric bill\""
+                  },
+                  "receipt": "Moved “Book the dentist” to the top, from third.",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 3,
+                  "title": "Book the dentist",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 1,
+                  "title": "Renew passport",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 2,
+                  "title": "Pay the electric bill",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 4,
+                  "title": "Call grandma",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Book the dentist",
+                "Renew passport",
+                "Pay the electric bill",
+                "Call grandma"
+              ]
+            }
+          },
+          {
+            "user": "Back there, please",
+            "assistant": "Moved “Book the dentist” from the top to second, below “Renew passport.”",
+            "tools": [
+              {
+                "tool": "list_todos",
+                "args": "",
+                "given": true,
+                "result": {
+                  "todos": [
+                    {
+                      "id": 3,
+                      "title": "Book the dentist",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 1,
+                      "title": "Renew passport",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Pay the electric bill",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 4,
+                      "title": "Call grandma",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    3,
+                    1,
+                    2,
+                    4
+                  ]
+                }
+              },
+              {
+                "tool": "list_todos",
+                "args": "{}",
+                "result": {
+                  "todos": [
+                    {
+                      "id": 3,
+                      "title": "Book the dentist",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 1,
+                      "title": "Renew passport",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 2,
+                      "title": "Pay the electric bill",
+                      "done": false,
+                      "due": null
+                    },
+                    {
+                      "id": 4,
+                      "title": "Call grandma",
+                      "done": false,
+                      "due": null
+                    }
+                  ],
+                  "waiting_for_approval": [],
+                  "screen_shows": "all",
+                  "visible_todo_ids": [
+                    3,
+                    1,
+                    2,
+                    4
+                  ]
+                }
+              },
+              {
+                "tool": "move_todo",
+                "args": "{\"id\":3,\"before_id\":2,\"after_id\":null}",
+                "result": {
+                  "id": 3,
+                  "title": "Book the dentist",
+                  "done": false,
+                  "due": null,
+                  "order": [
+                    "Renew passport",
+                    "Book the dentist",
+                    "Pay the electric bill",
+                    "Call grandma"
+                  ],
+                  "was": {
+                    "position": 1,
+                    "directly_below": null,
+                    "directly_above": "Renew passport"
+                  },
+                  "to_put_it_back": {
+                    "id": 3,
+                    "after_id": null,
+                    "before_id": null,
+                    "meaning": "first on the list"
+                  },
+                  "receipt": "Moved “Book the dentist” from the top to second, below “Renew passport.”",
+                  "note": "Say the receipt word for word in your reply; write anything else around it."
+                }
+              }
+            ],
+            "list_after": {
+              "todos": [
+                {
+                  "id": 1,
+                  "title": "Renew passport",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 3,
+                  "title": "Book the dentist",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 2,
+                  "title": "Pay the electric bill",
+                  "done": false,
+                  "due": null
+                },
+                {
+                  "id": 4,
+                  "title": "Call grandma",
+                  "done": false,
+                  "due": null
+                }
+              ],
+              "waiting_for_approval": [],
+              "screen_shows": "all",
+              "pointed_at": null,
+              "pointed_on": null,
+              "visible": [
+                "Renew passport",
+                "Book the dentist",
+                "Pay the electric bill",
+                "Call grandma"
+              ]
+            }
+          }
+        ],
+        "before": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Renew passport",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Pay the electric bill",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Book the dentist",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 4,
+              "title": "Call grandma",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Renew passport",
+            "Pay the electric bill",
+            "Book the dentist",
+            "Call grandma"
+          ]
+        },
+        "after": {
+          "todos": [
+            {
+              "id": 1,
+              "title": "Renew passport",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 3,
+              "title": "Book the dentist",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 2,
+              "title": "Pay the electric bill",
+              "done": false,
+              "due": null
+            },
+            {
+              "id": 4,
+              "title": "Call grandma",
+              "done": false,
+              "due": null
+            }
+          ],
+          "waiting_for_approval": [],
+          "screen_shows": "all",
+          "pointed_at": null,
+          "pointed_on": null,
+          "visible": [
+            "Renew passport",
+            "Book the dentist",
+            "Pay the electric bill",
+            "Call grandma"
+          ]
+        }
+      }
+    }
+  ],
+  "candidate_limits": {
+    "center": 0.03398692810457516,
+    "lower": -0.016339869281045756,
+    "upper": 0.08431372549019608,
+    "moving_range": 0.01891984864121087
+  },
+  "conclusion": "All 20 runs have complete evidence, and no declared chart signal appeared. Review found real application errors mixed with apparent grader false alarms. These results do not yet establish an accepted baseline of application quality.",
+  "chart_note": "Dashed lines are calculated from these same 20 observations, not independent validation. No point exceeds a limit and no eight consecutive points lie strictly on one side. Back-to-back, partly concurrent runs mainly describe short-term variation. Points are ordered by start time, not run number or elapsed time.",
+  "provenance": "Collected October 15, 2026 with GPT-6 Luna for the assistant, judges and restored merge guard; 51 visible synthetic cases × 3 attempts × 20 runs. Original grades retained. The later contextual completeness grader was not used for this collection. Examples were selected to illustrate review decisions, not estimate grader accuracy. No real user conversations, trace links or provider credentials are included.",
+  "bundle_digest": "8eb6010e1e56daa10c72bc9223640cd37c499b47f139a8d5645b7e9798604531"
+}

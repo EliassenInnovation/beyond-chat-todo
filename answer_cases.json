@@ -1,0 +1,482 @@
+[
+ {
+  "name": "when-is-it-1",
+  "expect": "answered",
+  "why": "ticks the books and says the dentist todo has no date",
+  "source": "2026-10-02T150356.006796Z.json attempt 1",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "Marked “Return library books” as done. “Book the dentist” has no due date, so there’s no date listed for when it’s supposed to happen."
+ },
+ {
+  "name": "when-is-it-2",
+  "expect": "answered",
+  "why": "ticks the books and says the dentist todo has no date",
+  "source": "2026-10-02T150356.006796Z.json attempt 7",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "Marked “Return library books” as done. “Book the dentist” has no due date, and the app can’t send reminders."
+ },
+ {
+  "name": "when-is-it-3",
+  "expect": "answered",
+  "why": "ticks the books and says the dentist todo has no date",
+  "source": "2026-09-27T214256.851627Z.json attempt 1",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "I marked \"Return library books\" as done. The dentist booking has no due date set, so no date is shown for that yet."
+ },
+ {
+  "name": "when-is-it-4",
+  "expect": "answered",
+  "why": "ticks the books, says there is no date, and offers to set one",
+  "source": "2026-09-27T214207.637681Z.json attempt 9",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "The library books todo is marked done. The dentist booking currently has no due date set, so no reminder date is available. Would you like to set a due date for the dentist booking?"
+ },
+ {
+  "name": "overdue-first-5",
+  "expect": "answered",
+  "why": "marks both done, says the deletes wait for approval, and names the overdue tasks",
+  "source": "2026-10-02T150356.006796Z.json attempt 1",
+  "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+  "reply": "Marked **Pay the electric bill** and **Buy sunscreen** done. Deletion requests are waiting for your approval in the app. The overdue active tasks are **Renew passport** (due Sep 10) and **Return library books** (due Sep 15)."
+ },
+ {
+  "name": "overdue-first-6",
+  "expect": "answered",
+  "why": "marks both done, says the deletes wait, and names the overdue tasks",
+  "source": "2026-10-02T150356.006796Z.json attempt 5",
+  "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+  "reply": "Marked “Pay the electric bill” and “Buy sunscreen” done. Both are awaiting your approval to be deleted. The overdue tasks are “Renew passport” and “Return library books.”"
+ },
+ {
+  "name": "overdue-first-7",
+  "expect": "answered",
+  "why": "responds to all three parts; whether \"no overdue tasks\" is true is a separate check",
+  "source": "2026-10-02T150356.006796Z.json attempt 7",
+  "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+  "reply": "Marked both as done. Deletion is waiting for your approval in the app. There are no overdue tasks left among the remaining open todos."
+ },
+ {
+  "name": "overdue-first-in-context-8",
+  "expect": "answered",
+  "why": "responds to all three parts (removal by pointing to Clear completed); whether that was right is a separate check",
+  "source": "2026-10-02T150356.006796Z.json attempt 9",
+  "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+  "reply": "Both tasks were already marked done, so nothing changed. If you want to remove them, use **Clear completed** under the list on the right; that will delete all completed tasks, not just these two. Overdue task: **Renew passport**."
+ },
+ {
+  "name": "overdue-first-9",
+  "expect": "skipped",
+  "why": "never responds to \"let's start by dealing with overdue tasks first\"",
+  "source": "2026-10-02T150356.006796Z.json attempt 4",
+  "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+  "reply": "“Pay the electric bill” and “Buy sunscreen” are marked done. Deletion is waiting for your approval in the app; click **Approve** on each delete card to remove them."
+ },
+ {
+  "name": "when-is-it-10",
+  "expect": "skipped",
+  "why": "points at the screen instead of saying when the dentist booking is (it has no date)",
+  "source": "2026-09-27T213129.524411Z.json attempt 6",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "The library books are marked as done. The due date area is highlighted on the screen, where you can check or set when the dentist booking is supposed to happen. Would you like me to set a due date for the dentist todo? If so, please tell me the date."
+ },
+ {
+  "name": "when-is-it-11",
+  "expect": "skipped",
+  "why": "points at the screen instead of saying when the dentist booking is",
+  "source": "2026-09-27T213129.524411Z.json attempt 8",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "I marked \"Return library books\" as done. The due date area is highlighted on your screen, where you can see or set the dentist booking date. Would you like me to add or change the due date for that?"
+ },
+ {
+  "name": "when-is-it-12",
+  "expect": "skipped",
+  "why": "points at the screen instead of saying when the dentist booking is",
+  "source": "2026-09-27T214207.637681Z.json attempt 4",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "I marked the library books as done. The due dates are highlighted on your screen next to each todo, so you can see when the dentist booking is supposed to happen if it has a date set. Would you like me to set a due date for that todo?"
+ },
+ {
+  "name": "when-is-it-13",
+  "expect": "skipped",
+  "why": "points at the screen instead of saying when the dentist booking is",
+  "source": "2026-09-27T213129.524411Z.json attempt 1",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "The library books todo is now marked as done. The due date control, where you can set or see the reminder for the dentist booking, is highlighted on your screen; you can click its \"add date\" on the dentist todo to set or see the due date. The app won't remind you automatically."
+ },
+ {
+  "name": "when-is-it-14",
+  "expect": "skipped",
+  "why": "sets a date instead of saying when the dentist booking was supposed to happen",
+  "source": "2026-09-27T213129.524411Z.json attempt 10",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "I marked \"Return library books\" as done. I set today's date as the due date for \"Book the dentist.\" The date now shows on the list, but the app will not remind you."
+ },
+ {
+  "name": "when-is-it-15",
+  "expect": "skipped",
+  "why": "sets a date instead of saying when the dentist booking was supposed to happen",
+  "source": "2026-09-27T214207.637681Z.json attempt 8",
+  "user": "Let's mark the library books as done, I returned them while I was away. Also, remind me when the dentist booking is supposed to happen?",
+  "reply": "The library books are marked as done. I set the dentist booking due date for today, September 24, 2026. The app will show it, but it will not contact you about it."
+ },
+ {
+  "name": "persona-sam-20260925T123402-8",
+  "expect": "answered",
+  "why": "keeps the library books at the top and answers the fence question",
+  "source": "personas/20260925T123402.json turn 8",
+  "user": "Keep 'Return library books' at the top for now. I'll check the library website later. What about the fence? Should I schedule anything for that or just leave it loose?",
+  "reply": "I will keep \"Return library books\" at the top of the list for you.\n\nFor the fence, since it can wait, I suggest leaving it without a due date for now so it stays on your list but doesn't feel urgent. You can schedule it later when you're ready.\n\nWould you like me to do that?"
+ },
+ {
+  "name": "persona-sam-20260925T123717-4",
+  "expect": "skipped",
+  "why": "marks grandma done but never answers whether to book the dentist now or wait",
+  "source": "personas/20260925T123717.json turn 4",
+  "user": "Done calling grandma. Not urgent but good to get it done. Now, about the dentist: is it still okay to book or should I wait? I can't remember if I had a recent appointment before I left.",
+  "reply": "\"Call grandma\" is marked as done. Let me know if you want to set a due date or any other detail for booking the dentist."
+ },
+ {
+  "name": "persona-sam-20260925T123717-8",
+  "expect": "answered",
+  "why": "leaves the fence and answers \"anything else overdue?\"",
+  "source": "personas/20260925T123717.json turn 8",
+  "user": "Now about the fence, I guess it's not urgent. I'll leave it for later. Anything else overdue I should keep an eye on?",
+  "reply": "The only overdue tasks currently are \"Renew passport\" and \"Return library books,\" both still on your list. \"Renew passport\" now has a reminder set for tomorrow. No other overdue items to keep an eye on right now. Let me know if you want to check or adjust anything else."
+ },
+ {
+  "name": "persona-sam-20260925T133430-1",
+  "expect": "answered",
+  "why": "answers all three questions: the passport, the library books, and the others",
+  "source": "personas/20260925T133430.json turn 1",
+  "user": "Okay, first things first, let's get the overdue stuff out of the way. Renew passport and return library books are both past due. I assume I still need to renew the passport, right? And the library books probably still need to be returned? What about the others?",
+  "reply": "Yes, \"Renew passport\" and \"Return library books\" are both overdue and likely still need to be done.\n\nThe other tasks are as follows:\n- \"Book the dentist\" has no due date.\n- \"Call grandma\" has no due date.\n- \"Fix the fence\" has no due date.\n- \"Pay the electric bill\" is marked done.\n- \"Buy sunscreen\" is marked done.\n\nWould you like me to mark \"Renew passport\" and \"Return library books\" as the first priorities or reorganize or handle these in any specific way?"
+ },
+ {
+  "name": "new-message-1",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 1)",
+  "user": "Tick off the plumber call. Also, is the gutters job dated?",
+  "reply": "Marked “Call the plumber” done. “Clean the gutters” is dated October 10, 2026."
+ },
+ {
+  "name": "new-message-2",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 2)",
+  "user": "Tick off the plumber call. Also, is the gutters job dated?",
+  "reply": "Marked “Call the plumber” done. Yes, “Clean the gutters” is dated October 10, 2026."
+ },
+ {
+  "name": "new-message-3",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 1)",
+  "user": "Add 'Buy stamps', and tell me how many todos are left.",
+  "reply": "Added “Buy stamps.” There are 4 todos left."
+ },
+ {
+  "name": "new-message-4",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 2)",
+  "user": "Add 'Buy stamps', and tell me how many todos are left.",
+  "reply": "Added “Buy stamps.” There are 4 todos left."
+ },
+ {
+  "name": "new-message-5",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 1)",
+  "user": "Rename 'Buy milk' to 'Buy oat milk'. What's due this week?",
+  "reply": "Renamed “Buy milk” to “Buy oat milk.” Due this week: “Pay rent” (October 5)."
+ },
+ {
+  "name": "new-message-6",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 2)",
+  "user": "Rename 'Buy milk' to 'Buy oat milk'. What's due this week?",
+  "reply": "Renamed “Buy milk” to “Buy oat milk.” “Pay rent” is due this week (October 5)."
+ },
+ {
+  "name": "new-message-7",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 1)",
+  "user": "Move the tax forms to the top. And which ones are already done?",
+  "reply": "Moved “File the tax forms” to the top. “Order flowers” is already done."
+ },
+ {
+  "name": "new-message-8",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 2)",
+  "user": "Move the tax forms to the top. And which ones are already done?",
+  "reply": "Moved “File the tax forms” to the top. “Order flowers” is already done."
+ },
+ {
+  "name": "new-message-9",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 1)",
+  "user": "Get rid of the plants todo, and when is the car service?",
+  "reply": "“Water the plants” is awaiting your approval for deletion. Car service is due October 14, 2026."
+ },
+ {
+  "name": "new-message-10",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 2)",
+  "user": "Get rid of the plants todo, and when is the car service?",
+  "reply": "“Water the plants” is awaiting your approval to delete. Car service is due 2026-10-14."
+ },
+ {
+  "name": "new-message-11",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 1)",
+  "user": "Which overdue todo is oldest? And put the haircut on Friday.",
+  "reply": "“Renew passport” is the oldest overdue todo, due September 20. I set “Book a haircut” for this Friday, October 2."
+ },
+ {
+  "name": "new-message-12",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-6-luna, a two-part message written for the held-out check (run 2)",
+  "user": "Which overdue todo is oldest? And put the haircut on Friday.",
+  "reply": "“Renew passport” is the oldest overdue todo (due September 20). I set “Book a haircut” for Friday, October 2."
+ },
+ {
+  "name": "new-message-13",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 1)",
+  "user": "Tick off the plumber call. Also, is the gutters job dated?",
+  "reply": "I marked \"Call the plumber\" done. The due date for \"Clean the gutters\" is set to 2026-10-10, and I highlighted it for you on the screen."
+ },
+ {
+  "name": "new-message-14",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 2)",
+  "user": "Tick off the plumber call. Also, is the gutters job dated?",
+  "reply": "\"Call the plumber\" is now ticked off as done. The gutters job has a due date of 2026-10-10."
+ },
+ {
+  "name": "new-message-15",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 1)",
+  "user": "Add 'Buy stamps', and tell me how many todos are left.",
+  "reply": "Added \"Buy stamps\" to your list. You have 4 todos left to do."
+ },
+ {
+  "name": "new-message-16",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 2)",
+  "user": "Add 'Buy stamps', and tell me how many todos are left.",
+  "reply": "Added \"Buy stamps.\" You have 4 todos left to do."
+ },
+ {
+  "name": "new-message-17",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 1)",
+  "user": "Rename 'Buy milk' to 'Buy oat milk'. What's due this week?",
+  "reply": "I renamed \"Buy milk\" to \"Buy oat milk.\" Due this week are: \"Pay rent\" due on 2026-10-05."
+ },
+ {
+  "name": "new-message-18",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 2)",
+  "user": "Rename 'Buy milk' to 'Buy oat milk'. What's due this week?",
+  "reply": "I renamed \"Buy milk\" to \"Buy oat milk.\" The todos due this week (today is 2026-10-02) are \"Pay rent,\" due on 2026-10-05. Would you like to do anything with it?"
+ },
+ {
+  "name": "new-message-19",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 1)",
+  "user": "Move the tax forms to the top. And which ones are already done?",
+  "reply": "I moved \"File the tax forms\" to the top of the list. The todo that is already done is \"Order flowers\"."
+ },
+ {
+  "name": "new-message-20",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 2)",
+  "user": "Move the tax forms to the top. And which ones are already done?",
+  "reply": "I moved \"File the tax forms\" to the top of the list. The todo already done is \"Order flowers.\""
+ },
+ {
+  "name": "new-message-21",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 1)",
+  "user": "Get rid of the plants todo, and when is the car service?",
+  "reply": "The \"Water the plants\" todo is waiting for you to approve the delete in the app. The car service is due on October 14, 2026."
+ },
+ {
+  "name": "new-message-22",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 2)",
+  "user": "Get rid of the plants todo, and when is the car service?",
+  "reply": "I requested the deletion of \"Water the plants.\" Please approve it in the app to complete the deletion. The car service is due on 2026-10-14."
+ },
+ {
+  "name": "new-message-23",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 1)",
+  "user": "Which overdue todo is oldest? And put the haircut on Friday.",
+  "reply": "The oldest overdue todo was \"Renew passport\" which was due on 2026-09-20, I updated it to today, 2026-10-02. I also put a highlight on its due date so you can see it on the screen. Now, for the haircut, do you mean Friday this week, 2026-10-02 or the next Friday, 2026-10-09?"
+ },
+ {
+  "name": "new-message-24",
+  "expect": "answered",
+  "why": "responds to both parts of the message",
+  "source": "2026-10-02, the agent on gpt-4.1-mini, a two-part message written for the held-out check (run 2)",
+  "user": "Which overdue todo is oldest? And put the haircut on Friday.",
+  "reply": "The oldest overdue todo is \"Renew passport\" due on 2026-09-20. The due date for \"Book a haircut\" is now set to today, 2026-10-02."
+ },
+ {
+  "name": "full-run-oil-and-tyres-5",
+  "expect": "answered",
+  "why": "merges the two and says so; the other waits for approval",
+  "source": "2026-10-02T170003.729689Z.json attempt 5 (the judge called it skipped)",
+  "user": "The oil change and the tyre rotation could just be one todo",
+  "reply": "Combined them into “Get the oil changed and rotate the tyres.” “Rotate the tyres” is still on the list until you approve its deletion in the app."
+ },
+ {
+  "name": "fullrun-show-everything-1",
+  "expect": "answered",
+  "why": "switches the screen back to all todos and says so; \"show\" here means what the screen shows",
+  "source": "2026-10-02T205807.558604Z.json attempt 1 (the judge called it skipped)",
+  "user": "Show me everything again",
+  "reply": "Everything is showing again."
+ },
+ {
+  "name": "fullrun-put-before-5",
+  "expect": "answered",
+  "why": "moves the call above the castles and says where it went",
+  "source": "2026-10-02T205807.558604Z.json attempt 5 (the judge called it skipped)",
+  "user": "Put that one before actually getting the castles",
+  "reply": "Moved “Call to find out the price of the bouncy castles” from fourth to second, below “Buy balloons.”"
+ },
+ {
+  "name": "fullrun-clear-completed-is-yours-1",
+  "expect": "answered",
+  "why": "clearing completed todos is the person's to do; it points to the button and says to click it",
+  "source": "2026-10-02T205807.558604Z.json attempt 1 (the judge called it skipped)",
+  "user": "Clear the completed ones",
+  "reply": "I highlighted **Clear completed** below the list. Click it to remove the completed todos."
+ },
+ {
+  "name": "fullrun-overdue-first-5",
+  "expect": "answered",
+  "why": "marks both done, says the deletes wait, and turns to the overdue tasks (shows them)",
+  "source": "2026-10-02T205807.558604Z.json attempt 5 (the judge called it skipped)",
+  "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+  "reply": "Marked **Pay the electric bill** and **Buy sunscreen** done. I’ve requested their removal; click **Approve** on each approval card to delete them. The list is now showing active tasks, including the overdue ones."
+ },
+ {
+  "name": "fullrun-plain-tell-hide-v2-3",
+  "expect": "answered",
+  "why": "a one-part message, done and said",
+  "source": "2026-10-02T205807.558604Z.json attempt 3",
+  "user": "How do I hide the ones I've finished?",
+  "reply": "Click **Active** under the list to show only unfinished todos. I’ve highlighted it on your screen."
+ },
+ {
+  "name": "fullrun-plain-show-move-one-4",
+  "expect": "answered",
+  "why": "a one-part message, done and said",
+  "source": "2026-10-02T205807.558604Z.json attempt 4",
+  "user": "Show me how to move Book the dentist to the top",
+  "reply": "The six-dot grip beside “Book the dentist” is highlighted. Drag it to the top, or focus it and press the Up key."
+ },
+ {
+  "name": "fullrun-plain-move-to-top-2",
+  "expect": "answered",
+  "why": "a one-part message, done and said",
+  "source": "2026-10-02T205807.558604Z.json attempt 2",
+  "user": "Put buying sunscreen first",
+  "reply": "Moved “Buy sunscreen” to the top, from third."
+ },
+ {
+  "name": "fullrun-plain-holdout-scratch-the-tick-4",
+  "expect": "answered",
+  "why": "a one-part message, done and said",
+  "source": "2026-10-02T205807.558604Z.json attempt 4",
+  "user": "Scratch that tick on the gutters, they're still full of leaves.",
+  "reply": "Reopened “Clean the gutters”—it’s no longer marked done."
+ },
+ {
+  "name": "fullrun-plain-every-grocery-3",
+  "expect": "answered",
+  "why": "a one-part message, done and said",
+  "source": "2026-10-02T205807.558604Z.json attempt 3",
+  "user": "I did all the grocery shopping",
+  "reply": "Marked Buy milk, Buy eggs, and Buy bread as done."
+ },
+ {
+  "name": "fullrun-plain-not-done-after-all-4",
+  "expect": "answered",
+  "why": "a one-part message, done and said",
+  "source": "2026-10-02T205807.558604Z.json attempt 4",
+  "user": "Oh, the balloons weren't bought.",
+  "reply": "Reopened “Buy balloons.”"
+ },
+ {
+  "name": "fullrun-plain-holdout-kayaks-5",
+  "expect": "answered",
+  "why": "a one-part message, done and said",
+  "source": "2026-10-02T205807.558604Z.json attempt 5",
+  "user": "Two friends are joining me, so we need three kayaks",
+  "reply": "Updated to “Rent three kayaks.”"
+ },
+ {
+  "name": "fullrun-plain-hide-completed-5",
+  "expect": "answered",
+  "why": "a one-part message, done and said",
+  "source": "2026-10-02T205807.558604Z.json attempt 5",
+  "user": "Please hide completed tasks",
+  "reply": "Showing active tasks only; “Buy balloons” is hidden."
+ },
+ {
+  "name": "check-if-still-needed-1",
+  "expect": "answered",
+  "why": "asks whether to add a todo to find out (labelled by the coding agent)",
+  "source": "check-if-still-needed, 2026-10-03",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "Would you like me to add a todo to check whether you still need to renew your passport and return the library books? I haven’t changed any dates."
+ },
+ {
+  "name": "check-if-still-needed-2",
+  "expect": "answered",
+  "why": "asks whether to add todos to find out (labelled by the coding agent)",
+  "source": "check-if-still-needed, 2026-10-03",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "No dates changed. Do you want me to add todos to check whether you still need to renew your passport and return the library books?"
+ },
+ {
+  "name": "check-if-still-needed-3",
+  "expect": "answered",
+  "why": "tells them to check themselves and report back (labelled by the coding agent)",
+  "source": "check-if-still-needed, 2026-10-03",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "No dates changed. Check whether you still need to renew your passport and return the library books, then let me know."
+ },
+ {
+  "name": "check-if-still-needed-4",
+  "expect": "answered",
+  "why": "says it cannot check, asks whether to keep them (labelled by the coding agent)",
+  "source": "check-if-still-needed, 2026-10-03",
+  "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
+  "reply": "I can’t check that for you: the list can only store todos and dates. Do you want to keep “Renew passport” and “Return library books” on the list?"
+ }
+]

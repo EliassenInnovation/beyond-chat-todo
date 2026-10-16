@@ -1,0 +1,12 @@
+# TodoMVC's colors: a light gray page, its red for links and focus.
+[theme]
+base = "light"
+backgroundColor = "#f5f5f5"
+secondaryBackgroundColor = "#ffffff"
+primaryColor = "#b83f45"
+textColor = "#111111"
+
+# The page is the app, not a Streamlit dev session: no Deploy button, and the menu keeps only
+# what a viewer needs.
+[client]
+toolbarMode = "viewer"
