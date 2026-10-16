@@ -21,7 +21,7 @@ example of combining operations for a request without a dedicated button.
 
 ## Start here
 
-The [documentation index](docs/README.md) separates practical guides, principles, and historical evidence.
+The [documentation index](docs/README.md) points to practical guides and the four principles documents.
 
 The accompanying documents explain the approach:
 
@@ -195,8 +195,6 @@ calibration, and changing a model starts a new comparison period. The historical
 default is now [deprecated](https://developers.openai.com/api/docs/models/gpt-4.1-mini);
 select a supported structured-output Chat Completions model when adapting the sample.
 
-Historical investigations are collected in [development history](docs/history/README.md).
-They are optional background, not steps required to use the sample.
 
 ## What about Jev and other decisions models?
 

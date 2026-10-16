@@ -151,8 +151,6 @@ live Anthropic evaluation or verify its Langfuse tracing. Local usage capture wr
   A gateway alias or another model may require different options. If the endpoint rejects a
   parameter, adapt the client options against its documentation; there is no generic options
   environment variable today.
-- **Standalone experiments:** `request_parts_experiment.py` and archived pilot wrappers pin
-  their own models and cost assumptions. The three settings above do not override those scripts.
 
 ## Try a replacement and measure it
 

@@ -30,8 +30,7 @@ under ignored `runs/`; `export.py` documents the exact selection and can recreat
 bundle when those original records are available. No paid run is needed to use this example.
 
 Read [the evaluation workflow](../../docs/guides/evaluation-results.md) for everyday checks,
-version changes and limits, and [the collection review](../../docs/history/guarded-baseline-2026-10-15.md)
-for findings. Langfuse is an optional route to deeper traces; this example is entirely local.
+version changes and limits. Langfuse is an optional route to deeper traces; this example is entirely local.
 
 To validate a downloaded review against the exact evidence bundle, without changing grades:
 
@@ -41,3 +40,18 @@ To validate a downloaded review against the exact evidence bundle, without chang
 
 Validation checks the bundle identity and that each example has one recognized assessment.
 It does not determine whether the person's judgment is correct or whether a grader is calibrated.
+
+
+## What this example measures
+
+The collection contains 20 runs of 51 cases, with three attempts per case: 3,060 attempts.
+The original grades record 2,956 passes and 104 failures, with no missing judgments.
+It used an earlier configuration with the merge guard enabled, before the additional
+target/action guards now enabled in the sample. GPT-6 Luna served the agent and judges.
+These results do not measure the current checkout.
+
+No declared chart signal appeared in the collection, but review found both application
+mistakes and apparent grading mistakes. That is the teaching point: consistent measurement
+does not establish acceptable quality or a trustworthy grader. The eight selected
+conversations let you inspect that distinction yourself. The chart limits remain
+illustrative; this collection is not an accepted release baseline.

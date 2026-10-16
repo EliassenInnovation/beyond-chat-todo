@@ -1,7 +1,6 @@
 # Documentation
 
-Start with the walkthrough to see the principles in working code. You do not need to read
-the investigation history to use or adapt the sample.
+Start with the walkthrough to see the principles in working code. The practical guides explain how to use and adapt the sample.
 
 ## Use and adapt the sample
 
@@ -25,7 +24,8 @@ Read these in order, or use the checklist as a reminder once you know the approa
 3. [Agent checklist](principles/checklist.md) — a compact working reference.
 4. [Evaluating agents](principles/evaluating-agents.md) — the evaluation method beyond this sample.
 
-## Historical evidence
+## Try an evaluation review
 
-[Development history](history/README.md) preserves earlier measurements and investigations.
-It explains how the sample evolved; its old scores and configurations are not current setup guidance.
+The [offline example](../examples/evaluation-review/README.md) supplies real recorded
+results and selected conversations. Use it to practice distinguishing application failures,
+grader mistakes, and incomplete evidence without running models.

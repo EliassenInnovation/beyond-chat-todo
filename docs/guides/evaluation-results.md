@@ -231,7 +231,6 @@ long-context pricing remain unknown. Estimates exclude unreported retries, other
 is authoritative. The enabled merge guard uses separate input-only Decisions pricing. Token counts include application, judge and guard calls; changing the judge can
 materially change cost. Review a full-run measurement before ordering a larger collection.
 
-See the [October 15 pilot](../history/pilot-2026-10-15.md) for a worked example, including an incomplete run and actual reported usage.
-
-See the [20-run guarded collection review](../history/guarded-baseline-2026-10-15.md) for an example
-where no chart signal appeared, but grading concerns prevented accepting a quality baseline.
+See the [offline evaluation example](../../examples/evaluation-review/README.md) for a
+collection with no chart signals where grading concerns still prevented accepting a
+quality baseline.

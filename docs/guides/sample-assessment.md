@@ -54,10 +54,10 @@ The [walkthrough](walkthrough.md) follows real application paths and explains th
 | Check | Interface | Result | Implementation and tested evidence | Remaining limit |
 | --- | --- | --- | --- | --- |
 | 2.1 | Agent | Not run | Pointing and control descriptions exist. | No fresh model evaluation of follow-up target selection. |
-| 2.2 | Agent | Fail | The October 15 pilot exercised ambiguity and follow-ups. | Some attempts dated or merged tasks before resolving the target; see the pilot review. |
-| 2.3 | Agent | Fail | Batch validation tests pass; the pilot measured multi-item intent. | One attempt duplicated an already-combined task; intent selection is not consistently correct. |
+| 2.2 | Agent | Fail | Repeated conversations exercised ambiguity and follow-ups. | Some attempts dated or merged tasks before resolving the target; clarification remains fallible. |
+| 2.3 | Agent | Fail | Batch validation tests pass; repeated conversations measured multi-item intent. | One attempt duplicated an already-combined task; intent selection is not consistently correct. |
 | 2.4 | UI and agent | Fail | Saved-state and undo tests pass. | Full offscreen, focus, and unsaved-edit behavior is not implemented/tested. |
-| 2.5 | Agent | Fail | Tell/show/do cases and shared view actions were exercised in the pilot. | Requests to email sometimes created an unwanted task instead. |
+| 2.5 | Agent | Fail | Tell/show/do cases and shared view actions were exercised in evaluations. | Requests to email sometimes created an unwanted task instead. |
 | 2.6 | Agent | Not run | Multi-turn additive cases exist. | No fresh paid run across distractors and ambiguous references. |
 | 2.7 | Agent | Not run | Correction cases and separate state/claim/answer graders exist. | Actual model repair behavior not remeasured. |
 | 2.8 | Agent | Fail | Stable task IDs and freshness checks tested within one in-memory list. | No workspace/reference evidence contract or cross-session freshness. |
@@ -135,16 +135,13 @@ service scripts, credentials, saved personal todos, and raw local experiment rec
 The curated offline evaluation example is included; it contains synthetic conversations.
 The license does not grant trademark rights in company names or branding.
 
-Before publishing, verify the chosen distribution and its Git history contain no credentials or private records; run a clean installation on a second environment; complete and record the visible model evaluation and judge calibration; and identify the owner and evidence required for a release. The code is updated locally, not published. The existing untracked `Claude outputs/` directory is outside this review.
-
 Prioritize follow-up work by consequence: durable retries and concurrent storage before remote use; active-request cancellation and budgets before longer jobs; production audit records before consequential workflows; direct receipt rendering before claiming model-independent confirmation delivery. The sample can be published as a bounded worked example with these limitations stated, rather than presenting each missing feature as already solved.
 
 ## Evidence and remaining limitations
 
 The sample's offline tests exercise shared execution, permissions, approval binding,
 persistence, recovery, UI context, guard orchestration, and evaluation reporting.
-The current clean repository has 291 offline tests; historical counts include tests of
-author tools and experiments excluded from this distribution.
+The current repository has 291 offline tests.
 
 The latest full visible behavior run before the directory reorganization passed 51/51.
 Forty repeated compound requests all created the requested deletion approvals, with no
@@ -152,6 +149,7 @@ guard refusals. The unchanged overall grading passed 34/40; reply completeness a
 claim-grading concerns remain. These are development measurements, not a production
 failure-rate estimate or an accepted control-chart baseline.
 
-See [verification history](../history/sample-verification.md) for the exact configurations,
-earlier failures, changes, and record identifiers. The [evaluation guide](evaluation-results.md)
-explains how to choose checks and interpret new results.
+These measurements came from the development workspace; their full raw records are not
+included in this starter. The [offline example](../../examples/evaluation-review/README.md)
+provides a separate, inspectable collection for learning how to review results. Use the
+[evaluation guide](evaluation-results.md) to measure your own configuration.
