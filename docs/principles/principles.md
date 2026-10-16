@@ -54,13 +54,12 @@ The examples come from four applications: a business scheduling app, a work-trac
 
 The principles are design targets and do not describe any product's current behavior. The examples report our own experience and do not prove the principles in general. The measurements here were made with particular models. Like all other advice in this paper, a change in model might mean you need to change your approach, so rerun your evaluations when the model changes. Where a recommendation is ours rather than established practice, the text says so, and [Foundations and Further Reading](#foundations-and-further-reading) connects the rest to prior work. Each section ends with the acceptance checks, in the implementation guide, that turn it into testable work.
 
-### How to use these four documents
+### How to use these documents
 
 | Document | Written for | Use it to |
 |---|---|---|
 | Beyond Chat: Building Agents into Applications (this paper) | Developers, architects, and product people | Understand the principles, the reasons for them, and the examples behind them |
-| [Implementation Guide](implementation.md) | Development agents and the engineers who direct them | Turn a principle into scoped work, with acceptance checks a reviewer can verify |
-| [Agent Checklist](checklist.md) | Anyone assigning or reviewing an agent's task | Keep the rules and the check IDs at hand during one task |
+| [Implementation Guide](implementation.md) | Development agents and the engineers who direct them | Start with the quick checklist, then turn a principle into scoped work with detailed acceptance checks |
 | [Evaluating Agents in Applications](evaluating-agents.md) | People who test agents and read the results | Grade conversations, read results, and decide what to change |
 
 ## 1. Share Capabilities Across Interfaces

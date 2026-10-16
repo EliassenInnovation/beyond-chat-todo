@@ -3,7 +3,7 @@
 Read README.md and docs/guides/walkthrough.md for the architecture and setup.
 Application code is in todo/, eval tools and fixtures in evaluations/, and offline tests in tests/.
 Run module commands from the repository root; .env, todos.json, and runs/ stay there.
-The four Beyond Chat documents under docs/principles/ explain principles and acceptance checks.
+The Beyond Chat documents under docs/principles/ explain principles and acceptance checks.
 
 - Preserve shared action ownership through capabilities.execute; keep authority in code.
 - Keep guards separate from deterministic permissions and deletion approval.

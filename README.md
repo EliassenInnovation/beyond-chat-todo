@@ -21,13 +21,12 @@ example of combining operations for a request without a dedicated button.
 
 ## Start here
 
-The [documentation index](docs/README.md) points to practical guides and the four principles documents.
+The [documentation index](docs/README.md) points to practical guides and the principles documents.
 
 The accompanying documents explain the approach:
 
 - [Design principles](docs/principles/principles.md): why the architecture is structured this way.
-- [Implementation guide](docs/principles/implementation.md): contracts and acceptance checks.
-- [Agent checklist](docs/principles/checklist.md): a compact working reference.
+- [Implementation guide](docs/principles/implementation.md): quick checklist, contracts, and acceptance checks.
 - [Evaluating agents](docs/principles/evaluating-agents.md): how to measure and review behavior.
 
 

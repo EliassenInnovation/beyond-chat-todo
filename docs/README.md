@@ -20,9 +20,8 @@ For a report that needs no setup, open the [offline evaluation example](../examp
 Read these in order, or use the checklist as a reminder once you know the approach.
 
 1. [Design principles](principles/principles.md) — the reasoning behind the architecture.
-2. [Implementation guide](principles/implementation.md) — contracts and acceptance checks.
-3. [Agent checklist](principles/checklist.md) — a compact working reference.
-4. [Evaluating agents](principles/evaluating-agents.md) — the evaluation method beyond this sample.
+2. [Implementation guide](principles/implementation.md) — a [quick checklist](principles/implementation.md#quick-checklist), followed by contracts and acceptance checks.
+3. [Evaluating agents](principles/evaluating-agents.md) — the evaluation method beyond this sample.
 
 ## Try an evaluation review
 
