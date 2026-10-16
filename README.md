@@ -182,7 +182,8 @@ layout, or interaction through actual browser controls; the visible player remai
 ## Read the report
 
 You can inspect a completed example before setting up any model or tracing service:
-open [the offline evaluation review](examples/evaluation-review/index.html). It contains
+download or clone this repository, then open `examples/evaluation-review/index.html` in
+your browser. [The example instructions](examples/evaluation-review/README.md) explain the review. It contains
 20 real runs, an illustrative chart, and a short human-review queue. Its original grades
 and unresolved grading concerns are visible; candidate limits are not presented as an
 accepted quality baseline. The page makes no network or model calls.

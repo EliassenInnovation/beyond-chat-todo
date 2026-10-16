@@ -1,0 +1,42 @@
+name: Publish evaluation example
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: evaluation-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare only the public example
+        run: |
+          mkdir -p _site
+          cp examples/evaluation-review/index.html examples/evaluation-review/collection.json _site/
+          python3 - <<'PY'
+          from pathlib import Path
+          page = Path('_site/index.html')
+          text = page.read_text()
+          base = 'https://github.com/bobfischer/beyond-chat-todo/blob/main/'
+          text = text.replace('href="../../docs/guides/evaluation-results.md"', f'href="{base}docs/guides/evaluation-results.md"')
+          text = text.replace('href="README.md#what-this-example-measures"', f'href="{base}examples/evaluation-review/README.md#what-this-example-measures"')
+          page.write_text(text)
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
