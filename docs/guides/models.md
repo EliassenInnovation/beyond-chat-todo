@@ -1,30 +1,47 @@
 # Bring your own model
 
-Choose models and supply your own provider credentials. The sample does not require one model
-for every job, and its defaults are examples rather than recommendations. Model choice changes
-how reliably the assistant interprets requests; application code still enforces permissions,
-validation and approval.
+Set your API key and model IDs in `.env`, then restart the app. This guide covers the settings,
+provider requirements, and checks to make before relying on a replacement model.
 
-## Conversational LLMs and decision models
+[Select models](#select-models) · [Use another endpoint](#use-a-compatible-endpoint) · [Check compatibility](#compatibility-limits-to-check) · [Test the change](#try-a-replacement-and-measure-it)
 
-A conversational LLM can interpret a request, propose tool calls, and explain results. A
-purpose-built decision model answers narrower questions for application code, such as
-“Has the user uniquely identified a task?” Its interface returns typed answers, often with
-probabilities, rather than a conversational reply. [Jev](https://docs.typesafe.ai/introduction.md)
-is one example.
+## Select models
 
-An LLM can also answer a narrow question using structured output. That makes it usable as
-a decision step; it does not make a yes/no answer a calibrated probability. The distinction
-here is the job and interface, not a claim that the underlying model technologies cannot overlap.
+Run `./setup.sh` if you have not already, then edit `.env` in the repository root.
+Set your provider key and the models you want to use:
 
-This sample currently uses **GPT-6 Luna for both guard paths**: the merge guard uses the
-OpenAI Decisions API and receives a probability; the target/action guards use Chat Completions
-and receive structured yes/no answers. The assistant uses the conversational tool-calling path.
-Jev is not integrated into this sample. We have used it in other contexts, but adding it here
-would require an adapter and evaluation, not just changing a model name.
+```dotenv
+OPENAI_API_KEY=your-endpoint-api-key
+EVALBASICS_MODEL=your-tool-capable-model-id
+EVALBASICS_JUDGE_MODEL=your-structured-output-model-id
+EVALBASICS_PERSONA_MODEL=your-structured-output-model-id
+EVALBASICS_ACTION_GUARD_MODEL=your-structured-output-model-id
+LANGFUSE_TRACING_ENABLED=false
+```
 
-With either approach, model judgments remain fallible. Application code enforces permissions,
-validates arguments, and requires deletion approval.
+Replace the placeholders with model IDs available to your account. The assistant needs tool
+calling; judges, personas, and action guards need structured output. You can use different
+models for these jobs. Judges run during evaluations; personas run only when you use the
+persona player or headless runner. No key is needed for the manual list or offline tests.
+
+**One extra requirement:** the enabled merge guard uses the Decisions API and its model is
+fixed in code. Changing `EVALBASICS_MODEL` does not change it. A chat-compatible provider alone
+may not support the default guard configuration; see [the merge guard](#the-merge-guard)
+before changing providers.
+
+Restart the app or command after changing settings: model defaults are read when modules load,
+and active agents retain their clients and conversation. Process environment variables take
+precedence over `.env`; an old exported value can override your edit. This project's `.env` is
+the only file loaded. Keep credentials out of source control.
+
+Start the app:
+
+```bash
+.venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
+```
+
+Try a simple addition and read it back. Then follow [Try a replacement and measure it](#try-a-replacement-and-measure-it)
+to check more than connectivity. Chat and evaluation calls incur provider charges.
 
 ## What you can configure today
 
@@ -45,6 +62,41 @@ model, but that route needs verification against the requirements above.
 The defaults are declared in [agent.py](../../todo/agent.py), [judge.py](../../evaluations/judge.py), and
 [personas.py](../../evaluations/personas.py). Check the provider's current catalog and your account's access
 before choosing a model; a historical run does not establish current availability.
+
+## Use a compatible endpoint
+
+Leave `OPENAI_BASE_URL` unset for the default OpenAI endpoint. For a gateway or local server,
+set its documented API base URL, for example:
+
+```dotenv
+OPENAI_BASE_URL=http://localhost:8000/v1
+OPENAI_API_KEY=your-local-server-key
+```
+
+This is an illustrative address, not a server installed by this sample. Use the endpoint's
+actual URL and authentication requirements. The SDK requires a nonempty key; use a placeholder
+only if your own local endpoint explicitly does not authenticate. For a hosted endpoint, use
+that provider's key. Requests and task data go to the configured endpoint.
+
+**This setting is shared:** the assistant, non-Anthropic judges and personas all use the same
+`OPENAI_BASE_URL` and `OPENAI_API_KEY` within a process. Select model IDs that endpoint serves
+for every role you intend to run. Separate endpoints or keys per role require a code change;
+there are no per-role endpoint settings today. The installed SDK's environment handling was
+checked against its implementation and the [OpenAI Python SDK documentation](https://developers.openai.com/api/reference/python).
+
+## Use a native Anthropic judge
+
+The existing judge adapter selects Anthropic for a `claude-` model ID:
+
+```dotenv
+EVALBASICS_JUDGE_MODEL=claude-your-model-id
+ANTHROPIC_API_KEY=your-anthropic-api-key
+```
+
+Replace the placeholder with an actual supported model ID. This changes the judge only. The
+assistant and personas retain their OpenAI-compatible connection. It also means a gateway model
+whose ID starts with `claude-` is routed to native Anthropic by the current judge code; there is
+no explicit provider override. The native path is implemented, but live Anthropic evaluation and Langfuse tracing have not been verified for this sample. Local usage capture wraps both paths.
 
 ## The merge guard
 
@@ -91,72 +143,9 @@ These are fallible semantic checks, not execution permissions. They do not repla
 current-state checks, deletion approval, or undo. They cover only the three measured operations;
 adding a guard to another operation requires evaluation. The existing merge guard is unchanged.
 
-An earlier omission question falsely blocked valid compound requests. Asking whether the user
-requested this same operation on tasks missing from the action removed those refusals in
-40 repeated conversations: all requested deletion approvals were created, versus 11 missing
-before. This is development evidence, not a production failure-rate estimate. Ambiguous
-descriptions can still pass, and a wrong date introduced earlier by the assistant can be
-accepted after the user clarifies the task. The person can still use the controls; deterministic
-deletion approval remains in place.
-Computed weekdays help with calendar arithmetic; they do not prove that a date matches intent.
-
-## Select models
-
-Copy `.env.example` to `.env` if setup has not already done so. Replace these placeholders with
-model IDs available to your account and a key for the chosen endpoint:
-
-```dotenv
-OPENAI_API_KEY=your-endpoint-api-key
-EVALBASICS_MODEL=your-tool-capable-model-id
-EVALBASICS_JUDGE_MODEL=your-structured-output-model-id
-EVALBASICS_PERSONA_MODEL=your-structured-output-model-id
-LANGFUSE_TRACING_ENABLED=false
-```
-
-Chat uses the assistant model and, for guarded merges, the guard model. Judges run during evaluation; personas run when
-you use the persona player or headless runner. They may use the same model, but have different
-requirements. No model credential is needed to use the list manually or run offline tests.
-
-Restart the app or command after changing settings: model defaults are read when modules load,
-and active agents retain their clients and conversation. Process environment variables take
-precedence over `.env`; an old exported value can override your edit. This project's `.env` is
-the only file loaded. Keep credentials out of source control.
-
-### Use a compatible endpoint
-
-Leave `OPENAI_BASE_URL` unset for the default OpenAI endpoint. For a gateway or local server,
-set its documented API base URL, for example:
-
-```dotenv
-OPENAI_BASE_URL=http://localhost:8000/v1
-OPENAI_API_KEY=your-local-server-key
-```
-
-This is an illustrative address, not a server installed by this sample. Use the endpoint's
-actual URL and authentication requirements. The SDK requires a nonempty key; use a placeholder
-only if your own local endpoint explicitly does not authenticate. For a hosted endpoint, use
-that provider's key. Requests and task data go to the configured endpoint.
-
-**This setting is shared:** the assistant, non-Anthropic judges and personas all use the same
-`OPENAI_BASE_URL` and `OPENAI_API_KEY` within a process. Select model IDs that endpoint serves
-for every role you intend to run. Separate endpoints or keys per role require a code change;
-there are no per-role endpoint settings today. The installed SDK's environment handling was
-checked against its implementation and the [OpenAI Python SDK documentation](https://developers.openai.com/api/reference/python).
-
-### Use a native Anthropic judge
-
-The existing judge adapter selects Anthropic for a `claude-` model ID:
-
-```dotenv
-EVALBASICS_JUDGE_MODEL=claude-your-model-id
-ANTHROPIC_API_KEY=your-anthropic-api-key
-```
-
-Replace the placeholder with an actual supported model ID. This changes the judge only. The
-assistant and personas retain their OpenAI-compatible connection. It also means a gateway model
-whose ID starts with `claude-` is routed to native Anthropic by the current judge code; there is
-no explicit provider override. The native path is implemented, but this follow-up did not run a
-live Anthropic evaluation or verify its Langfuse tracing. Local usage capture wraps both paths.
+Check both false refusals and incorrect approvals when changing these models. Ambiguous
+references and dates require particular attention. Computed weekdays help with calendar
+arithmetic; they do not establish that a date matches the person's intent.
 
 ## Compatibility limits to check
 
@@ -225,6 +214,27 @@ and update/test the estimator before using its numbers to plan a new provider's 
 Langfuse is optional and does not select or host your model. Verify tracing compatibility for
 any new provider separately from task behavior. Local records remain the primary evidence;
 see the app-specific [Langfuse guide](langfuse.md).
+
+## Conversational LLMs and decision models
+
+A conversational LLM can interpret a request, propose tool calls, and explain results. A
+purpose-built decision model answers narrower questions for application code, such as
+“Has the user uniquely identified a task?” Its interface returns typed answers, often with
+probabilities, rather than a conversational reply. [Jev](https://docs.typesafe.ai/introduction.md)
+is one example.
+
+An LLM can also answer a narrow question using structured output. That makes it usable as
+a decision step; it does not make a yes/no answer a calibrated probability. The distinction
+here is the job and interface, not a claim that the underlying model technologies cannot overlap.
+
+This sample currently uses **GPT-6 Luna for both guard paths**: the merge guard uses the
+OpenAI Decisions API and receives a probability; the target/action guards use Chat Completions
+and receive structured yes/no answers. The assistant uses the conversational tool-calling path.
+Jev is not integrated into this sample. We have used it in other contexts, but adding it here
+would require an adapter and evaluation, not just changing a model name.
+
+With either approach, model judgments remain fallible. Application code enforces permissions,
+validates arguments, and requires deletion approval.
 
 ## If you need another native API
 
