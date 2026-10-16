@@ -1,6 +1,6 @@
 # Reading an evaluation run
 
-For a no-setup introduction, open the [offline worked example](../examples/evaluation-review/index.html):
+For a no-setup introduction, open the [offline worked example](../../examples/evaluation-review/index.html):
 20 real run summaries, candidate chart limits, and a short human-review queue. It uses synthetic
 cases and makes no network or model calls.
 
@@ -231,7 +231,7 @@ long-context pricing remain unknown. Estimates exclude unreported retries, other
 is authoritative. The enabled merge guard uses separate input-only Decisions pricing. Token counts include application, judge and guard calls; changing the judge can
 materially change cost. Review a full-run measurement before ordering a larger collection.
 
-See the [October 15 pilot](pilot-2026-10-15.md) for a worked example, including an incomplete run and actual reported usage.
+See the [October 15 pilot](../history/pilot-2026-10-15.md) for a worked example, including an incomplete run and actual reported usage.
 
-See the [20-run guarded collection review](guarded-baseline-2026-10-15.md) for an example
+See the [20-run guarded collection review](../history/guarded-baseline-2026-10-15.md) for an example
 where no chart signal appeared, but grading concerns prevented accepting a quality baseline.

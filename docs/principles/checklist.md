@@ -6,7 +6,7 @@ Version 3.5-draft · October 15, 2026
 
 First review the full principles and adapt them to the application. Then use the agreed version with a task of limited scope: the capability, the interfaces, the changes allowed, and the check IDs. For example: “Review rescheduling on the screen and the command line against Checks 3.1–3.7; do not change code.” This checklist does not authorize a general rewrite.
 
-Read [the principles](beyond-chat-building-agents-into-applications.md) for the reasoning and [the implementation guide](beyond-chat-implementation-guide.md) for the detailed checks and contracts that apply to the task. Keep this summary in the agent's standing instructions; read the reasoning when it is needed.
+Read [the principles](principles.md) for the reasoning and [the implementation guide](implementation.md) for the detailed checks and contracts that apply to the task. Keep this summary in the agent's standing instructions; read the reasoning when it is needed.
 
 ## Who owns what
 

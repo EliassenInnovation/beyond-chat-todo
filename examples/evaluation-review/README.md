@@ -29,8 +29,8 @@ not the complete raw collection or a source snapshot. The original local records
 under ignored `runs/`; `export.py` documents the exact selection and can recreate this
 bundle when those original records are available. No paid run is needed to use this example.
 
-Read [the evaluation workflow](../../docs/evaluation-signals.md) for everyday checks,
-version changes and limits, and [the collection review](../../docs/guarded-baseline-2026-10-15.md)
+Read [the evaluation workflow](../../docs/guides/evaluation-results.md) for everyday checks,
+version changes and limits, and [the collection review](../../docs/history/guarded-baseline-2026-10-15.md)
 for findings. Langfuse is an optional route to deeper traces; this example is entirely local.
 
 To validate a downloaded review against the exact evidence bundle, without changing grades:

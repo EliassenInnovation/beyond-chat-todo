@@ -20,7 +20,7 @@ configuration reason, not because of its scores. All 20 guarded runs are retaine
 source snapshots, configuration fingerprints, usage, conversations and original grades remain
 under `runs/guarded-baseline-2026-10-15/`. `index.html` links the individual reports;
 `history.html` shows the latest run and comparable observations. The directory is locally
-ignored by Git. A curated [offline review example](../examples/evaluation-review/index.html)
+ignored by Git. A curated [offline review example](../../examples/evaluation-review/index.html)
 now includes all 20 summaries and eight selected conversations in the repository. It labels
 candidate limits explicitly and preserves original grades; it is not the full raw collection.
 
@@ -78,7 +78,7 @@ clear false-alarm candidates, and test any revised grader on both correct and in
 Do not silently turn these flags into passes or quote an adjusted success rate from this review.
 
 Separate application fixes from grading fixes. Use focused repetitions and a full regression
-run as described in [Reading evaluation results](evaluation-signals.md), rather than ordering
+run as described in [Reading evaluation results](../guides/evaluation-results.md), rather than ordering
 another 20-run collection for every change. A new grading method starts a distinct measurement
 period; it cannot inherit these limits without review. If saved conversations are regraded,
 retain both versions and label the new results as rejudged, not new application runs.

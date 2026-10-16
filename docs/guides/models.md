@@ -21,8 +21,8 @@ Anthropic, Gemini, Bedrock or Azure-specific adapters. Putting a native provider
 an environment variable does not add one. A compatible gateway can expose another provider's
 model, but that route needs verification against the requirements above.
 
-The defaults are declared in [agent.py](../todo/agent.py), [judge.py](../evaluations/judge.py), and
-[personas.py](../evaluations/personas.py). Check the provider's current catalog and your account's access
+The defaults are declared in [agent.py](../../todo/agent.py), [judge.py](../../evaluations/judge.py), and
+[personas.py](../../evaluations/personas.py). Check the provider's current catalog and your account's access
 before choosing a model; a historical run does not establish current availability.
 
 ## The merge guard
@@ -193,11 +193,11 @@ automatically a better judge. The existing calibration command makes paid calls:
 New model or endpoint configurations start a new comparison period. Local fixed-eval records
 retain requested/served model evidence and hashes of endpoint settings without saving the
 endpoint URL or credentials in the configuration fingerprint. Do not pool results across
-configurations into an existing control baseline. See [evaluation signals](evaluation-signals.md).
+configurations into an existing control baseline. See [evaluation signals](evaluation-results.md).
 
 ## Costs and optional tracing
 
-The local estimator in [eval_costs.py](../evaluations/eval_costs.py) recognizes a small set of model IDs and
+The local estimator in [eval_costs.py](../../evaluations/eval_costs.py) recognizes a small set of model IDs and
 rates. An unfamiliar model or usage format produces an unknown estimate, not a free run. A
 compatible provider reusing a recognized model ID may charge different rates; the current
 estimator does not distinguish provider prices. Use your provider's billing as authoritative,

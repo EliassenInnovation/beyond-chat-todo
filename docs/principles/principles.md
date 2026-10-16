@@ -12,7 +12,7 @@ Applications help people get jobs done, but finding a capability and learning to
 
 We believe that giving an agent access to well-defined application capabilities, with shared rules, clear feedback, and human control, helps people get work done with less navigation and less need to learn the application. An agent with an application's tools can also do jobs its developers never set out to build, by combining capabilities the application already has. Across applications, the meeting point is usually a desktop chat app, such as the Claude or ChatGPT desktop app, connected to several applications and data sources through MCP, the Model Context Protocol. There the agent can combine their capabilities, for example a calendar's and an investment app's, into a job none of them was built for.
 
-To apply this to your own application, read these principles and decide where you agree. Adapt them to your product, users, and constraints. Then hand the [implementation guide](beyond-chat-implementation-guide.md) to a development agent with a specific task and scope, and use its acceptance checks to review the work. You can start with a new application or move an existing one in this direction through small, useful changes; you do not need to redesign everything first.
+To apply this to your own application, read these principles and decide where you agree. Adapt them to your product, users, and constraints. Then hand the [implementation guide](implementation.md) to a development agent with a specific task and scope, and use its acceptance checks to review the work. You can start with a new application or move an existing one in this direction through small, useful changes; you do not need to redesign everything first.
 
 ### The ten to take away
 
@@ -59,9 +59,9 @@ The principles are design targets and do not describe any product's current beha
 | Document | Written for | Use it to |
 |---|---|---|
 | Beyond Chat: Building Agents into Applications (this paper) | Developers, architects, and product people | Understand the principles, the reasons for them, and the examples behind them |
-| [Implementation Guide](beyond-chat-implementation-guide.md) | Development agents and the engineers who direct them | Turn a principle into scoped work, with acceptance checks a reviewer can verify |
-| [Agent Checklist](beyond-chat-agent-checklist.md) | Anyone assigning or reviewing an agent's task | Keep the rules and the check IDs at hand during one task |
-| [Evaluating Agents in Applications](beyond-chat-evaluating-agents.md) | People who test agents and read the results | Grade conversations, read results, and decide what to change |
+| [Implementation Guide](implementation.md) | Development agents and the engineers who direct them | Turn a principle into scoped work, with acceptance checks a reviewer can verify |
+| [Agent Checklist](checklist.md) | Anyone assigning or reviewing an agent's task | Keep the rules and the check IDs at hand during one task |
+| [Evaluating Agents in Applications](evaluating-agents.md) | People who test agents and read the results | Grade conversations, read results, and decide what to change |
 
 ## 1. Share Capabilities Across Interfaces
 
@@ -484,4 +484,4 @@ Numbers in the text identify the relevant source. The notes explain the connecti
 
 **2.1 (September 30, 2026).** Adds "let code say what code knows" (section 4: code computes and states, the model chooses and interprets) and, in section 6, "decide who grades what" and "grade the choice, not the retelling", with Checks 4.4, 6.7 and 6.8.
 
-**2.0.** Splits the document. This essay keeps the argument and the principles; the [implementation guide](beyond-chat-implementation-guide.md) holds the acceptance checks (IDs unchanged), the registry, observation and reference contracts, and the instructions for development agents. Section 6 is reorganized into what to evaluate, how to judge, and how to run evaluation, and adds evaluation as a statistical process, narrow checks over long rubrics, reading for intent, and a surface people can explore.
+**2.0.** Splits the document. This essay keeps the argument and the principles; the [implementation guide](implementation.md) holds the acceptance checks (IDs unchanged), the registry, observation and reference contracts, and the instructions for development agents. Section 6 is reorganized into what to evaluate, how to judge, and how to run evaluation, and adds evaluation as a statistical process, narrow checks over long rubrics, reading for intent, and a surface people can explore.

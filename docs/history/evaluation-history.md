@@ -18,4 +18,4 @@ the first match instead of asking), and attaching "if more than one fits, ask" d
 The list already made the point the sentence was trying to make, so the sentence came out.
 
 
-For current interpretation, see [reading evaluation results](evaluation-signals.md).
+For current interpretation, see [reading evaluation results](../guides/evaluation-results.md).

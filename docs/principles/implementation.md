@@ -6,7 +6,7 @@ Version 3.5-draft · October 15, 2026
 
 > **Note:** Following these practices does not make an application secure. We have tried red teaming and prompt-injection tests, but encryption, transport security, authentication, and other standard security are outside this document's scope. Security for an application with an agent belongs to corporate governance, with policy and controls in place.
 
-This guide turns [Beyond Chat: Building Agents into Applications](beyond-chat-building-agents-into-applications.md) into work a development agent can do and a reviewer can check. Read the principles first; this guide assumes their vocabulary and does not repeat their reasoning. It holds the acceptance checks (IDs are stable across versions), the proposed registry, observation and reference contracts, the evaluation infrastructure, and the rules for scoping a handoff. The [compact checklist](beyond-chat-agent-checklist.md) summarizes it for persistent context.
+This guide turns [Beyond Chat: Building Agents into Applications](principles.md) into work a development agent can do and a reviewer can check. Read the principles first; this guide assumes their vocabulary and does not repeat their reasoning. It holds the acceptance checks (IDs are stable across versions), the proposed registry, observation and reference contracts, the evaluation infrastructure, and the rules for scoping a handoff. The [compact checklist](checklist.md) summarizes it for persistent context.
 
 ## Working with this guide
 
@@ -126,7 +126,7 @@ Check IDs are stable references. Add new IDs rather than renumbering or reusing 
 
 ## Evaluation infrastructure
 
-These practices make section 6 of the principles, and its companion paper [Evaluating Agents in Applications](beyond-chat-evaluating-agents.md), operational.
+These practices make section 6 of the principles, and its companion paper [Evaluating Agents in Applications](evaluating-agents.md), operational.
 
 **Keep the case definitions in the repository and let the observability platform hold the results.** Keep each case, its grader, and its starting data in the repository, push what the observability platform needs, and push one way only: a case edited in the platform's interface blocks the next run with a conflict instead of silently changing what was measured. If the platform is stopped, every evaluation still runs and writes the same report; only the shared view is lost (Check 6.4). Keep the number of modules that import the platform's SDK small, so retargeting to another platform touches the recorder, the dataset transfer, and the links a results page writes, and nothing else.
 
@@ -249,8 +249,8 @@ Persona runners, evaluators, debuggers, and collectors are part of the system's 
 
 ## Keep persistent context small
 
-Read the principles and this guide in full for an initial review. For routine sessions, keep the ownership split, check index, and working rules from [the compact checklist](beyond-chat-agent-checklist.md) in the project's persistent instructions, and load detailed checks when a scoped task needs them. The checklist only summarizes this guide; it is not a separate contract.
+Read the principles and this guide in full for an initial review. For routine sessions, keep the ownership split, check index, and working rules from [the compact checklist](checklist.md) in the project's persistent instructions, and load detailed checks when a scoped task needs them. The checklist only summarizes this guide; it is not a separate contract.
 
 **Scope.** Multi-user isolation, concurrent edits, network operation, and detailed cost forecasting need their own designs and tests; shared contracts help organize that work but do not solve it.
 
-Sources [15], [16], [20], [23] and [24] are listed in the principles' [Foundations and Further Reading](beyond-chat-building-agents-into-applications.md#foundations-and-further-reading).
+Sources [15], [16], [20], [23] and [24] are listed in the principles' [Foundations and Further Reading](principles.md#foundations-and-further-reading).

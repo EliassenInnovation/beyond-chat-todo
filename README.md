@@ -13,7 +13,7 @@ visible task IDs. Screen actions change filters, show selected tasks or highligh
 through the same central dispatch as the person's controls. A larger application may also
 need an explicit UI state machine for navigation and multi-step workflows.
 
-The [walkthrough](docs/walkthrough.md#relate-the-sample-to-doing-the-job-with-them) follows the
+The [walkthrough](docs/guides/walkthrough.md#relate-the-sample-to-doing-the-job-with-them) follows the
 presentation's six levels. It starts with familiar keyword help and AI-assisted help retrieval,
 where the person still does the work. The sample shows the next steps: **tell me how → show me
 how → do it for me**, using the app's current state and controls. It also includes a small
@@ -21,22 +21,24 @@ example of combining operations for a request without a dedicated button.
 
 ## Start here
 
+The [documentation index](docs/README.md) separates practical guides, principles, and historical evidence.
+
 The accompanying documents explain the approach:
 
-- [Design principles](docs/beyond-chat-building-agents-into-applications.md): why the architecture is structured this way.
-- [Implementation guide](docs/beyond-chat-implementation-guide.md): contracts and acceptance checks.
-- [Agent checklist](docs/beyond-chat-agent-checklist.md): a compact working reference.
-- [Evaluating agents](docs/beyond-chat-evaluating-agents.md): how to measure and review behavior.
+- [Design principles](docs/principles/principles.md): why the architecture is structured this way.
+- [Implementation guide](docs/principles/implementation.md): contracts and acceptance checks.
+- [Agent checklist](docs/principles/checklist.md): a compact working reference.
+- [Evaluating agents](docs/principles/evaluating-agents.md): how to measure and review behavior.
 
 
-Read the [walkthrough](docs/walkthrough.md), or run its shared-action examples without
+Read the [walkthrough](docs/guides/walkthrough.md), or run its shared-action examples without
 installing anything or providing credentials:
 
 ```bash
 python3 -m todo.walkthrough
 ```
 
-The [reference review](docs/reference-review.md) maps the sample to all 62 checks in
+The [reference review](docs/guides/sample-assessment.md) maps the sample to all 62 checks in
 Beyond Chat 3.5, identifies the tested behavior, and lists the remaining gaps. This is a
 local single-user sample; the JSON store is not a multi-user database.
 
@@ -54,7 +56,7 @@ code. Requiring approval for every write would add friction without necessarily 
 
 The sample's tests establish that the agent cannot approve its own request and that approval
 applies to the proposed task details. Whether an action should require approval is a separate
-product decision. See the [deletion walkthrough](docs/walkthrough.md#request-a-deletion-and-inspect-authority).
+product decision. See the [deletion walkthrough](docs/guides/walkthrough.md#request-a-deletion-and-inspect-authority).
 
 ## Setup
 
@@ -80,11 +82,11 @@ or persona traces; no credentials are borrowed from other repositories. Ordinary
 are not exported to Langfuse.
 
 For model selection, provider compatibility, credentials and comparison runs, see
-[Bring your own model](docs/models.md).
+[Bring your own model](docs/guides/models.md).
 
-For this app’s optional tracing setup, see [Langfuse integration](docs/langfuse.md).
+For this app’s optional tracing setup, see [Langfuse integration](docs/guides/langfuse.md).
 For evidence completeness, run history, control limits, and acceptance criteria, see
-[reading evaluation results](docs/evaluation-signals.md).
+[reading evaluation results](docs/guides/evaluation-results.md).
 
 ## Test
 
@@ -157,14 +159,10 @@ without making model calls:
 
 The page starts with results, then separates evidence completeness, unusual variation,
 and acceptance criteria. Open a case and an attempt to inspect the conversation and saved
-outcome. Trace links are optional. See [reading evaluation results](docs/evaluation-signals.md)
+outcome. Trace links are optional. See [reading evaluation results](docs/guides/evaluation-results.md)
 for everyday checks versus baseline collection, what happens to control limits when code
 changes, cost estimates, and explicit acceptance rules. Twenty full runs are a baseline-building
 exercise, not a requirement after every edit.
-The [October 15 pilot review](docs/pilot-2026-10-15.md) is a worked example with complete
-and incomplete runs, observed failures, and measured token costs.
-The [behavior follow-up](docs/behavior-fixes-2026-10-15.md) records a prompt correction,
-unsuccessful experiments, remaining failures, and concerns about grading evidence.
 
 ## Follow the implementation
 
@@ -197,10 +195,8 @@ calibration, and changing a model starts a new comparison period. The historical
 default is now [deprecated](https://developers.openai.com/api/docs/models/gpt-4.1-mini);
 select a supported structured-output Chat Completions model when adapting the sample.
 
-For prior experiments, read [earlier evaluation findings](docs/evaluation-history.md).
-`evaluations/audit.py` assembles recorded failures and sampled passes for review;
-`evaluations/judge_calibration.py` makes paid calls to compare judges with labelled conversations.
-The [historical audit](docs/evals-audit-2026-09-25.md) explains why grading itself needs review.
+Historical investigations are collected in [development history](docs/history/README.md).
+They are optional background, not steps required to use the sample.
 
 ## What about Jev and other decisions models?
 
@@ -208,7 +204,7 @@ The todo app uses a narrow decisions-model guard before merging tasks: it checks
 the user identified which tasks to merge. We have also used decisions models in other
 contexts. Model checks also compare proposed completion, date, and deletion requests
 with the user’s intent. We have used Jev in other contexts; this sample does not require it.
-See [model configuration](docs/models.md) for scope, limitations,
+See [model configuration](docs/guides/models.md) for scope, limitations,
 and provider requirements. These checks supplement the app’s validation and approval rules.
 
 ## License
