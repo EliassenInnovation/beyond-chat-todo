@@ -1,6 +1,6 @@
 # Reading an evaluation run
 
-For a no-setup introduction, open the [offline worked example](../../examples/evaluation-review/index.html):
+For a no-setup introduction, open the [worked example](https://bobfischer.github.io/beyond-chat-todo/):
 20 real run summaries, candidate chart limits, and a short human-review queue. It uses synthetic
 cases and makes no network or model calls.
 

@@ -182,15 +182,16 @@ layout, or interaction through actual browser controls; the visible player remai
 ## Read the report
 
 You can inspect a completed example before setting up any model or tracing service:
-download or clone this repository, then open `examples/evaluation-review/index.html` in
-your browser. [The example instructions](examples/evaluation-review/README.md) explain the review. It contains
+**[View the evaluation report](https://bobfischer.github.io/beyond-chat-todo/)**. It contains
 20 real runs, an illustrative chart, and a short human-review queue. Its original grades
 and unresolved grading concerns are visible; candidate limits are not presented as an
 accepted quality baseline. The page makes no network or model calls.
 
-[![Offline evaluation report with evidence completeness and a chart of 20 runs using illustrative candidate limits.](docs/images/evaluation-review.png)](docs/images/evaluation-review.png)
+[![Offline evaluation report with evidence completeness and a chart of 20 runs using illustrative candidate limits.](docs/images/evaluation-review.png)](https://bobfischer.github.io/beyond-chat-todo/)
 
-Download or clone the repository and open the HTML file locally; GitHub displays its source.
+For offline use, download or clone the repository and open
+`examples/evaluation-review/index.html` in your browser.
+[The example instructions](examples/evaluation-review/README.md) explain the review.
 
 A full evaluation creates `runs/evals.html`. Open it in a browser, or regenerate a report
 without making model calls:
