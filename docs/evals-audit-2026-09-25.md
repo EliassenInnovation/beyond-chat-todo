@@ -4,26 +4,26 @@ The audit covers the newest full run, `runs/2026-09-25T223547.819705Z.json`: 31 
 
 **One change came before the audit: fixing the judge (you approved it).** Everything else is a finding for you to decide. The audit's own tooling did change the code:
 - run records now keep each attempt's `before` state, each turn's `list_after`, the models that actually answered, and the commit;
-- `audit.py` and `judge_calibration.py` were added.
+- `evaluations/audit.py` and `evaluations/judge_calibration.py` were added.
 
 ## How the audit was done
 
 The same three parts as the Advisor audit:
 
 1. **An audit of the checks.** A subagent read all 31 cases, `grade()`, the helpers and the judge. For each case it asked: does the check test what the case's question says? How could a bad conversation pass, or a good one fail?
-2. **Detectors in code.** `audit.py` collects from the last five full runs:
+2. **Detectors in code.** `evaluations/audit.py` collects from the last five full runs:
    - every failed conversation (11);
    - each case's pass count per run (4 cases moved);
    - one random passing conversation per case from the newest run (31).
 3. **Readers.** Three subagents read those 42 conversations. They classified each as a product bug, an eval bug, a judge bug, noise, or fine.
 
-Before the audit, the judge was calibrated against people. `judge_cases.json` holds 23 conversations a person read and labelled; `judge_calibration.py` replays them.
+Before the audit, the judge was calibrated against people. `judge_cases.json` holds 23 conversations a person read and labelled; `evaluations/judge_calibration.py` replays them.
 
 Run it all again after any full run:
 
 ```
-.venv/bin/python audit.py --digest runs/audit.md
-.venv/bin/python judge_calibration.py
+.venv/bin/python -m evaluations.audit --digest runs/audit.md
+.venv/bin/python -m evaluations.judge_calibration
 ```
 
 ## The one-paragraph answer
@@ -47,7 +47,7 @@ More broadly:
 ### HIGH: a check can pass a bad outcome
 
 **1. `holdout-dishes` measures nothing.**
-- `reopen_todo`'s description (`todos.py`, the reopen declaration) gives the example "the dishes still need doing". That is the held-out case's own sentence ("Hmm, the dishes still need doing.").
+- `reopen_todo`'s description (`todo/todos.py`, the reopen declaration) gives the example "the dishes still need doing". That is the held-out case's own sentence ("Hmm, the dishes still need doing.").
 - It has been there since `74363a1` (2026-09-24). The fix quoted the test, which breaks rule 14.
 - Fix: give the description an example with other words and items. Retire `holdout-dishes` and add a new held-out case under a new name (rule 13).
 
@@ -130,7 +130,7 @@ More broadly:
 
 1. Findings 1 and 2: each is a small change with a real hole behind it. Then a full run.
 2. Finding 5 (the side-effects guard in `grade()`): one change closes it for most cases.
-3. Findings 3 and 4 (the reminder case, and asks-instead-of-guessing): each needs a narrow judge question, measured with `judge_calibration.py` like the first.
+3. Findings 3 and 4 (the reminder case, and asks-instead-of-guessing): each needs a narrow judge question, measured with `evaluations/judge_calibration.py` like the first.
 4. Findings 6–8 (held-out cases), and the coverage gaps you care about.
 
 ---

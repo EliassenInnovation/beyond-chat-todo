@@ -17,7 +17,7 @@ The sample is useful for learning shared operations, execution-time authority, c
 | A misspelled policy could reach the handler. | Registration rejects unknown policy decisions and noncallable handlers. | `test_unknown_policy_is_rejected_at_registration` |
 | Opening the app required a model key; setup assumed the author's machine and could borrow another project's credentials. | Model client creation is deferred until chat. Setup creates a local environment without editing shell profiles. Only this project's configuration is loaded. | `test_no_provider_key_needed_until_chat`, existing environment precedence tests |
 
-Tests above are in [test_reference.py](../test_reference.py) unless noted. Existing regression tests remain in [test_main.py](../test_main.py), [test_app.py](../test_app.py), and [test_personas.py](../test_personas.py). The tool schemas, descriptions, and ordering are unchanged. The review changes failure handling, proposal validation, persistence, and reporting; it does not establish improved model selection accuracy.
+Tests above are in [tests/test_reference.py](../tests/test_reference.py) unless noted. Existing regression tests remain in [tests/test_main.py](../tests/test_main.py), [tests/test_app.py](../tests/test_app.py), and [tests/test_personas.py](../tests/test_personas.py). The tool schemas, descriptions, and ordering are unchanged. The review changes failure handling, proposal validation, persistence, and reporting; it does not establish improved model selection accuracy.
 
 ## How to read the assessment
 
@@ -25,16 +25,16 @@ Tests above are in [test_reference.py](../test_reference.py) unless noted. Exist
 
 The [walkthrough](walkthrough.md) follows real application paths and explains their limitations. These links identify the main evidence:
 
-- [Registry and execution](../capabilities.py), [domain and storage](../todos.py), [view state](../view.py).
-- [Agent loop](../agent.py), [screen adapter](../todo_view.py), [screen](../app.py).
-- [Evaluation definitions and records](../evals.py), [judges](../judge.py), [report page](../evals_page.py), [calibration](../judge_calibration.py).
-- [Tracing configuration](../langfuse_setup.py), [persona harness](../personas.py).
+- [Registry and execution](../todo/capabilities.py), [domain and storage](../todo/todos.py), [view state](../todo/view.py).
+- [Agent loop](../todo/agent.py), [screen adapter](../todo/todo_view.py), [screen](../todo/app.py).
+- [Evaluation definitions and records](../evaluations/evals.py), [judges](../evaluations/judge.py), [report page](../evaluations/evals_page.py), [calibration](../evaluations/judge_calibration.py).
+- [Tracing configuration](../todo/langfuse_setup.py), [persona harness](../evaluations/personas.py).
 
 ## Shared capabilities
 
 | Check | Interface | Result | Implementation and tested evidence | Remaining limit |
 | --- | --- | --- | --- | --- |
-| 1.1 | UI and agent | Pass | Shared-owner, delete-policy and undo tests in `test_main.py`; both adapters invoke `execute`. | Scope is these two adapters, not arbitrary clients. |
+| 1.1 | UI and agent | Pass | Shared-owner, delete-policy and undo tests in `tests/test_main.py`; both adapters invoke `execute`. | Scope is these two adapters, not arbitrary clients. |
 | 1.2 | UI and agent | Pass | Schema/domain validation and injected save-failure tests leave memory and disk unchanged. | JSON storage is single-process demo storage. |
 | 1.3 | UI and agent | Pass | `test_the_screen_and_the_agent_reach_the_same_owner`; adapters translate rather than duplicate domain logic. | New adapters must preserve this path. |
 | 1.4 | Agent | Not run | Action descriptions and exact tool order exist; schema equality checked against baseline. | No new paid measurement of description clarity. |
@@ -142,7 +142,7 @@ Prioritize follow-up work by consequence: durable retries and concurrent storage
 ## Verification for this revision
 
 - macOS, the repository's existing Python 3.13 environment: **225 tests passed** (`python -m pytest -q`). This includes Streamlit AppTest, the existing talk-anchor tests, and 32 added regression cases.
-- `python3 walkthrough.py`: all five offline examples completed and their assertions passed.
+- `python3 -m todo.walkthrough`: all five offline examples completed and their assertions passed.
 - Agent tool schemas, descriptions, and ordering compared byte-for-byte with the baseline: identical. Rechecked using default `json.dumps(agent.TOOLS)`: both HEAD and the revised code have SHA-256 `2caf2ed24081a1db2bb4600eef3ad0f8dad570dd9a8af97de8e325fcbb0308e7`.
 - HTML report rendered in Chrome at 1350 px and 390 px widths; expanded evidence inspected and mobile horizontal overflow checked. Historical reports were used to inspect layout, not presented as new model results.
 - All 62 check IDs appear once in this review. Walkthrough/review local links resolve. Python compilation and setup shell syntax checks pass.

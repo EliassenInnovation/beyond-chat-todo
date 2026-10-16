@@ -20,7 +20,7 @@ you intend to share. The assistant's proposed interpretations are separate from 
 To regenerate the page after changing the renderer, from the repository root:
 
 ```bash
-.venv/bin/python eval_collection.py examples/evaluation-review/collection.json
+.venv/bin/python -m evaluations.eval_collection examples/evaluation-review/collection.json
 ```
 
 This makes no model calls. `collection.json` contains all 20 run summaries and selected
@@ -36,7 +36,7 @@ for findings. Langfuse is an optional route to deeper traces; this example is en
 To validate a downloaded review against the exact evidence bundle, without changing grades:
 
 ```bash
-.venv/bin/python eval_collection.py examples/evaluation-review/collection.json --notes /path/to/todo-evaluation-review.json
+.venv/bin/python -m evaluations.eval_collection examples/evaluation-review/collection.json --notes /path/to/todo-evaluation-review.json
 ```
 
 Validation checks the bundle identity and that each example has one recognized assessment.

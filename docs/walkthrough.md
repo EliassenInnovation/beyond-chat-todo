@@ -44,7 +44,7 @@ uses them correctly.
 From the repository root, run:
 
 ```bash
-python3 walkthrough.py
+python3 -m todo.walkthrough
 ```
 
 Python 3.11 or later is enough. The script uses the real capability registry and domain code with a disposable list, checks each outcome, and removes its data on exit. It does not simulate a language model or claim to test one.
@@ -54,7 +54,7 @@ For the full app and tests:
 ```bash
 ./setup.sh
 .venv/bin/python -m pytest -q
-.venv/bin/python -m streamlit run app.py --server.address 127.0.0.1
+.venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
 The list works without a provider key. Chat requires `OPENAI_API_KEY` in this repository's `.env` or the process environment. Chat sends the conversation and current list to the model provider and incurs API charges. Langfuse is optional and separate: ordinary app chats are not exported there. Use synthetic tasks for this walkthrough.
@@ -76,13 +76,13 @@ Model tool call  → Agent.run_tool  → capabilities.execute
                                saved JSON file
 ```
 
-Read [todo_view.apply](../todo_view.py), [Agent.run_tool](../agent.py), and [execute](../capabilities.py). The screen translates a component event into an action ID and arguments. The agent translates a tool name into the same action ID. Neither adapter implements adding a task.
+Read [todo_view.apply](../todo/todo_view.py), [Agent.run_tool](../todo/agent.py), and [execute](../todo/capabilities.py). The screen translates a component event into an action ID and arguments. The agent translates a tool name into the same action ID. Neither adapter implements adding a task.
 
 This is central dispatch: both entry points reach the same operation and validation. The shared
 `View` below holds the small amount of presentation state this app needs. The sample does not
 implement a general UI state machine for navigation or multi-step workflows.
 
-The declaration on `add_todo` in [todos.py](../todos.py) supplies the description, parameters, effects, and policy. `execute` checks the caller and arguments before invoking it. A batch validates every item before changing any, then commits once. The tool's returned receipt comes from application code.
+The declaration on `add_todo` in [todos.py](../todo/todos.py) supplies the description, parameters, effects, and policy. `execute` checks the caller and arguments before invoking it. A batch validates every item before changing any, then commits once. The tool's returned receipt comes from application code.
 
 The current agent still asks the model to repeat that receipt. This is a known gap against Check 4.4: producing reliable text in code is useful, but asking a model to reproduce it does not guarantee delivery. The evaluation checks repetition; a future change should render the receipt directly and evaluate the model's surrounding explanation separately.
 
@@ -94,7 +94,7 @@ Optional semantic guards sit in `Agent.run_tool`, after argument validation and 
 `execute`. Each action names its guards; each guard declares its question, evidence, provider,
 and refusal. The existing merge check and the newer target/action checks use the same dispatch.
 
-[guard_check.py](../guard_check.py) groups checks that need the same evidence and runs independent
+[guard_check.py](../todo/guard_check.py) groups checks that need the same evidence and runs independent
 groups concurrently. The input check cannot see the model's proposed selection; the output
 checks need it. Application code supplies calendar facts and the meanings of operations.
 Answers are cached by their exact evidence, so changing an argument or a task forces a new check.
@@ -118,7 +118,7 @@ receives the screen's control descriptions. These describe application state, no
 or which pixels are inside the browser viewport. Hidden tasks remain available as data; they
 are not mistaken for tasks the person can currently see.
 
-Ask to show only unfinished tasks, or use **Active** below the list. Both paths call `view.show`. It changes the shared [View](../view.py), not the stored tasks. The offline walkthrough shows only one task and verifies that the saved file remains byte-for-byte unchanged.
+Ask to show only unfinished tasks, or use **Active** below the list. Both paths call `view.show`. It changes the shared [View](../todo/view.py), not the stored tasks. The offline walkthrough shows only one task and verifies that the saved file remains byte-for-byte unchanged.
 
 For the language distinction, try “How do I hide completed tasks?”, then “Show me where”, then “Do it.” The intended outcomes are directions, a highlighted control, and a changed filter. The offline script proves the operations differ; paid evaluation is needed to measure how reliably the model chooses among them.
 
@@ -142,7 +142,7 @@ Typing “approved” in chat cannot approve it. Even a direct call to `todos.ap
 
 Click **Deny** and the task stays. A fresh request followed by **Approve** deletes it. Deletion is intentionally irreversible in this sample and clears older undo history; this is a design choice, not a requirement of the principles.
 
-Approval applies to the requested task details. Rename the task, change its date, or mark it done after the request: approving the old request is refused. Deny it and request deletion again. Legacy saved requests without bound details also require renewal. These paths are covered by `test_approval_is_bound_to_requested_details_after_reload` and `test_legacy_approval_without_snapshot_requires_new_request` in [test_reference.py](../test_reference.py).
+Approval applies to the requested task details. Rename the task, change its date, or mark it done after the request: approving the old request is refused. Deny it and request deletion again. Legacy saved requests without bound details also require renewal. These paths are covered by `test_approval_is_bound_to_requested_details_after_reload` and `test_legacy_approval_without_snapshot_requires_new_request` in [tests/test_reference.py](../tests/test_reference.py).
 
 Relevant checks: 3.3, 3.4, 3.9.
 
@@ -153,7 +153,7 @@ The offline walkthrough asks to complete one existing task and one nonexistent t
 A more important test fails the actual file replacement after a multi-item addition has executed in memory:
 
 ```bash
-.venv/bin/python -m pytest -q test_reference.py -k 'failed_batch or batch_commits'
+.venv/bin/python -m pytest -q tests/test_reference.py -k 'failed_batch or batch_commits'
 ```
 
 `TodoList.transaction` restores the in-memory state when the operation or save raises. `save` writes a temporary file beside the destination, flushes it, and replaces the destination only when the write is complete. A UI change and its undo entry share that transaction. This demonstrates an atomic registered action under the tested failures; it does not turn the JSON file into a concurrent database or establish durability under every power-loss condition.
@@ -165,7 +165,7 @@ Relevant checks: 1.2, 3.1, 3.2.
 A request can save a task successfully and then lose the model service while asking for the final reply. The saved task must not vanish, and the app must not imply that nothing happened.
 
 ```bash
-.venv/bin/python -m pytest -q test_reference.py -k provider_failure
+.venv/bin/python -m pytest -q tests/test_reference.py -k provider_failure
 ```
 
 The test substitutes a model that first requests an addition and then raises a provider error. The agent returns a code-written interruption message with the saved action receipt, retains that reply in conversation history, and records an undo entry. The person's Undo button then removes the addition.
@@ -176,13 +176,13 @@ Relevant checks: 3.2, 3.10, 4.3.
 
 ## Read an evaluation as evidence
 
-The [evaluation definitions](../evals.py) give each case a question, starting state, steps, expected outcome, and grading rules. Each attempt starts on a new temporary list. Code checks state; separate judges assess claims and answers. [test_main.py](../test_main.py) exercises graders on both correct and incorrect outcomes.
+The [evaluation definitions](../evaluations/evals.py) give each case a question, starting state, steps, expected outcome, and grading rules. Each attempt starts on a new temporary list. Code checks state; separate judges assess claims and answers. [tests/test_main.py](../tests/test_main.py) exercises graders on both correct and incorrect outcomes.
 
 With a configured model, these commands make paid API calls:
 
 ```bash
-.venv/bin/python evals.py --case read-fresh --repeat 3
-.venv/bin/python evals.py --repeat 3
+.venv/bin/python -m evaluations.evals --case read-fresh --repeat 3
+.venv/bin/python -m evaluations.evals --repeat 3
 ```
 
 The second command runs the visible suite. Held-out cases require an explicit case name and `--held-out`; do not inspect or run them while developing a fix. A configured Langfuse project receives synthetic evaluation traces; without it, local run reports remain available.
@@ -194,7 +194,7 @@ A missing judge is missing evidence. All required truthfulness checks must retur
 These tests demonstrate that reporting rule without a model call:
 
 ```bash
-.venv/bin/python -m pytest -q test_reference.py -k 'judge or held_out'
+.venv/bin/python -m pytest -q tests/test_reference.py -k 'judge or held_out'
 ```
 
 Relevant checks: 6.1, 6.2, 6.6–6.10, 6.13.
@@ -212,7 +212,7 @@ unusual variation, and acceptable performance. A five-run pilot helps inspect fa
 and cost; it does not establish statistical control.
 
 Keep the visible persona player for watching the experience. For unattended exploration,
-run `python personas.py --persona sam --turns 3 --max-tokens 50000` using the project’s
+run `python -m evaluations.personas --persona sam --turns 3 --max-tokens 50000` using the project’s
 virtual environment. Review the saved HTML beside its JSON record, then decide whether
 a candidate finding should become a regression case. Persona findings do not enter the
 fixed-suite control chart. The [README](../README.md#watch-personas-or-run-them-unattended)

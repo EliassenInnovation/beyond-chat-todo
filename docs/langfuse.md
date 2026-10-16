@@ -24,12 +24,12 @@ leave `LANGFUSE_TRACING_ENABLED=false`. The visible player and trace export are 
 
 ## With this app
 
-- **Fixed evals:** `LANGFUSE_TRACING_ENABLED=true .venv/bin/python evals.py --case read-fresh --repeat 1`.
+- **Fixed evals:** `LANGFUSE_TRACING_ENABLED=true .venv/bin/python -m evaluations.evals --case read-fresh --repeat 1`.
   The runner sends synthetic cases and scores as an experiment and saves local records too.
   Cases are passed directly from code; you do not need to create a hosted dataset first.
-- **Headless personas:** `.venv/bin/python personas.py --persona sam --turns 3 --trace`.
+- **Headless personas:** `.venv/bin/python -m evaluations.personas --persona sam --turns 3 --trace`.
   These are exploratory sessions, separate from fixed-suite results.
-- **Visible player:** `LANGFUSE_TRACING_ENABLED=true .venv/bin/python -m streamlit run app.py`.
+- **Visible player:** `LANGFUSE_TRACING_ENABLED=true .venv/bin/python -m streamlit run todo/app.py`.
   Persona and exploratory-tester sessions may be exported. The screen identifies recording.
   Ordinary application chats are excluded by the export filter.
 

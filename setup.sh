@@ -9,4 +9,4 @@ if [ ! -d .venv ]; then
 fi
 .venv/bin/python -m pip install -r requirements.txt
 if [ ! -e .env ]; then cp .env.example .env; fi
-printf '%s\n' 'Ready. Run .venv/bin/python -m streamlit run app.py --server.address 127.0.0.1'
+printf '%s\n' 'Ready. Run .venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1'

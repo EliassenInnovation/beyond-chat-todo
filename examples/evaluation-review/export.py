@@ -8,10 +8,10 @@ import json
 import sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
-import eval_monitor
-from eval_costs import estimate
-from run_evidence import digest
-from eval_collection import render
+import evaluations.eval_monitor as eval_monitor
+from evaluations.eval_costs import estimate
+from evaluations.run_evidence import digest
+from evaluations.eval_collection import render
 
 SELECTION = [
  ('run-08','no-email',2,'Responding to an email request','Did this reply address the email request, even though the app cannot send email?', 'The reply explicitly declines email and supplies the list. Completeness and task completion are different checks.'),

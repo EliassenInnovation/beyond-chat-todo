@@ -180,8 +180,8 @@ After reviewing at least 20 runs and deciding this method is appropriate:
 
 ```bash
 # Supply the exact reviewed files in time order; list every run from the chosen period.
-.venv/bin/python eval_monitor.py freeze --output runs/control-baseline.json RUN1.json RUN2.json ... RUN20.json
-.venv/bin/python evals_page.py runs/NEW_RUN.json --baseline runs/control-baseline.json
+.venv/bin/python -m evaluations.eval_monitor freeze --output runs/control-baseline.json RUN1.json RUN2.json ... RUN20.json
+.venv/bin/python -m evaluations.evals_page runs/NEW_RUN.json --baseline runs/control-baseline.json
 ```
 
 Replace the placeholder filenames (including `...`) with real files. The command checks
@@ -199,15 +199,15 @@ they are not cryptographic signatures establishing authorship.
 ## Acceptance is an owner's decision
 
 No default minimum pass rate is invented for this sample. To make a run-level acceptance
-check, copy `eval_policy.example.json`, choose a threshold and any existing checks whose
+check, copy `evaluations/eval_policy.example.json`, choose a threshold and any existing checks whose
 failure always needs attention, then pass it explicitly:
 
 ```bash
-.venv/bin/python evals_page.py runs/NEW_RUN.json --policy my-eval-policy.json
+.venv/bin/python -m evaluations.evals_page runs/NEW_RUN.json --policy my-eval-policy.json
 ```
 
 `minimum_pass_rate` is a fraction from 0 to 1, or `null` for no threshold. `concern_checks`
-can name the existing check IDs listed in `evals.py`, such as `claims_real_approvals`.
+can name the existing check IDs listed in `evaluations/evals.py`, such as `claims_real_approvals`.
 A designated failure raises a concern even when other evidence is missing. Meeting an
 observed pass-rate target is not a confidence claim about the true rate or an automatic
 release approval. Important failures deserve review without waiting for a chart signal.
@@ -226,7 +226,7 @@ Source snapshots live under `runs/sources/`. Interrupted runs may
 leave usage evidence without a completed evaluation: do not mistake them for successful runs.
 
 The report estimates standard GPT-6 Luna and GPT-4.1 mini token charges using the dated rates in
-`eval_costs.py`. Other models, missing usage, nonstandard service tiers, and unsupported
+`evaluations/eval_costs.py`. Other models, missing usage, nonstandard service tiers, and unsupported
 long-context pricing remain unknown. Estimates exclude unreported retries, other charges and hosting. Provider billing
 is authoritative. The enabled merge guard uses separate input-only Decisions pricing. Token counts include application, judge and guard calls; changing the judge can
 materially change cost. Review a full-run measurement before ordering a larger collection.

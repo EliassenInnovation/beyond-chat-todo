@@ -21,8 +21,8 @@ Anthropic, Gemini, Bedrock or Azure-specific adapters. Putting a native provider
 an environment variable does not add one. A compatible gateway can expose another provider's
 model, but that route needs verification against the requirements above.
 
-The defaults are declared in [agent.py](../agent.py), [judge.py](../judge.py), and
-[personas.py](../personas.py). Check the provider's current catalog and your account's access
+The defaults are declared in [agent.py](../todo/agent.py), [judge.py](../evaluations/judge.py), and
+[personas.py](../evaluations/personas.py). Check the provider's current catalog and your account's access
 before choosing a model; a historical run does not establish current availability.
 
 ## The merge guard
@@ -35,7 +35,7 @@ Setup does not overwrite existing `.env` files; update an older explicit selecti
 to match `.env.example`. An explicitly empty shell environment value disables guards.
 `evals.py --guard NAME` adds a guard to the configured selection.
 
-This guard uses `GUARD_MODEL` in `agent.py` (currently `gpt-6-luna`) and the Decisions API,
+This guard uses `GUARD_MODEL` in `todo/agent.py` (currently `gpt-6-luna`) and the Decisions API,
 not Chat Completions. A compatible chat endpoint alone is insufficient. It shares the
 OpenAI key and base URL; there is no separate guard endpoint or environment model selector.
 If the enabled guard cannot answer, the merge is refused. Guard calls are recorded in usage and priced separately at the documented input-only
@@ -161,7 +161,7 @@ you send a chat message:
 
 ```bash
 .venv/bin/python -m pytest -q
-.venv/bin/python -m streamlit run app.py --server.address 127.0.0.1
+.venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
 Try adding a task, reading it back, changing a date, undoing a change, asking an ambiguous question,
@@ -171,8 +171,8 @@ still be a person's action. Do not infer permission from a model's willingness t
 Next, run a small visible eval before paying for the full suite:
 
 ```bash
-.venv/bin/python evals.py --case read-fresh --repeat 1 --max-tokens 50000
-.venv/bin/python evals.py --repeat 3 --max-tokens 2000000
+.venv/bin/python -m evaluations.evals --case read-fresh --repeat 1 --max-tokens 50000
+.venv/bin/python -m evaluations.evals --repeat 3 --max-tokens 2000000
 ```
 
 These commands incur charges at your provider. Token allowances are stop conditions between
@@ -187,7 +187,7 @@ labelled examples before trusting its scores; a different model family can be us
 automatically a better judge. The existing calibration command makes paid calls:
 
 ```bash
-.venv/bin/python judge_calibration.py --repeat 3
+.venv/bin/python -m evaluations.judge_calibration --repeat 3
 ```
 
 New model or endpoint configurations start a new comparison period. Local fixed-eval records
@@ -197,7 +197,7 @@ configurations into an existing control baseline. See [evaluation signals](evalu
 
 ## Costs and optional tracing
 
-The local estimator in [eval_costs.py](../eval_costs.py) recognizes a small set of model IDs and
+The local estimator in [eval_costs.py](../evaluations/eval_costs.py) recognizes a small set of model IDs and
 rates. An unfamiliar model or usage format produces an unknown estimate, not a free run. A
 compatible provider reusing a recognized model ID may charge different rates; the current
 estimator does not distinguish provider prices. Use your provider's billing as authoritative,

@@ -33,7 +33,7 @@ Read the [walkthrough](docs/walkthrough.md), or run its shared-action examples w
 installing anything or providing credentials:
 
 ```bash
-python3 walkthrough.py
+python3 -m todo.walkthrough
 ```
 
 The [reference review](docs/reference-review.md) maps the sample to all 62 checks in
@@ -62,7 +62,7 @@ Python 3.11 or later is required.
 
 ```bash
 ./setup.sh
-.venv/bin/python -m streamlit run app.py --server.address 127.0.0.1
+.venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
 Setup installs the dependencies and creates `.env` from `.env.example` if absent. It does
@@ -90,8 +90,8 @@ For evidence completeness, run history, control limits, and acceptance criteria,
 
 ```bash
 .venv/bin/pytest                          # the app, the agent's permissions, every grader; no model calls
-.venv/bin/python evals.py --max-tokens 2000000  # visible cases x 3; paid calls with a token allowance
-.venv/bin/python evals.py --case read-fresh --repeat 5
+.venv/bin/python -m evaluations.evals --max-tokens 2000000  # visible cases x 3; paid calls with a token allowance
+.venv/bin/python -m evaluations.evals --case read-fresh --repeat 5
 ```
 
 Each case runs several times, because a model does not answer the same way twice; the report
@@ -110,8 +110,8 @@ uses a scratch list; pick None to return to your own list. The command-line runn
 screen description, and approval actions, with a separate scratch list for each session:
 
 ```bash
-.venv/bin/python personas.py --persona sam --turns 8 --max-tokens 50000
-.venv/bin/python personas.py --replay runs/personas/RECORD.json
+.venv/bin/python -m evaluations.personas --persona sam --turns 8 --max-tokens 50000
+.venv/bin/python -m evaluations.personas --replay runs/personas/RECORD.json
 ```
 
 The first command makes paid calls for the persona, application agent, and claim judge.
@@ -152,7 +152,7 @@ A full evaluation creates `runs/evals.html`. Open it in a browser, or regenerate
 without making model calls:
 
 ```bash
-.venv/bin/python evals_page.py runs/RECORD.json
+.venv/bin/python -m evaluations.evals_page runs/RECORD.json
 ```
 
 The page starts with results, then separates evidence completeness, unusual variation,
@@ -168,16 +168,28 @@ unsuccessful experiments, remaining failures, and concerns about grading evidenc
 
 ## Follow the implementation
 
+The repository is organized by purpose:
+
+- **todo/** — the application, shared capabilities, guards, and UI assets.
+- **evaluations/** — evals, model judges, persona runner, report tools, and grading fixtures.
+- **tests/** — offline regression tests.
+- **docs/** — the principles, walkthrough, model configuration, and evaluation guidance.
+- **examples/** — a self-contained evaluation report you can open without setup.
+
+Run commands from the repository root. Local configuration stays in `.env`; saved tasks
+stay in `todos.json`, and new evaluation records go in `runs/`. These are ignored by Git.
+
+
 | File | Responsibility |
 | --- | --- |
-| `capabilities.py` | Shared action declarations and execution policy |
-| `todos.py` / `view.py` | Saved tasks and screen state |
-| `agent.py` / `app.py` | Model interaction and visible application |
-| `evals.py` / `judge.py` | Fixed cases and code/model checks |
-| `model_usage.py` / `run_evidence.py` | Local usage and configuration evidence |
-| `eval_monitor.py` / `evals_page.py` | Monitoring rules and local review |
-| `personas.py` / `persona_report.py` | Exploration and offline session review |
-| `langfuse_setup.py` | Optional tracing configuration |
+| `todo/capabilities.py` | Shared action declarations and execution policy |
+| `todo/todos.py` / `todo/view.py` | Saved tasks and screen state |
+| `todo/agent.py` / `todo/app.py` | Model interaction and visible application |
+| `evaluations/evals.py` / `evaluations/judge.py` | Fixed cases and code/model checks |
+| `todo/model_usage.py` / `evaluations/run_evidence.py` | Local usage and configuration evidence |
+| `evaluations/eval_monitor.py` / `evaluations/evals_page.py` | Monitoring rules and local review |
+| `evaluations/personas.py` / `evaluations/persona_report.py` | Exploration and offline session review |
+| `todo/langfuse_setup.py` | Optional tracing configuration |
 
 The app defaults to GPT-6 Luna for agent and judge calls, and GPT-4.1 mini for personas.
 `EVALBASICS_MODEL`, `EVALBASICS_JUDGE_MODEL`, and `EVALBASICS_PERSONA_MODEL` select them; changing a judge requires
@@ -186,8 +198,8 @@ default is now [deprecated](https://developers.openai.com/api/docs/models/gpt-4.
 select a supported structured-output Chat Completions model when adapting the sample.
 
 For prior experiments, read [earlier evaluation findings](docs/evaluation-history.md).
-`audit.py` assembles recorded failures and sampled passes for review;
-`judge_calibration.py` makes paid calls to compare judges with labelled conversations.
+`evaluations/audit.py` assembles recorded failures and sampled passes for review;
+`evaluations/judge_calibration.py` makes paid calls to compare judges with labelled conversations.
 The [historical audit](docs/evals-audit-2026-09-25.md) explains why grading itself needs review.
 
 ## What about Jev and other decisions models?
