@@ -21,14 +21,11 @@ who already understands the operation may want the agent to perform it. Connecti
 to the app makes both possible, but it must distinguish what the person is asking for.
 The progression below starts with familiar help and shows what that connection adds.
 
-| Level | What the person gets | Connection to this sample |
-| --- | --- | --- |
-| 1. Mechanical help | Keywords, pattern matching or a search box lead to help pages. The person finds the instructions and does the work. | The familiar starting point for comparison. |
-| 2. Mechanical, with AI in front | AI helps find relevant information in the same help pages. The person still translates that help into actions in the app. | Better help retrieval alone does not give the assistant current UI state or control of the app. |
-| 3. Tell me how | Directions in the app's own language, tied to its controls. | Ask “How do I hide completed tasks?” The reply names **Active** beneath the list and leaves the filter unchanged. |
-| 4. Show me how | The assistant points at the control on the person's screen. | Ask “Show me where to do that.” **Active** is highlighted; the tasks and filter stay unchanged. |
-| 5. Do it for me | The assistant performs the requested operation and confirms what changed. | Ask “Do it for me.” The filter changes to **Active**, the person sees the result, and the reply describes it accurately. |
-| 6. Do something new for me | Existing operations are combined for a request that has no dedicated workflow. | Try the composition example below on a scratch list and inspect each outcome. |
+[![Six levels of assistance, from finding help to doing the job with the person.](../images/levels.png)](../images/levels.png)
+
+Try the progression in the sample: ask “How do I hide completed tasks?” for directions,
+“Show me where to do that” to highlight **Active**, then “Do it for me” to change the filter.
+The intended results are different: explanation, demonstration, and execution.
 
 The departure from levels 1–2 is the connection to the working application. The assistant can
 use its current state, speak in the names of its controls, point to those controls and carry
