@@ -7,22 +7,30 @@ provider requirements, and checks to make before relying on a replacement model.
 
 ## Select models
 
-Run `./setup.sh` if you have not already, then edit `.env` in the repository root.
-Set your provider key and the models you want to use:
+Start with the configuration used in testing below. It is also supplied in
+[`.env.example`](../../.env.example): `./setup.sh` copies it to `.env` if that file does not
+already exist. Add your OpenAI API key on the first line; Langfuse is off.
 
 ```dotenv
-OPENAI_API_KEY=your-endpoint-api-key
-EVALBASICS_MODEL=your-tool-capable-model-id
-EVALBASICS_JUDGE_MODEL=your-structured-output-model-id
-EVALBASICS_PERSONA_MODEL=your-structured-output-model-id
-EVALBASICS_ACTION_GUARD_MODEL=your-structured-output-model-id
+OPENAI_API_KEY=
+EVALBASICS_MODEL=gpt-6-luna
+EVALBASICS_JUDGE_MODEL=gpt-6-luna
+EVALBASICS_PERSONA_MODEL=gpt-4.1-mini
+EVALBASICS_PERSONA_PLAYER=true
 LANGFUSE_TRACING_ENABLED=false
+EVALBASICS_GUARDS=todos.merge_unnamed,todos.target_identified,todos.extra_tasks,todos.omitted_tasks,todos.operation_matches,todos.wrong_values
+EVALBASICS_ACTION_GUARD_MODEL=gpt-6-luna
 ```
 
-Replace the placeholders with model IDs available to your account. The assistant needs tool
-calling; judges, personas, and action guards need structured output. You can use different
-models for these jobs. Judges run during evaluations; personas run only when you use the
-persona player or headless runner. No key is needed for the manual list or offline tests.
+This records the tested model selection, not a guarantee of future model availability or
+identical responses. Your account needs access to these models and the Decisions API.
+Leave `OPENAI_BASE_URL` unset to use the default OpenAI endpoint. Setup preserves an existing
+`.env`; copy these settings into it if you want to match this configuration.
+
+To use other models, replace the IDs for the roles you need. The assistant needs tool calling;
+judges, personas, and action guards need structured output. Judges run during evaluations;
+personas run only in the persona player or headless runner. The manual list and offline tests
+need no API key.
 
 **One extra requirement:** the enabled merge guard uses the Decisions API and its model is
 fixed in code. Changing `EVALBASICS_MODEL` does not change it. A chat-compatible provider alone
