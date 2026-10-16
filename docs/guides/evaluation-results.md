@@ -9,6 +9,36 @@ outcome, saved state, replies, tool calls, and grading evidence. Optional trace 
 to more detail in Langfuse. The repo owns the cases, graders, records and decision rules;
 Langfuse is one example integration, not a required service or a recommendation over alternatives.
 
+## From exploration to human judgment
+
+Exploratory testers bring context and curiosity, but can fall into a testing rut. Personas
+provide another source of requests and follow-up behavior. Run them visibly to inspect the
+screen experience, or headlessly to collect more conversations. Neither replaces human review.
+Inspect flagged findings and sample apparently successful conversations; reviewing only flags
+can miss failures the judges do not recognize.
+
+For a disputed case, show the reviewer the request, relevant conversation, task state, and
+proposed action before showing a model's grade. Ask for a judgment and a short reason. This
+example review form makes the choice concrete:
+
+[![Human review form showing a dentist task, conversational reference, proposed date change, and judgment choices.](../images/human-review.png)](../images/human-review.png)
+
+Here, “Move that to Wednesday” follows a conversation about calling the dentist. The reviewer
+can assess the reference using that context instead of requiring the person to repeat the task
+name. The screenshot illustrates a review technique; it is not another required service.
+
+Useful follow-up questions separate different concerns:
+
+- Has the user uniquely identified the task or group of tasks?
+- Are there other tasks that should have been included?
+- Were any tasks included that the user did not request?
+- Given the request and context, is this the right action?
+
+Treat disagreement as a reason to inspect the case and the grading rule. A natural response
+should not fail merely because it differs from a preferred script. Save agreed judgments and
+reasons as calibration examples; add regression cases for confirmed problems and separate
+held-out variants for later checks. Preserve the original grades when recording review notes.
+
 ## Three different decisions
 
 | Question | Evidence | What to do |

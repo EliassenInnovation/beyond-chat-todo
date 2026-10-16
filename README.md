@@ -4,6 +4,22 @@ An Eliassen Innovations sample: a working todo app with an embedded agent, share
 Use it to follow a request from a screen control or model tool call through permission checks,
 validation, saving, feedback, and undo. Langfuse provides optional tracing and an experiment viewer.
 
+[Setup](#setup) · [Walkthrough](docs/guides/walkthrough.md) · [Evaluation example](#read-the-report)
+
+<img src="docs/images/wagon.png" width="420" alt="A covered wagon labeled Your App Name Goes Here in a mountain landscape.">
+
+When people struggle with a task, they increasingly expect an AI to help them finish it.
+Their expectations are shaped by the best experiences they have had elsewhere—and more
+applications now offer capable agents.
+
+<img src="docs/images/laptop-toss.png" width="420" alt="An illustration of a frustrated woman tossing a laptop.">
+
+Building one is harder than adding a chat box. An agent that misunderstands requests, makes
+unwanted changes, or claims success without doing the work can leave people more frustrated
+than before. If you build an agent, make it worth relying on. This sample demonstrates shared
+application capabilities, safeguards matched to consequences, and evaluations that help you
+discover where the experience falls short.
+
 The central pattern is **one implementation of each operation, shared by the person and the agent**.
 The code enforces permissions; evaluations measure whether the agent chooses and explains the right work.
 
@@ -18,6 +34,8 @@ presentation's six levels. It starts with familiar keyword help and AI-assisted 
 where the person still does the work. The sample shows the next steps: **tell me how → show me
 how → do it for me**, using the app's current state and controls. It also includes a small
 example of combining operations for a request without a dedicated button.
+
+[![Six levels, from mechanical help to an agent doing the job with the person.](docs/images/levels.png)](docs/images/levels.png)
 
 The interface deliberately follows [TodoMVC](https://todomvc.com/), so many readers will
 already recognize the task list and its controls. That familiar starting point lets us focus
@@ -108,6 +126,21 @@ without Langfuse; with Langfuse, each links to its trace.
 
 ## Watch personas or run them unattended
 
+Exploratory testing lets a person probe the app using a scratch list. Here, the tester tries
+a merge and a request containing several tasks, then inspects what changed.
+
+[![Exploratory tester with a scratch todo list and an actual assistant conversation.](docs/images/exploratory-tester.png)](docs/images/exploratory-tester.png)
+
+Human testers can run out of ideas or fall into familiar patterns. Personas broaden the
+exploration by pursuing goals and reacting to the app. The visible player also lets you
+notice details that a headless run cannot show.
+
+[![Sam's persona requests cleanup; overdue tasks are shown and deletion requests await approval.](docs/images/persona-sam.png)](docs/images/persona-sam.png)
+
+Run personas visibly or headlessly, then inspect flagged findings and sample the rest.
+These screenshots show individual interactions, not a claim that every request succeeds.
+See [turning exploration into human judgment](docs/guides/evaluation-results.md#from-exploration-to-human-judgment).
+
 Set `EVALBASICS_PERSONA_PLAYER=true` in `.env` to show the visible player without enabling
 trace export (the sample configuration includes it). It lets you watch a persona interact
 with the actual screen. Pick a persona, then use Next or Play to watch. Each persona
@@ -140,7 +173,8 @@ own project keys. Local records and HTML review work without a Langfuse account 
 The Python dependencies still include its SDK. Ordinary application chats are not exported.
 
 Persona frustration and judge warnings are **candidate findings for human review**, not
-fixed-suite failures. Review the conversation, decide whether it exposes a real problem,
+fixed-suite failures. Review flagged conversations and a sample of apparently successful ones,
+decide whether they expose a real problem,
 then add a regression case and a separate held-out variant. Do not mix exploratory persona
 sessions into the fixed-suite control chart. Headless exploration does not verify rendering,
 layout, or interaction through actual browser controls; the visible player remains valuable.
@@ -152,6 +186,10 @@ open [the offline evaluation review](examples/evaluation-review/index.html). It 
 20 real runs, an illustrative chart, and a short human-review queue. Its original grades
 and unresolved grading concerns are visible; candidate limits are not presented as an
 accepted quality baseline. The page makes no network or model calls.
+
+[![Offline evaluation report with evidence completeness and a chart of 20 runs using illustrative candidate limits.](docs/images/evaluation-review.png)](docs/images/evaluation-review.png)
+
+Download or clone the repository and open the HTML file locally; GitHub displays its source.
 
 A full evaluation creates `runs/evals.html`. Open it in a browser, or regenerate a report
 without making model calls:
@@ -217,4 +255,3 @@ under [CC BY 4.0](licenses/todomvc-app-css.txt). We changed its layout and sizin
 styles for dates, approvals, undo, and other app controls. The TodoMVC attribution does not
 imply endorsement of this sample.
 The license does not grant trademark rights in the Eliassen Innovations name or branding.
-Historical presentation assets are not included.
