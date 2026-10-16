@@ -202,7 +202,7 @@ The todo app uses a narrow decisions-model guard before merging tasks: it checks
 the user identified which tasks to merge. We have also used decisions models in other
 contexts. Model checks also compare proposed completion, date, and deletion requests
 with the user’s intent. We have used Jev in other contexts; this sample does not require it.
-See [model configuration](docs/guides/models.md) for scope, limitations,
+See [conversational LLMs and decision models](docs/guides/models.md#conversational-llms-and-decision-models) for the distinction, scope, limitations,
 and provider requirements. These checks supplement the app’s validation and approval rules.
 
 ## License

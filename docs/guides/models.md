@@ -5,6 +5,27 @@ for every job, and its defaults are examples rather than recommendations. Model 
 how reliably the assistant interprets requests; application code still enforces permissions,
 validation and approval.
 
+## Conversational LLMs and decision models
+
+A conversational LLM can interpret a request, propose tool calls, and explain results. A
+purpose-built decision model answers narrower questions for application code, such as
+“Has the user uniquely identified a task?” Its interface returns typed answers, often with
+probabilities, rather than a conversational reply. [Jev](https://docs.typesafe.ai/introduction.md)
+is one example.
+
+An LLM can also answer a narrow question using structured output. That makes it usable as
+a decision step; it does not make a yes/no answer a calibrated probability. The distinction
+here is the job and interface, not a claim that the underlying model technologies cannot overlap.
+
+This sample currently uses **GPT-6 Luna for both guard paths**: the merge guard uses the
+OpenAI Decisions API and receives a probability; the target/action guards use Chat Completions
+and receive structured yes/no answers. The assistant uses the conversational tool-calling path.
+Jev is not integrated into this sample. We have used it in other contexts, but adding it here
+would require an adapter and evaluation, not just changing a model name.
+
+With either approach, model judgments remain fallible. Application code enforces permissions,
+validates arguments, and requires deletion approval.
+
 ## What you can configure today
 
 | Job | Setting | Current API path | Required capability |
