@@ -1,83 +1,142 @@
-# Beyond Chat Todo
+# Building Helpful, Trustworthy Agents Into Your Application
 
-An Eliassen Innovations sample: a working todo app with an embedded agent, shared application operations, and evaluations.
-Use it to follow a request from a screen control or model tool call through permission checks,
-validation, saving, feedback, and undo. Langfuse provides optional tracing and an experiment viewer.
+Principles, a working example, and evaluation tools from Eliassen Innovations to help you
+build or improve an agent inside your application or website.
 
-[Setup](#setup) · [Walkthrough](docs/guides/walkthrough.md) · [Evaluation example](#read-the-report)
+[Run the sample](#setup) · [Follow the walkthrough](docs/guides/walkthrough.md) · [Read the principles](docs/principles/principles.md) · [View the evaluation report](https://bobfischer.github.io/beyond-chat-todo/)
+
+## Help people get the job done
+
+Your application may already have the capabilities people need. Finding them, learning the
+controls, and working out which steps to take can still get in the way. An agent inside the
+application can help people understand their options, show them what to do, and carry out
+work with them.
 
 <img src="docs/images/wagon.png" width="420" alt="A covered wagon labeled Your App Name Goes Here in a mountain landscape.">
 
-When people struggle with a task, they increasingly expect an AI to help them finish it.
-Their expectations are shaped by the best experiences they have had elsewhere—and more
-applications now offer capable agents.
+When people struggle with a task, they increasingly expect AI assistance. Their expectations
+are shaped by the best experiences they have elsewhere. That creates an opportunity to make
+more of your application's capabilities useful to more people.
+
+But adding a chat box is only a beginning. If the agent misunderstands requests, changes the
+wrong data, or claims to have done something it hasn't, the experience can become more
+frustrating than doing the work unaided.
 
 <img src="docs/images/laptop-toss.png" width="420" alt="An illustration of a frustrated woman tossing a laptop.">
 
-Building one is harder than adding a chat box. An agent that misunderstands requests, makes
-unwanted changes, or claims success without doing the work can leave people more frustrated
-than before. If you build an agent, make it worth relying on. This sample demonstrates shared
-application capabilities, safeguards matched to consequences, and evaluations that help you
-discover where the experience falls short.
+Building useful assistance means connecting the agent to the working application, keeping
+control over what it may do, and examining whether it actually helps. This repository shows
+how those pieces fit together, with code you can inspect and principles you can adapt.
 
-The central pattern is **one implementation of each operation, shared by the person and the agent**.
-The code enforces permissions; evaluations measure whether the agent chooses and explains the right work.
+## From finding help to working together
 
-The UI is deliberately small, but demonstrates two requirements: the agent knows what the
-person sees and can control the view. Each turn receives the task list, active filter and
-visible task IDs. Screen actions change filters, show selected tasks or highlight controls
-through the same central dispatch as the person's controls. A larger application may also
-need an explicit UI state machine for navigation and multi-step workflows.
-
-The [walkthrough](docs/guides/walkthrough.md#relate-the-sample-to-doing-the-job-with-them) follows the
-presentation's six levels. It starts with familiar keyword help and AI-assisted help retrieval,
-where the person still does the work. The sample shows the next steps: **tell me how → show me
-how → do it for me**, using the app's current state and controls. It also includes a small
-example of combining operations for a request without a dedicated button.
+Keyword search and AI-assisted help retrieval can both help people find instructions.
+The person still has to translate those instructions into actions. An embedded agent can
+also understand the current application state, point to a control, and perform an authorized
+operation. It can combine existing capabilities to handle requests without a dedicated button.
 
 [![Six levels, from mechanical help to an agent doing the job with the person.](docs/images/levels.png)](docs/images/levels.png)
 
-The interface deliberately follows [TodoMVC](https://todomvc.com/), so many readers will
-already recognize the task list and its controls. That familiar starting point lets us focus
-on what changes when an agent works alongside the person.
+These are different kinds of assistance. Sometimes the person wants an explanation;
+sometimes a demonstration; sometimes they want the work done. A helpful agent distinguishes
+those requests and leaves the person in control.
 
-## Start here
+## Learn the design in a deliberately small application
 
-The [documentation index](docs/README.md) points to practical guides and the principles documents.
+The example uses a familiar [TodoMVC](https://todomvc.com/)-style task list so you can focus on
+the agent integration without first learning a complicated product. The todo domain keeps
+the implementation small enough to inspect. The patterns are intended for your own application
+or website, where helping people use its capabilities may have much greater value.
 
-The accompanying documents explain the approach:
+The central design is **build each capability once, then control who can use it**. The UI and
+the agent use the same underlying operations, data, validation, and business process. Their
+authority can differ: in a trading application, for example, a person might place a trade
+through the UI while an agent may only propose it for approval enforced by application code.
 
-- [Design principles](docs/principles/principles.md): why the architecture is structured this way.
-- [Implementation guide](docs/principles/implementation.md): quick checklist, contracts, and acceptance checks.
-- [Evaluating agents](docs/principles/evaluating-agents.md): how to measure and review behavior.
+The sample makes that distinction visible. It also shows how to give an agent knowledge of
+the current screen, let it change the view, return results from application code, and recover
+from some failures. The [walkthrough](docs/guides/walkthrough.md) explains each design problem,
+shows the implementation, and identifies what to carry into another application.
 
+The approval example uses todo deletion. That is a teaching choice: ordinary todo deletion
+is rarely high-impact, and a real todo app could make it recoverable. Choose safeguards for
+your application based on consequences and recoverability. Shared implementation does not
+require identical permissions for the person and the agent.
 
-Read the [walkthrough](docs/guides/walkthrough.md), or run its shared-action examples without
-installing anything or providing credentials:
+## How do you know the agent is helping?
+
+A successful demonstration is a starting point. You also need to check whether the agent
+understood the request, selected the right work, changed the intended data, and described
+what actually happened. This sample combines code tests, repeated model evaluations, and
+exploration to answer those questions.
+
+### Start by exploring yourself
+
+Try ordinary requests, ambiguous wording, and changes of mind. Compare the conversation
+with the screen and saved result. The exploratory tester gives you a scratch list for this
+work. Here, a person probes a merge and a request containing several tasks.
+
+[![Exploratory tester with a scratch todo list and an actual assistant conversation.](docs/images/exploratory-tester.png)](docs/images/exploratory-tester.png)
+
+### Use personas to broaden the exploration
+
+People testing an app can run out of ideas or fall into familiar patterns. A persona is a
+simulated user with a situation and goals, generating requests and reacting to the agent.
+Sam, shown below, demonstrates how exploratory testing can be automated.
+
+[![Sam's persona explores cleanup and filtering while deletion requests await approval.](docs/images/persona-sam.png)](docs/images/persona-sam.png)
+
+Run personas visibly to watch the interaction, or headlessly to collect conversations
+without watching each turn. Inspect flagged findings and sample the rest. Close human
+inspection still catches subtleties that automated checks miss. The [evaluation guide](docs/guides/evaluation-results.md#from-exploration-to-human-judgment)
+shows how focused questions help reviewers decide whether a proposed action fits the request.
+These screenshots are individual interactions, not evidence that every request succeeds.
+
+## Read the report
+
+**[Open the evaluation report](https://bobfischer.github.io/beyond-chat-todo/)** to see the other
+part of the process: repeat a fixed set of cases, inspect the evidence, and examine variation
+across runs. No setup, model credentials, or Langfuse server is needed.
+
+[![Evaluation report with evidence completeness and a chart of 20 runs using illustrative candidate limits.](docs/images/evaluation-review.png)](https://bobfischer.github.io/beyond-chat-todo/)
+
+The example contains 20 real runs and selected conversations for review. It deliberately
+retains the original grades and unresolved grading concerns. Its limits are illustrative
+candidates, not an accepted quality baseline. A stable failure rate does not establish that
+performance is good enough—or that the grader is right.
+
+Use ordinary tests to investigate broken code expectations. Use comparable repeated evals
+to distinguish expected variation from unusual changes, while still addressing failures
+that violate your acceptance criteria. Twenty full runs are a baseline-building exercise,
+not a requirement after every edit. The [evaluation guide](docs/guides/evaluation-results.md)
+explains that distinction and what happens when code, models, or graders change.
+
+For offline review, open `examples/evaluation-review/index.html` from a downloaded or cloned
+copy of the repository. [Example instructions](examples/evaluation-review/README.md) explain
+how to inspect and save review notes.
+
+## Start with one useful capability in your own app
+
+You can use the documents whether you are building a new agent or improving an existing one:
+
+1. Read the [design principles](docs/principles/principles.md) and decide how they apply to your users and product.
+2. Follow the [sample walkthrough](docs/guides/walkthrough.md) to see the choices in working code.
+3. Use the [implementation guide](docs/principles/implementation.md) to scope a capability and check the result.
+4. Use [Evaluating agents](docs/principles/evaluating-agents.md) to plan evidence that the assistance is useful and reliable enough for its consequences.
+
+The accompanying document series is called **Beyond Chat**. The [documentation index](docs/README.md)
+provides a reading path. The [sample assessment](docs/guides/sample-assessment.md) compares this
+implementation with the guide's detailed checks and records its limitations. This is a local,
+single-user teaching sample, not a complete production architecture.
+
+You can inspect its shared operations without installing dependencies or providing credentials.
+From a downloaded or cloned repository, with Python 3.11 or later, run:
 
 ```bash
 python3 -m todo.walkthrough
 ```
 
-The [reference review](docs/guides/sample-assessment.md) maps the sample to all 62 checks in
-Beyond Chat 3.5, identifies the tested behavior, and lists the remaining gaps. This is a
-local single-user sample; the JSON store is not a multi-user database.
-
-## Why deletion requires approval here
-
-The agent must request approval before deleting a todo to demonstrate how application code
-enforces authority. This is a teaching choice, not a recommendation to require approval for
-ordinary todo deletion. Deletion also cannot be undone in this sample; that limitation is not
-inherent to todo apps.
-
-When adapting the sample, match safeguards to consequences and recoverability. Low-impact
-changes may need only visible results and reliable undo. High-impact or irreversible actions
-may warrant explicit approval of the specific proposed change, with the boundary enforced in
-code. Requiring approval for every write would add friction without necessarily adding value.
-
-The sample's tests establish that the agent cannot approve its own request and that approval
-applies to the proposed task details. Whether an action should require approval is a separate
-product decision. See the [deletion walkthrough](docs/guides/walkthrough.md#request-a-deletion-and-inspect-authority).
+To try the actual agent, continue with setup below.
 
 ## Setup
 
@@ -124,22 +183,13 @@ required judgments make an attempt inconclusive, never a pass.
 Failed attempts, crashes included, print with their conversation, so the report can be read
 without Langfuse; with Langfuse, each links to its trace.
 
+A full evaluation creates `runs/evals.html`. To regenerate it without model calls:
+
+```bash
+.venv/bin/python -m evaluations.evals_page runs/RECORD.json
+```
+
 ## Watch personas or run them unattended
-
-Exploratory testing lets a person probe the app using a scratch list. Here, the tester tries
-a merge and a request containing several tasks, then inspects what changed.
-
-[![Exploratory tester with a scratch todo list and an actual assistant conversation.](docs/images/exploratory-tester.png)](docs/images/exploratory-tester.png)
-
-Human testers can run out of ideas or fall into familiar patterns. Personas broaden the
-exploration by pursuing goals and reacting to the app. The visible player also lets you
-notice details that a headless run cannot show.
-
-[![Sam's persona requests cleanup; overdue tasks are shown and deletion requests await approval.](docs/images/persona-sam.png)](docs/images/persona-sam.png)
-
-Run personas visibly or headlessly, then inspect flagged findings and sample the rest.
-These screenshots show individual interactions, not a claim that every request succeeds.
-See [turning exploration into human judgment](docs/guides/evaluation-results.md#from-exploration-to-human-judgment).
 
 Set `EVALBASICS_PERSONA_PLAYER=true` in `.env` to show the visible player without enabling
 trace export (the sample configuration includes it). It lets you watch a persona interact
@@ -179,34 +229,6 @@ then add a regression case and a separate held-out variant. Do not mix explorato
 sessions into the fixed-suite control chart. Headless exploration does not verify rendering,
 layout, or interaction through actual browser controls; the visible player remains valuable.
 
-## Read the report
-
-You can inspect a completed example before setting up any model or tracing service:
-**[View the evaluation report](https://bobfischer.github.io/beyond-chat-todo/)**. It contains
-20 real runs, an illustrative chart, and a short human-review queue. Its original grades
-and unresolved grading concerns are visible; candidate limits are not presented as an
-accepted quality baseline. The page makes no network or model calls.
-
-[![Offline evaluation report with evidence completeness and a chart of 20 runs using illustrative candidate limits.](docs/images/evaluation-review.png)](https://bobfischer.github.io/beyond-chat-todo/)
-
-For offline use, download or clone the repository and open
-`examples/evaluation-review/index.html` in your browser.
-[The example instructions](examples/evaluation-review/README.md) explain the review.
-
-A full evaluation creates `runs/evals.html`. Open it in a browser, or regenerate a report
-without making model calls:
-
-```bash
-.venv/bin/python -m evaluations.evals_page runs/RECORD.json
-```
-
-The page starts with results, then separates evidence completeness, unusual variation,
-and acceptance criteria. Open a case and an attempt to inspect the conversation and saved
-outcome. Trace links are optional. See [reading evaluation results](docs/guides/evaluation-results.md)
-for everyday checks versus baseline collection, what happens to control limits when code
-changes, cost estimates, and explicit acceptance rules. Twenty full runs are a baseline-building
-exercise, not a requirement after every edit.
-
 ## Follow the implementation
 
 The repository is organized by purpose:
@@ -231,13 +253,6 @@ stay in `todos.json`, and new evaluation records go in `runs/`. These are ignore
 | `evaluations/eval_monitor.py` / `evaluations/evals_page.py` | Monitoring rules and local review |
 | `evaluations/personas.py` / `evaluations/persona_report.py` | Exploration and offline session review |
 | `todo/langfuse_setup.py` | Optional tracing configuration |
-
-The app defaults to GPT-6 Luna for agent and judge calls, and GPT-4.1 mini for personas.
-`EVALBASICS_MODEL`, `EVALBASICS_JUDGE_MODEL`, and `EVALBASICS_PERSONA_MODEL` select them; changing a judge requires
-calibration, and changing a model starts a new comparison period. The historical persona
-default is now [deprecated](https://developers.openai.com/api/docs/models/gpt-4.1-mini);
-select a supported structured-output Chat Completions model when adapting the sample.
-
 
 ## What about Jev and other decisions models?
 

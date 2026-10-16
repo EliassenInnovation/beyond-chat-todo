@@ -1,14 +1,25 @@
-# A request through the todo app
+# Build an Agent Into Your Application
 
-This sample shows how a person's controls and an embedded agent use the same application operations. Follow a request from its entry point to validation, saved state, feedback, and undo. The model chooses an operation; application code decides whether that caller may run it and what actually changes.
+You want people to get more done with your application: ask about what they are seeing,
+learn how to use a capability, and have the agent carry out work when asked. How do you
+connect that assistance to your application without creating a second implementation of
+its business logic or giving the agent more authority than it should have?
 
-Use this alongside the [reference review](sample-assessment.md), which maps the implementation to all 62 checks in Beyond Chat 3.5. The sample demonstrates a useful subset, not a complete implementation of every check.
+This walkthrough uses a small todo app to make those choices visible. Its familiar domain
+lets you concentrate on the design. Start with one capability, connect both the UI and the
+agent to it, then add the context and restrictions each caller needs. Finally, examine what
+happens when execution fails or the model misunderstands.
 
-## Relate the sample to “doing the job with them”
+You do not need to read the other documents first. Each section explains a problem, shows
+how the sample addresses it, and points to the code. You can read along without running
+models; the commands below let you inspect the behavior yourself.
 
-The presentation's progression starts with two familiar forms of help. They are the comparison
-points for what changes when an agent is integrated into the app. The sample demonstrates
-levels 3–5 directly and offers a small composition example for level 6.
+## Begin with the kind of help the person wants
+
+Think about someone who cannot find the right control. Instructions may be enough. Someone
+who already understands the operation may want the agent to perform it. Connecting an agent
+to the app makes both possible, but it must distinguish what the person is asking for.
+The progression below starts with familiar help and shows what that connection adds.
 
 | Level | What the person gets | Connection to this sample |
 | --- | --- | --- |
@@ -59,7 +70,17 @@ For the full app and tests:
 
 The list works without a provider key. Chat requires `OPENAI_API_KEY` in this repository's `.env` or the process environment. Chat sends the conversation and current list to the model provider and incurs API charges. Langfuse is optional and separate: ordinary app chats are not exported there. Use synthetic tasks for this walkthrough.
 
-## Follow an addition
+## Build the capability once; control who can use it
+
+Suppose you add an agent to an existing application. Implementing its actions separately
+would give you two places to maintain validation, data access, and business rules. Instead,
+connect both callers to the same capability. They follow the same underlying process and
+use the same data, with restrictions appropriate to the caller.
+
+For example, a person may be allowed to place a trade directly through a UI, while an agent
+can only propose that trade for approval enforced in code. The shared capability owns the
+operation; sharing it does not grant the agent the person's authority. We'll first follow
+a simple addition, then examine that distinction in the sample's deletion mechanism.
 
 In the app, type a task in **What needs to be done?** and press Enter. With chat configured, ask the assistant to add another task. The language model's wording and choice of calls can vary; inspect the saved result rather than expecting an exact transcript.
 
@@ -84,45 +105,7 @@ implement a general UI state machine for navigation or multi-step workflows.
 
 The declaration on `add_todo` in [todos.py](../../todo/todos.py) supplies the description, parameters, effects, and policy. `execute` checks the caller and arguments before invoking it. A batch validates every item before changing any, then commits once. The tool's returned receipt comes from application code.
 
-The current agent still asks the model to repeat that receipt. This is a known gap against Check 4.4: producing reliable text in code is useful, but asking a model to reproduce it does not guarantee delivery. The evaluation checks repetition; a future change should render the receipt directly and evaluate the model's surrounding explanation separately.
-
-Relevant checks: 1.1–1.3, 3.1, 4.4.
-
-## Check the proposed change before executing it
-
-Optional semantic guards sit in `Agent.run_tool`, after argument validation and before
-`execute`. Each action names its guards; each guard declares its question, evidence, provider,
-and refusal. The existing merge check and the newer target/action checks use the same dispatch.
-
-[guard_check.py](../../todo/guard_check.py) groups checks that need the same evidence and runs independent
-groups concurrently. The input check cannot see the model's proposed selection; the output
-checks need it. Application code supplies calendar facts and the meanings of operations.
-Answers are cached by their exact evidence, so changing an argument or a task forces a new check.
-The agent checks for a changed list again after the remote calls, before executing the action.
-Each check concerns the proposed operation, which may fulfill only part of a larger request.
-Completeness of the whole request belongs to the conversation eval, not to each individual call.
-
-A guard can be wrong. The experiment found that “appointment call” can still be mistaken for a
-unique reference when more than one call could involve an appointment. A conversation eval
-also caught a wrong date introduced by the assistant and accepted after the user clarified
-which task they meant. These checks supplement
-the deterministic protections; they do not establish that a request is safe or authorized.
-See [model configuration](models.md) to enable them. The default configuration retains the
-existing merge guard; the additional checks require explicit configuration.
-
-## Separate the screen from saved data
-
-The agent needs both observation and control. At the start of every turn, its current read
-includes the active filter and visible task IDs, calculated from the shared `View`. It also
-receives the screen's control descriptions. These describe application state, not a screenshot
-or which pixels are inside the browser viewport. Hidden tasks remain available as data; they
-are not mistaken for tasks the person can currently see.
-
-Ask to show only unfinished tasks, or use **Active** below the list. Both paths call `view.show`. It changes the shared [View](../../todo/view.py), not the stored tasks. The offline walkthrough shows only one task and verifies that the saved file remains byte-for-byte unchanged.
-
-For the language distinction, try “How do I hide completed tasks?”, then “Show me where”, then “Do it.” The intended outcomes are directions, a highlighted control, and a changed filter. The offline script proves the operations differ; paid evaluation is needed to measure how reliably the model chooses among them.
-
-Relevant checks: 1.5, 1.13, 2.5.
+The current agent still asks the model to repeat that receipt. This is a known limitation: producing reliable text in code is useful, but asking a model to reproduce it does not guarantee delivery. The evaluation checks repetition; a future change should render the receipt directly and evaluate the model's surrounding explanation separately.
 
 ## Request a deletion and inspect authority
 
@@ -144,9 +127,52 @@ Click **Deny** and the task stays. A fresh request followed by **Approve** delet
 
 Approval applies to the requested task details. Rename the task, change its date, or mark it done after the request: approving the old request is refused. Deny it and request deletion again. Legacy saved requests without bound details also require renewal. These paths are covered by `test_approval_is_bound_to_requested_details_after_reload` and `test_legacy_approval_without_snapshot_requires_new_request` in [tests/test_reference.py](../../tests/test_reference.py).
 
-Relevant checks: 3.3, 3.4, 3.9.
+## Check whether the proposed action fits the request
+
+Valid arguments and permission to act do not establish that the agent understood the person.
+“Move the appointment” might still refer to more than one task. A model-based guard asks a
+narrow question about intent before the proposed action executes. It is another judgment
+that can be evaluated, separate from the application's deterministic approval rules.
+
+Optional semantic guards sit in `Agent.run_tool`, after argument validation and before
+`execute`. Each action names its guards; each guard declares its question, evidence, provider,
+and refusal. The merge and target/action checks use the same dispatch.
+
+[guard_check.py](../../todo/guard_check.py) groups checks that need the same evidence and runs independent
+groups concurrently. The input check cannot see the model's proposed selection; the output
+checks need it. Application code supplies calendar facts and the meanings of operations.
+Answers are cached by their exact evidence, so changing an argument or a task forces a new check.
+The agent checks for a changed list again after the remote calls, before executing the action.
+Each check concerns the proposed operation, which may fulfill only part of a larger request.
+Completeness of the whole request belongs to the conversation eval, not to each individual call.
+
+A guard can be wrong: it may accept an ambiguous reference or refuse a reasonable request.
+Test both kinds of error. These judgments supplement the deterministic protections; they
+do not establish that a request is safe or authorized. The sample's `.env.example` enables
+all six guards. See [model configuration](models.md) for their provider requirements and
+how to select them.
+
+## Give the agent knowledge and control of the screen
+
+An agent that only knows the database may describe tasks the person cannot currently see.
+An agent that only writes instructions cannot point to a control or change the view. Give
+it an explicit description of the screen state and operations for changing that state.
+
+The agent needs both observation and control. At the start of every turn, its current read
+includes the active filter and visible task IDs, calculated from the shared `View`. It also
+receives the screen's control descriptions. These describe application state, not a screenshot
+or which pixels are inside the browser viewport. Hidden tasks remain available as data; they
+are not mistaken for tasks the person can currently see.
+
+Ask to show only unfinished tasks, or use **Active** below the list. Both paths call `view.show`. It changes the shared [View](../../todo/view.py), not the stored tasks. The offline walkthrough shows only one task and verifies that the saved file remains byte-for-byte unchanged.
+
+For the language distinction, try “How do I hide completed tasks?”, then “Show me where”, then “Do it.” The intended outcomes are directions, a highlighted control, and a changed filter. The offline script proves the operations differ; paid evaluation is needed to measure how reliably the model chooses among them.
 
 ## Fail a batch without leaving half of it saved
+
+A request may change several items. If one is invalid or saving fails, a partially applied
+change can leave the person uncertain about what happened. The shared capability should own
+that failure behavior for both the UI and the agent.
 
 The offline walkthrough asks to complete one existing task and one nonexistent task in the same action. Validation refuses the whole batch; neither the file nor the existing task changes.
 
@@ -158,8 +184,6 @@ A more important test fails the actual file replacement after a multi-item addit
 
 `TodoList.transaction` restores the in-memory state when the operation or save raises. `save` writes a temporary file beside the destination, flushes it, and replaces the destination only when the write is complete. A UI change and its undo entry share that transaction. This demonstrates an atomic registered action under the tested failures; it does not turn the JSON file into a concurrent database or establish durability under every power-loss condition.
 
-Relevant checks: 1.2, 3.1, 3.2.
-
 ## Recover when the model stops after saving
 
 A request can save a task successfully and then lose the model service while asking for the final reply. The saved task must not vanish, and the app must not imply that nothing happened.
@@ -170,11 +194,14 @@ A request can save a task successfully and then lose the model service while ask
 
 The test substitutes a model that first requests an addition and then raises a provider error. The agent returns a code-written interruption message with the saved action receipt, retains that reply in conversation history, and records an undo entry. The person's Undo button then removes the addition.
 
-This is distinct from losing the response to the write itself. The sample has no durable operation IDs or replay receipts: repeating an addition after an uncertain response may add a duplicate. It therefore does **not** meet Check 3.10. Do not retry writes automatically when adapting it to a network service; implement operation identity and recovery first.
+This is distinct from losing the response to the write itself. The sample has no durable operation IDs or replay receipts: repeating an addition after an uncertain response may add a duplicate. It therefore does **not** provide reliable retry protection. Do not retry writes automatically when adapting it to a network service; implement operation identity and recovery first.
 
-Relevant checks: 3.2, 3.10, 4.3.
+## Find out whether the agent understood and helped
 
-## Read an evaluation as evidence
+So far, the walkthrough has examined what application code guarantees. The model's choices
+need a different kind of evidence. A tool can execute correctly while acting on the wrong
+task, and a reply can sound helpful while omitting part of the request. Evaluate the request,
+actions, saved result, and explanation together.
 
 The [evaluation definitions](../../evaluations/evals.py) give each case a question, starting state, steps, expected outcome, and grading rules. Each attempt starts on a new temporary list. Code checks state; separate judges assess claims and answers. [tests/test_main.py](../../tests/test_main.py) exercises graders on both correct and incorrect outcomes.
 
@@ -197,23 +224,38 @@ These tests demonstrate that reporting rule without a model call:
 .venv/bin/python -m pytest -q tests/test_reference.py -k 'judge or held_out'
 ```
 
-Relevant checks: 6.1, 6.2, 6.6–6.10, 6.13.
-
-## What to carry into another application
-
-Keep the shared owner of each operation, execution-time permission checks, validation before mutation, truthful results, and tests for failures as well as successes. Replace the domain and storage. Keep the model's tool descriptions tied to the operations they describe.
-
-Before a public or multi-user deployment, address the gaps in the [review](sample-assessment.md): concurrent storage, durable retries, cancellation, production audit records, directly rendered receipts, budgets, and release evidence. None requires adding an MCP server to this sample merely to demonstrate the architecture.
-
 ## Review reliability and explore new jobs
 
 Use the [evaluation report guide](evaluation-results.md) to distinguish complete evidence,
 unusual variation, and acceptable performance. A five-run pilot helps inspect failures
 and cost; it does not establish statistical control.
 
-Keep the visible persona player for watching the experience. For unattended exploration,
+Human exploratory testers can get into a rut. Personas automate another source of requests
+and reactions, helping you explore interactions you might not have tried. Sam is one such
+simulated tester. Keep the visible persona player for watching the experience. For unattended exploration,
 run `python -m evaluations.personas --persona sam --turns 3 --max-tokens 50000` using the project’s
-virtual environment. Review the saved HTML beside its JSON record, then decide whether
+virtual environment. Review flagged findings and sample apparently successful conversations in the saved HTML
+beside each JSON record, then decide whether
 a candidate finding should become a regression case. Persona findings do not enter the
 fixed-suite control chart. The [README](../../README.md#watch-personas-or-run-them-unattended)
 explains limits and offline replay. [Langfuse tracing](langfuse.md) is optional.
+
+## Take one capability back to your application
+
+Choose a useful job your users struggle to accomplish. Identify the existing operations
+that do it, and give the UI and agent access through the same implementation. Decide what
+the agent needs to observe, what it may execute, and what requires a person's approval.
+Then test the code's boundaries and evaluate whether the agent does the intended work.
+
+Use the accompanying [design principles](../principles/principles.md) to examine those choices
+and the [implementation guide](../principles/implementation.md) to scope and review the work.
+These documents form the **Beyond Chat** series; the guide contains detailed acceptance checks.
+The [sample assessment](sample-assessment.md) maps this example to those checks, with evidence
+and gaps, when you are ready for that level of detail.
+
+Keep the shared capability ownership, caller-specific authority, validation before changes,
+and truthful results. Adapt the domain and storage to your application. Before using this
+sample as a production foundation, address its documented limitations, including concurrent
+storage, reliable retries, cancellation, audit records, directly rendered action results,
+and budget controls. The value of the sample is that these decisions are visible and small
+enough to inspect.
