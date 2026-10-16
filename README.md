@@ -19,6 +19,10 @@ where the person still does the work. The sample shows the next steps: **tell me
 how → do it for me**, using the app's current state and controls. It also includes a small
 example of combining operations for a request without a dedicated button.
 
+The interface deliberately follows [TodoMVC](https://todomvc.com/), so many readers will
+already recognize the task list and its controls. That familiar starting point lets us focus
+on what changes when an agent works alongside the person.
+
 ## Start here
 
 The [documentation index](docs/README.md) points to practical guides and the principles documents.
@@ -206,6 +210,11 @@ and provider requirements. These checks supplement the app’s validation and ap
 
 ## License
 
-The sample code and accompanying documentation are licensed under [MIT](LICENSE).
+The sample's original code and accompanying documentation are licensed under [MIT](LICENSE).
+The styling in [todo_view.css](todo/assets/todo_view.css) is adapted from
+[TodoMVC app CSS](https://github.com/tastejs/todomvc-app-css), copyright Sindre Sorhus,
+under [CC BY 4.0](licenses/todomvc-app-css.txt). We changed its layout and sizing and added
+styles for dates, approvals, undo, and other app controls. The TodoMVC attribution does not
+imply endorsement of this sample.
 The license does not grant trademark rights in the Eliassen Innovations name or branding.
 Historical presentation assets are not included.

@@ -1,4 +1,10 @@
-/* TodoMVC's look (todomvc.com), a size smaller, filling its column (at most 520px). */
+/* Styling adapted from TodoMVC app CSS, copyright Sindre Sorhus.
+ * Source: https://github.com/tastejs/todomvc-app-css
+ * License: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+ * License text: ../../licenses/todomvc-app-css.txt
+ * Modified for this Streamlit component: layout, sizing, dates, drag controls,
+ * approval cards, undo/redo, and control highlighting. No endorsement implied.
+ */
 .todoapp {
   max-width: 600px; margin: 0 auto; color: #111111; font-weight: 300;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;

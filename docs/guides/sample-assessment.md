@@ -129,7 +129,8 @@ The [walkthrough](walkthrough.md) follows real application paths and explains th
 
 ## Publication preparation
 
-The sample code and accompanying documentation have an [MIT license](../../LICENSE).
+The sample’s original code and documentation have an [MIT license](../../LICENSE).
+Adapted TodoMVC styling has separate [CC BY 4.0 attribution](../../README.md#license).
 This clean distribution excludes the original repository's presentation assets, author-machine
 service scripts, credentials, saved personal todos, and raw local experiment records.
 The curated offline evaluation example is included; it contains synthetic conversations.
