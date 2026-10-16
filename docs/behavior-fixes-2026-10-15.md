@@ -90,4 +90,3 @@ and verdict. This is a proposed grading revision, not implemented or applied to 
 The six completed full experiments have $0.5573 in reported-usage cost estimates. Including the withdrawn experiment and three extra probes, the conservative ledger for this follow-up is $1.3704. The earlier measured work adds $1.7449 to that conservative ledger. An original uninstrumented run remains unpriced; a further $1 planning reserve was kept for it. These are estimates, not a reconciled provider invoice. No more paid runs are active.
 
 After applying the retained correction, all 254 offline tests passed. Runtime, domain, policy, case and judge source hashes match the measured configuration. Tool schemas and order retain their previous hash. Updated documentation links resolve; the local HTML report was regenerated for the 149/153 record. `git diff --check` passed.
-

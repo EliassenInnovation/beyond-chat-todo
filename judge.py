@@ -226,4 +226,3 @@ def answers_every_part(user, reply, *, history=(), state_before=None, state_afte
     evidence = json.dumps({'message': user, 'reply': reply, 'history': list(history),
                            'state_before': state_before, 'state_after': state_after})
     return ask_once(ANSWERS, 'answers', 'leaves_a_part', evidence, 'judge-answers')
-

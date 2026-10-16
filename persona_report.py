@@ -45,7 +45,7 @@ def state(value):
         body += f"<p>Waiting for approval: delete {esc(pending['title'])}.</p>"
     if 'visible' in value:
         body += '<p><b>Visible on screen:</b> ' + esc(', '.join(value['visible']) or 'No tasks') + '.</p>'
-    return body + '<details><summary>Recorded state details</summary>' + raw + '</details>' 
+    return body + '<details><summary>Recorded state details</summary>' + raw + '</details>'
 
 
 def render(record):

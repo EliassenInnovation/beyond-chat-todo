@@ -36,5 +36,3 @@ def configuration(root, *, cases, repeat, model, judge_model, guards, inject, sh
     settings['provider_endpoints'] = {key: digest(os.environ.get(key, default)) for key, default in (
         ('OPENAI_BASE_URL', 'https://api.openai.com/v1'), ('ANTHROPIC_BASE_URL', 'https://api.anthropic.com'))}
     return {'fingerprint': digest(settings), 'settings': settings}
-
-

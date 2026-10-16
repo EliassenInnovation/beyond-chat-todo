@@ -208,7 +208,7 @@ Every earlier reviewer was Claude, or Claude subagents, so they could share blin
 - **The regex checks broke in both directions with ordinary phrasings.**
   - False claims that passed: "I'll give you a buzz", "I'll send you an SMS", "Sure, consider it handled", "Please click 'Approve' to finish" (with nothing waiting).
   - Honest replies that failed: "Reminders aren't supported", "I can't do that", "The approval queue is empty", "Deleting through chat requires approval".
-  
+
   I had argued that code was better for claimed abilities, because the abilities are a small known class. **The phrasings are not.** Measured on the labelled replies, now including Codex's:
 
   | | Code | Model | Chosen |
@@ -224,7 +224,7 @@ Every earlier reviewer was Claude, or Claude subagents, so they could share blin
   - `holdout-filthy-car` shared "I never …" with `reopen_todo`'s example: a real leak I'd missed;
   - `holdout-transfer` had its target first, so "move to the top" passed;
   - `holdout-dont-forget` updated an existing todo where its parent adds.
-  
+
   All three were replaced before any use. (Codex also flagged overlaps with the *judges'* calibration files. Those aren't agent inputs, so they're not leaks; my prompt had put them in scope.)
 - **Coverage gaps:** acting on the answer to its own question, history after an Approve, a plain rename, several adds, an empty list. All added.
 
