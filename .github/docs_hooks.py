@@ -124,5 +124,5 @@ def on_post_build(config):
     cover = '<div class="cover-page">' + cover_match[1] + '</div>'
     introduction = sections[0].replace(cover_match[0], '').replace('<h1 id="chapter-0-cover" class="cover-anchor" aria-label="Cover"></h1>', '')
     body = controls + cover + toc + introduction + ''.join(sections[1:])
-    output = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Build better agents — complete guide</title><style>' + css + '</style><link rel="stylesheet" href="stylesheets/tables.css?v=1"></head><body class="publication">' + body + '</body></html>'
+    output = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Build better agents — complete guide</title><style>' + css + '</style><link rel="stylesheet" href="stylesheets/tables.css?v=1"></head><body class="publication">' + body + '<script src="javascripts/demo-return.js?v=1"></script></body></html>'
     (Path(config["site_dir"]) / "print.html").write_text(output)

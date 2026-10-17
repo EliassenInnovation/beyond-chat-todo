@@ -19,4 +19,5 @@ def replay_html():
     script = script.replace('export function ', 'function ')
     page = (ASSETS / 'persona-replay.html').read_text().replace('data-guide-mode="true"', 'data-guide-mode="false"')
     page = re.sub(r'<script type="module" src="persona-replay\.js(?:\?[^"]*)?"></script>', lambda _: '<script type="module">' + script + '</script>', page)
+    page = page.replace('<script src="../javascripts/demo-return.js?v=1"></script>', '')
     return page
