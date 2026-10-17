@@ -1,0 +1,796 @@
+{
+  "persona": "sam",
+  "who": "Sam, just back from two weeks away; the list is stale and he is a bit overwhelmed.",
+  "wants": "Clear out what is finished, deal with what is overdue first, and not lose anything that still matters. He is unsure whether some things are still needed and says so.",
+  "initial": {
+    "todos": [
+      {
+        "id": 1,
+        "title": "Renew passport",
+        "done": false,
+        "due": "2026-09-10"
+      },
+      {
+        "id": 2,
+        "title": "Pay the electric bill",
+        "done": true,
+        "due": null
+      },
+      {
+        "id": 3,
+        "title": "Book the dentist",
+        "done": false,
+        "due": null
+      },
+      {
+        "id": 4,
+        "title": "Return library books",
+        "done": false,
+        "due": "2026-09-15"
+      },
+      {
+        "id": 5,
+        "title": "Call grandma",
+        "done": false,
+        "due": null
+      },
+      {
+        "id": 6,
+        "title": "Buy sunscreen",
+        "done": true,
+        "due": null
+      },
+      {
+        "id": 7,
+        "title": "Fix the fence",
+        "done": false,
+        "due": null
+      }
+    ],
+    "waiting_for_approval": [],
+    "screen_shows": "all",
+    "pointed_at": null,
+    "pointed_on": null,
+    "visible": [
+      "Renew passport",
+      "Pay the electric bill",
+      "Book the dentist",
+      "Return library books",
+      "Call grandma",
+      "Buy sunscreen",
+      "Fix the fence"
+    ]
+  },
+  "today": "2026-09-24",
+  "status": "satisfied",
+  "final": {
+    "todos": [
+      {
+        "id": 1,
+        "title": "Renew passport",
+        "done": false,
+        "due": "2026-09-10"
+      },
+      {
+        "id": 4,
+        "title": "Return library books",
+        "done": false,
+        "due": "2026-09-15"
+      },
+      {
+        "id": 3,
+        "title": "Book the dentist",
+        "done": false,
+        "due": null
+      },
+      {
+        "id": 5,
+        "title": "Call grandma",
+        "done": false,
+        "due": null
+      },
+      {
+        "id": 7,
+        "title": "Fix the fence",
+        "done": false,
+        "due": null
+      }
+    ],
+    "waiting_for_approval": [],
+    "screen_shows": "all",
+    "pointed_at": null,
+    "pointed_on": null,
+    "visible": [
+      "Renew passport",
+      "Return library books",
+      "Book the dentist",
+      "Call grandma",
+      "Fix the fence"
+    ]
+  },
+  "persona_model": "claude-haiku-5-5",
+  "persona_provider": "anthropic",
+  "agent_model": "claude-haiku-5-5",
+  "agent_provider": "anthropic",
+  "source_sha256": "ee897d434d06df852dba7765e7f889119e10f9e2c768a835d4237a1b7f754305",
+  "recorded": "2026-10-16",
+  "turns": [
+    {
+      "n": 1,
+      "user": "hey, I'm back from two weeks away and my list is a mess. can you clear out the stuff I already finished and tell me what's overdue? I want the overdue stuff dealt with first, and I don't want to lose anything that still matters.",
+      "assistant": "I moved the two overdue items to the top:\n\n1. **Renew passport**, due 2026-09-10\n2. **Return library books**, due 2026-09-15\n\nI also asked to delete the two finished todos, \"Pay the electric bill\" and \"Buy sunscreen.\" Asked to delete \"Pay the electric bill\" and \"Buy sunscreen.\" They stay on the list until you click Approve in the app. Nothing else was removed, and the other open todos are unchanged.\n\nBoth overdue items are still open. Should I change their due dates, or are they done?",
+      "persona": {
+        "click": "none",
+        "message": "hey, I'm back from two weeks away and my list is a mess. can you clear out the stuff I already finished and tell me what's overdue? I want the overdue stuff dealt with first, and I don't want to lose anything that still matters.",
+        "done": false,
+        "satisfied": false,
+        "frustrated": false,
+        "why": ""
+      },
+      "before_click": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 2,
+            "title": "Pay the electric bill",
+            "done": true,
+            "due": null
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 6,
+            "title": "Buy sunscreen",
+            "done": true,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Pay the electric bill",
+          "Book the dentist",
+          "Return library books",
+          "Call grandma",
+          "Buy sunscreen",
+          "Fix the fence"
+        ]
+      },
+      "clicked_ids": [],
+      "before": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 2,
+            "title": "Pay the electric bill",
+            "done": true,
+            "due": null
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 6,
+            "title": "Buy sunscreen",
+            "done": true,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Pay the electric bill",
+          "Book the dentist",
+          "Return library books",
+          "Call grandma",
+          "Buy sunscreen",
+          "Fix the fence"
+        ]
+      },
+      "after": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 2,
+            "title": "Pay the electric bill",
+            "done": true,
+            "due": null
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 6,
+            "title": "Buy sunscreen",
+            "done": true,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [
+          {
+            "id": 1,
+            "todo_id": 2,
+            "title": "Pay the electric bill"
+          },
+          {
+            "id": 2,
+            "todo_id": 6,
+            "title": "Buy sunscreen"
+          }
+        ],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Pay the electric bill",
+          "Book the dentist",
+          "Call grandma",
+          "Buy sunscreen",
+          "Fix the fence"
+        ]
+      }
+    },
+    {
+      "n": 2,
+      "user": "yes, delete both finished ones, that's fine. and no, don't change the due dates, I still need to do the passport and the books.",
+      "assistant": "Both finished todos are already gone. The app shows \"Pay the electric bill\" and \"Buy sunscreen\" as deleted, so there's nothing left to approve. I left the due dates alone. \"Renew passport\" (due 2026-09-10) and \"Return library books\" (due 2026-09-15) are still overdue and sit at the top. The open items below them are Book the dentist, Call grandma, and Fix the fence.",
+      "persona": {
+        "click": "approve",
+        "message": "yes, delete both finished ones, that's fine. and no, don't change the due dates, I still need to do the passport and the books.",
+        "done": false,
+        "satisfied": false,
+        "frustrated": false,
+        "why": ""
+      },
+      "before_click": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 2,
+            "title": "Pay the electric bill",
+            "done": true,
+            "due": null
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 6,
+            "title": "Buy sunscreen",
+            "done": true,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [
+          {
+            "id": 1,
+            "todo_id": 2,
+            "title": "Pay the electric bill"
+          },
+          {
+            "id": 2,
+            "todo_id": 6,
+            "title": "Buy sunscreen"
+          }
+        ],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Pay the electric bill",
+          "Book the dentist",
+          "Call grandma",
+          "Buy sunscreen",
+          "Fix the fence"
+        ]
+      },
+      "clicked_ids": [
+        1,
+        2
+      ],
+      "before": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Book the dentist",
+          "Call grandma",
+          "Fix the fence"
+        ]
+      },
+      "after": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Book the dentist",
+          "Call grandma",
+          "Fix the fence"
+        ]
+      }
+    },
+    {
+      "n": 3,
+      "user": "ok nice, thanks. the dentist, grandma and the fence — I'm not sure those are still needed. can you just leave them where they are for now and not delete anything else? I'll decide on those myself later.",
+      "assistant": "Got it. I'll leave Book the dentist, Call grandma, and Fix the fence where they are, and I won't delete anything else. Renew passport and Return library books stay at the top with their dates.",
+      "persona": {
+        "click": "none",
+        "message": "ok nice, thanks. the dentist, grandma and the fence — I'm not sure those are still needed. can you just leave them where they are for now and not delete anything else? I'll decide on those myself later.",
+        "done": false,
+        "satisfied": false,
+        "frustrated": false,
+        "why": ""
+      },
+      "before_click": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Book the dentist",
+          "Call grandma",
+          "Fix the fence"
+        ]
+      },
+      "clicked_ids": [],
+      "before": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Book the dentist",
+          "Call grandma",
+          "Fix the fence"
+        ]
+      },
+      "after": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Book the dentist",
+          "Call grandma",
+          "Fix the fence"
+        ]
+      }
+    },
+    {
+      "n": 4,
+      "user": "great, that's what I wanted. thanks, I think that's everything for now.",
+      "persona": {
+        "click": "none",
+        "message": "great, that's what I wanted. thanks, I think that's everything for now.",
+        "done": true,
+        "satisfied": true,
+        "frustrated": false,
+        "why": "The finished items were cleared, the overdue items are at the top with their dates intact, and the other open items were left alone as requested."
+      },
+      "before_click": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Book the dentist",
+          "Call grandma",
+          "Fix the fence"
+        ]
+      },
+      "clicked_ids": [],
+      "before": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Book the dentist",
+          "Call grandma",
+          "Fix the fence"
+        ]
+      },
+      "after": {
+        "todos": [
+          {
+            "id": 1,
+            "title": "Renew passport",
+            "done": false,
+            "due": "2026-09-10"
+          },
+          {
+            "id": 4,
+            "title": "Return library books",
+            "done": false,
+            "due": "2026-09-15"
+          },
+          {
+            "id": 3,
+            "title": "Book the dentist",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 5,
+            "title": "Call grandma",
+            "done": false,
+            "due": null
+          },
+          {
+            "id": 7,
+            "title": "Fix the fence",
+            "done": false,
+            "due": null
+          }
+        ],
+        "waiting_for_approval": [],
+        "screen_shows": "all",
+        "pointed_at": null,
+        "pointed_on": null,
+        "visible": [
+          "Renew passport",
+          "Return library books",
+          "Book the dentist",
+          "Call grandma",
+          "Fix the fence"
+        ]
+      },
+      "end": true
+    }
+  ]
+}

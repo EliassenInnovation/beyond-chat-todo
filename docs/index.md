@@ -68,10 +68,11 @@ and data, with permissions appropriate to each.
 
 *Trying the agent while watching what changes in the application.*
 
-You can explore the code, [run a walkthrough without an API key](guide/start.md), or
-[review recorded evaluation results](https://bobfischer.github.io/beyond-chat-todo/)
-without installing the app. The sample is designed for local, single-user use and makes
-the principles concrete.
+[Watch a recorded persona session](demos/persona-replay.html) with **Next** and **Play**.
+See the conversation, approval requests and changes to the list without installing
+anything or supplying an API key. You can also explore the code or
+[review recorded evaluation results](https://bobfischer.github.io/beyond-chat-todo/).
+The sample is designed for local, single-user use and makes the principles concrete.
 
 The sample has been tested with OpenAI and Anthropic models. You can also connect hosted
 or local models through an OpenAI-compatible API. The [Choose models](guides/models.md)

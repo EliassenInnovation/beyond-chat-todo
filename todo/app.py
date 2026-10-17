@@ -51,6 +51,20 @@ DATA = Path(os.environ.get('EVALBASICS_DATA', Path(__file__).resolve().parents[1
 
 st.set_page_config(page_title='Todos', layout='wide')
 
+# An unconfigured checkout opens a useful replay without constructing a model client.
+# Presence of a key means configured, not that a provider has been contacted or verified.
+from todo.model_provider import model_for, provider_for
+from todo.recorded_demo import replay_html
+
+agent_provider = provider_for('agent', model_for('agent'))
+model_configured = bool(setting('ANTHROPIC_API_KEY' if agent_provider == 'anthropic' else 'OPENAI_API_KEY', '').strip())
+show_demo = st.sidebar.checkbox('Show recorded demo', value=not model_configured)
+if show_demo:
+    st.selectbox('Persona', ['-- Prerecorded Run --'], key='recorded-persona')
+    st.iframe(replay_html(), height=1150, alt="Recorded persona session with playback controls")
+    st.stop()
+
+
 
 @st.cache_resource
 def langfuse_connection():
@@ -192,7 +206,7 @@ with assistant_side:
             link = session_link()
             st.html('<div class="recorded"><span class="dot"></span>Recording to Langfuse'
                     + (f' · <a href="{html.escape(link)}" target="_blank">open</a>' if link else '') + '</div>')
-        if prompt := st.chat_input(waiting or 'Tell the assistant what to do', disabled=bool(waiting), key='chat-input'):
+        if prompt := st.chat_input(waiting or 'Tell the assistant what to do', disabled=bool(waiting) or not model_configured, key='chat-input'):
             state.chat.append(('user', prompt))
             state.pending = ('assistant', prompt)
             st.rerun()
@@ -203,7 +217,7 @@ with assistant_side:
     # It shows when tracing was asked for (LANGFUSE_TRACING_ENABLED=true), whether or not Langfuse is reachable:
     # a persona plays and reports in code, so it is worth watching untraced too. With Langfuse there,
     # each thing it says is a trace and the card links to it.
-    if player_on:
+    if player_on and model_configured:
         # None and the exploratory tester are not personas: a dropdown cannot set them in italics, so
         # dashes mark them, first.
         choices = [NO_PERSONA, EXPLORATORY] + list(personas.PERSONAS)

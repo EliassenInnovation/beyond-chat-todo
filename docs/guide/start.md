@@ -14,6 +14,12 @@ It uses disposable data and makes no model calls. For the interactive app:
 .venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
+With no model key configured, the app opens **Prerecorded Run**. Use **Next** to step
+through the saved conversation and approval decisions, or **Play** to watch it unfold.
+This is a replay of a complete model-driven session; it makes no new model calls.
+Uncheck **Show recorded demo** in the sidebar to use your own list. After configuring
+a model key, you can try the live agent and persona player.
+
 Setup installs the dependencies and creates `.env` from `.env.example` if absent. It does
 not edit shell profiles or access a credential vault. The list works without API keys.
 For chat and paid evaluations, choose `EVALBASICS_PROVIDER=openai` or `anthropic` in `.env`
