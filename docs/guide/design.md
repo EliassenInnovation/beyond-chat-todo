@@ -83,23 +83,28 @@ inspectable contract with enforced rules, not a requirement to adopt this sample
 
 ![An agent between API endpoints and goals such as publishing a post, creating an invoice and scheduling a meeting.](../images/api-and-jobs.png)
 
-*Tools described in the language of people's jobs help the agent select the right tool or combination of tools.*
+*CRUD APIs provide building blocks. Tools for the main user jobs help an agent recognize and complete those jobs.*
 
-Many APIs are organized around records and fields. A person might say, “I need to track
-these purchases for taxes.” Depending on the application, that job could require several API
-calls: find the purchases, attach receipts, add a tracking label, and include them in a report.
-The person describes the outcome; the agent needs to identify the operations that produce it.
+Many APIs provide **CRUD operations—create, read, update and delete—on records**. That is a
+useful foundation. But the main jobs people come to do often involve several records and
+operations. A helpful agent needs tools named and described in the language of those jobs,
+with implementations that handle their business process.
 
-Tool names and descriptions should connect that request to what the application can do.
-A tool for organizing purchases for tax records might coordinate those calls, or the agent
-might combine several tools with clear purposes. Either way, the underlying operations and
-business rules remain in shared application code. If the purchases or desired report are
-unclear, the agent should ask before making changes.
+For example, “Reschedule my appointment” may require checking availability, reserving a new
+slot, releasing the old one, and notifying participants. A dedicated `reschedule_appointment`
+operation can enforce the rules, coordinate those steps, and handle failures consistently.
+If the agent has only the individual building blocks, it must determine the sequence and
+handle partial completion each time someone asks.
 
-Sometimes a clearer description is enough: an existing operation that changes a post's status
-can be described in terms of publishing, scheduling and unpublishing. A separate operation
-is useful when the job has its own validation, side effects or recovery requirements.
-A successful field update does not by itself establish that the whole job happened.
+There are two benefits here. **The name and description help the agent recognize the job.**
+**The implementation handles the recurring workflow**, so the agent does not have to
+reconstruct it on every request. That implementation belongs in shared application code,
+where the UI can use it too; it may coordinate API calls you already have.
+
+Sometimes clearer names and descriptions are sufficient because an existing operation already
+performs the whole job. Where the process spans several calls, a dedicated operation can make
+its validation, side effects and recovery explicit. General tools remain useful for requests
+you did not anticipate. Evaluate both kinds against the outcomes users need.
 
 ## If you do not have an API yet
 
