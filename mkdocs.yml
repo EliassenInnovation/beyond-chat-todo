@@ -60,7 +60,7 @@ nav:
   - Evaluation:
     - Explore the experience: guide/exploration.md
     - Evaluate outcomes: guide/evaluation.md
-    - Read evidence and variation: guides/evaluation-results.md
+    - Review results and understand variation: guides/evaluation-results.md
     - Optional tracing: guides/langfuse.md
   - Apply it to your app: guide/apply.md
   - Review references:

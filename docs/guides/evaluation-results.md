@@ -1,4 +1,4 @@
-# Reading an evaluation run
+# Review results and understand variation
 
 [![An evaluation report with evidence completeness, conversations and repeated-run charts.](../images/evaluation-review.png)](https://bobfischer.github.io/beyond-chat-todo/)
 

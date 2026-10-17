@@ -9,7 +9,14 @@ A **trace** records the model requests, tool calls and results that led to an ou
 one when a report tells you what failed but you need to inspect how the agent reached it.
 Start with the local HTML report; add this integration when shared trace inspection would help.
 
-Use your existing Langfuse server or a [Langfuse Cloud project](https://langfuse.com/cloud).
+You can run Langfuse on your own computer using its
+[Docker Compose setup](https://langfuse.com/self-hosting/deployment/docker-compose),
+without a cloud subscription. Follow that guide to start it, then create a local account
+and project at `http://localhost:3000`. For the todo app, set
+`LANGFUSE_BASE_URL=http://localhost:3000` and use that project's API keys below.
+
+You can instead use an existing Langfuse server or a
+[Langfuse Cloud project](https://langfuse.com/cloud).
 Create project API keys in that project's settings, and put the three values in this
 repo's `.env` (never commit the file):
 
@@ -21,7 +28,7 @@ LANGFUSE_BASE_URL=https://your-langfuse-host
 
 Use the base URL for your own region or deployment. See
 [Langfuse's setup guide](https://langfuse.com/docs/observability/get-started) for account setup.
-No container setup is required by this example.
+Containers are needed only if you choose the local Docker Compose setup.
 
 To watch personas without exporting anything, set `EVALBASICS_PERSONA_PLAYER=true` and
 leave `LANGFUSE_TRACING_ENABLED=false`. The visible player and trace export are independent.

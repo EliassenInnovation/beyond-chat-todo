@@ -58,24 +58,37 @@ Python and API details; you can read the examples without running them.
 We’ve added **Consider** and **Practice** boxes throughout the document to help you deepen
 your understanding and apply the ideas to your own application.
 
+## See the ideas in a working application
+
+The guide includes a small todo application with an embedded AI agent. You can use its
+controls yourself or ask the agent to help. Both use the same application capabilities
+and data, with permissions appropriate to each.
+
+![The sample application and its embedded assistant, with a human exploratory tester.](images/exploratory-tester.png)
+
+*Trying the agent while watching what changes in the application.*
+
+You can explore the code, [run a walkthrough without an API key](guide/start.md), or
+[review recorded evaluation results](https://bobfischer.github.io/beyond-chat-todo/)
+without installing the app. The sample is designed for local, single-user use and makes
+the principles concrete.
+
 The sample has been tested with OpenAI and Anthropic models. You can also connect hosted
 or local models through an OpenAI-compatible API. The [Choose models](guides/models.md)
 chapter explains the required features and how to check compatibility.
 
-## What you can inspect now
+You can also explore detailed traces with Langfuse, which records model requests, tool
+calls and results to help you understand what happened. Langfuse can run locally in
+containers, without a cloud subscription. It is one example of a tracing tool; the sample
+and its evaluation reports work without it. [Optional tracing](guides/langfuse.md)
+explains how to connect it to the todo app.
 
-![The sample application and its embedded assistant, with a human exploratory tester.](images/exploratory-tester.png)
+## Apply the principles to your own application
 
-*The UI and assistant work on the same application state. This is one interaction, not a reliability claim.*
-
-You can read the code, run the capability walkthrough without credentials, or
-[open recorded evaluation results](https://bobfischer.github.io/beyond-chat-todo/) without installing anything.
-The sample is local and single-user. It demonstrates patterns; it is not a complete production architecture.
-
-## Read the guide and use the review references
-
-The design chapters explain shared capabilities, user requests, authority, tools and interfaces. The implementation chapters take those ideas through the working app. The evaluation chapters cover exploration, judging, evidence and variation. These are parts of one guide, from the reason to build an agent through the evidence needed to improve it.
-
-Use the [implementation and acceptance checks](principles/implementation.md) when scoping or reviewing work. The [sample assessment](guides/sample-assessment.md) records what this app demonstrates and what it leaves out. Check numbers are stable review identifiers; you do not need to memorize them before starting. [Sources and further reading](reference/sources.md) support the guidance.
+The [implementation and acceptance checks](principles/implementation.md) help you plan
+changes and review what you build. The [sample assessment](guides/sample-assessment.md)
+shows which principles the todo app demonstrates and where you will need to do more for
+your own application. [Sources and further reading](reference/sources.md) provide
+additional background.
 
 The guide and sample are provided by Eliassen Innovations under the repository's MIT license.
