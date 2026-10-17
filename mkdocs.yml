@@ -17,7 +17,7 @@ hooks:
   - .github/docs_hooks.py
 theme:
   name: material
-  logo: images/eliassen-mark-white.svg
+  logo: images/eliassen-primary-white.svg
   font: false
   palette:
     primary: indigo
@@ -40,7 +40,7 @@ markdown_extensions:
       toc_depth: "2-2"
       permalink: true
 extra_css:
-  - stylesheets/guide.css?v=20261017-publication2
+  - stylesheets/guide.css?v=20261017-full-logo
 nav:
   - Cover: index.md
   - Design:
