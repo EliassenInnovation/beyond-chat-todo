@@ -1,11 +1,18 @@
 /* Reading layout, with no remote font dependency. */
 :root { --md-text-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-.md-grid { max-width: 88rem; }
-.md-typeset { font-size: .86rem; line-height: 1.7; }
-.md-typeset h1 { color: #2e4394; font-weight: 650; letter-spacing: -.025em; }
-.md-typeset h2 { font-weight: 650; margin-top: 2.1em; }
-.md-typeset img { display: block; height: auto; margin: 1.6rem auto .8rem; }
+.md-grid { max-width: 72rem; }
+/* Keep prose readable on large displays without widening diagrams or tables off-screen. */
+.md-content__inner { max-width: 76ch; margin-inline: auto; padding-inline: 1rem; }
+.md-typeset { font-size: .86rem; line-height: 1.55; }
+.md-typeset h1 { color: #2e4394; font-weight: 650; letter-spacing: -.025em; margin-bottom: .8em; }
+.md-typeset h2 { font-weight: 650; margin-top: 1.5em; margin-bottom: .55em; }
+.md-typeset img { display: block; height: auto; margin: .85rem auto .45rem; }
 .md-typeset img[src$=".svg"] { width: 100%; background: white; padding: .5rem; border-radius: .35rem; }
+.md-typeset p, .md-typeset ul, .md-typeset ol { margin-block: .7em; }
+.md-typeset h3 { margin-top: 1.2em; margin-bottom: .45em; }
+@media screen and (max-width: 44.984375em) {
+  .md-content__inner { padding-inline: .2rem; }
+}
 .md-typeset table:not([class]) { font-size: .76rem; }
 .md-typeset a { text-underline-offset: .16em; }
 .md-typeset a:hover { text-decoration: underline; }
