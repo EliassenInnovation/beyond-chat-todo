@@ -2,6 +2,8 @@
 
 ![Build better agents. Help your users get things done. Eliassen Group.](images/guide-cover.svg){ .publication-cover }
 
+<h1 id="introduction">Introduction</h1>
+
 An AI agent embedded in an application can help people find useful capabilities,
 understand unfamiliar workflows, and get work done.
 

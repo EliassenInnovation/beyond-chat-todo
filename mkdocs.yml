@@ -45,6 +45,7 @@ extra_css:
   - stylesheets/tables.css?v=1
 nav:
   - Cover: index.md
+  - Introduction: https://bobfischer.github.io/beyond-chat-todo/guide/#introduction
   - Design:
     - Why an embedded agent?: guide/why.md
     - Shared capabilities and the registry: guide/design.md
