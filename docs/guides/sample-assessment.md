@@ -98,7 +98,7 @@ The [walkthrough](walkthrough.md) follows real application paths and explains th
 | 5.1 | Personas | Not run | Distinct starting states and goals tested. | Plausibility needs human observation; simulations do not establish demand. |
 | 5.2 | Personas | Not run | Bounded adaptive harness tests and a live three-turn Priya smoke test with checkpoints. | The smoke test ended at its turn limit; full exploratory-job acceptance and visible interaction remain unverified. |
 | 5.3 | Evaluation | Not run | Pilot failures reproduce ambiguity and unwanted-task problems already covered by cases. | No new persona finding was independently confirmed and promoted to a regression in this follow-up. |
-| 5.4 | Personas/UI | Pass | Tests restrict the harness to typing and available approval controls; scratch lists are separate. | Harness is a subset of human controls, not a full UI automation model. |
+| 5.4 | Personas/UI | Pass | Tests restrict the harness to typing and available approval controls; separate test lists are separate. | Harness is a subset of human controls, not a full UI automation model. |
 
 ## Evaluating outcomes
 

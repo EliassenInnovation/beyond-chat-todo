@@ -1,7 +1,7 @@
 # Apply the approach to your application
 
 Choose one useful job people struggle to complete. Write down the starting state, what the
-person is trying to achieve, what must change, what must stay unchanged, and what confirmation
+person is trying to achieve, what must change, what must remain unchanged, and what confirmation
 they need. Include examples of asking for instructions as well as asking for action.
 
 ## Make one operation shared
@@ -34,7 +34,7 @@ findings as cases. Keep held-out cases separate from development.
 Run focused evals while changing a capability, then a broader suite before accepting it.
 Repeated baseline collection serves a different purpose: estimating ordinary variation in
 a fixed configuration. Changing the model, grader or cases requires a new comparison period,
-not quietly moving the old chart's limits.
+rather than updating the old chart's limits without identifying the change.
 
 ## Keep a record of attempted work
 

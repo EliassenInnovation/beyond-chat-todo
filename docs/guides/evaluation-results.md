@@ -15,7 +15,7 @@ Langfuse is one example integration, not a required service or a recommendation 
 
 ## From exploration to human judgment
 
-Exploratory testers bring context and curiosity, but can fall into a testing rut. Personas
+Exploratory testers bring context and curiosity, but may repeatedly test the same kinds of requests. Personas
 provide another source of requests and follow-up behavior. Run them visibly to inspect the
 screen experience, or headlessly to collect more conversations. Neither replaces human review.
 Inspect flagged findings and sample apparently successful conversations; reviewing only flags
@@ -61,7 +61,7 @@ check that the list and pending approvals stayed unchanged. A language judge can
 the reply asked which tasks. A plausible reply does not excuse an unwanted change; unchanged
 state does not establish that the reply answered the person.
 
-Inspect what the application actually sent to the model as well. Repeated stale snapshots
+Also inspect the input the application sent to the model. Repeated stale snapshots
 can make the request harder to interpret even when the screen looks correct. Changing a
 prompt to demand more care would miss that cause. Preserve the conversation and input evidence,
 fix the underlying issue, and check a separately held-out phrasing. When a grade disagrees
@@ -118,7 +118,7 @@ the specific run counts here are not vendor requirements.
 
 A capable human with the same information should be able to give a natural, concise reply
 and pass. Resolve references from the conversation; accept equivalent wording, ordinary
-acknowledgments, and an honest explanation of a limitation. Do not require the assistant to
+acknowledgments, and an accurate explanation of a limitation. Do not require the assistant to
 repeat every clause of the request when its response and the resulting action make the
 meaning clear. This is a standard of adequate communication, not a claim that any response
 a human might give is correct.
@@ -220,6 +220,8 @@ gaps. The consecutive-run calculation considers intervening records, so it canno
 an eight-run sequence across an incomplete or differently configured run.
 
 ## Freeze a baseline deliberately
+
+Freezing a baseline means saving the reviewed comparison runs and control limits so that later runs do not change them.
 
 The optional baseline command implements an individuals/moving-range chart of full-run
 failure rates. It estimates the center as the average rate and limits as the center plus

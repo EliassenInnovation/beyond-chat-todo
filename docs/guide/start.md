@@ -33,7 +33,7 @@ For evidence completeness, run history, control limits, and acceptance criteria,
 
 ## Try three different requests
 
-Use a scratch list with synthetic tasks. Ask “How do I hide completed tasks?”, then
+Use a separate test list with synthetic tasks. Ask “How do I hide completed tasks?”, then
 “Show me where”, then “Do it.” Compare the reply with what the screen does: instructions,
 a highlighted control, and a changed filter are different outcomes.
 

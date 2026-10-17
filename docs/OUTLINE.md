@@ -7,7 +7,7 @@ Existing chapter files remain the canonical sources rather than being copied int
 | Chapter | Reader's question and coverage | Material and visual treatment |
 | --- | --- | --- |
 | Start here | What is this guide, who is it for, and what will I build? | New introduction; plain language, no unexplained check numbers. |
-| 1. Why put an agent in the app? | Where does assistance earn its keep? How does it differ from help search? | October 13 motivation and two-languages explanation; wagon, laptop, assistance ladder and two-language diagram. |
+| 1. Why put an agent in the app? | Where does assistance provide value? How does it differ from help search? | October 13 motivation and two-languages explanation; wagon, laptop, assistance ladder and two-language diagram. |
 | 2. Design the connection | How do shared capabilities, caller authority, context, guards, receipts and recovery fit together? | New connecting narrative drawn from the principles and talk; shared-capability and screen-state diagrams. Distinguish recommendations from this sample's guarantees. |
 | 3. Run the sample | What do I install, which key do I need, what can I try without a model? | Setup from README, two provider choices, first three interactions; no secrets. |
 | 4. Follow a request | Where does a UI event or tool call go? What happens on ambiguity, approval, failure or recovery? | Existing walkthrough integrated as the central implementation chapter; architecture and screen diagrams alongside code links. |

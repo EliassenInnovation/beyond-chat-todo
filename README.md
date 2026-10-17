@@ -1,5 +1,7 @@
 # Building Helpful, Trustworthy Agents Into Your Application
 
+> **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization’s security policies.
+
 Principles, a working example, and evaluation tools from Eliassen Innovations to help you
 build or improve an agent inside your application or website.
 
@@ -94,7 +96,7 @@ The guide explains [evaluation](docs/principles/evaluating-agents.md),
 
 ## Watch personas or run them unattended
 
-People exploring an app can fall into a testing rut. Simulated users broaden the requests
+People exploring an app may repeatedly test the same kinds of requests. Simulated users broaden the requests
 and reactions you can inspect. Watch them in the app or run them headlessly, then review
 flagged findings and sample apparent successes. Neither persona satisfaction nor a smooth
 conversation proves the application worked. [Run and review personas](docs/guide/exploration.md).

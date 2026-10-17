@@ -201,7 +201,7 @@ arithmetic; they do not establish that a date matches the person's intent.
 
 ## Try a replacement and measure it
 
-Start with a scratch list and trace export off. These first commands make no model calls until
+Start with a separate test list and trace export off. These first commands make no model calls until
 you send a chat message:
 
 ```bash

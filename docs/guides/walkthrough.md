@@ -37,7 +37,7 @@ Its screen actions use the same shared operations as the person's controls. This
 knowing what the person sees and being able to control the UI matter.
 
 Level 6, “do something new for me,” can be explored by combining existing operations. On a
-scratch list with distinct due dates, try “Show my unfinished tasks due this week, and move the
+separate test list with distinct due dates, try “Show my unfinished tasks due this week, and move the
 earliest one to the top.” There is no dedicated button for that combined request: the agent
 must interpret the criteria, select tasks, change the view and reorder the chosen task. If no
 tasks qualify or the choice is ambiguous, an appropriate response may be an explanation or a
@@ -227,7 +227,7 @@ A more important test fails the actual file replacement after a multi-item addit
 
 ## Recover when the model stops after saving
 
-A request can save a task successfully and then lose the model service while asking for the final reply. The saved task must not vanish, and the app must not imply that nothing happened.
+A request can save a task successfully and then lose the model service while asking for the final reply. The saved task must remain available, and the app must not imply that nothing happened.
 
 ```bash
 .venv/bin/python -m pytest -q tests/test_reference.py -k provider_failure
@@ -271,7 +271,7 @@ Use the [evaluation report guide](evaluation-results.md) to distinguish complete
 unusual variation, and acceptable performance. A five-run pilot helps inspect failures
 and cost; it does not establish statistical control.
 
-Human exploratory testers can get into a rut. Personas automate another source of requests
+Human exploratory testers may repeatedly test the same kinds of requests. Personas automate another source of requests
 and reactions, helping you explore interactions you might not have tried. Sam is one such
 simulated tester. Keep the visible persona player for watching the experience. For unattended exploration,
 run `python -m evaluations.personas --persona sam --turns 3 --max-tokens 50000` using the project’s

@@ -8,13 +8,13 @@ refer to tasks indirectly, and compare the explanation with the screen and saved
 
 ![A person explores task merging and a request containing several tasks.](../images/exploratory-tester.png)
 
-The exploratory tester gives you a scratch list. Use it to probe the experience without
+The exploratory tester gives you a separate test list. Use it to test the interaction without
 changing your own list. Do not treat an awkward answer as automatically wrong: decide whether
 it accomplished the person's request and communicated accurately.
 
 ## Broaden the exploration with personas
 
-Human testers can run out of ideas or fall into familiar patterns. A persona is another
+Human testers may have difficulty thinking of new scenarios or may repeat familiar ones. A persona is another
 model playing a person with a situation and goals. Sam demonstrates automated exploratory
 testing, not a claim that people need an agent to manage a simple todo list.
 
@@ -24,8 +24,8 @@ testing, not a claim that people need an agent to manage a simple todo list.
 Set `EVALBASICS_PERSONA_PLAYER=true` in `.env` to show the visible player without enabling
 trace export (the sample configuration includes it). It lets you watch a persona interact
 with the actual screen. Pick a persona, then use Next or Play to watch. Each persona
-uses a scratch list; pick None to return to your own list. The command-line runner uses the same persona prompts,
-screen description, and approval actions, with a separate scratch list for each session:
+uses a separate test list; pick None to return to your own list. The command-line runner uses the same persona prompts,
+screen description, and approval actions, with a separate separate test list for each session:
 
 ```bash
 .venv/bin/python -m evaluations.personas --persona sam --turns 8 --max-tokens 50000
@@ -67,7 +67,7 @@ The persona returns structured fields for messages, approval choices and reactio
 Satisfaction is the simulated person's opinion, not proof that the application worked.
 
 Review flagged findings and sample apparent successes. When people disagree, put the exact
-request, starting state and proposed action in front of a reviewer. Ask a focused question:
+request, starting state and proposed action for a reviewer to inspect. Ask a focused question:
 “Did the user uniquely identify this task?” or “Were other items requested too?” Preserve
 the original record and the corrected judgment; a reviewer's first mistake is not a target
 for the system to imitate.

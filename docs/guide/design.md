@@ -10,7 +10,7 @@ The UI and agent should use the same implementation, validation and data.
 
 *Different interfaces reach one owner of each operation. Sharing implementation does not grant identical authority.*
 
-Keep the screen's event handling and the model's tool adapter thin. Both reach the shared
+Keep the screen's event handling and the model's tool adapter focused on translating requests into shared operations. Both reach the shared
 operation. Otherwise, a rule fixed in the UI can remain broken in the agent's separate copy.
 An existing service layer may already provide this boundary; you do not have to rebuild
 an application before adding one useful capability.
@@ -27,9 +27,9 @@ states what an operation is, what it takes, and which rules apply. Shared code r
 declarations to offer tools, validate requests, enforce caller policy and dispatch execution.
 
 Without that structure, the tool list, permission checks, parameter definitions and descriptions
-can become separate lists that drift apart. The registry gives them a common source and gives
+can become separate lists that become inconsistent. The registry gives them a common source and gives
 a reviewer one place to inspect what the agent can do. Declarations can live beside their
-implementations in different modules; central registration does not require one giant source file.
+implementations in different modules; central registration does not require all declarations to be in one source file.
 
 ### What belongs in an entry, and why?
 
@@ -78,7 +78,7 @@ schemas, access checks and reliable results. Reuse those contracts and implement
 a registry need not duplicate them or introduce another service.
 
 What remains is to inspect whether that API provides the right operations and context for
-an agent, with suitable caller policies. If it already does, a thin tool adapter may be enough.
+an agent, with suitable caller policies. If it already does, a small adapter that maps tool calls to API operations may be enough.
 An API contract can serve as the registry or supply much of it. The principle is a shared,
 inspectable contract with enforced rules, not a requirement to adopt this sample's Python class.
 
@@ -95,7 +95,7 @@ a result in the person's terms. The business rule still belongs to shared applic
 
 Sometimes a clearer description is enough: an existing operation that changes a post's status
 can be described in terms of publishing, scheduling and unpublishing. A separate operation
-earns its place when the job has its own validation, side effects or recovery requirements.
+is useful when the job has its own validation, side effects or recovery requirements.
 A successful field update does not by itself establish that the whole job happened.
 
 ## If you do not have an API yet
@@ -111,7 +111,7 @@ Move permission checks with the operation so bypassing the screen cannot bypass 
 
 If you already have a service layer, start there. If the UI state is also scattered, give the
 relevant screen a shared state representation so the agent can both observe and operate it.
-A full application rewrite is not a prerequisite; an honest assessment of the work is.
+A full application rewrite is not a prerequisite; a realistic estimate of the required work is.
 
 ## Balance general tools with tools for important jobs
 

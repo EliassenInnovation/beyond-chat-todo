@@ -8,7 +8,7 @@
 
 Version 3.5-draft · October 15, 2026
 
-> **Note:** Following these practices does not make an application secure. We have tried red teaming and prompt-injection tests, but encryption, transport security, authentication, and other standard security are outside this document's scope. Security for an application with an agent belongs to corporate governance, with policy and controls in place.
+> **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization’s security policies.
 
 Section 6 of the paper says what to evaluate, how to judge, and how to read the results. This companion covers how to run evaluations in detail, for the people who build and maintain them. Source numbers refer to the paper's [Foundations and Further Reading](principles.md#foundations-and-further-reading), and check numbers to the [implementation guide](implementation.md) (Checks 6.1–6.15).
 
@@ -44,15 +44,17 @@ Section 6 of the paper says what to evaluate, how to judge, and how to read the 
 
 **Report whether every attempt succeeds, where consistency matters.** A pass rate says how often one attempt succeeds. But a user who does the same job every week cares whether it works every time. pass^k measures that: whether all k attempts at the same job succeed. [10](https://arxiv.org/abs/2406.12045) [21](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) For jobs where consistency matters, report it beside the pass rate, and say what k was. To calculate it, make n attempts at each job, k or more, and count the c that succeed; for that job, pass^k is the number of ways to choose k attempts from the c successes divided by the number of ways to choose k from all n, and the suite's pass^k is the average over its jobs. Start every attempt from the same saved state, so one attempt cannot change what the next one finds.
 
-**When the noise itself is the problem, fix its source.** Sometimes the variation is the problem: a test case that passes or fails like a coin flip, or a rule the agent's answer sits right on the edge of. More runs will not settle this. Find where the variation comes from before changing anything: the application may be unreliable at this job, the test environment may differ between runs, or the grader may disagree with itself. Fix the application when it is the source, and change the test case or the rule only when they are.
+**When the noise itself is the problem, fix its source.** Sometimes the variation is the problem: a test case that passes about half the time, or an answer that is difficult to classify under the grading rule. More runs will not settle this. Find where the variation comes from before changing anything: the application may be unreliable at this job, the test environment may differ between runs, or the grader may disagree with itself. Fix the application when it is the source, and change the test case or the rule only when they are.
 
 **Decide before the run what would block a release.** Before running the suite for a release, write down who decides, which failures block the release (such as an answer that reports a save that did not happen), what failure rate is accepted for the rest, and what makes a run inconclusive, such as too many ungraded judgments or a required check that did not run. Report cost and time for each completed job as well as for each model call: an agent that needs many calls to finish a job costs more than its cost per call suggests.
 
 **Keep a record behind each reported improvement.** When a report says a change helped, link the claim to a short record of the experiment: what changed, the versions of the model and the application, which cases were run and how many attempts each, the grading criteria, the result, and what the experiment could not show. Without the record, nobody can check the claim later, including the people who made it.
 
-## How to keep the test cases honest
+<span id="how-to-keep-the-test-cases-honest"></span>
 
-**Test one hypothesis at a time.** Treat each change as an experiment. State the hypothesis first: "Rewording the move tool will stop the agent from choosing the wrong position." Change only that, and keep everything else the same: the model, the starting data, the other tools, and the grading rules. Record what each run actually used, including the model that served each call and the application's version, so you can tell later whether anything else changed. Save each failure, not just the totals, so you can see which conversations moved. [10](https://arxiv.org/abs/2406.12045)
+## How to keep test cases valid and independent
+
+**Test one hypothesis at a time.** Treat each change as an experiment. State the hypothesis first: "Rewording the move tool will stop the agent from choosing the wrong position." Change only that, and keep everything else the same: the model, the starting data, the other tools, and the grading rules. Record what each run actually used, including the model that served each call and the application's version, so you can tell later whether anything else changed. Save each failure, not just the totals, so you can see which conversations improved or became worse. [10](https://arxiv.org/abs/2406.12045)
 
 **Run the suite with failures injected.** Real tools fail: a read errors, a save fails, a call times out. Run all the test cases with failures like these injected on purpose, and compare the result with a normal run. The agent should report each failure truthfully and recover where it can. In one published benchmark of 14 models, injected failures barely changed how often an agent succeeded at least once in three attempts, but cut how often it succeeded all three times by up to 24 percentage points. [22](https://arxiv.org/abs/2604.06132)
 

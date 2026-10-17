@@ -4,7 +4,7 @@
 
 Version 3.5-draft · October 15, 2026
 
-> **Note:** Following these practices does not make an application secure. We have tried red teaming and prompt-injection tests, but encryption, transport security, authentication, and other standard security are outside this document's scope. Security for an application with an agent belongs to corporate governance, with policy and controls in place.
+> **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization’s security policies.
 
 This guide turns [Beyond Chat: Building Agents into Applications](principles.md) into work a development agent can do and a reviewer can check. Read the principles first; this guide assumes their vocabulary and does not repeat their reasoning. It holds the acceptance checks (IDs are stable across versions), the proposed registry, observation and reference contracts, the evaluation infrastructure, and the rules for scoping a handoff. Start with the quick checklist below; use the detailed sections when you need contracts and acceptance checks.
 
@@ -268,7 +268,7 @@ Represent start and finish with a native span lifecycle or explicit `started` an
 
 ### Declare inspection support and test the contract
 
-Export a support manifest naming which of `catalog`, `tool_surface`, `model_requests`, `invocations`, `state_changes`, and `presentation_context` are implemented, with uncovered paths and capture restrictions, so a viewer can show partial coverage honestly. Observation grants no execution authority: pause, argument replacement, overrides, replay, and undo are separately authorized capabilities, and replaying a trace must never rerun writes against live state by default.
+Export a support manifest naming which of `catalog`, `tool_surface`, `model_requests`, `invocations`, `state_changes`, and `presentation_context` are implemented, with uncovered paths and capture restrictions, so a viewer can show which paths were observed and which were not. Observation grants no execution authority: pause, argument replacement, overrides, replay, and undo are separately authorized capabilities, and replaying a trace must never rerun writes against live state by default.
 
 - **Check 1.7 — Inspectable catalog.** Export a catalog and validate required fields, unique IDs, versions, schemas, and handler bindings. Verify that UI and agent mappings resolve to the same registered owner. Change a description and confirm the catalog revision changes.
 - **Check 1.8 — Offered versus executed.** Capture a real model request and verify its recorded list of offered tools matches the definitions actually delivered. Follow a resulting tool call to its resolved application action. Verify direct UI actions are observable without fabricated model-call IDs.
