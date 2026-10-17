@@ -70,8 +70,7 @@ and data, with permissions appropriate to each.
 
 [Watch a recorded persona session](demos/persona-replay.html) with **Next** and **Play**.
 See the conversation, approval requests and changes to the list without installing
-anything or supplying an API key. You can also explore the code or
-[review recorded evaluation results](https://bobfischer.github.io/beyond-chat-todo/).
+anything or supplying an API key. You can also explore the code.
 The sample is designed for local, single-user use and makes the principles concrete.
 
 The sample has been tested with OpenAI and Anthropic models. You can also connect hosted

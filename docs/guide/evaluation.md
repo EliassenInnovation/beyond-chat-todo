@@ -2,6 +2,11 @@
 
 [![The cycle from a user job through cases, measurement, review and improvement.](../images/improvement-loop.svg)](../images/improvement-loop.svg)
 
+How do you know the agent helps users—and keeps working as you change it?
+An **evaluation**, often called an **eval**, checks how the agent handles a user request
+from a defined starting situation. It checks both the response and the changes made
+against criteria for success.
+
 A tool can execute correctly while changing the wrong task. A fluent answer can omit half the request. Evaluate the person's request, the actions, the saved result and the delivered answer together.
 
 Use three kinds of evidence: deterministic tests for application rules, scripted conversations for repeated measurements of known jobs, and human or persona exploration for situations you have not anticipated. Keep their results distinguishable. Persona satisfaction and reviewer opinions are useful signals for investigation, not fixed-suite pass/fail verdicts.
@@ -64,6 +69,17 @@ Compare verdicts with human-reviewed labels on both acceptable and unacceptable 
 **Judges follow the same data rules as the agent.** Anything that reads a user's conversation must run on a provider the organization has approved to process that data, and prohibited data is removed before it reaches a judge.
 
 ## How to read the results
+
+The sample's [example evaluation report](https://bobfischer.github.io/beyond-chat-todo/)
+shows what this looks like in practice. It records 20 runs of the same evaluation suite
+with the same configuration. You can inspect the results without installing anything
+or calling a model.
+
+Start with a recorded failure: read the request, what the agent did, and why the check
+failed. Then compare the runs. The chart shows how the measured failure rate varied;
+it does not, by itself, establish that the agent is good enough. The report also identifies
+whether all required checks completed and where human review questioned a grader's verdict.
+
 
 **Distinguish a defect from a change in the measured rate.** Investigate deterministic failures and serious individual incidents directly. For a stable set of stochastic evaluations, small differences between runs can be ordinary variation. Use control-chart signals to investigate changes in that process; a stable rate can still be unacceptable. Define and freeze a baseline after reviewing it, and mark changed models, tools, cases or graders as new comparison periods. See [evidence and variation](../guides/evaluation-results.md) for the chart, limits and practical testing cadence.
 
