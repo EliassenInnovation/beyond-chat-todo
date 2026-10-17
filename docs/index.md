@@ -42,12 +42,12 @@ You do not need prior experience with agents or jobs to be done. The design chap
 familiarity with an application's screens and workflows. The implementation chapters add
 Python and API details; you can read the examples without running them.
 
-| What you want to do | Start here | What you can take away |
-| --- | --- | --- |
-| Decide where an agent would help | [Why an embedded agent?](guide/why.md) | One user job worth improving. |
-| See the approach working | [Run the sample](guide/start.md), then [follow a request](guides/walkthrough.md) | A working example of shared operations and caller-specific authority. |
-| Assess an agent you already have | [Evaluate outcomes](guide/evaluation.md), then [read the report](guides/evaluation-results.md) | Evidence to distinguish application failures, grading problems and ordinary variation. |
-| Plan a change to your own app | [Apply the approach](guide/apply.md) | A scoped first capability and the evidence needed to review it. |
+| If you want to… | These chapters explain… |
+| --- | --- |
+| Decide where an agent could help | [Why an embedded agent?](guide/why.md) — Consider where users struggle in your applications today and how an agent could help them get things done. |
+| See how to build one | [Run the sample](guide/start.md) and [Follow a request](guides/walkthrough.md) — See how the UI and agent use the same application capabilities, with different permissions. |
+| Evaluate and iteratively tune an agent | [Evaluate outcomes](guide/evaluation.md) and [Review results and understand variation](guides/evaluation-results.md) — Evaluate how well it helps users, review failures, and distinguish normal variation from changes that need investigation. Use what you learn to improve the agent and evaluate it again. |
+| Apply this to your application | [Apply it to your app](guide/apply.md) — Choose a first capability, define its safeguards, and decide how to test it. |
 
 The **Consider** and **Practice** boxes are optional. Use one application and one user job
 throughout; each prompt adds to a small design note you can use with your team.
