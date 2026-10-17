@@ -45,7 +45,7 @@ when code consumes and enforces it; writing a rule into metadata is not enough.
 
 ### Example: placing an order
 
-[![An annotated action declaration for placing an order, with caller policy and an approval proposal handler.](../images/registry-entry.svg)](../images/registry-entry.svg)
+[![An annotated action declaration for placing an order, with caller policy and an approval proposal handler.](../images/registry-entry-trimmed.svg)](../images/registry-entry-trimmed.svg)
 
 *Example: a store where an agent must request approval before placing an order.*
 
