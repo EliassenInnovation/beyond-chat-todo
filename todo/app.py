@@ -60,7 +60,6 @@ agent_provider = provider_for('agent', model_for('agent'))
 model_configured = bool(setting('ANTHROPIC_API_KEY' if agent_provider == 'anthropic' else 'OPENAI_API_KEY', '').strip())
 show_demo = st.sidebar.checkbox('Show recorded demo', value=not model_configured)
 if show_demo:
-    st.selectbox('Persona', ['-- Prerecorded Run --'], key='recorded-persona')
     st.iframe(replay_html(), height=1150, alt="Recorded persona session with playback controls")
     st.stop()
 

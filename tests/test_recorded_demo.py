@@ -31,4 +31,10 @@ def test_unconfigured_app_opens_replay_without_agent(monkeypatch):
     with patch('todo.agent.Agent', side_effect=AssertionError('Replay constructed Agent')):
         app = AppTest.from_file(str(ASSETS.parents[1] / 'todo' / 'app.py')).run(timeout=15)
     assert not app.exception
-    assert app.selectbox[0].options == ['-- Prerecorded Run --']
+    assert not app.selectbox  # the replay contains the app-style picker, once
+    assert '-- Prerecorded Run --' in replay_html()
+
+
+def test_replay_uses_current_application_list_assets():
+    for filename in ('todo_view.js', 'todo_view.css'):
+        assert (ASSETS / filename).read_bytes() == (ASSETS.parents[1] / 'todo' / 'assets' / filename).read_bytes()
