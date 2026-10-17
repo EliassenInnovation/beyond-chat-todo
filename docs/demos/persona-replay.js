@@ -16,10 +16,19 @@ export function makeFrames(record) {
     if (turn.assistant) {
       messages.push({role:'assistant', text:turn.assistant});
       add(turn.after, `Assistant reply and application state — turn ${turn.n}.`);
+      frames.at(-1).exchangeComplete = true;
     }
   }
   add(record.final, 'End of the recorded session.', null, true);
   return frames;
+}
+
+// Next completes the current exchange, including preceding recorded approval actions.
+export function nextExchange(frames, index) {
+  for (let next = index + 1; next < frames.length; next++) {
+    if (frames[next].exchangeComplete || frames[next].end) return next;
+  }
+  return frames.length - 1;
 }
 
 // Allow time to read each new message; Next bypasses the automatic wait.
@@ -49,7 +58,7 @@ async function start(){
  function advance(){if(index<frames.length-1){index++;render();}if(frames[index].end)pause();}
  function schedule(){timer=setTimeout(()=>{advance();if(playing)schedule();},frameDelay(frames[index]));}
  $('play').onclick=()=>{if(playing){pause();return;}playing=true;$('play').textContent='Ⅱ  Pause';schedule();};
- $('next').onclick=()=>{pause();advance();};$('restart').onclick=()=>{pause();index=0;render();};
+ $('next').onclick=()=>{pause();index=nextExchange(frames,index);render();};$('restart').onclick=()=>{pause();index=0;render();};
  document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
  $('persona').append(node('b',record.who),node('div','Wants: '+record.wants));render();
 }
