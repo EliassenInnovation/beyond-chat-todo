@@ -42,3 +42,5 @@
   .md-typeset .publication-cover { height: 9.6in; width: auto; max-width: 100%; object-fit: contain; break-after: page; }
   .print-guide-link { display: none; }
 }
+
+.md-typeset h1.cover-anchor { margin: 0; padding: 0; height: 0; overflow: hidden; }

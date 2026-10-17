@@ -1,3 +1,5 @@
+<h1 id="cover" class="cover-anchor" aria-label="Cover"></h1>
+
 ![Build better agents. Help your users get things done. Eliassen Group.](images/guide-cover.svg){ .publication-cover }
 
 <a href="print.html" class="print-guide-link">Print or save the complete guide as PDF</a>

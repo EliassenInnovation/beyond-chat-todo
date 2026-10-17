@@ -75,6 +75,7 @@ def on_post_build(config):
     h1 { font-size:28pt; } h2 { font-size:20pt; } h3 { font-size:16pt; }
     img { max-width:100%; height:auto; } .publication-cover { width:100%; display:block; }
     table { width:100%; border-collapse:collapse; font-size:9pt; } th,td { padding:6px; border:1px solid #ccc; text-align:left; }
+    .cover-anchor { display:none; }
     pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#f5f1ee; padding:10px; font-size:9pt; }
     a { color:#2e4294; } .headerlink,.print-guide-link { display:none; }
     blockquote,.admonition { border-left:3px solid #6b93a8; margin:1em 0; padding:.2em 1em; }
@@ -84,14 +85,21 @@ def on_post_build(config):
       body { padding:0; max-width:none; }
       .print-controls { display:none; } .chapter { break-before:page; margin:0; }
       .chapter:first-of-type { break-before:auto; }
-      .publication-cover { height:9.6in; width:100%; object-fit:contain; }
-      p:has(> .publication-cover) { margin:0; break-after:page; }
+      @page cover { size:letter; margin:0; }
+      .cover-page { page:cover; width:8.5in; height:11in; margin:0; padding:0; break-after:page; overflow:hidden; }
+      .cover-page .publication-cover { width:8.5in; height:11in; display:block; }
+      .chapter:first-of-type { break-before:auto; }
       .contents { break-before:page; } tr,figure { break-inside:avoid; }
     }
     """
     controls = '<div class="print-controls"><button onclick="window.print()">Print / Save as PDF</button><p>Choose Save as PDF, Letter paper, and turn off browser headers and footers.</p></div>'
     # Keep the cover and introduction first, followed by the contents and all chapters.
     toc = '<nav class="contents"><h1>Contents</h1><ol>' + ''.join(contents[1:]) + '</ol></nav>'
-    body = controls + sections[0] + toc + ''.join(sections[1:])
+    cover_match = re.search(r'<p>\s*(<img[^>]+class="publication-cover"[^>]*>)\s*</p>', sections[0])
+    if not cover_match:
+        raise ValueError("Printable guide is missing its cover image")
+    cover = '<div class="cover-page">' + cover_match[1] + '</div>'
+    introduction = sections[0].replace(cover_match[0], '')
+    body = controls + cover + introduction + toc + ''.join(sections[1:])
     output = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Build better agents — complete guide</title><style>' + css + '</style></head><body>' + body + '</body></html>'
     (Path(config["site_dir"]) / "print.html").write_text(output)

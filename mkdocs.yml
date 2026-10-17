@@ -39,9 +39,9 @@ markdown_extensions:
       toc_depth: "2-2"
       permalink: true
 extra_css:
-  - stylesheets/guide.css?v=20261017-publication
+  - stylesheets/guide.css?v=20261017-printfix
 nav:
-  - Start here: index.md
+  - Cover: index.md
   - Design:
     - Why an embedded agent?: guide/why.md
     - Shared capabilities and the registry: guide/design.md
