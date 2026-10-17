@@ -5,12 +5,11 @@ that capability, learning its controls, and working out the sequence that comple
 An embedded agent can shorten that distance.
 
 !!! consider "Consider — where should the agent help first?"
-    If an agent could make your users’ jobs easier, where in your application would you
-    want it to help first? Why?
+    Where do your users spend time today trying to resolve a problem?
 
-    Write down one user job, what makes it difficult today, and what better assistance
-    would enable.
-
+    Write down one example and what tells you it matters: support calls, repeated questions,
+    abandoned tasks, or watching someone use the application. Where could an agent help
+    first, and why?
 
 ## Expectations come from other experiences
 
@@ -62,10 +61,9 @@ names a solution. “Keep an appointment when my availability changes” describ
 could be served by a button, a form, or an agent. The implementation still has to preserve
 the appointment's requirements and avoid losing the original booking.
 
-| Situation | What the person wants to accomplish | Evidence of success |
-| --- | --- | --- |
-| Their availability changes | Keep the appointment at a suitable new time | A valid slot is confirmed, participants are informed, and no duplicate booking remains. |
-| They need a compatible replacement part | Repair the equipment without ordering the wrong part | Compatibility is checked and the person can choose a suitable part. |
+![An appointment example connecting observed difficulty, the person's job, possible agent assistance and a successful outcome.](../images/job-to-assistance.svg)
+
+*An illustrative example: start with a difficulty you can observe, then connect assistance to a result you can check.*
 
 The job gives the agent a purpose and gives you something to evaluate. A successful tool
 call is only a step; the question is whether the person achieved the intended result.

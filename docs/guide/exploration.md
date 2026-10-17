@@ -74,7 +74,7 @@ Let the simulated person use the same operations available to a real person. The
 
 Sample conversations to check that the personas behave plausibly. Keep synthetic test recording separate from real-user recording, show when capture is active, and follow the organization's data and consent policy. Repeat exploration after meaningful application or model changes, and turn confirmed findings into fixed cases with separate held-out variants.
 
-## Turn observations into evidence
+## Review findings and create test cases
 
 The persona returns structured fields for messages, approval choices and reactions; the
 [walkthrough explains the turn format](../guides/walkthrough.md#how-a-persona-takes-a-turn).

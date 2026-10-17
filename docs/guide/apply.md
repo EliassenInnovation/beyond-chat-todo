@@ -20,7 +20,7 @@ Decide the authority of each caller explicitly. Ask whether the action has conse
 the application cannot undo, whether approval is justified, and how to bind that approval
 to the exact proposal. Do not copy the sample's deletion policy without considering your domain.
 
-## Supply the evidence the agent needs
+## Give the agent current data and useful tool results
 
 Describe the relevant view and controls, expose fresh reads, and return facts from execution.
 Keep the prompt focused on the agent's job and priorities. Let tools describe their inputs,
@@ -30,7 +30,7 @@ When a case fails, inspect the capability, context, data and feedback before add
 sentence to the prompt. An absent operation or stale screen description is not repaired by
 asking the model to be more careful. Fix a class of requests and test different wording.
 
-## Build a small body of evidence
+## Test the job and review the results
 
 Start with offline tests for authority, validation, atomicity and recovery. Add visible eval
 cases for ordinary jobs, ambiguity and realistic mistakes. Review correct and incorrect
@@ -65,7 +65,7 @@ to the embedded agent. Tool listing and permission to execute remain separate de
 Across applications, also establish identity, consent, data movement and recovery when only
 some steps succeed. This todo sample does not implement an MCP server or cross-app workflow.
 
-## Turn your notes into one scoped change
+## Write a brief for the first change
 
 !!! practice "Practice — write a first implementation brief"
     Use the same application and job you chose earlier. Write a short brief naming:
@@ -79,7 +79,7 @@ some steps succeed. This todo sample does not implement an MCP server or cross-a
     Keep the scope to one useful job. Mark unanswered questions rather than filling them
     with assumptions. Use the acceptance checks below to review that scope.
 
-## Account for what the sample leaves out
+## Check what the sample does not provide
 
 This is a local, single-user teaching app. Production work may require authentication,
 tenant isolation, concurrency control, durable audit records, operation IDs, safe retries,

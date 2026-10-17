@@ -42,7 +42,7 @@ an earlier value, or refer to a record already discussed:
 
 **Keep the user's request separate from the agent's interpretation of it.** Keep the user's own words in the conversation history, rather than replacing them with a summary of what the agent understood, and record what the agent did as tool calls with their actual inputs. Then, when the agent has misunderstood, the model can see the difference, and a correction applies to what the user asked. Suppose a user asked for each holding's return over 20 days and the agent compared account balances instead. "Sorry, 30 days" then means 30-day returns, not a 30-day balance comparison. [19](https://aclanthology.org/2023.sigdial-1.52/)
 
-## Make results meaningful
+## Explain what the results mean
 
 **Say in each tool result what its numbers mean.** The agent will describe whatever numbers it receives, so the result has to say what they measure. A change in an account balance includes deposits and withdrawals as well as market movement, so it is not a return; if the tool result does not say so, the agent may call it one. A drop in open support tickets can come from closing them or from moving them to another team. Put the meaning, the scope, the dates, and the units next to the numbers.
 

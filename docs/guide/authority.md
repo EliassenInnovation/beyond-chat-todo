@@ -58,7 +58,7 @@ A guard can accept a bad interpretation or reject a good one. Measure both error
 
 **Limit how much one request can use.** Set limits on the number of tool calls, the time, the cost, and the retries for one request, including retries by any reviewing model. When a limit is reached, the agent should stop and tell the user what was done and what is still uncertain.
 
-## Record changes and support deliberate recovery
+## Record changes and make undo safe
 
 **Keep an audit record of what the agent did.** Write one record for each change the agent attempts, applied or refused, with the checks that decided it, and one for each reply. Whether a reply's record holds the text the user saw and any draft a review changed depends on the organization's policy for capturing conversations; where the policy leaves the text out, the record says so. Record an undo or redo as a new record, and do not alter an earlier record while it is kept. Deleting records when their retention period ends, or when an authorized request requires it, is a separate step, and is itself recorded. [42](https://csrc.nist.gov/pubs/sp/800/92/final) [43](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) The application writes the records; where they go and how long they are kept is the deploying organization's policy, set in logging configuration rather than in code. Test the record like any other feature: compare each turn's records with what actually happened.
 

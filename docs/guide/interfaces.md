@@ -2,7 +2,7 @@
 
 Shared capabilities preserve business meaning across callers. Each interface still needs an adapter: a control and result display for the UI, a tool schema and result for an agent, or commands and help for a command line. Add an interface when a real job requires it. An embedded agent does not require an HTTP API or an MCP server.
 
-## Keep ownership explicit
+## Decide which code handles each responsibility
 
 The capability owns domain inputs, validation, effects and results. Shared execution applies common policies and transaction boundaries. The interface translates the caller's request and presents the result. This separation follows the [ports-and-adapters pattern](https://alistair.cockburn.us/hexagonal-architecture); a registry is one way to describe the shared contracts.
 
