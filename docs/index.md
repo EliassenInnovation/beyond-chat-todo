@@ -1,8 +1,7 @@
-<div class="guide-cover">
-<h1>Build better agents</h1>
-<p class="guide-cover-subtitle">Help your users get things done.</p>
-<img src="images/eliassen-primary-white.svg" alt="Eliassen Group" class="guide-cover-logo">
-</div>
+![Build better agents. Help your users get things done. Eliassen Group.](images/guide-cover.svg){ .publication-cover }
+
+<a href="print.html" class="print-guide-link">Print or save the complete guide as PDF</a>
+
 
 An agent can help people use capabilities they cannot find, understand unfamiliar workflows,
 and carry out work with them. Making that assistance useful takes more than a chat box:
