@@ -17,6 +17,12 @@ screen experience, or headlessly to collect more conversations. Neither replaces
 Inspect flagged findings and sample apparently successful conversations; reviewing only flags
 can miss failures the judges do not recognize.
 
+A persona's “satisfied” or “frustrated” status is its own reported reaction, not an evaluation
+pass or failure. Compare it with the saved state and conversation: the persona may overlook
+a problem or complain about something the app handled correctly. The
+[walkthrough explains how each persona turn works](walkthrough.md#how-a-persona-takes-a-turn),
+including the structured fields shared by the visible and headless runners.
+
 For a disputed case, show the reviewer the request, relevant conversation, task state, and
 proposed action before showing a model's grade. Ask for a judgment and a short reason. This
 example review form makes the choice concrete:

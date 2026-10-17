@@ -237,6 +237,29 @@ a candidate finding should become a regression case. Persona findings do not ent
 fixed-suite control chart. The [README](../../README.md#watch-personas-or-run-them-unattended)
 explains limits and offline replay. [Langfuse tracing](langfuse.md) is optional.
 
+### How a persona takes a turn
+
+The persona is a second model playing the person, not the app's assistant. It receives a
+situation and goal, the visible list and approval cards, and the assistant's latest reply.
+It returns a structured response: named fields the runner can read reliably, with natural
+language inside them.
+
+| Field | How the runner uses it |
+| --- | --- |
+| `message` | The text the simulated person types to the assistant. |
+| `click` | Approve, deny, or neither. In this sample, the choice applies to all waiting approval cards before the message is sent. |
+| `done`, `satisfied` | Whether to end the conversation, and whether the persona considers its goal met or has given up. |
+| `frustrated`, `why` | A reaction and explanation to help a reviewer find interactions worth inspecting. |
+
+This avoids guessing from prose whether “that's enough” means satisfaction or giving up.
+The visible player and headless runner use the same turn format and application operations.
+The player lets you watch or step through; the headless runner saves the interaction for
+later review. See [personas.py](../../evaluations/personas.py) for the response format and runner.
+
+“Satisfied” is the persona's opinion, not proof of a correct outcome. Inspect the saved state
+and conversation, review flagged findings, and sample apparent successes. A persona can
+misunderstand the screen or overlook a mistake just as the assistant can.
+
 ## Take one capability back to your application
 
 Choose a useful job your users struggle to accomplish. Identify the existing operations

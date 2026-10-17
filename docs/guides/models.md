@@ -185,7 +185,10 @@ arithmetic; they do not establish that a date matches the person's intent.
 - **Tool protocol:** the adapter must preserve call IDs, arguments, and matching results.
   The native Claude adapter retains thinking blocks and rejects truncated tool responses
   before execution. A text-only model is insufficient.
-- **Structured results:** judges and personas require the schema contract; an endpoint that
+- **Structured results:** personas return their message plus approval choices, completion, and
+  reactions as named fields; judges return a verdict and supporting quote. The
+  [walkthrough explains the persona turn](walkthrough.md#how-a-persona-takes-a-turn). Both
+  require the schema contract; an endpoint that
   merely returns JSON text may not enforce it. Check refusals and truncated output as well as
   successful calls. An unavailable judgment must remain missing evidence, never a pass.
 - **Generation options:** `agent.options()` currently sends `reasoning_effort='none'` for names
