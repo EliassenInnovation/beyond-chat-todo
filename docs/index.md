@@ -12,7 +12,7 @@ your approval through a process enforced by application code. The application ne
 controls and evaluation to keep the agent's advice and actions within applicable policies.
 Where required, it should keep an audit trail of the interaction, approvals and actions taken.
 
-Building this kind of agent takes work: designing tools, tuning prompts, and writing
+Building this kind of agent can be challenging: designing tools, tuning prompts, and writing
 application code to guide its behavior. Supporting agents can help with specific judgments
 or checks where they are useful. There is no exact formula. It requires deliberate
 experimentation, measurement and ongoing evaluation as models and applications change.
@@ -30,8 +30,9 @@ have. A small TodoMVC-style application makes the design choices concrete withou
 requiring you to learn a complicated business domain. Managing todos is the teaching
 example, not the reason to build an agent.
 
-Follow the chapters from motivation and design through the working sample and evaluation,
-or use the chapter navigation to go directly to what you need.
+The chapters that follow explain why an embedded AI agent can be valuable and how to
+design and evaluate one, using an agent in a simple todo application to illustrate the
+principles and practices.
 
 > **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization’s security policies.
 
