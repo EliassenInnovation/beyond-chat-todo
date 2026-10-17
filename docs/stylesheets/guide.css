@@ -64,3 +64,6 @@
 .md-typeset table:not([class]) th { background: #8ebfb3; color: #1a1e33; padding: .45em .7em; border-bottom: 2px solid #e6b573; }
 .md-typeset table:not([class]) td { padding: .45em .7em; border-bottom: 1px solid #e6b573; vertical-align: top; }
 .md-typeset table:not([class]) :is(th, td) > :is(p, ul, ol) { margin-block: .15em; }
+
+.md-typeset .reading-paths table { table-layout: fixed; width: 100%; }
+.md-typeset .reading-paths th:first-child, .md-typeset .reading-paths td:first-child { width: 30%; }
