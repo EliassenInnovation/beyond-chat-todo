@@ -51,3 +51,10 @@
 /* Preserve the approved full logo and its proportions in the header. */
 .md-header__button.md-logo img { width: 112px; height: auto; max-height: none; }
 @media screen and (max-width: 30em) { .md-header__button.md-logo img { width: 88px; } }
+
+/* Separate publication formats from the chapter navigation. */
+.md-nav--primary > .md-nav__list > .md-nav__item:has(> a[href$="/guide/guide.pdf"]) {
+  border-top: 2px solid #e6b573;
+  margin-top: .8rem;
+  padding-top: .55rem;
+}
