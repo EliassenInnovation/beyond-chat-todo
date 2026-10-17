@@ -58,6 +58,10 @@ Python and API details; you can read the examples without running them.
 The **Consider** and **Practice** boxes are optional. Use one application and one user job
 throughout; each prompt adds to a small design note you can use with your team.
 
+The sample has been tested with OpenAI and Anthropic models. You can also connect hosted
+or local models through an OpenAI-compatible API. The [Choose models](guides/models.md)
+chapter explains the required features and how to check compatibility.
+
 ## What you can inspect now
 
 ![The sample application and its embedded assistant, with a human exploratory tester.](images/exploratory-tester.png)
