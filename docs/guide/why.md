@@ -27,7 +27,7 @@ the means to inspect its behavior together.
 
 ## From finding help to doing the job together
 
-![Six kinds of assistance, from help search to combining application capabilities.](../images/levels.png)
+![Six kinds of assistance, from help search to combining application capabilities.](../images/levels.svg)
 
 *The first two levels find instructions. The later levels connect assistance to the working application.*
 

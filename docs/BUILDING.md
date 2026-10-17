@@ -39,3 +39,8 @@ footers and fixed slide canvases do not. Inspect at desktop and narrow widths af
 Before publishing: build strictly, check local links and anchors, visually inspect the main
 chapters and diagrams, and verify that the evaluation report remains available at its old URL.
 Documentation edits do not require paid model evaluations.
+
+Diagram layouts use a 560-unit-wide canvas, with 22-unit labels and body text where possible.
+Keep content stacked for the reading column; do not shrink a slide to fit. The registry uses
+18-unit code with explanations below each group. Render at the intended display width when
+checking text fit. Page titles remain in Markdown.

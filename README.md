@@ -24,7 +24,7 @@ You can also [read it as Markdown](docs/index.md).
 
 ## Help people get the job done
 
-![From finding help to doing the job with the person.](docs/images/levels.png)
+![From finding help to doing the job with the person.](docs/images/levels.svg)
 
 Search and AI-assisted help point people to instructions. An embedded agent can also know
 the current application state, point to a control, and perform an authorized operation.
