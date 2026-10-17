@@ -59,6 +59,25 @@ without a concern, report “No regression signal detected in three runs” and 
 monitoring. This is not proof that the models behave identically. Keep the old limits for
 comparison until review and further measurements justify adopting a new baseline.
 
+## Notify someone when results need attention
+
+A report helps someone investigate; an alert tells them when to investigate. Send routine
+completion summaries separately from alerts about critical failures, unusual changes or
+incomplete checks. Link each alert to the relevant conversations and results.
+
+The fictional example below shows why both kinds of checks matter: the overall failure
+rate is within its existing limits, but one action bypassed required approval. That failure
+needs attention regardless of the chart.
+
+![Fictional notification after a model revision: three runs completed with no overall chart signal, but one required approval was bypassed.](../images/evaluation-alert.svg){ style="max-width: 540px; width: 100%;" }
+
+*An original illustration, not actual todo results or a Langfuse interface. The result link
+shown in the image is illustrative.*
+
+The evaluation runner can send notifications to the team's messaging tool. Results can
+link to a local report or to records in an optional service such as Langfuse; the team
+still defines which results require attention and who responds.
+
 ## Different failures need different decisions
 
 Define acceptance criteria by consequence, rather than giving the entire agent one

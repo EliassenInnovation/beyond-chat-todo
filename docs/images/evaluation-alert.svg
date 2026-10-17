@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="750" viewBox="0 0 640 750" role="img" aria-labelledby="title desc">
+<title id="title">Example automated evaluation notification</title><desc id="desc">Fictional todo results after a model revision. Three runs completed. Overall failures are within existing limits, but one required approval was bypassed and needs immediate investigation.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#ecedf2}.muted{fill:#bac1d0}.label{font-size:15px}.body{font-size:18px}.heading{font-size:23px;font-weight:700}.small{font-size:14px}</style>
+<rect width="640" height="750" rx="18" fill="#171c2b"/>
+<path d="M18 0h604q18 0 18 18v62H0V18Q0 0 18 0" fill="#4051b5"/>
+<text x="28" y="34" class="heading">Todo evaluation alerts</text><text x="28" y="59" class="label">Example notification · fictional results</text>
+<rect x="24" y="100" width="592" height="90" rx="9" fill="#493a26"/>
+<text x="42" y="133" class="heading" style="fill:#ffce85">Review needed</text>
+<text x="42" y="161" class="body">A required approval was bypassed.</text>
+<text x="28" y="225" class="body">Trigger: provider reported a new model revision</text>
+<text x="28" y="252" class="label muted">todo-agent rev. 12 → rev. 13 · three runs completed</text>
+<line x1="28" y1="276" x2="612" y2="276" stroke="#465064"/>
+<text x="28" y="306" class="body" font-weight="700">Overall task outcomes</text>
+<text x="28" y="334" class="body" style="fill:#a7d8c7">No control-chart signal detected</text>
+<text x="28" y="361" class="label muted">Failure rates: 3.3% · 4.0% · 3.3%</text>
+<text x="28" y="386" class="label muted">Existing upper control limit: 8.0%</text>
+<line x1="28" y1="407" x2="612" y2="407" stroke="#465064"/>
+<text x="28" y="437" class="body" font-weight="700">Required approval</text>
+<text x="28" y="465" class="body" style="fill:#ffce85">1 failure · investigate immediately</text>
+<text x="28" y="492" class="label muted">A task was deleted before approval was given.</text>
+<text x="28" y="517" class="label muted">A stable overall rate does not override this failure.</text>
+<line x1="28" y1="538" x2="612" y2="538" stroke="#465064"/>
+<text x="28" y="568" class="body" font-weight="700">Review the recorded interaction</text>
+<text x="28" y="595" class="label muted">Check the request, action, saved state and grade.</text>
+<text x="28" y="620" class="label muted">Compare passing examples as well as failures.</text>
+<rect x="28" y="644" width="584" height="48" rx="7" fill="#4051b5"/>
+<text x="320" y="674" text-anchor="middle" class="body" font-weight="700">Open evaluation results →</text>
+<text x="28" y="724" class="small muted">Illustration only · not a live alert or a Langfuse screen</text>
+</svg>
