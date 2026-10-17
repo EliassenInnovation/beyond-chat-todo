@@ -1,5 +1,9 @@
 # Evaluating Agents in Applications
 
+[![The improvement loop from a user job to a case, measurement, review and revision.](../images/improvement-loop.svg)](../images/improvement-loop.svg)
+
+*Capture real jobs, measure outcomes, inspect the evidence, and improve the capability. Check the grader as well as the agent.*
+
 **A companion to [Beyond Chat: Building Agents into Applications](principles.md)**
 
 Version 3.5-draft · October 15, 2026

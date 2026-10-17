@@ -1,0 +1,55 @@
+site_name: Helpful, trustworthy agents
+site_description: A practical guide to building and evaluating agents inside applications.
+site_url: https://bobfischer.github.io/beyond-chat-todo/guide/
+repo_url: https://github.com/bobfischer/beyond-chat-todo
+repo_name: bobfischer/beyond-chat-todo
+edit_uri: edit/main/docs/
+docs_dir: docs
+site_dir: site/guide
+use_directory_urls: false
+exclude_docs: |
+  README.md
+  __pycache__/
+  OUTLINE.md
+  BUILDING.md
+hooks:
+  - .github/docs_hooks.py
+theme:
+  name: material
+  font: false
+  palette:
+    primary: indigo
+    accent: teal
+  features:
+    - navigation.footer
+    - navigation.top
+    - search.suggest
+    - content.code.copy
+plugins:
+  - search
+markdown_extensions:
+  - tables
+  - fenced_code
+  - attr_list
+  - toc:
+      permalink: true
+extra_css:
+  - stylesheets/guide.css
+nav:
+  - Start here: index.md
+  - The guide:
+    - 1. Why an embedded agent?: guide/why.md
+    - 2. Design the connection: guide/design.md
+    - 3. Run the sample: guide/start.md
+    - 4. Follow a request: guides/walkthrough.md
+    - 5. Choose models: guides/models.md
+    - 6. Explore the experience: guide/exploration.md
+    - 7. Evaluate outcomes: principles/evaluating-agents.md
+    - 8. Read evidence and variation: guides/evaluation-results.md
+    - 9. Optional tracing: guides/langfuse.md
+    - 10. Apply it to your app: guide/apply.md
+  - Detailed references:
+    - Design principles: principles/principles.md
+    - Implementation and acceptance checks: principles/implementation.md
+    - Sample coverage and limitations: guides/sample-assessment.md
+  - Recorded evaluation report: https://bobfischer.github.io/beyond-chat-todo/

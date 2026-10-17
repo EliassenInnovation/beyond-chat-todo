@@ -1,4 +1,4 @@
-name: Publish evaluation example
+name: Publish documentation and evaluation example
 
 on:
   workflow_dispatch:
@@ -20,7 +20,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Prepare only the public example
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build the guide
+        run: |
+          pip install -r requirements-docs.txt
+          mkdocs build --strict --site-dir _site/guide
+          python .github/check_docs.py _site/guide
+      - name: Prepare the public evaluation example
         run: |
           mkdir -p _site
           cp examples/evaluation-review/index.html examples/evaluation-review/collection.json _site/

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 225 1540 395" width="1540" height="395" role="img" aria-label="People use two languages with the agent">
+<rect width="1600" height="900" fill="#FFFFFF" />
+<text x="60" y="262" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="24" font-weight="700" fill="#2E4394">The language of the job</text>
+<text x="840" y="262" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="24" font-weight="700" fill="#2E4394">The language of the application</text>
+<rect x="60" y="286" width="700" height="84" rx="8" fill="#F2F1EE" />
+<text x="88" y="338" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="27" font-style="italic" fill="#1A1E33">“Get me a charger that works with this laptop”</text>
+<rect x="840" y="286" width="700" height="84" rx="8" fill="#48669D" />
+<text x="868" y="338" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="27" font-style="italic" fill="#FFFFFF">“Add the 65-watt USB-C charger to my cart”</text>
+<path d="M772,328 H828 M780,320 L772,328 L780,336 M820,320 L828,328 L820,336" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="60" y="394" width="700" height="84" rx="8" fill="#F2F1EE" />
+<text x="88" y="446" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="27" font-style="italic" fill="#1A1E33">“I want to see sales by region”</text>
+<rect x="840" y="394" width="700" height="84" rx="8" fill="#48669D" />
+<text x="868" y="446" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="27" font-style="italic" fill="#FFFFFF">“Make a pivot table of sales by region”</text>
+<path d="M772,436 H828 M780,428 L772,436 L780,444 M820,428 L828,436 L820,444" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="60" y="502" width="700" height="84" rx="8" fill="#F2F1EE" />
+<text x="88" y="554" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="27" font-style="italic" fill="#1A1E33">“I'm out next week; let people know”</text>
+<rect x="840" y="502" width="700" height="84" rx="8" fill="#48669D" />
+<text x="868" y="554" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="27" font-style="italic" fill="#FFFFFF">“Turn on out of office”</text>
+<path d="M772,544 H828 M780,536 L772,544 L780,552 M820,536 L828,544 L820,552" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

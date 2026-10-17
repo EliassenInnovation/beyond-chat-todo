@@ -69,6 +69,10 @@ The list works without a provider key. Chat requires the API key for the provide
 
 ## Build the capability once; control who can use it
 
+[![The UI and model tools share application capabilities.](../images/shared-capabilities.svg)](../images/shared-capabilities.svg)
+
+*One implementation, with authority appropriate to each caller.*
+
 Suppose you add an agent to an existing application. Implementing its actions separately
 would give you two places to maintain validation, data access, and business rules. Instead,
 connect both callers to the same capability. They follow the same underlying process and
@@ -153,6 +157,8 @@ as part of the application's design. See [model configuration](models.md) for th
 requirements.
 
 ## Give the agent knowledge and control of the screen
+
+[![The interface and agent share screen state and operations.](../images/screen-context.svg)](../images/screen-context.svg)
 
 An agent that only knows the database may describe tasks the person cannot currently see.
 An agent that only writes instructions cannot point to a control or change the view. Give

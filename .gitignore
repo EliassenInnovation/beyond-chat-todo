@@ -9,3 +9,6 @@ runs/
 # Local editors may create copies of credential files.
 .env~
 .#.env
+
+# Generated documentation
+site/

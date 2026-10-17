@@ -1,0 +1,12 @@
+/* Reading layout, with no remote font dependency. */
+:root { --md-text-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+.md-grid { max-width: 88rem; }
+.md-typeset { font-size: .86rem; line-height: 1.7; }
+.md-typeset h1 { color: #2e4394; font-weight: 650; letter-spacing: -.025em; }
+.md-typeset h2 { font-weight: 650; margin-top: 2.1em; }
+.md-typeset img { display: block; height: auto; margin: 1.6rem auto .8rem; }
+.md-typeset img[src$=".svg"] { width: 100%; background: white; padding: .5rem; border-radius: .35rem; }
+.md-typeset table:not([class]) { font-size: .76rem; }
+.md-typeset a { text-underline-offset: .16em; }
+.md-typeset a:hover { text-decoration: underline; }
+@media print { .md-sidebar, .md-header, .md-footer, .md-top { display: none; } }

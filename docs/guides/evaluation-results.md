@@ -1,5 +1,9 @@
 # Reading an evaluation run
 
+[![An evaluation report with evidence completeness, conversations and repeated-run charts.](../images/evaluation-review.png)](https://bobfischer.github.io/beyond-chat-todo/)
+
+*The public example preserves historical results and grading concerns. Its candidate limits are not an accepted quality baseline.*
+
 For a no-setup introduction, open the [worked example](https://bobfischer.github.io/beyond-chat-todo/):
 20 real run summaries, candidate chart limits, and a short human-review queue. It uses synthetic
 cases and makes no network or model calls.

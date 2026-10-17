@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 215 1540 465" width="1540" height="465" role="img" aria-label="The agent sees what the person sees and can operate the app">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2E4394" /></marker></defs>
+<rect width="1600" height="900" fill="#FFFFFF" />
+<rect x="60" y="236" width="560" height="420" rx="8" fill="#F2F1EE" />
+<path d="M60,286 V244 Q60,236 68,236 H612 Q620,236 620,244 V286 Z" fill="#48669D" />
+<text x="84" y="269" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">The person’s screen</text>
+<rect x="84" y="316" width="512" height="44" rx="6" fill="#FBF3E6" />
+<text x="104" y="345" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="20" fill="#1A1E33">Showing 2 of 7 · Show all</text>
+<rect x="84" y="372" width="512" height="50" rx="6" fill="#FFFFFF" />
+<circle cx="112" cy="397" r="11" fill="none" stroke="#6A92A7" stroke-width="2" />
+<text x="136" y="404" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">Renew passport</text>
+<text x="576" y="404" text-anchor="end" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="20" fill="#1A1E33">Sep 10</text>
+<rect x="84" y="430" width="512" height="50" rx="6" fill="#FFFFFF" />
+<circle cx="112" cy="455" r="11" fill="none" stroke="#6A92A7" stroke-width="2" />
+<text x="136" y="462" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">Return library books</text>
+<text x="576" y="462" text-anchor="end" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="20" fill="#1A1E33">Sep 15</text>
+<rect x="84" y="502" width="512" height="50" rx="6" fill="#FFFFFF" />
+<text x="120" y="534" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="20" fill="#1A1E33">All</text>
+<text x="210" y="534" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="20" fill="#1A1E33">Active</text>
+<text x="330" y="534" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="20" fill="#1A1E33">Completed</text>
+<ellipse cx="238" cy="527" rx="52" ry="22" fill="none" stroke="#E7B572" stroke-width="4" />
+<text x="84" y="594" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="19" fill="#1A1E33">The agent filtered the list and is pointing at “Active.”</text>
+<rect x="980" y="236" width="560" height="420" rx="8" fill="#F2F1EE" />
+<path d="M980,286 V244 Q980,236 988,236 H1532 Q1540,236 1540,244 V286 Z" fill="#2E4394" />
+<text x="1004" y="269" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">The agent</text>
+<text x="1004" y="334" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="24" font-weight="700" fill="#1A1E33">It knows</text>
+<text x="1004" y="370" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="22" fill="#1A1E33">the active filter and visible task IDs,</text>
+<text x="1004" y="400" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="22" fill="#1A1E33">plus the names of the controls</text>
+<text x="1004" y="460" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="24" font-weight="700" fill="#1A1E33">It can work the screen</text>
+<text x="1004" y="494" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="22" fill="#1A1E33">filter the view</text>
+<text x="1004" y="522" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="22" fill="#1A1E33">and point at a control</text>
+<line x1="634" y1="360" x2="966" y2="360" stroke="#2E4394" stroke-width="4" marker-end="url(#a)" />
+<text x="800" y="340" text-anchor="middle" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#1A1E33">What the person is looking at</text>
+<line x1="966" y1="530" x2="634" y2="530" stroke="#2E4394" stroke-width="4" marker-end="url(#a)" />
+<text x="800" y="510" text-anchor="middle" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#1A1E33">How to operate the app</text>
+<text x="1004" y="572" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="24" font-weight="700" fill="#1A1E33">It can make changes</text>
+<text x="1004" y="606" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="22" fill="#1A1E33">through the same capabilities as the screen,</text>
+<text x="1004" y="634" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="22" fill="#1A1E33">with permissions for its caller</text>
+</svg>
