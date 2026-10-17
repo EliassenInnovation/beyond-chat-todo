@@ -50,7 +50,7 @@ async function start(){
  const styleResponse=await fetch('todo_view.css');if(!styleResponse.ok)throw Error('App styling could not be loaded.');const todoCss=await styleResponse.text();
  const root=$('todo-host').attachShadow({mode:'open'});const style=node('style',todoCss);root.append(style);const list=node('div');root.append(list);
  const frames=makeFrames(record);let index=0,timer=null,playing=false;
- function pause(){clearTimeout(timer);timer=null;playing=false;$('play').textContent=frames[index].end?'↻  Replay':'▷  Play';}
+ function pause(){clearTimeout(timer);timer=null;playing=false;$('play').textContent=frames[index].end?'↻  Restart':'▷  Play';}
  function render(){const frame=frames[index],state=frame.state;
   renderTodos({parentElement:list,setTriggerValue:()=>{},data:{todos:state.todos,pending:state.waiting_for_approval,today:record.today,filter:state.screen_shows,only:state.todos.filter(t=>state.visible.includes(t.title)).map(t=>t.id),can_undo:index>1,can_redo:false}});
   list.inert=true; // Saved states cannot be edited or executed.
@@ -63,11 +63,11 @@ async function start(){
   if(question)$('chat').scrollTop=question.getBoundingClientRect().top-$('chat').getBoundingClientRect().top+$('chat').scrollTop;
   else $('chat').scrollTop=0;
   $('event').textContent=frame.end?'Session complete.':frame.selection?'Sam clicks Approve on the requests.':'';
-  $('next').disabled=frame.end;$('play').disabled=false;if(frame.end)$('play').textContent='↻  Replay';
+  $('next').disabled=frame.end;$('play').disabled=false;if(frame.end)$('play').textContent='↻  Restart';
  }
  function advance(){if(index<frames.length-1){index++;render();}if(frames[index].end)pause();}
  function schedule(){timer=setTimeout(()=>{advance();if(playing)schedule();},frameDelay(frames[index]));}
- $('play').onclick=()=>{if(playing){pause();return;}if(frames[index].end){index=0;render();}playing=true;$('play').textContent='Ⅱ  Pause';schedule();};
+ $('play').onclick=()=>{if(playing){pause();return;}if(frames[index].end){index=0;render();pause();return;}playing=true;$('play').textContent='Ⅱ  Pause';schedule();};
  $('next').onclick=()=>{pause();index=nextExchange(frames,index);render();};
  document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
  $('persona').append(node('b',record.who),node('div','Wants: '+record.wants));render();
