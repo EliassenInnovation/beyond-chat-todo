@@ -10,18 +10,8 @@ product people adding an agent to an application or website—or improving one t
 A small TodoMVC-style application makes the design concrete without requiring you to learn
 a complicated business domain. Managing todos is the teaching example, not the reason to build an agent.
 
-## The path through the guide
-
-Start with [why an embedded agent helps](guide/why.md) and [how the pieces fit](guide/design.md).
-Then [run the sample](guide/start.md) and [follow a request through its implementation](guides/walkthrough.md).
-The walkthrough is the center of the guide: each design choice has a problem, a mechanism,
-and a place to inspect it in code.
-
-Continue with [model choices](guides/models.md), [exploratory testing](guide/exploration.md),
-and [evaluation](principles/evaluating-agents.md). Learn to read
-[evidence and variation](guides/evaluation-results.md) before treating a pass rate as a verdict.
-[Tracing](guides/langfuse.md) is optional; local reports work without a running service.
-Finish by [applying the approach to your own app](guide/apply.md).
+Follow the chapters from motivation and design through the working sample and evaluation,
+or use the chapter navigation to go directly to what you need.
 
 ## What you can inspect now
 

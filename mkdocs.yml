@@ -21,6 +21,7 @@ theme:
     primary: indigo
     accent: teal
   features:
+    - navigation.expand
     - navigation.footer
     - navigation.top
     - search.suggest
