@@ -4,10 +4,13 @@ Your application may already do what a person needs. The difficulty is often dis
 that capability, learning its controls, and working out the sequence that completes the job.
 An embedded agent can shorten that distance.
 
-!!! consider "Consider — where would an agent help?"
-    Write down one application in your organization that could benefit from an embedded agent.
-    Name a task people struggle to complete in it and why: finding the feature, understanding
-    the data, coordinating several steps, or something else. Describe what would improve for them.
+!!! consider "Consider — where should the agent help first?"
+    If an agent could make your users’ jobs easier, where in your application would you
+    want it to help first? Why?
+
+    Write down one user job, what makes it difficult today, and what better assistance
+    would enable.
+
 
 ## Expectations come from other experiences
 
