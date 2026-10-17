@@ -20,12 +20,11 @@ testing, not a claim that people need an agent to manage a simple todo list.
 
 ![Sam explores cleanup and filtering while deletion requests wait for approval.](../images/persona-sam.png)
 
-
 Set `EVALBASICS_PERSONA_PLAYER=true` in `.env` to show the visible player without enabling
 trace export (the sample configuration includes it). It lets you watch a persona interact
 with the actual screen. Pick a persona, then use Next or Play to watch. Each persona
 uses a separate test list; pick None to return to your own list. The command-line runner uses the same persona prompts,
-screen description, and approval actions, with a separate separate test list for each session:
+screen description, and approval actions, with a separate test list for each session:
 
 ```bash
 .venv/bin/python -m evaluations.personas --persona sam --turns 8 --max-tokens 50000
@@ -59,6 +58,15 @@ then add a regression case and a separate held-out variant. Do not mix explorato
 sessions into the fixed-suite control chart. Headless exploration does not verify rendering,
 layout, or interaction through actual browser controls; the visible player remains valuable.
 
+## Design personas that explore useful situations
+
+Base situations on real kinds of work: support-call reasons, abandoned workflows and observed user questions. A persona can reveal a failure but cannot tell you how common that situation is among real users.
+
+Give it a goal and circumstances, not scripted dialogue. Put facts the application should already know into its initial data. Keep private background in the persona's instructions until it chooses to mention it. Vary starting data, patience, indirect references and changes of plan; avoid demographic stereotypes.
+
+Let the simulated person use the same operations available to a real person. The sample models typed messages and approval choices; it does not simulate every browser interaction. Include attempts to exceed permissions and hostile instructions in stored records. Human testing remains necessary for rendering, navigation and other experience problems.
+
+Sample conversations to check that the personas behave plausibly. Keep synthetic test recording separate from real-user recording, show when capture is active, and follow the organization's data and consent policy. Repeat exploration after meaningful application or model changes, and turn confirmed findings into fixed cases with separate held-out variants.
 
 ## Turn observations into evidence
 
@@ -75,4 +83,4 @@ for the system to imitate.
 ![A focused human review of a request and proposed action.](../images/human-review.png)
 
 Confirmed problems become repeatable regression cases, with separately held-out wording to
-check that a fix generalizes. Next, [evaluate the outcome systematically](../principles/evaluating-agents.md).
+check that a fix generalizes. Next, [evaluate the outcome systematically](evaluation.md).

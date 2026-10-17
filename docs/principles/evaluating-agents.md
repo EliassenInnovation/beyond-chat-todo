@@ -1,73 +1,8 @@
-# Evaluating Agents in Applications
+# Evaluate agents in applications
 
-[![The improvement loop from a user job to a case, measurement, review and revision.](../images/improvement-loop.svg)](../images/improvement-loop.svg)
+The evaluation material is integrated into the guide:
 
-*Capture real jobs, measure outcomes, inspect the evidence, and improve the capability. Check the grader as well as the agent.*
-
-**A companion to [Beyond Chat: Building Agents into Applications](principles.md)**
-
-Version 3.5-draft · October 15, 2026
-
-> **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization’s security policies.
-
-Section 6 of the paper says what to evaluate, how to judge, and how to read the results. This companion covers how to run evaluations in detail, for the people who build and maintain them. Source numbers refer to the paper's [Foundations and Further Reading](principles.md#foundations-and-further-reading), and check numbers to the [implementation guide](implementation.md) (Checks 6.1–6.15).
-
-## What to evaluate
-
-**Block serious failures before the user sees them; measure the rest.** Some failures must never reach the user, such as an answer that breaks a policy or reports a change that did not happen; stop those in the application before the answer is shown. The checks that stop them can miss a failure or stop a good answer, so measure them like any other check. Others are matters of quality or style, such as an answer that is longer than it needs to be. Measure those in evaluation. Do not rewrite answers in production each time one falls short.
-
-## How to judge
-
-**Code runs the conversation and collects the evidence.** It records the state before and after, the tool calls, and which text the application wrote. Code checks run first; judges then read what the model wrote, with that evidence beside it, and text the application wrote is marked so they can tell the difference.
-
-**Grade quality against the user's goal.** When a judge grades quality, it looks at relevance, specificity, permitted next steps, tone, and coherence against what the user wanted and knew. Require examples and reasons, so a person reading a score can find the turn in the conversation that caused it.
-
-**Code combines the verdicts.** Code merges every verdict into one report and writes any feedback to the agent from a template, so the feedback the agent receives is fixed text that people have read and tested, rather than wording a judge chose. A wrong verdict can still choose the wrong template, which is one reason the judges themselves are checked against people.
-
-**Ask a judge more than once only when its mistakes vary.** Asking the same judge several times and taking the majority answer reduces mistakes that change from one asking to the next. It does not fix mistakes the judge makes every time; in studies of models answering questions, more votes made hard questions worse, because the wrong answer became more consistent. [27](https://arxiv.org/abs/2403.02419) So ask a judge several times and take the majority answer only when checking it against people shows its mistakes vary between askings. In the to-do app, only the judge that checks approvals is asked several times; doing the same for the judge that checks the agent's claims did not improve it (106 of 115 judgments with the majority answer, 107 asked once).
-
-**Reduce repeated mistakes by changing the judge or its input.** Judges that compare two answers tend to favor whichever is shown first; for those, ask twice with the order swapped. [11](https://arxiv.org/abs/2306.05685) For other repeated mistakes, judges from different model families help, [28](https://arxiv.org/abs/2404.18796) though different models often share mistakes, including when they act as judges, [29](https://arxiv.org/abs/2506.07962) so checking judges against people is still needed.
-
-**Measure before choosing a judge model.** A newer or larger model is not automatically a better judge. In our comparison of three candidate models on four judging tasks, the smallest established one was the most reliable, and the largest failed good answers over a rounding difference.
-
-**A judge that cannot answer is not a failure.** Record an unreadable judgment as not graded. Counting it as a failure marks good answers as bad, and those false failures then distort the data used to check the judges. Report how many judgments were not graded and why, calculate scores over the graded cases, and show how many cases were graded beside each score, so a run cannot look good because its hardest cases went ungraded. When a check the release depends on could not be completed, mark the run inconclusive. A guard in production is different: when it cannot answer, the change it protects is refused (section 3 of the [paper](principles.md)).
-
-**Simulated users and reviewers do not grade.** Simulated users produce conversations no one scripted, and an independent reviewer on a different model gives a person a second opinion while reading a conversation. Neither produces a pass or a fail.
-
-**Judges follow the same data rules as the agent.** Anything that reads a user's conversation must run on a provider the organization has approved to process that data, and prohibited data is removed before it reaches a judge.
-
-## How to read the results
-
-**Act on special causes, once confirmed.** A change with a cause you can name, such as a fix that took a failure from every run to none, may be a special cause. Before treating it as real, confirm it under the same conditions, with enough runs to tell it from ordinary variation. Once there are eight or ten runs made under the same conditions, draw control limits from them and look for runs outside them. Wheeler's method for one value per run sets the limits at the average plus or minus 2.66 times the average absolute difference between consecutive runs. Treat the first limits as provisional and recalculate them as runs accumulate. A run outside the limits is a signal to investigate; a run inside them does not prove that nothing changed. [30](principles.md#foundations-and-further-reading)
-
-**A perfect score on a few attempts is weak evidence.** Most fix decisions are made on one case at 5 or 10 attempts. By the Wilson interval, a standard way to put a range around a pass rate measured on few attempts, at 95% confidence, 5 of 5 is still consistent with a true pass rate as low as about 57%, and 10 of 10 with one as low as about 72%. Treat one case's before and after as a direction, and confirm a fix with more attempts or with its held-out case (see "Check each fix on a request it was not tuned for" in section 6 of the [paper](principles.md)).
-
-**Report whether every attempt succeeds, where consistency matters.** A pass rate says how often one attempt succeeds. But a user who does the same job every week cares whether it works every time. pass^k measures that: whether all k attempts at the same job succeed. [10](https://arxiv.org/abs/2406.12045) [21](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) For jobs where consistency matters, report it beside the pass rate, and say what k was. To calculate it, make n attempts at each job, k or more, and count the c that succeed; for that job, pass^k is the number of ways to choose k attempts from the c successes divided by the number of ways to choose k from all n, and the suite's pass^k is the average over its jobs. Start every attempt from the same saved state, so one attempt cannot change what the next one finds.
-
-**When the noise itself is the problem, fix its source.** Sometimes the variation is the problem: a test case that passes about half the time, or an answer that is difficult to classify under the grading rule. More runs will not settle this. Find where the variation comes from before changing anything: the application may be unreliable at this job, the test environment may differ between runs, or the grader may disagree with itself. Fix the application when it is the source, and change the test case or the rule only when they are.
-
-**Decide before the run what would block a release.** Before running the suite for a release, write down who decides, which failures block the release (such as an answer that reports a save that did not happen), what failure rate is accepted for the rest, and what makes a run inconclusive, such as too many ungraded judgments or a required check that did not run. Report cost and time for each completed job as well as for each model call: an agent that needs many calls to finish a job costs more than its cost per call suggests.
-
-**Keep a record behind each reported improvement.** When a report says a change helped, link the claim to a short record of the experiment: what changed, the versions of the model and the application, which cases were run and how many attempts each, the grading criteria, the result, and what the experiment could not show. Without the record, nobody can check the claim later, including the people who made it.
-
-<span id="how-to-keep-the-test-cases-honest"></span>
-
-## How to keep test cases valid and independent
-
-**Test one hypothesis at a time.** Treat each change as an experiment. State the hypothesis first: "Rewording the move tool will stop the agent from choosing the wrong position." Change only that, and keep everything else the same: the model, the starting data, the other tools, and the grading rules. Record what each run actually used, including the model that served each call and the application's version, so you can tell later whether anything else changed. Save each failure, not just the totals, so you can see which conversations improved or became worse. [10](https://arxiv.org/abs/2406.12045)
-
-**Run the suite with failures injected.** Real tools fail: a read errors, a save fails, a call times out. Run all the test cases with failures like these injected on purpose, and compare the result with a normal run. The agent should report each failure truthfully and recover where it can. In one published benchmark of 14 models, injected failures barely changed how often an agent succeeded at least once in three attempts, but cut how often it succeeded all three times by up to 24 percentage points. [22](https://arxiv.org/abs/2604.06132)
-
-**Retire test cases; never edit them.** Sometimes a test case turns out to be wrong: its expected answer was a mistake, or its script makes no sense. Do not fix it in place, because then earlier runs measured something different from later ones, and nobody can tell. Move it to a retired list with the reason, and add a corrected case under a new name.
-
-**Use real conversations only after the organization has approved it.** Many companies record and analyze customer phone calls and learn a lot from them. They can do this because legal, risk, and compliance teams have decided how the recordings are captured, stored, and used, and who can see them, and because callers are told. Grading real users' conversations with an agent needs the same decisions, and users should get an explicit choice to opt in. Until those decisions are made, use only test data and synthetic conversations from simulated users. The cost is that a failure in real use reaches the team only when someone reports it or a simulated user happens to find it.
-
-## Where evaluations live and who reads the results
-
-**By default, keep the evaluations in your repository, and use a tracing tool to read the results.** A tracing tool, a service such as Langfuse that records each model call and tool call, is a good place to read what happened in a conversation and to compare runs. It is also the one place where developers and their coding agents look at the same evidence: a person clicks through a conversation, an agent reads it through the tool's API, and either can point the other to the turn that matters. Keep the test cases, the graders, and the judges in the repository, and send copies to the tool rather than editing them there. Then if the tool went away, the next run would still execute and grade, and you would lose only its screens. Moving to a different tool then means changing the code that sends records to it, not rewriting the evaluations. Tools in this field change quickly, and the evaluations should keep working when one is replaced.
-
-**Read a sample of failed and successful cases.** Failures get read because someone has to fix them, but a passing case can hide a problem too: a check that is too lenient, or an answer that is right for the wrong reason. Read a sample of both. For each, look at the request exactly as the application sent it to the model, as well as the answer. Requests often show problems nobody noticed, because models work around them silently: instructions with formatting mistakes, grading rules that quote their own test cases (so those cases can never fail), calls to features the vendor has retired, and, in the to-do app, the same list sent again with every message until the model was reading several out-of-date copies. The tests had shown only that one case still failed half the time; reading the request showed why.
-
-**Make each conversation easy for a reviewer to read.** If you use a tool to record conversations between people and the agent, make sure each record carries the context a reviewer needs. The most important piece is the state after each turn: the list, the record, or the plan as the user saw it. Then the conversation reads in order: what was said, what the agent did, and what changed. Without it, a reviewer has to work out in their head what the application looked like at each point. When the state is recorded, reviewers often notice that a change nobody asked for came from the turn before.
-
-**Let a development agent run the experiments.** Evaluation exists to improve the model, the tools, the prompts, and the judges until the results are good enough. People and models both suggest good improvements. Testing each one, one hypothesis at a time, is work a development agent does well and quickly; in our experiments, each measurement cost cents. The person sets the direction, makes each decision when there is a choice between approaches, and reads the conversations; the agent runs the experiments. If the agent fixing a problem also writes the held-out cases, they are no longer unseen, so have a separate session write them.
+- [Evaluate the user's outcome](../guide/evaluation.md): criteria, judges and independent cases.
+- [Read evidence and variation](../guides/evaluation-results.md): running the suite, evidence completeness and control charts.
+- [Explore the experience](../guide/exploration.md): human and persona testing.
+- [Optional tracing](../guides/langfuse.md): the sample's Langfuse integration.

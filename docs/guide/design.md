@@ -152,7 +152,7 @@ one per way a person might phrase the request.
 
 A model-based guard can make mistakes. It supplements code-enforced authority; it cannot
 replace it. The sample supports guards as a normal part of its design, with narrow questions
-and explicit evidence. They are not temporary experimental switches.
+and explicit evidence.
 
 ## Match approval to consequences
 
@@ -198,4 +198,4 @@ save. The sample demonstrates atomic local actions and recovery messages. It doe
 provide durable operation IDs or safe replay of uncertain network writes. Those are explicit
 limits to address when taking this design into a service.
 
-Now [run the sample](start.md), then follow the same boundaries in the implementation.
+Continue with [understanding and completing the request](requests.md), or [run the sample](start.md) to see these boundaries in code.

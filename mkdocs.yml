@@ -39,19 +39,25 @@ extra_css:
   - stylesheets/guide.css
 nav:
   - Start here: index.md
-  - The guide:
-    - 1. Why an embedded agent?: guide/why.md
-    - 2. Design the connection: guide/design.md
-    - 3. Run the sample: guide/start.md
-    - 4. Follow a request: guides/walkthrough.md
-    - 5. Choose models: guides/models.md
-    - 6. Explore the experience: guide/exploration.md
-    - 7. Evaluate outcomes: principles/evaluating-agents.md
-    - 8. Read evidence and variation: guides/evaluation-results.md
-    - 9. Optional tracing: guides/langfuse.md
-    - 10. Apply it to your app: guide/apply.md
-  - Detailed references:
-    - Design principles: principles/principles.md
+  - Design:
+    - Why an embedded agent?: guide/why.md
+    - Shared capabilities and the registry: guide/design.md
+    - Understand the request: guide/requests.md
+    - Authority and recovery: guide/authority.md
+    - Tools and current evidence: guide/tools.md
+    - Interfaces and views: guide/interfaces.md
+  - Implementation:
+    - Run the sample: guide/start.md
+    - Follow a request: guides/walkthrough.md
+    - Choose models: guides/models.md
+  - Evaluation:
+    - Explore the experience: guide/exploration.md
+    - Evaluate outcomes: guide/evaluation.md
+    - Read evidence and variation: guides/evaluation-results.md
+    - Optional tracing: guides/langfuse.md
+  - Apply it to your app: guide/apply.md
+  - Review references:
     - Implementation and acceptance checks: principles/implementation.md
     - Sample coverage and limitations: guides/sample-assessment.md
+    - Sources and further reading: reference/sources.md
   - Recorded evaluation report: https://bobfischer.github.io/beyond-chat-todo/

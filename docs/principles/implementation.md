@@ -1,16 +1,14 @@
-# Beyond Chat: Implementation Guide
+# Implementation and acceptance checks
 
 **For development agents and the engineers who direct them**
 
-Version 3.5-draft · October 15, 2026
-
 > **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization’s security policies.
 
-This guide turns [Beyond Chat: Building Agents into Applications](principles.md) into work a development agent can do and a reviewer can check. Read the principles first; this guide assumes their vocabulary and does not repeat their reasoning. It holds the acceptance checks (IDs are stable across versions), the proposed registry, observation and reference contracts, the evaluation infrastructure, and the rules for scoping a handoff. Start with the quick checklist below; use the detailed sections when you need contracts and acceptance checks.
+This reference turns the [illustrated guide](../index.md) into work a developer can implement and a reviewer can check. It holds stable acceptance-check IDs, proposed contracts, and guidance for scoping a task. Read the relevant guide chapters for the reasoning, then use the quick checklist and detailed checks for review.
 
 ## Quick checklist
 
-First review the full principles and adapt them to the application. Then use the agreed version with a task of limited scope: the capability, the interfaces, the changes allowed, and the check IDs. For example: “Review rescheduling on the screen and the command line against Checks 3.1–3.7; do not change code.” This checklist does not authorize a general rewrite.
+First review the relevant guide chapters and adapt their recommendations to the application. Then use the agreed version with a task of limited scope: the capability, the interfaces, the changes allowed, and the check IDs. For example: “Review rescheduling on the screen and the command line against Checks 3.1–3.7; do not change code.” This checklist does not authorize a general rewrite.
 
 Use this summary as a reminder during a scoped task. The detailed checks and contracts follow below.
 
@@ -180,11 +178,11 @@ Check IDs are stable references. Add new IDs rather than renumbering or reusing 
 
 ## Evaluation infrastructure
 
-These practices make section 6 of the principles, and its companion paper [Evaluating Agents in Applications](evaluating-agents.md), operational.
+These checks apply the guide’s [evaluation method](../guide/evaluation.md).
 
 **Keep the case definitions in the repository and let the observability platform hold the results.** Keep each case, its grader, and its starting data in the repository, push what the observability platform needs, and push one way only: a case edited in the platform's interface blocks the next run with a conflict instead of silently changing what was measured. If the platform is stopped, every evaluation still runs and writes the same report; only the shared view is lost (Check 6.4). Keep the number of modules that import the platform's SDK small, so retargeting to another platform touches the recorder, the dataset transfer, and the links a results page writes, and nothing else.
 
-**Define the suite yourself, because the platforms we used had no concept of one.** They know datasets, runs, sessions, and traces. A team thinks in suites: the cases, the grader and its exact version, the starting data, the spending cap, what triggers a run, and where the report goes. Write that definition once and derive every name the platform sees from it. Own the vocabulary too: an *experiment* compares two or more arms that differ in one thing; the thirtieth execution of a suite on unchanged code is a *run*.
+**Define the suite in the repository.** Tracing tools organize evidence using concepts such as datasets, runs, sessions, and traces. A team thinks in suites: the cases, the grader and its exact version, the starting data, the spending cap, what triggers a run, and where the report goes. Write that definition once and derive every name the platform sees from it. Own the vocabulary too: an *experiment* compares two or more arms that differ in one thing; the thirtieth execution of a suite on unchanged code is a *run*.
 
 **Retire a case instead of editing it.** A dataset file carries its active cases and a retired list mapping each retired case to its reason. Pushing archives the hosted copy under its own identity; a corrected case joins under a new one. A case listed as both active and retired is an error at load.
 
@@ -303,8 +301,8 @@ Persona runners, evaluators, debuggers, and collectors are part of the system's 
 
 ## Keep persistent context small
 
-Read the principles and this guide in full for an initial review. For routine sessions, keep the ownership split, check index, and working rules from [the quick checklist](#quick-checklist) in the project's persistent instructions, and load detailed checks when a scoped task needs them. The checklist only summarizes this guide; it is not a separate contract.
+Read the illustrated guide and this reference for an initial review. For routine sessions, keep the ownership split, check index, and working rules from [the quick checklist](#quick-checklist) in the project's persistent instructions, and load detailed checks when a scoped task needs them. The checklist only summarizes this guide; it is not a separate contract.
 
 **Scope.** Multi-user isolation, concurrent edits, network operation, and detailed cost forecasting need their own designs and tests; shared contracts help organize that work but do not solve it.
 
-Sources [15], [16], [20], [23] and [24] are listed in the principles' [Foundations and Further Reading](principles.md#foundations-and-further-reading).
+Sources [15], [16], [20], [23] and [24] are listed in [Sources and further reading](../reference/sources.md).

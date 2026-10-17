@@ -25,12 +25,10 @@ You can read the code, run the capability walkthrough without credentials, or
 [open recorded evaluation results](https://bobfischer.github.io/beyond-chat-todo/) without installing anything.
 The sample is local and single-user. It demonstrates patterns; it is not a complete production architecture.
 
-## How the reference material fits
+## Read the guide and use the review references
 
-The accompanying design documents are called **Beyond Chat**. The
-[principles](principles/principles.md) explain the broader rationale. The
-[acceptance checks](principles/implementation.md) turn that rationale into things to inspect,
-and the [sample assessment](guides/sample-assessment.md) records coverage and limitations.
-Their numbered checks are reference identifiers, not concepts you need to memorize before starting.
+The design chapters explain shared capabilities, user requests, authority, tools and interfaces. The implementation chapters take those ideas through the working app. The evaluation chapters cover exploration, judging, evidence and variation. These are parts of one guide, from the reason to build an agent through the evidence needed to improve it.
+
+Use the [implementation and acceptance checks](principles/implementation.md) when scoping or reviewing work. The [sample assessment](guides/sample-assessment.md) records what this app demonstrates and what it leaves out. Check numbers are stable review identifiers; you do not need to memorize them before starting. [Sources and further reading](reference/sources.md) support the guidance.
 
 The guide and sample are provided by Eliassen Innovations under the repository's MIT license.

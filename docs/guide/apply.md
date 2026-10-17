@@ -4,6 +4,12 @@ Choose one useful job people struggle to complete. Write down the starting state
 person is trying to achieve, what must change, what must remain unchanged, and what confirmation
 they need. Include examples of asking for instructions as well as asking for action.
 
+## Choose work worth improving
+
+Use support-call reasons, abandoned tasks and user research to identify common or costly jobs. Compare the agent with the help and controls people already have. Early evidence may be a useful new workflow; as adoption grows, measure completion, corrections, time saved, support effort and cost per completed job.
+
+Improve an existing application one job at a time. Trace the current behavior, including unwritten rules that need a domain expert, capture it in tests, and move it behind a shared boundary. Functional behavior should remain stable even when unit tests must change with the internal structure. A development agent can trace code and draft checks; people supply business rules that were never recorded.
+
 ## Make one operation shared
 
 Find the existing business operation behind the UI. If its rules live in an event handler,

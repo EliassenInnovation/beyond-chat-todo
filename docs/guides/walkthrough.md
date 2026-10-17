@@ -311,11 +311,11 @@ that do it, and give the UI and agent access through the same implementation. De
 the agent needs to observe, what it may execute, and what requires a person's approval.
 Then test the code's boundaries and evaluate whether the agent does the intended work.
 
-Use the accompanying [design principles](../principles/principles.md) to examine those choices
-and the [implementation guide](../principles/implementation.md) to scope and review the work.
-These documents form the **Beyond Chat** series; the guide contains detailed acceptance checks.
-The [sample assessment](sample-assessment.md) maps this example to those checks, with evidence
-and gaps, when you are ready for that level of detail.
+Use the guide's [design chapters](../guide/design.md) to examine those choices and the
+[implementation checks](../principles/implementation.md) to scope and review the work.
+The [sample assessment](sample-assessment.md) maps this implementation to the checks,
+with evidence and gaps. The checklist is a reference alongside the guide, not a prerequisite
+for understanding the sample.
 
 Keep the shared capability ownership, caller-specific authority, validation before changes,
 and truthful results. Adapt the domain and storage to your application. Before using this

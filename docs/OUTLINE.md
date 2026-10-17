@@ -1,39 +1,21 @@
-# Guide outline and material map
+# Guide structure
 
-This is the editorial plan for one continuous guide. The README provides the invitation and
-minimum setup; the guide explains the decisions, demonstrates them, and helps readers adapt them.
-Existing chapter files remain the canonical sources rather than being copied into a second book.
+The README introduces the purpose and minimum setup. The guide combines the principles,
+working implementation and evaluation method into one sequence. The original standalone
+principles and evaluation bodies are no longer maintained; their old URLs point readers here.
 
-| Chapter | Reader's question and coverage | Material and visual treatment |
-| --- | --- | --- |
-| Start here | What is this guide, who is it for, and what will I build? | New introduction; plain language, no unexplained check numbers. |
-| 1. Why put an agent in the app? | Where does assistance provide value? How does it differ from help search? | October 13 motivation and two-languages explanation; wagon, laptop, assistance ladder and two-language diagram. |
-| 2. Design the connection | How do shared capabilities, caller authority, context, guards, receipts and recovery fit together? | New connecting narrative drawn from the principles and talk; shared-capability and screen-state diagrams. Distinguish recommendations from this sample's guarantees. |
-| 3. Run the sample | What do I install, which key do I need, what can I try without a model? | Setup from README, two provider choices, first three interactions; no secrets. |
-| 4. Follow a request | Where does a UI event or tool call go? What happens on ambiguity, approval, failure or recovery? | Existing walkthrough integrated as the central implementation chapter; architecture and screen diagrams alongside code links. |
-| 5. Choose models | Which roles need models? What are structured responses and decision models? How do I compare cost and quality? | Existing models guide, including tested configurations and limitations; distinguish model selection from permission. |
-| 6. Explore the experience | How do people and personas find new problems? What does visible vs headless testing establish? | Extract runner instructions from README; screenshots, sampling and structured persona turn; retain one canonical explanation in walkthrough. |
-| 7. Evaluate outcomes | What constitutes success? How do I check a judge and avoid tuning to test wording? | Existing evaluation method; adapted improvement-loop diagram and chapter introduction. |
-| 8. Read evidence and variation | Is evidence complete, is behavior changing, is it acceptable? What changes invalidate limits? | Existing results guide; report screenshot, fixed baseline and comparison periods, practical run commands. |
-| 9. Trace when useful | How does this sample connect to Langfuse? What stays local? | Existing short optional integration; no container tutorial or vendor endorsement. |
-| 10. Apply it to your application | How do I start with one useful job and improve the capability rather than patch one prompt? | New practical handoff chapter; production gaps and example scope. |
-| Reference: design principles | What is the fuller rationale and provenance? | Existing principles, kept as reference rather than required introductory reading. |
-| Reference: acceptance checks | How do I inspect a scoped implementation? | Existing implementation guide and checks, preserving their identifiers. |
-| Reference: sample assessment | What does this sample demonstrate, and what does it not? | Existing assessment; no suggestion that it meets every check. |
+| Part | Chapters and reader's questions |
+| --- | --- |
+| Design | Why an embedded agent? Shared capabilities and the registry; understanding requests and follow-ups; authority and recovery; tools and current evidence; interfaces and views. |
+| Implementation | Run the sample, follow a request through shared execution, and choose models for the different roles. |
+| Evaluation | Explore with people and personas; define outcomes and calibrate judges; run evaluations and interpret complete evidence and variation; add optional tracing. |
+| Application | Choose one useful job in an existing product, preserve its behavior, share its operation, and measure the benefit. |
+| Review references | Stable implementation checks, the sample's coverage and limitations, and sources supporting the guidance. |
 
-## Diagram decisions
+Use diagrams beside the concept they explain. Keep headings and captions in Markdown,
+retain the diagram's relationships, and size labels for the reading column. No slide titles
+or decorative chevrons. Screenshots illustrate interactions, not reliability claims.
 
-Reuse the talk's diagram bodies as editable SVGs: two languages, shared capabilities,
-screen observation/control, and evaluation improvement loop. Remove slide titles, subtitles,
-chevrons and unused canvas. Keep generous whitespace around the diagram and put headings and
-explanations in Markdown. Retain internal labels because they identify the parts of the diagram.
-The existing ladder has already been adapted for documents. Avoid the old approval and eval
-slides where their wording would overstate current guarantees. Screenshots are examples of
-individual interactions, not reliability evidence. No decorative slide wrappers or embedded page titles.
-
-## Publishing and maintenance
-
-The guide lives at `guide/` on the existing Pages site; the evaluation report stays at the root.
-Markdown remains readable on GitHub. Build from the same chapter files, with navigation,
-search, chapter links and responsive layouts. Keep configuration and run records authoritative:
-no paid runs or application behavior changes are needed for this documentation work.
+The guide lives at `guide/` on GitHub Pages; the recorded evaluation report stays at the root.
+Build and link-check the same Markdown sources used for reading on GitHub. Git preserves
+superseded text; do not add revision histories or abandoned experiment narratives to the guide.
