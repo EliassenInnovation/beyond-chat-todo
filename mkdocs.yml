@@ -17,6 +17,7 @@ hooks:
   - .github/docs_hooks.py
 theme:
   name: material
+  logo: images/eliassen-mark-white.svg
   font: false
   palette:
     primary: indigo
