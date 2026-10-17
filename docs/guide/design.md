@@ -10,6 +10,10 @@ The UI and agent should use the same implementation, validation and data.
 
 *Different interfaces reach one owner of each operation. Sharing implementation does not grant identical authority.*
 
+For example, a person may place a trade directly through the application, while an agent
+proposing the same trade must obtain the person’s approval through a dialog enforced by
+application code. Both use the same trading operation; their permissions differ.
+
 Keep the screen's event handling and the model's tool adapter focused on translating requests into shared operations. Both reach the shared
 operation. Otherwise, a rule fixed in the UI can remain broken in the agent's separate copy.
 An existing service layer may already provide this boundary; you do not have to rebuild
