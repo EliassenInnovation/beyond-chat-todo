@@ -7,10 +7,10 @@ answer 1-5") drift; narrow yes/no questions hold.
 """
 
 import json
-import os
+from todo.model_provider import provider_for, model_for
+from todo.anthropic_agent import structured
 
 from todo.model_usage import call_model
-from todo.langfuse_setup import setting
 
 from langfuse.openai import OpenAI
 
@@ -19,7 +19,7 @@ from todo.capabilities import REGISTRY
 from todo.view import SCREEN
 
 
-MODEL = setting('EVALBASICS_JUDGE_MODEL', 'gpt-6-luna')  # the judges; the agent's model is separate
+MODEL = model_for('judge')  # the judges; the agent's model is separate
 # GPT-5 and GPT-6 models take only the default temperature; like Advisor's reviewers, they think a
 # little (low) before answering. Older models answer at temperature 0.
 SETTINGS = {'reasoning_effort': 'low'} if MODEL.startswith(('gpt-5', 'gpt-6')) else {'temperature': 0}
@@ -28,17 +28,12 @@ SETTINGS = {'reasoning_effort': 'low'} if MODEL.startswith(('gpt-5', 'gpt-6')) e
 def answer(system, evidence, schema, name):
     """One judge call: the JSON text of its verdict in the schema's shape. A judge from another model family
     than the agent's can catch what the agent's family misses, so a claude- model goes to Anthropic (the
-    verdict comes back as a forced tool call); any other goes to OpenAI."""
-    if MODEL.startswith('claude-'):
+    verdict uses structured output); provider settings can override model-prefix routing."""
+    if provider_for('judge', MODEL) == 'anthropic':
         from anthropic import Anthropic
-        shape = schema['json_schema']
-        reply = call_model(Anthropic().messages.create, purpose=name,
-            model=MODEL, max_tokens=1024, system=system,
-            messages=[{'role': 'user', 'content': evidence}],
-            tools=[{'name': shape['name'], 'description': 'Give your verdict.', 'input_schema': shape['schema']}],
-            tool_choice={'type': 'tool', 'name': shape['name']})
-        given = next((block.input for block in reply.content if block.type == 'tool_use'), None)
-        return json.dumps(given) if given is not None else None
+        return structured(Anthropic(), model=MODEL, system=system,
+                          messages=[{'role': 'user', 'content': evidence}],
+                          schema=schema['json_schema']['schema'], purpose=name)
     return call_model(OpenAI().chat.completions.create, purpose=name,
         model=MODEL, name=name, response_format=schema, **SETTINGS,
         messages=[{'role': 'system', 'content': system}, {'role': 'user', 'content': evidence}],

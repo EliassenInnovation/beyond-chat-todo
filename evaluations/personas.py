@@ -12,6 +12,9 @@ findings become cases; they join the suite with origin 'found by a persona'.
 
 import argparse
 import json
+from anthropic import Anthropic, AnthropicError
+from todo.anthropic_agent import structured
+from todo.model_provider import provider_for, model_for, merge_guard_mode
 import os
 import tempfile
 import uuid
@@ -29,13 +32,17 @@ from langfuse.openai import OpenAI
 
 from todo.agent import Agent, options
 from todo.capabilities import REGISTRY, execute
-from evaluations.evals import RUNS, TODAY, snapshot, trace_link
+from evaluations.evals import RUNS, TODAY, snapshot, trace_link, model_words
 from evaluations.judge import claims_match_outcome
-from todo.langfuse_setup import connect, setting
+from todo.langfuse_setup import connect
 from todo.todos import TodoList
 from todo.view import View
 
-MODEL = setting('EVALBASICS_PERSONA_MODEL', 'gpt-4.1-mini')
+MODEL = model_for('persona')
+def model_client():
+    return Anthropic() if provider_for('persona', MODEL) == 'anthropic' else OpenAI()
+
+
 MAX_TURNS = 8
 
 # Each persona: who they are, the list they start with (a title, or title and due date, or a
@@ -155,15 +162,22 @@ def persona_says(client, name, persona, history, shown, reply, today=TODAY):
     said = f'The assistant said: {reply}' if reply else 'You have just opened the app; the assistant is waiting.'
     history.append({'role': 'user', 'content': f'The screen now:\n{shown}\n\n{said}\n\n'
                     'What do you type to the assistant? (A request or a reply to it; the assistant does the work.)'})
-    for _ in range(2):  # a reply can come back empty (a refusal, or a stop with no text): ask once more
-        choice = call_model(client.chat.completions.create, purpose='persona',
-            model=MODEL, name=f'persona-{name}', response_format=TURN, **(options(MODEL) or {'temperature': 0.7}),
-            messages=[{'role': 'system', 'content': system}] + history).choices[0]
-        if choice.message.content:
-            break
+    if provider_for('persona', MODEL) == 'anthropic':
+        try:
+            out = json.loads(structured(client, model=MODEL, system=system, messages=history,
+                                        schema=TURN['json_schema']['schema'], purpose='persona'))
+        except (AnthropicError, ValueError) as exc:
+            raise PersonaStopped('The persona did not return a complete structured answer.') from exc
     else:
-        raise PersonaStopped(getattr(choice.message, 'refusal', None) or f'no reply ({choice.finish_reason})')
-    out = json.loads(choice.message.content)
+        for _ in range(2):  # a reply can come back empty (a refusal, or a stop with no text): ask once more
+            choice = call_model(client.chat.completions.create, purpose='persona',
+                model=MODEL, name=f'persona-{name}', response_format=TURN, **(options(MODEL) or {'temperature': 0.7}),
+                messages=[{'role': 'system', 'content': system}] + history).choices[0]
+            if choice.message.content:
+                break
+        else:
+            raise PersonaStopped(getattr(choice.message, 'refusal', None) or f'no reply ({choice.finish_reason})')
+        out = json.loads(choice.message.content)
     history.append({'role': 'assistant', 'content': out['message']})
     return out
 
@@ -175,14 +189,16 @@ def run(name, link=None, max_turns=MAX_TURNS, on_update=None):
     """
     if max_turns < 1:
         raise ValueError('Turns must be positive.')
-    persona, client = PERSONAS[name], OpenAI()
+    persona, client = PERSONAS[name], model_client()
     todos, view = start_list(persona), View()
     agent = Agent(todos, view=view, today=TODAY)
     history, turns, reply = [], [], None
     session = f'persona-{name}-{uuid.uuid4().hex}'
     record = dict(persona=name, who=persona_who(persona), wants=persona['wants'], session=session,
                   initial=snapshot(todos, view), today=TODAY.isoformat(), turns=turns,
-                  persona_model=MODEL, status='running')
+                  persona_model=MODEL, persona_provider=provider_for('persona', MODEL),
+                  agent_model=getattr(agent, 'model', None), agent_provider=getattr(agent, 'provider', None),
+                  merge_guard_mode=merge_guard_mode(), status='running')
 
     def persist():
         record.update(final=snapshot(todos, view), findings=findings(turns))
@@ -227,10 +243,13 @@ def run(name, link=None, max_turns=MAX_TURNS, on_update=None):
                                 trace_url=link(agent.last_trace_id) if link and agent.last_trace_id else None)
                     persist()
                 turn['assistant'] = reply
+                turn['model_reply'] = getattr(agent, 'last_model_reply', None)
                 persist()  # retain the paid conversation even if the judge fails
                 try:
                     verdict, quote = claims_match_outcome(
-                        [{'user': said['message'], 'assistant': reply, 'list_after': turn['after']}], before, turn['after'])
+                        model_words([{'user': said['message'], 'assistant': reply,
+                                      'model_reply': turn['model_reply'], 'list_after': turn['after']}]),
+                        before, turn['after'])
                     turn.update(truthful=verdict, judge_quote=quote)
                 except TokenLimitReached:
                     raise

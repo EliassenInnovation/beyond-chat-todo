@@ -8,14 +8,17 @@ Tracing takes three things, all documented Langfuse practice:
 """
 
 import json
+from dataclasses import replace
+from todo.model_provider import provider_for, model_for, merge_guard_mode
 import math
-import os
 from todo.model_usage import call_model
 from todo.langfuse_setup import setting
 
 from datetime import date
 
 import openai
+from anthropic import AnthropicError
+from todo import anthropic_agent
 from langfuse import get_client, observe
 from langfuse.openai import OpenAI  # was: from openai import OpenAI
 
@@ -24,7 +27,7 @@ from todo.guard_check import check_guards
 from todo.todos import TARGET_GUARDS
 from todo.view import SCREEN, View  # importing view registers its actions, after todos.py's
 
-MODEL = setting('EVALBASICS_MODEL', 'gpt-6-luna')
+MODEL = model_for('agent')
 
 
 def options(model):
@@ -41,6 +44,9 @@ Asked how to do something, say where it is on the screen and offer to show it; a
 point at it; asked to do it, do it.
 Reply briefly and address every part of the request, including work you have not done or cannot do.
 Describe changes only when the tool results confirm them.
+Changing the list or requesting approval requires a tool call; describing an action does not execute it.
+After a tool succeeds, the application displays its receipt directly above your reply. Do not repeat it.
+Add only useful explanation, questions, or answers not already covered by those receipts.
 When the user doubts whether a todo is needed, change nothing and ask: whether they still need it, or whether
 they want a todo added to find out.
 
@@ -117,9 +123,11 @@ class Agent:
         self.view = view or View()
         self.model = model
         self.client = None  # opening the list does not require a provider key
+        self.provider = provider_for('agent', model)
         self.today = today  # fixed in evals; None means the real date, read on every turn
         self.messages = [{'role': 'system', 'content': ''}]
         self.last_trace_id = None
+        self.last_model_reply = None
         self.seen = None  # the list as the agent last read it
         self.list_message = None  # this turn's copy of the list, and what it told: (message, told)
         self.tool_log = []  # this turn's tool calls, for the eval report's outline
@@ -130,12 +138,23 @@ class Agent:
 
     def record_turn(self, reply):
         """The turn's output in Langfuse: the reply, and the list in order after it, so a session reads as
-        what was said, what the agent answered, and what the list became. Recording only: the model never
-        sees this. Returns the reply unchanged. Everything the request changed is one entry on the undo stack."""
+        what was said, what the person saw, and what the list became. Deliver application receipts
+        followed by the model explanation; keep the raw explanation for evaluation. Everything
+        the request changed is one entry on the undo stack."""
         if self.turn_before is not None:
             with self.todos.transaction():
                 self.todos.checkpoint('agent', self.turn_before)
             self.turn_before = None
+        self.last_model_reply = reply or ''
+        receipts = [t['result']['receipt'] for t in self.tool_log
+                    if isinstance(t.get('result'), dict) and t['result'].get('receipt')]
+        reply = '\n\n'.join(part for part in [*receipts, self.last_model_reply] if part)
+        if not reply.strip():
+            reply = 'The model returned no answer.'
+        # Store what the person actually saw for subsequent references and guard evidence.
+        if self.messages[-1]['role'] == 'assistant' and not self.messages[-1].get('tool_calls'):
+            self.messages[-1]['content'] = reply
+            self.messages[-1].pop('anthropic_content', None)
         get_client().update_current_span(output={'reply': reply, 'list after this turn': list_lines(self.todos)})
         return reply
 
@@ -144,14 +163,14 @@ class Agent:
         """One user turn -> the agent's reply. In Langfuse: one trace, the reply as its output."""
         try:
             return self._ask(text)
-        except openai.OpenAIError:
+        except (openai.OpenAIError, AnthropicError):
             # A provider failure cannot unsave earlier actions. Tell the person exactly
             # which receipts were returned, keep the delivered reply in history, and stop.
             receipts = [t['result']['receipt'] for t in self.tool_log
                         if 'result' in t and 'receipt' in t['result']]
             reply = 'The assistant could not finish because the model service was unavailable.'
-            reply += (' Saved action results: ' + ' '.join(receipts) if receipts else
-                      ' No list changes were made in this request.')
+            if not receipts:
+                reply += ' No list changes were made in this request.'
             self.messages.append({'role': 'assistant', 'content': reply})
             return self.record_turn(reply)
         finally:
@@ -190,17 +209,21 @@ class Agent:
         self.tool_log = [{'tool': 'list_todos', 'args': '', 'given': True, 'result': given}]
         self.turn_before, self.undid, self.redid = self.todos.state(), False, False
         self.guard_answers = {}
-        self.client = self.client or OpenAI()
+        self.client = self.client or (anthropic_agent.Anthropic() if self.provider == 'anthropic' else OpenAI())
         for _ in range(MAX_STEPS):
-            response = call_model(self.client.chat.completions.create, purpose='agent',
-                model=self.model, messages=self.messages, tools=self.tools, name='choose-next-step', **options(self.model))
+            if self.provider == 'anthropic':
+                response = anthropic_agent.next_step(self.client, model=self.model, history=self.messages, tools=self.tools)
+            else:
+                response = call_model(self.client.chat.completions.create, purpose='agent',
+                    model=self.model, messages=self.messages, tools=self.tools, name='choose-next-step', **options(self.model))
             self.served.add(response.model)  # the snapshot that answered, not the alias we asked for
             message = response.choices[0].message
+            native = ({'anthropic_content': response.anthropic_content} if self.provider == 'anthropic' else {})
             if not message.tool_calls:
-                self.messages.append({'role': 'assistant', 'content': message.content})
+                self.messages.append({'role': 'assistant', 'content': message.content, **native})
                 return self.record_turn(message.content)
             self.messages.append({'role': 'assistant', 'content': message.content,
-                                  'tool_calls': [call.model_dump() for call in message.tool_calls]})
+                                  'tool_calls': [call.model_dump() for call in message.tool_calls], **native})
             for call in message.tool_calls:  # every call gets a reply, or the provider rejects the next request
                 result = self.run_tool(call.function.name, call.function.arguments)
                 self.messages.append({'role': 'tool', 'tool_call_id': call.id, 'content': json.dumps(result)})
@@ -245,6 +268,9 @@ class Agent:
                 raise ActionError(stale_message(self.seen, current))
             validate(action, args)  # invalid arguments never incur a model call
             guards = [REGISTRY.guard_named(g) for g in action.guards if g in self.guards]
+            mode = merge_guard_mode()
+            if mode == 'boolean':
+                guards = [replace(g, provider='chat') if g.name == 'todos.merge_unnamed' else g for g in guards]
             if guards:
                 def decisions(guard, evidence):
                     self.guard_client = self.guard_client or openai.OpenAI()

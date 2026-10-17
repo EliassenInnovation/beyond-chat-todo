@@ -7,6 +7,8 @@ https://developers.openai.com/api/docs/models/gpt-4.1-mini
 Additional rates verified 2026-10-16:
 https://developers.openai.com/api/docs/models/gpt-6-sol
 https://docs.typesafe.ai/models
+Claude Haiku 5.5 rates verified 2026-10-16:
+https://platform.claude.com/docs/en/models/haiku-5-5/overview
 Unknown models or missing usage stay unknown. Cached tokens are a subset of input.
 """
 RATES = {'gpt-6-sol': {'input': 2.00, 'cached': 0.20, 'cache_write': 2.50, 'output': 10.00},
@@ -36,6 +38,24 @@ def estimate(generations):
             inputs += inp; outputs += out
             total += inp * guard_rate / 1e6
             continue
+        if {'input_tokens', 'output_tokens'} <= usage.keys():
+            # Anthropic reports cache reads/writes separately from uncached input.
+            inp, out = usage['input_tokens'], usage['output_tokens']
+            cache = usage.get('cache_read_input_tokens') or 0
+            writes = usage.get('cache_creation_input_tokens') or 0
+            detail = usage.get('cache_creation') or {}
+            hour = detail.get('ephemeral_1h_input_tokens') or 0
+            if any(type(v) is not int or v < 0 for v in (inp, out, cache, writes, hour)) or hour > writes:
+                complete = False
+                continue
+            inputs += inp + cache + writes; outputs += out; cached += cache
+            if (g.get('error') or g.get('served_model') != 'claude-haiku-5-5'
+                    or inp + cache + writes > 100000
+                    or g.get('service_tier') not in (None, 'default', 'standard')):
+                complete = False
+                continue
+            total += (inp * 0.10 + out * 0.50 + cache * 0.01 + (writes-hour) * 0.125 + hour * 0.20) / 1e6
+            continue
         if not {'prompt_tokens', 'completion_tokens'} <= usage.keys():
             complete = False
             continue
@@ -57,4 +77,4 @@ def estimate(generations):
         total += ((inp-cache-writes)*rate['input']+cache*rate['cached']+writes*(rate['cache_write'] or 0)+out*rate['output'])/1e6
     return dict(usd=round(total, 8) if complete else None, known_usd=round(total, 8),
                 complete=complete, input_tokens=inputs, output_tokens=outputs, cached_tokens=cached,
-                rates_date='2026-10-15', assumption='Standard processing; reported responses only; excludes unreported retries and other charges.')
+                rates_date='2026-10-16', assumption='Standard processing; reported responses only; excludes unreported retries and other charges.')

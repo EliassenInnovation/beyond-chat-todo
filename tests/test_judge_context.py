@@ -58,3 +58,17 @@ def test_receipt_context_preserves_references_without_removing_model_claims(monk
 def test_unmodified_reply_does_not_need_duplicate_context():
     turn = {'user': 'What is overdue?', 'assistant': 'Renew passport.'}
     assert evals.model_words([turn]) == [turn]
+
+
+def test_direct_receipts_do_not_hide_incorrect_or_repeated_model_claims():
+    receipt = 'Asked to delete “Pay rent.” It stays until approved.'
+    for explanation in ('It has already been deleted.', receipt, ''):
+        delivered = receipt + ('\n\n' + explanation if explanation else '')
+        turn = {'assistant': delivered, 'model_reply': explanation,
+                'tools': [{'result': {'receipt': receipt}}]}
+        assert evals.receipts_repeated([turn]) == (True, None)
+        evidence = evals.model_words([turn])[0]
+        assert evidence['assistant'] == explanation
+        assert evidence['original_reply_for_context'] == delivered
+        # A transport/rendering omission must still fail, even with correct raw metadata.
+        assert not evals.receipts_repeated([{**turn, 'assistant': 'Done.'}])[0]

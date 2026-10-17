@@ -10,7 +10,6 @@ around it.
 
 import json
 import os
-import re
 import tempfile
 from contextlib import contextmanager
 from copy import deepcopy
@@ -528,7 +527,7 @@ def move_todo(ctx, id, before_id, after_id):
             'note': SAY_RECEIPT}
 
 
-SAY_RECEIPT = 'Say the receipt word for word in your reply; write anything else around it.'
+SAY_RECEIPT = 'The application displays this receipt directly. Do not repeat it; add only useful explanation or unanswered parts of the request.'
 ORDINALS = ('first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth')
 
 

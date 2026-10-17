@@ -14,7 +14,6 @@ Neither grades wording. A check that fails a good answer for its phrasing is a b
 
 import argparse
 import asyncio
-import json
 import hashlib
 import uuid
 import os
@@ -24,7 +23,6 @@ import subprocess
 import tempfile
 import time
 from functools import wraps
-from collections import defaultdict
 from dataclasses import asdict
 from datetime import date
 from pathlib import Path
@@ -58,16 +56,16 @@ def order(todos, *words):
 
 
 def receipts_repeated(conversation):
-    """(True, None) if every turn's reply says each of that turn's receipts word for word (the app's own
-    sentence about a change, in the assistant's voice); else (False, the receipt it reworded). Punctuation,
-    quote style, bold and capitals do not count: words and their order do."""
+    """Verify delivery of every application confirmation. The historical score key remains
+    receipts_repeated so old reports still load. Punctuation and markup may change in rendering;
+    the words and their order may not. New runs do not ask the model to copy confirmations."""
     words = lambda text: ' '.join(re.sub(r'[^\w\s]', ' ', text.replace('**', '')).lower().split())
     for turn in conversation:
         reply = words(turn.get('assistant') or '')
         for call in turn.get('tools') or []:
             receipt = (call.get('result') or {}).get('receipt') if isinstance(call.get('result'), dict) else None
             if receipt and words(receipt) not in reply:
-                return False, f'the app said “{receipt}”; the reply put it differently'
+                return False, f'the app said “{receipt}”; the delivered reply omitted or changed that confirmation'
     return True, None
 
 
@@ -75,6 +73,12 @@ def model_words(conversation):
     """Separate model claims from app receipts while retaining their reference context."""
     said = []
     for turn in conversation:
+        if turn.get('model_reply') is not None:
+            # New runs retain the actual model output, including any repeated or false claims.
+            said.append({**{k: v for k, v in turn.items() if k not in ('tools', 'model_reply')},
+                         'assistant': turn['model_reply'],
+                         'original_reply_for_context': turn.get('assistant') or ''})
+            continue
         reply = turn.get('assistant') or ''
         for call in turn.get('tools') or []:
             receipt = (call.get('result') or {}).get('receipt') if isinstance(call.get('result'), dict) else None
@@ -1011,6 +1015,7 @@ def play(case_name):
                 conversation.append(turn)  # recorded before asking, so a crash keeps its turn
                 try:
                     turn['assistant'] = agent.ask(step)
+                    turn['model_reply'] = getattr(agent, 'last_model_reply', None)
                 finally:
                     turn['tools'] = agent.tool_log
                     # The list right after this turn: the judge checks each reply against its own turn.
@@ -1270,7 +1275,7 @@ def main(argv=None):
                           # Voted (ask twice, a third time on a split): its errors are random, not systematic
                           # (75/75 voted vs 74/75 single); the other judges' are not, so they ask once.
                           ('claims_real_approvals', lambda: vote(lambda: claims_real_approvals(said))),
-                          # Code, no model: the app's sentence about each change, said word for word.
+                          # Code: each application confirmation reached the delivered response.
                           ('receipts_repeated', lambda: receipts_repeated(output['conversation']))):
             try:
                 verdict, quote = ask()

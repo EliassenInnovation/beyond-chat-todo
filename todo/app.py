@@ -42,7 +42,6 @@ from streamlit.components.v2 import component
 import evaluations.personas as personas
 import todo.todo_view as todo_view
 from todo.agent import Agent
-from langfuse.openai import OpenAI
 from todo.langfuse_setup import RECORDED_SESSIONS, connect, synthetic_only, setting
 from todo.capabilities import ActionError
 from todo.todos import TodoList
@@ -273,7 +272,7 @@ if state.pending:
             persona = personas.PERSONAS[state.persona]
             last_reply = next((t for role, t in reversed(state.chat) if role == 'assistant'), None)
             try:
-                said = personas.persona_says(OpenAI(), state.persona, persona, state.persona_history,
+                said = personas.persona_says(personas.model_client(), state.persona, persona, state.persona_history,
                                              personas.screen(todos, view), last_reply, today=date.today())
             except personas.PersonaStopped as stopped:
                 said = dict(click='none', message='', done=True, satisfied=False, frustrated=False,

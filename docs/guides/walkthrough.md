@@ -65,7 +65,7 @@ For the full app and tests:
 .venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
-The list works without a provider key. Chat requires `OPENAI_API_KEY` in this repository's `.env` or the process environment. Chat sends the conversation and current list to the model provider and incurs API charges. Langfuse is optional and separate: ordinary app chats are not exported there. Use synthetic tasks for this walkthrough.
+The list works without a provider key. Chat requires the API key for the provider selected in this repository's `.env`; see [model setup](models.md). Chat sends the conversation and current list to the model provider and incurs API charges. Langfuse is optional and separate: ordinary app chats are not exported there. Use synthetic tasks for this walkthrough.
 
 ## Build the capability once; control who can use it
 
@@ -102,7 +102,7 @@ implement a general UI state machine for navigation or multi-step workflows.
 
 The declaration on `add_todo` in [todos.py](../../todo/todos.py) supplies the description, parameters, effects, and policy. `execute` checks the caller and arguments before invoking it. A batch validates every item before changing any, then commits once. The tool's returned receipt comes from application code.
 
-The current agent still asks the model to repeat that receipt. This is a known limitation: producing reliable text in code is useful, but asking a model to reproduce it does not guarantee delivery. The evaluation checks repetition; a future change should render the receipt directly and evaluate the model's surrounding explanation separately.
+Application code delivers each receipt directly, followed by any additional explanation from the model. The model is told not to repeat the receipts. Evaluations check that every receipt reached the delivered response and judge the model’s explanation separately, including any claims it repeats. The recorded conversation retains both the delivered response and the original model text.
 
 ## Request a deletion and inspect authority
 

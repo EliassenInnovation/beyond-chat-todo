@@ -5,14 +5,16 @@ import json
 import math
 
 import openai
+from anthropic import Anthropic, AnthropicError
+from todo.anthropic_agent import structured
+from todo.model_provider import provider_for, model_for
 from langfuse import get_client, observe
 from langfuse.openai import OpenAI
 
 from todo.capabilities import ActionError
-from todo.langfuse_setup import setting
 from todo.model_usage import call_model
 
-MODEL = setting('EVALBASICS_ACTION_GUARD_MODEL', 'gpt-6-luna')
+MODEL = model_for('action_guard')
 SETTINGS = {'reasoning_effort': 'low'} if MODEL.startswith(('gpt-5', 'gpt-6')) else {}
 
 
@@ -24,14 +26,20 @@ def ask_chat(guards, evidence):
              'required': list(questions), 'additionalProperties': False}
     get_client().update_current_span(name='semantic-guards', input={'evidence': evidence, 'questions': questions})
     try:
-        reply = call_model(OpenAI(max_retries=0, timeout=45).chat.completions.create,
-                           purpose='guard-chat', model=MODEL, **SETTINGS, max_completion_tokens=1500,
-                           response_format={'type': 'json_schema', 'json_schema': {
-                               'name': 'decisions', 'strict': True, 'schema': shape}},
-                           messages=[{'role': 'system', 'content': 'Answer each yes/no question using the supplied evidence.'},
-                                     {'role': 'user', 'content': json.dumps({'questions': questions, 'evidence': evidence}, sort_keys=True)}])
-        answers = json.loads(reply.choices[0].message.content)
-    except (openai.OpenAIError, ValueError, TypeError, IndexError, AttributeError) as exc:
+        if provider_for('action_guard', MODEL) == 'anthropic':
+            answers = json.loads(structured(Anthropic(max_retries=0, timeout=45), model=MODEL,
+                system='Answer each yes/no question using the supplied evidence.',
+                messages=[{'role': 'user', 'content': json.dumps({'questions': questions, 'evidence': evidence}, sort_keys=True)}],
+                schema=shape, purpose='guard-chat'))
+        else:
+            reply = call_model(OpenAI(max_retries=0, timeout=45).chat.completions.create,
+                               purpose='guard-chat', model=MODEL, **SETTINGS, max_completion_tokens=1500,
+                               response_format={'type': 'json_schema', 'json_schema': {
+                                   'name': 'decisions', 'strict': True, 'schema': shape}},
+                               messages=[{'role': 'system', 'content': 'Answer each yes/no question using the supplied evidence.'},
+                                         {'role': 'user', 'content': json.dumps({'questions': questions, 'evidence': evidence}, sort_keys=True)}])
+            answers = json.loads(reply.choices[0].message.content)
+    except (openai.OpenAIError, AnthropicError, ValueError, TypeError, IndexError, AttributeError) as exc:
         raise ActionError('This action was not applied: a guard could not answer. Try again later.') from exc
     if not isinstance(answers, dict) or set(answers) != set(questions) or any(type(v) is not bool for v in answers.values()):
         raise ActionError('This action was not applied: a guard returned an invalid answer.')

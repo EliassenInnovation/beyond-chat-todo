@@ -158,11 +158,12 @@ Python 3.11 or later is required.
 
 Setup installs the dependencies and creates `.env` from `.env.example` if absent. It does
 not edit shell profiles or access a credential vault. The list works without API keys.
-For chat and paid evaluations, set `OPENAI_API_KEY` in this repo's `.env` or environment.
+For chat and paid evaluations, choose `EVALBASICS_PROVIDER=openai` or `anthropic` in `.env`
+and supply that provider's API key. The profile selects models for all roles; only one key is needed.
 Conversation and list data are sent to the model provider when you use chat. The example
 configuration enables intent and action guards for completion, dates, deletion requests,
-and unnamed merges. The merge guard requires the Decisions API; the other checks use
-strict JSON-schema chat responses. Existing installations should copy the
+and unnamed merges. The OpenAI profile uses the Decisions API for its merge guard. The Anthropic profile
+uses boolean judgments for all guards; neither changes the code-enforced approval rules. Existing installations should copy the
 `EVALBASICS_GUARDS` selection from `.env.example` if they already specify a smaller set.
 See the model guide for configuration and provider compatibility.
 

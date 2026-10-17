@@ -7,69 +7,85 @@ provider requirements, and checks to make before relying on a replacement model.
 
 ## Select models
 
-Start with the configuration used in testing below. It is also supplied in
-[`.env.example`](../../.env.example): `./setup.sh` copies it to `.env` if that file does not
-already exist. Add your OpenAI API key on the first line; Langfuse is off.
+Run `./setup.sh`, then edit `.env` in the repository root. Choose a provider and add its key:
 
 ```dotenv
-OPENAI_API_KEY=
-EVALBASICS_MODEL=gpt-6-luna
-EVALBASICS_JUDGE_MODEL=gpt-6-luna
-EVALBASICS_PERSONA_MODEL=gpt-4.1-mini
-EVALBASICS_PERSONA_PLAYER=true
-LANGFUSE_TRACING_ENABLED=false
-EVALBASICS_GUARDS=todos.merge_unnamed,todos.target_identified,todos.extra_tasks,todos.omitted_tasks,todos.operation_matches,todos.wrong_values
-EVALBASICS_ACTION_GUARD_MODEL=gpt-6-luna
+EVALBASICS_PROVIDER=anthropic
+ANTHROPIC_API_KEY=
 ```
 
-This records the tested model selection, not a guarantee of future model availability or
-identical responses. Your account needs access to these models and the Decisions API.
-Leave `OPENAI_BASE_URL` unset to use the default OpenAI endpoint. Setup preserves an existing
-`.env`; copy these settings into it if you want to match this configuration.
+Or use the OpenAI profile:
 
-To use other models, replace the IDs for the roles you need. The assistant needs tool calling;
-judges, personas, and action guards need structured output. Judges run during evaluations;
-personas run only in the persona player or headless runner. The manual list and offline tests
-need no API key.
+```dotenv
+EVALBASICS_PROVIDER=openai
+OPENAI_API_KEY=
+```
 
-**One extra requirement:** the enabled merge guard uses the Decisions API and its model is
-fixed in code. Changing `EVALBASICS_MODEL` does not change it. A chat-compatible provider alone
-may not support the default guard configuration; see [the merge guard](#the-merge-guard)
-before changing providers.
+Fill in the blank key for your choice. The [sample configuration](../../.env.example) supports
+both providers; you need only one key. Leave the optional model overrides commented out to
+use the profile defaults. If an older `.env` already sets model IDs, remove or comment those
+lines before switching profiles; explicit overrides take precedence.
 
-Restart the app or command after changing settings: model defaults are read when modules load,
-and active agents retain their clients and conversation. Process environment variables take
-precedence over `.env`; an old exported value can override your edit. This project's `.env` is
-the only file loaded. Keep credentials out of source control.
+| Role | OpenAI profile | Anthropic profile |
+| --- | --- | --- |
+| Application agent | `gpt-6-luna` | `claude-haiku-5-5` |
+| Evaluation judges | `gpt-6-luna` | `claude-haiku-5-5` |
+| Exploratory personas | `gpt-4.1-mini` | `claude-haiku-5-5` |
+| Intent/action guards | `gpt-6-luna` | `claude-haiku-5-5` |
+| Merge judgment | Decisions API probability | Structured boolean answer |
 
-Start the app:
+All six guards remain enabled. The Anthropic profile makes no OpenAI calls. Boolean guard
+answers are not probabilities; changing provider or judgment mode starts a new evaluation
+configuration. Both profiles have live development-run evidence. Switching providers still requires
+evaluation for your application; supported transport does not establish equivalent behavior.
+
+Restart the app or command after changing settings:
 
 ```bash
 .venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
-Try a simple addition and read it back. Then follow [Try a replacement and measure it](#try-a-replacement-and-measure-it)
-to check more than connectivity. Chat and evaluation calls incur provider charges.
+Try an addition and read it back. Chat and evaluation calls incur provider charges. The
+manual list and offline tests need no key. Langfuse stays off in the sample configuration.
+
+Process environment variables override `.env`, and setup preserves an existing `.env`.
+Keep keys out of source control. Leave provider base URLs unset for the standard endpoints.
+
+### Optional model and provider overrides
+
+Set `EVALBASICS_MODEL`, `EVALBASICS_JUDGE_MODEL`, `EVALBASICS_PERSONA_MODEL`, or
+`EVALBASICS_ACTION_GUARD_MODEL` to replace a role's model. The chosen provider must serve that
+model. For a mixed setup, also set the corresponding provider override:
+`EVALBASICS_AGENT_PROVIDER`, `EVALBASICS_JUDGE_PROVIDER`, `EVALBASICS_PERSONA_PROVIDER`, or
+`EVALBASICS_ACTION_GUARD_PROVIDER`. Values are `openai`, `anthropic`, or `auto` (infer from a
+`claude-` prefix). Without an explicit profile, the older prefix-inference behavior remains.
+
+For example, to compare only the agent while keeping OpenAI judges and guards:
+
+```dotenv
+EVALBASICS_PROVIDER=openai
+EVALBASICS_AGENT_PROVIDER=anthropic
+EVALBASICS_MODEL=claude-haiku-5-5
+```
+
+That mixed configuration needs both keys. Judge and guard changes should be measured
+separately from agent changes when you want to attribute a difference.
 
 ## What you can configure today
 
-| Job | Setting | Current API path | Required capability |
-| --- | --- | --- | --- |
-| Assistant in the app and fixed evals | `EVALBASICS_MODEL` | OpenAI-compatible Chat Completions | Function tool calls, tool-result messages, and ordinary text replies |
-| Evaluation judges | `EVALBASICS_JUDGE_MODEL` | OpenAI-compatible Chat Completions, or native Anthropic when the name starts with `claude-` | Strict JSON-schema output; the Anthropic path uses a forced tool call |
-| Merge intent guard, when enabled | `EVALBASICS_GUARDS`; model fixed by `GUARD_MODEL` in code | OpenAI Decisions API | Predicate decisions; chat compatibility alone is insufficient |
-| Target/action guards | `EVALBASICS_GUARDS`, `EVALBASICS_ACTION_GUARD_MODEL` | OpenAI-compatible Chat Completions | Strict JSON-schema boolean answers |
-| Simulated users, visible or headless | `EVALBASICS_PERSONA_MODEL` | OpenAI-compatible Chat Completions | Strict JSON-schema output |
+| Job | Model setting | Required capability |
+| --- | --- | --- |
+| Application agent | `EVALBASICS_MODEL` | Tool calls and tool results |
+| Evaluation judges | `EVALBASICS_JUDGE_MODEL` | Structured output |
+| Simulated users | `EVALBASICS_PERSONA_MODEL` | Structured output |
+| Boolean guards | `EVALBASICS_ACTION_GUARD_MODEL` | Structured boolean output |
+| Probability merge guard | `GUARD_MODEL` in `todo/agent.py` | OpenAI Decisions API |
 
-“OpenAI-compatible” describes the request format, not a guarantee that every endpoint implements
-all the features this app sends. The app's agent and personas do **not** currently have native
-Anthropic, Gemini, Bedrock or Azure-specific adapters. Putting a native provider's model name in
-an environment variable does not add one. A compatible gateway can expose another provider's
-model, but that route needs verification against the requirements above.
-
-The defaults are declared in [agent.py](../../todo/agent.py), [judge.py](../../evaluations/judge.py), and
-[personas.py](../../evaluations/personas.py). Check the provider's current catalog and your account's access
-before choosing a model; a historical run does not establish current availability.
+Defaults live in [model_provider.py](../../todo/model_provider.py). The native Claude adapter
+uses [Messages tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls)
+and [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs).
+The OpenAI path uses Chat Completions and, for its default merge guard, Decisions.
+Check model availability and account access before replacing a model.
 
 ## Use a compatible endpoint
 
@@ -86,25 +102,10 @@ actual URL and authentication requirements. The SDK requires a nonempty key; use
 only if your own local endpoint explicitly does not authenticate. For a hosted endpoint, use
 that provider's key. Requests and task data go to the configured endpoint.
 
-**This setting is shared:** the assistant, non-Anthropic judges and personas all use the same
-`OPENAI_BASE_URL` and `OPENAI_API_KEY` within a process. Select model IDs that endpoint serves
-for every role you intend to run. Separate endpoints or keys per role require a code change;
-there are no per-role endpoint settings today. The installed SDK's environment handling was
-checked against its implementation and the [OpenAI Python SDK documentation](https://developers.openai.com/api/reference/python).
-
-## Use a native Anthropic judge
-
-The existing judge adapter selects Anthropic for a `claude-` model ID:
-
-```dotenv
-EVALBASICS_JUDGE_MODEL=claude-your-model-id
-ANTHROPIC_API_KEY=your-anthropic-api-key
-```
-
-Replace the placeholder with an actual supported model ID. This changes the judge only. The
-assistant and personas retain their OpenAI-compatible connection. It also means a gateway model
-whose ID starts with `claude-` is routed to native Anthropic by the current judge code; there is
-no explicit provider override. The native path is implemented, but live Anthropic evaluation and Langfuse tracing have not been verified for this sample. Local usage capture wraps both paths.
+`OPENAI_BASE_URL` and `OPENAI_API_KEY` apply to roles routed to OpenAI-compatible APIs.
+`ANTHROPIC_BASE_URL` and `ANTHROPIC_API_KEY` apply to native Anthropic roles. Separate endpoints
+within one provider require a code change. A gateway's Claude model can use the OpenAI-compatible
+path with an explicit `openai` role override; a model name alone does not establish compatibility.
 
 ## The merge guard
 
@@ -116,19 +117,21 @@ Setup does not overwrite existing `.env` files; update an older explicit selecti
 to match `.env.example`. An explicitly empty shell environment value disables guards.
 `evals.py --guard NAME` adds a guard to the configured selection.
 
-This guard uses `GUARD_MODEL` in `todo/agent.py` (currently `gpt-6-luna`) and the Decisions API,
-not Chat Completions. A compatible chat endpoint alone is insufficient. It shares the
-OpenAI key and base URL; there is no separate guard endpoint or environment model selector.
-If the enabled guard cannot answer, the merge is refused. Guard calls are recorded in usage and priced separately at the documented input-only
-Decisions rate. Include guard configuration
-when comparing runs; the earlier guard-disabled prices do not price a guarded baseline.
+With the OpenAI profile, this guard uses `GUARD_MODEL` in `todo/agent.py` (`gpt-6-luna`)
+and the Decisions API. With the Anthropic profile, it uses the action-guard model and the
+same question with a boolean answer. Neither path changes the application's approval rules.
+
+`EVALBASICS_MERGE_GUARD_MODE` can explicitly select `decisions` or `boolean`. By default,
+an Anthropic action-guard provider selects boolean; an OpenAI action-guard provider selects
+Decisions. Boolean mode can also be evaluated with an OpenAI structured-output model.
+The report records an answer or a probability according to the mode actually used. An invalid
+or unavailable judgment prevents the merge. Include the mode and model in comparisons.
 
 ## Checks of proposed changes
 
 The completion, due-date, and deletion-request actions declare checks of user intent
-and proposed actions. They use `EVALBASICS_ACTION_GUARD_MODEL` (default `gpt-6-luna`, with low
-reasoning for GPT-5/6 models), independently of the assistant model. They use the existing
-`OPENAI_API_KEY` and `OPENAI_BASE_URL`; no additional provider account is required.
+and proposed actions. They use `EVALBASICS_ACTION_GUARD_MODEL` and the action-guard provider, independently of
+the assistant model. Both profiles use their own provider's key; no second account is needed.
 
 These checks are enabled by default, alongside `todos.merge_unnamed`:
 
@@ -149,7 +152,7 @@ the HTML eval report include the answers; Langfuse is optional.
 
 These are fallible semantic checks, not execution permissions. They do not replace validation,
 current-state checks, deletion approval, or undo. They cover only the three measured operations;
-adding a guard to another operation requires evaluation. The existing merge guard is unchanged.
+adding a guard to another operation requires evaluation. The merge question remains separate and keeps its own evidence scope.
 
 Check both false refusals and incorrect approvals when changing these models. Ambiguous
 references and dates require particular attention. Computed weekdays help with calendar
@@ -157,8 +160,9 @@ arithmetic; they do not establish that a date matches the person's intent.
 
 ## Compatibility limits to check
 
-- **Tool protocol:** the assistant expects OpenAI-style tool-call IDs, JSON argument strings,
-  and matching tool-result messages. A text-only model is insufficient.
+- **Tool protocol:** the adapter must preserve call IDs, arguments, and matching results.
+  The native Claude adapter retains thinking blocks and rejects truncated tool responses
+  before execution. A text-only model is insufficient.
 - **Structured results:** judges and personas require the schema contract; an endpoint that
   merely returns JSON text may not enforce it. Check refusals and truncated output as well as
   successful calls. An unavailable judgment must remain missing evidence, never a pass.
@@ -235,11 +239,10 @@ An LLM can also answer a narrow question using structured output. That makes it 
 a decision step; it does not make a yes/no answer a calibrated probability. The distinction
 here is the job and interface, not a claim that the underlying model technologies cannot overlap.
 
-This sample currently uses **GPT-6 Luna for both guard paths**: the merge guard uses the
-OpenAI Decisions API and receives a probability; the target/action guards use Chat Completions
-and receive structured yes/no answers. The assistant uses the conversational tool-calling path.
-Jev is not integrated into this sample. We have used it in other contexts, but adding it here
-would require an adapter and evaluation, not just changing a model name.
+The OpenAI profile uses a probability-returning Decisions call for the merge guard and
+structured boolean answers for the other guards. The Anthropic profile uses structured
+boolean answers for all guards. It does not claim that Claude supplies a separate decision
+model or that a boolean is a calibrated probability. Jev is not integrated into this sample.
 
 With either approach, model judgments remain fallible. Application code enforces permissions,
 validates arguments, and requires deletion approval.
@@ -248,6 +251,37 @@ validates arguments, and requires deletion approval.
 
 Add a provider adapter at the model-call boundary for messages, tool calls, results, structured
 output, errors and usage. Keep domain operations and authority in `capabilities.execute`; do
-not reimplement todo actions for each provider. Agent, judge and persona paths need separate
-verification. Native provider adapters and independent per-role endpoints are extension work,
-not features claimed by the current starter.
+not reimplement todo actions for each provider. Agent, judge, guard and persona paths need separate
+verification. OpenAI-compatible and native Anthropic paths are implemented; other native APIs
+and independent endpoints within one provider remain extension work.
+
+
+## What we tested
+
+Validation: **309 offline tests passed; the latest full visible suite passed 51/51 with
+no missing judgments.** The five original confirmation cases also passed 15/15 repeated
+attempts. After the final empty-response handling repair, the affected multi-part request
+passed another 5/5 attempts. These are development checks, not a reliability baseline.
+
+The Anthropic profile was exercised on October 16, 2026 with `claude-haiku-5-5`
+for the agent, all guards, judges, and personas, without an OpenAI key. Tests covered
+real chat in the browser, the 51 visible evaluation cases, repeated guard scenarios,
+and all five exploratory personas. Offline tests check provider isolation, tool history,
+truncated responses, and recovery after a saved action.
+
+The initial full run achieved all 51 application outcomes but failed five confirmation
+checks: the model paraphrased text it had been asked to repeat. Application code now
+delivers confirmations directly. The model’s additional explanation remains independently
+assessed, including any incorrect claims; this does not relax the truthfulness requirement.
+Follow-up runs exposed an unsupported claim that deletion had been requested and an empty
+model response misreported as a service outage. The action instructions now explicitly require
+a tool call before claiming execution, and empty completed responses are handled accurately.
+Neither repair makes model-written answers infallible; unanswered requests still fail evaluation.
+
+A separate judge check agreed with 190 of 194 existing fixture labels. The disagreements
+require review, and these labels are not all recorded as human-verified. Treat automated
+grades as evidence to inspect, not an independent guarantee of correctness. Review failures
+and sample apparent successes. Persona satisfaction is exploratory feedback, not a pass score.
+
+Tracing was disabled for these runs. Native Anthropic usage is recorded locally, but
+exported Langfuse traces have not been verified against a running Langfuse instance.

@@ -87,7 +87,7 @@ The [walkthrough](walkthrough.md) follows real application paths and explains th
 | 4.1 | Agent | Not run | Current list supplied every turn; explicit read tool available. | Relevant action choice and failure response require paid evaluation. |
 | 4.2 | Agent | Pass | Freshness and between-turn updates tested against the shared object. | Independent browser sessions can hold stale copies. |
 | 4.3 | Agent | Pass | Delivered provider-error and step-limit replies enter history; previous tool results are detached snapshots. | There is no production rewriting pipeline. |
-| 4.4 | Agent/UI | Fail | Code generates receipts and grader distinguishes them. | `SAY_RECEIPT` still asks the model to repeat code text; direct rendering needs a separate measured change. |
+| 4.4 | Agent/UI | Pass | Application code delivers receipts directly; raw model explanations remain separate evaluation evidence. Regression tests cover omitted confirmations and incorrect model claims. | Model explanations can still be wrong and require evaluation. |
 | 4.5 | Evaluation | Pass | Four complete 51-case runs and one incomplete run retained with fixed configuration and source snapshots. | This is visible-suite measurement, not a held-out result, release approval, or before/after efficacy comparison. |
 | 4.6 | Agent | Not run | Existing tests verify replacement of the previous list while retaining user-change evidence. | Ten-turn acceptance trace not separately established. |
 

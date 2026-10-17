@@ -1,7 +1,7 @@
 # Langfuse version used by this sample; SDK upgrades require integration verification.
 langfuse==4.15.6
 httpx
-anthropic
+anthropic>=1.15.0  # native Messages structured output; tested with 1.15.0
 openai>=3.26.0  # client.decisions, for the merge guard (agent.py)
 pytest
 streamlit
