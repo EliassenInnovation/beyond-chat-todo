@@ -57,7 +57,11 @@ async function start(){
   if(frame.selection){const cards=list.querySelectorAll('.request');state.waiting_for_approval.forEach((request,i)=>{if(frame.selection.ids.includes(request.id))cards[i].querySelector('.'+frame.selection.action).classList.add('flash');});}
   $('chat').replaceChildren();
   for(const message of frame.messages){const box=node('div',undefined,'message '+message.role);const avatar=node('span',message.role==='sam'?'S':message.role==='assistant'?'':'✓','avatar');if(message.role==='assistant')avatar.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" aria-hidden="true"><rect x="5" y="6" width="14" height="14" rx="2"/><path d="M12 3v3M2 10v6M22 10v6M8 15h8"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="10" r="1"/></svg>';box.append(avatar);const body=node('div',undefined,'message-text');for(const paragraph of message.text.split(/\n\n/)){const p=node('p');for(const [i,part] of paragraph.split(/\*\*(.*?)\*\*/gs).entries())p.append(node(i%2?'b':'span',part));body.append(p);}box.append(body);$('chat').append(box);}
-  $('chat').scrollTop=$('chat').scrollHeight;
+  const spacer=node('div');spacer.style.height='220px';spacer.setAttribute('aria-hidden','true');$('chat').append(spacer);
+  // Start at the latest question, rather than the bottom of a long reply.
+  const question=[...$('chat').querySelectorAll('.message.sam')].at(-1);
+  if(question)$('chat').scrollTop=question.getBoundingClientRect().top-$('chat').getBoundingClientRect().top+$('chat').scrollTop;
+  else $('chat').scrollTop=0;
   $('event').textContent=frame.end?'Session complete.':frame.selection?'Sam clicks Approve on the requests.':'';
   $('next').disabled=frame.end;$('play').disabled=false;if(frame.end)$('play').textContent='↻  Replay';
  }
