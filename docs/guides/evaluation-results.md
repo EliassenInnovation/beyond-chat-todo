@@ -58,8 +58,10 @@ rules used here remain in the repository; Langfuse is optional.
 
 The [example report](https://bobfischer.github.io/beyond-chat-todo/) contains 20 runs of the
 same suite and selected conversations for human review. It uses synthetic cases and needs
-no installation or model calls. Its overall chart illustrates repeated measurements;
-it is not a complete set of measures for every risk or user job.
+no installation or model calls. One overall control chart is enough to illustrate variation
+in this small teaching app. In an application performing critical tasks, measure those
+tasks separately and set a much stricter acceptable failure rate. A good overall average
+must not hide a critical failure.
 
 [![An evaluation report with conversations and repeated-run charts.](../images/evaluation-review.png)](https://bobfischer.github.io/beyond-chat-todo/)
 
