@@ -4,7 +4,7 @@ Fixed cases tell you about questions you already thought to ask. Exploration fin
 you missed. Start by using the application yourself: combine requests, change your mind,
 refer to tasks indirectly, and compare the explanation with the screen and saved state.
 
-## Start with a person
+## Start with exploratory testing
 
 ![A person explores task merging and a request containing several tasks.](../images/exploratory-tester.png)
 
