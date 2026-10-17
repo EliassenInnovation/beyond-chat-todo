@@ -19,4 +19,4 @@
 @media print { .md-sidebar, .md-header, .md-footer, .md-top { display: none; } }
 
 /* Keep the annotated declaration aligned with the surrounding prose. */
-.md-typeset img[src$="capability-registry.svg"] { margin-left: 0; margin-right: auto; }
+.md-typeset img[src$="registry-entry.svg"] { margin-left: 0; margin-right: auto; }
