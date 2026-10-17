@@ -58,3 +58,9 @@
   margin-top: .8rem;
   padding-top: .55rem;
 }
+
+/* Publication tables: brand mint header, apricot rules, compact rows. */
+.md-typeset table:not([class]) { font-size: .76rem; line-height: 1.35; border: 0; border-radius: 0; }
+.md-typeset table:not([class]) th { background: #8ebfb3; color: #1a1e33; padding: .45em .7em; border-bottom: 2px solid #e6b573; }
+.md-typeset table:not([class]) td { padding: .45em .7em; border-bottom: 1px solid #e6b573; vertical-align: top; }
+.md-typeset table:not([class]) :is(th, td) > :is(p, ul, ol) { margin-block: .15em; }

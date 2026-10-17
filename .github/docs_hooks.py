@@ -77,7 +77,7 @@ def on_post_build(config):
     h1,h2,h3,h4 { font-family:'Big Caslon',Caslon,'Times New Roman',serif; line-height:1.2; break-after:avoid; }
     h1 { font-size:26pt; color:#2e4294; } h2 { font-size:17pt; color:#2e4294; } h3 { font-size:14pt; color:#2e4294; }
     img { max-width:100%; height:auto; } .publication-cover { width:100%; display:block; }
-    table { width:100%; border-collapse:collapse; font-size:9pt; } th,td { padding:6px; border:1px solid #ccc; text-align:left; }
+    table { width:100%; border-collapse:collapse; font-size:9pt; line-height:1.3; } th,td { padding:4px 6px; border:0; border-bottom:1px solid #e6b573; text-align:left; vertical-align:top; } th { background:#8ebfb3; color:#1a1e33; border-bottom:2px solid #e6b573; }
     .cover-anchor { display:none; }
     pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#f5f1ee; padding:10px; font-size:9pt; }
     a { color:#2e4294; } .headerlink,.print-guide-link { display:none; }
