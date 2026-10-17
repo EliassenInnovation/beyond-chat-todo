@@ -117,6 +117,19 @@ Check model availability and account access before replacing a model.
 
 ## Use a compatible endpoint
 
+The sample's OpenAI-compatible adapter uses the **OpenAI Chat Completions API**, including
+its tool-calling format and structured outputs described with **JSON Schema**. JSON Schema
+is a standard for describing and validating JSON data. The Chat Completions API is a
+provider-defined interface that other services also implement, rather than a universal
+standard for model APIs.
+
+Compatibility must include the features used by each role: the agent calls application
+tools, while guards, personas and evaluation judges return structured results. A server
+that accepts chat messages or returns JSON text does not necessarily support all of these
+features. See [Compatibility limits to check](#compatibility-limits-to-check) for the
+requirements and [Try a replacement and measure it](#try-a-replacement-and-measure-it)
+for the verification steps. The native Anthropic integration uses its Messages API instead.
+
 Leave `OPENAI_BASE_URL` unset for the default OpenAI endpoint. For a gateway or local server,
 set its documented API base URL, for example:
 
