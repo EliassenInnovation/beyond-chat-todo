@@ -83,12 +83,18 @@ inspectable contract with enforced rules, not a requirement to adopt this sample
 
 ![An agent between API endpoints and goals such as publishing a post, creating an invoice and scheduling a meeting.](../images/api-and-jobs.png)
 
-*An API makes operations callable. The tool design must also make the intended job understandable.*
+*Tools described in the language of people's jobs help the agent select the right tool or combination of tools.*
 
-Many APIs are organized around records and fields. A person asks “Does this hose fit my
-vacuum?” An API may return product records without an operation called “check compatibility.”
-A useful tool can read those records and apply the application's compatibility rules, returning
-a result in the person's terms. The business rule still belongs to shared application code.
+Many APIs are organized around records and fields. A person might say, “I need to track
+these purchases for taxes.” Depending on the application, that job could require several API
+calls: find the purchases, attach receipts, add a tracking label, and include them in a report.
+The person describes the outcome; the agent needs to identify the operations that produce it.
+
+Tool names and descriptions should connect that request to what the application can do.
+A tool for organizing purchases for tax records might coordinate those calls, or the agent
+might combine several tools with clear purposes. Either way, the underlying operations and
+business rules remain in shared application code. If the purchases or desired report are
+unclear, the agent should ask before making changes.
 
 Sometimes a clearer description is enough: an existing operation that changes a post's status
 can be described in terms of publishing, scheduling and unpublishing. A separate operation
