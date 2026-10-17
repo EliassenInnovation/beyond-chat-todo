@@ -43,7 +43,7 @@ when code consumes and enforces it; writing a rule into metadata is not enough.
 
 [![An annotated action declaration for placing an order, with caller policy and an approval proposal handler.](../images/capability-registry.svg)](../images/capability-registry.svg)
 
-*Illustrative store policy, using the sample's declaration pattern. The declaration and its explanations remain side by side; wording is shortened for readability.*
+*Example: a store where an agent must request approval before placing an order.*
 
 In this example store, placing an order cannot be undone. A person can place it; an agent
 can only propose it. The declaration connects `orders.place` to one implementation and
