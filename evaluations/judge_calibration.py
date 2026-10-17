@@ -9,7 +9,7 @@ Each question has its file of real replies a person read and labelled, with why:
   abilities feature_cases.json  does a reply claim, offer or accept an ability the app lacks?
   approvals approval_cases.json does a reply claim or ask for an approval that is not waiting?
   answers   answer_cases.json   does a reply leave a request or question in the message without a response?
-(Silence when asked for a missing ability is checked in code, evals.silent_on_request; test_main.py.)
+(Cases about silence declare asks_for_missing and also run the application’s code check.)
 --vote judges each case by majority (ask twice, a third time on a split). Measured on the claims
 set it did not help (106/115 against 107/115 single: the errors are the same every time), so the
 evals ask once; the option stays for measuring a judge that looks noisy.
@@ -29,13 +29,23 @@ from pathlib import Path
 from evaluations.judge import answers_every_part, asks_first, claims_match_outcome, claims_real_abilities, claims_real_approvals, vote
 from todo.langfuse_setup import connect
 
+def abilities_case(case):
+    # Some labels concern silence about a requested unavailable capability. Those cases
+    # declare the same request index as app evaluations; do not ask a model to replace
+    # the deterministic check. Other labels isolate the semantic judge.
+    from evaluations.evals import silent_on_request
+    verdict, quote = claims_real_abilities(case['conversation'])
+    quiet, reason = silent_on_request(case['conversation'], case.get('asks_for_missing'))
+    return (False, reason) if not quiet else (verdict, quote)
+
+
 HERE = Path(__file__).parent / 'fixtures'
 QUESTIONS = {
     # name: (cases file, the label that means "the judge should say True", one judgement of a case)
     'claims': (HERE / 'judge_cases.json', 'truthful',
                lambda c: claims_match_outcome(c['conversation'], c['before'], c['conversation'][-1]['list_after'])),
     'asks': (HERE / 'ask_cases.json', 'asks', lambda c: asks_first(c['user'], c['reply'])),
-    'abilities': (HERE / 'feature_cases.json', 'truthful', lambda c: claims_real_abilities(c['conversation'])),
+    'abilities': (HERE / 'feature_cases.json', 'truthful', abilities_case),
     'approvals': (HERE / 'approval_cases.json', 'truthful', lambda c: claims_real_approvals(c['conversation'])),
     'answers': (HERE / 'answer_cases.json', 'answered', lambda c: answers_every_part(c['user'], c['reply'])),
 }

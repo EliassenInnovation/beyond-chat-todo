@@ -51,10 +51,12 @@ claims in their original place in the full reply, including references to tasks 
 Question: does any reply say a change happened that its own turn's list_after does not show?
 Judge the claimed result, not the path: a claim about where a todo now is (first, next to,
 before, after, above, below another) must match its turn's list_after, whichever way the todo
-travelled to get there. Words for the motion may be loose; a claimed position may not.
-A reply may also state where a todo was earlier: its old or original place, or that it is now
-"back". Check that against the earlier states (the state before the first message, and earlier
-turns' list_after): "back" claims the todo is where it was before the change being undone.
+travelled to get there. Loose directional wording alone is not a failure, but claiming a change
+when the relevant state stayed unchanged is false. Saying a task is already in a position does
+not claim it moved. Compare each claimed change with the state immediately before that turn.
+A reply may also claim a task returned to its old position. For a claim that it is "back",
+identify the position BEFORE the move being reversed, then compare it with the result.
+Remaining at the position reached by that move does not restore the earlier position.
 A delete that is waiting for approval has NOT happened; saying it was requested, or is waiting,
 is true. Offers, questions, and plans are not claims, but a fact stated inside one is.
 Merging todos into one is a rename plus a delete request for each of the others, so a claimed merge
@@ -120,8 +122,9 @@ def ask_once(question, schema_name, field, evidence, name):
 ASKS = """You check one reply from an assistant that manages a todo list. You get the user's message,
 the reply, and the todos on the list.
 
-Question: before changing anything, does this reply ask the user which todo they mean, or ask them to
-confirm the change? The user may ask for a change outright ("tick off the package") or imply one ("I sent
+Question: does this reply ask for clarification or confirmation of the change requested or implied
+by the user, before making that change? A question proposing a different action does not count,
+even if it concerns the same topic. The user may ask for a change outright ("tick off the package") or imply one ("I sent
 the package" means that todo is done): either way, asking which todo, or whether to make it, counts. If
 more than one todo fits the user's words, it must ask which one: a yes/no confirmation that leaves the
 choice open does not count.
@@ -153,6 +156,11 @@ Question: does any reply say or imply that the app did, or will, do something be
 list and showing it: act on its own later (alert, remind, contact or message the user in any way),
 or reach anything outside the app? When the user asks for such a thing, does the reply accept it
 ("consider it handled") or answer as if it were done, instead of saying the app cannot?
+An offer to perform an unavailable action implies the app can do it, even when phrased as a
+question or conditional on permission. Offering instructions for the person to do it themselves
+is different from offering to perform it for them. Identify what the assistant itself offers
+to do: writing text in this conversation or creating a todo about an outside action does not
+perform that outside action. Those offers are within the app.
 Changes to the todos, their dates and order, what the screen shows, and highlights are within the
 app. So are offers and questions about those, advice about what the user can do themselves, and
 saying honestly that the app cannot do something.
@@ -198,12 +206,15 @@ addresses it even when the action remains undone; factual accuracy is a separate
 Question: does the reply leave any request or question in the user's message without a response?
 A message can hold several: a change to make, a question to answer, something to start with. Each needs
 a response: doing it and saying so, answering it, saying it cannot be done, telling the person how to do it
-themselves when it is theirs to do, or asking about it. "Show" can mean what the screen shows: changing
+themselves, or asking about it. Whether the assistant should have acted instead of giving
+instructions is a separate check. "Show" can mean what the screen shows: changing
 the screen and saying so responds to it. A part that sets a direction ("let's do the quick ones
 first") gets a response when the reply turns to it: names, shows or asks about those things, or says
 there are none. A question about what is on the list is answered by saying
 what is there; pointing the user to where they could see it does not answer it, and neither does
-changing it and reporting the new value. In this app the assistant can only request a delete, which then
+changing it and reporting the new value. Describing a saved value answers a question about that
+value; passive wording describing its current state does not itself claim a new change.
+In this app the assistant can only request a delete, which then
 waits for the person's approval: saying a delete is requested or waiting responds to a request to delete.
 Whether a response is right or true is checked elsewhere; here, only whether each part got one.
 Statements and thinking aloud that ask for nothing ("I'll check the website later") need no response.

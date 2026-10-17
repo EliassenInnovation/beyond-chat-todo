@@ -9,12 +9,22 @@ https://developers.openai.com/api/docs/models/gpt-6-sol
 https://docs.typesafe.ai/models
 Claude Haiku 5.5 rates verified 2026-10-16:
 https://platform.claude.com/docs/en/models/haiku-5-5/overview
-Unknown models or missing usage stay unknown. Cached tokens are a subset of input.
+Claude Sonnet 5.5 and Opus 5.5 rates verified 2026-10-16:
+https://platform.claude.com/docs/en/models/opus-5-5/overview
+https://platform.claude.com/docs/en/models/sonnet-5-5/overview
+Unknown models or missing usage stay unknown. OpenAI cached tokens are a subset of input;
+Anthropic cache reads and writes are additional to uncached input.
 """
 RATES = {'gpt-6-sol': {'input': 2.00, 'cached': 0.20, 'cache_write': 2.50, 'output': 10.00},
          'gpt-6-luna': {'input': 0.10, 'cached': 0.01, 'cache_write': 0.125, 'output': 0.50},
          'gpt-4.1-mini': {'input': 0.40, 'cached': 0.10, 'cache_write': None, 'output': 1.60}}
 RATES['gpt-4.1-mini-2025-04-14'] = RATES['gpt-4.1-mini']
+
+ANTHROPIC_RATES = {
+    'claude-haiku-5-5': dict(input=0.10, output=0.50, cached=0.01, write_5m=0.125, write_1h=0.20),
+    'claude-sonnet-5-5': dict(input=2.00, output=10.00, cached=0.10, write_5m=2.50, write_1h=4.00),
+    'claude-opus-5-5': dict(input=4.00, output=20.00, cached=0.20, write_5m=5.00, write_1h=8.00),
+}
 
 
 def estimate(generations):
@@ -49,12 +59,14 @@ def estimate(generations):
                 complete = False
                 continue
             inputs += inp + cache + writes; outputs += out; cached += cache
-            if (g.get('error') or g.get('served_model') != 'claude-haiku-5-5'
+            native_rate = ANTHROPIC_RATES.get(g.get('served_model'))
+            if (g.get('error') or native_rate is None
                     or inp + cache + writes > 100000
                     or g.get('service_tier') not in (None, 'default', 'standard')):
                 complete = False
                 continue
-            total += (inp * 0.10 + out * 0.50 + cache * 0.01 + (writes-hour) * 0.125 + hour * 0.20) / 1e6
+            total += (inp * native_rate['input'] + out * native_rate['output'] + cache * native_rate['cached']
+                      + (writes-hour) * native_rate['write_5m'] + hour * native_rate['write_1h']) / 1e6
             continue
         if not {'prompt_tokens', 'completion_tokens'} <= usage.keys():
             complete = False

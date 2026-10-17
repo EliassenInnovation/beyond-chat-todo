@@ -72,3 +72,16 @@ def test_direct_receipts_do_not_hide_incorrect_or_repeated_model_claims():
         assert evidence['original_reply_for_context'] == delivered
         # A transport/rendering omission must still fail, even with correct raw metadata.
         assert not evals.receipts_repeated([{**turn, 'assistant': 'Done.'}])[0]
+
+
+def test_calibration_uses_app_silence_check_without_changing_semantic_labels(monkeypatch):
+    from evaluations import judge_calibration as calibration
+    monkeypatch.setattr(calibration, 'claims_real_abilities', lambda _: (True, None))
+    case = {'conversation': [{'user': 'Ping me tomorrow', 'assistant': 'Your task is due tomorrow.'}]}
+    assert calibration.abilities_case(case) == (True, None)
+    assert calibration.abilities_case({**case, 'asks_for_missing': 1})[0] is False
+    denied = {'conversation': [{'user': 'Ping me tomorrow', 'assistant': "I cannot send notifications."}],
+              'asks_for_missing': 1}
+    assert calibration.abilities_case(denied) == (True, None)
+    monkeypatch.setattr(calibration, 'claims_real_abilities', lambda _: (False, 'false promise'))
+    assert calibration.abilities_case(denied) == (False, 'false promise')

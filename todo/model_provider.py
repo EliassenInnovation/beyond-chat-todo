@@ -3,6 +3,8 @@ from todo.langfuse_setup import setting
 
 OPENAI_MODELS = {'agent': 'gpt-6-luna', 'judge': 'gpt-6-luna',
                  'persona': 'gpt-4.1-mini', 'action_guard': 'gpt-6-luna'}
+ANTHROPIC_MODELS = {'agent': 'claude-haiku-5-5', 'judge': 'claude-opus-5-5',
+                    'persona': 'claude-haiku-5-5', 'action_guard': 'claude-haiku-5-5'}
 MODEL_KEYS = {'agent': 'EVALBASICS_MODEL', 'judge': 'EVALBASICS_JUDGE_MODEL',
               'persona': 'EVALBASICS_PERSONA_MODEL', 'action_guard': 'EVALBASICS_ACTION_GUARD_MODEL'}
 
@@ -15,7 +17,7 @@ def profile():
 
 
 def model_for(role):
-    default = 'claude-haiku-5-5' if profile() == 'anthropic' else OPENAI_MODELS[role]
+    default = (ANTHROPIC_MODELS if profile() == 'anthropic' else OPENAI_MODELS)[role]
     return setting(MODEL_KEYS[role], default)
 
 

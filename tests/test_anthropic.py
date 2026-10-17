@@ -164,7 +164,7 @@ def test_one_provider_switch_selects_all_roles_and_merge_mode(monkeypatch):
     values={'EVALBASICS_PROVIDER':'anthropic'}
     monkeypatch.setattr(config,'setting',lambda name,default:values.get(name,default))
     for role in ('agent','judge','persona','action_guard'):
-        assert config.model_for(role)=='claude-haiku-5-5'
+        assert config.model_for(role)==('claude-opus-5-5' if role=='judge' else 'claude-haiku-5-5')
         assert config.provider_for(role,config.model_for(role))=='anthropic'
     assert config.merge_guard_mode()=='boolean'
     values['EVALBASICS_PROVIDER']='openai'
@@ -201,3 +201,14 @@ def test_empty_end_turn_is_not_reported_as_service_outage(tmp_path, only_anthrop
     assert a.ask('What is overdue?') == 'The model returned no answer.'
     assert a.last_model_reply == ''
     assert len(a.todos.todos) == 1
+
+
+@pytest.mark.parametrize('model,usd', [('claude-sonnet-5-5', 0.00434), ('claude-opus-5-5', 0.00868)])
+def test_judge_cost_counts_native_cache_buckets(model, usd):
+    from evaluations.eval_costs import estimate
+    call = dict(purpose='judge-claims', served_model=model, usage=dict(
+        input_tokens=1000, output_tokens=200, cache_read_input_tokens=300,
+        cache_creation_input_tokens=100, cache_creation={'ephemeral_1h_input_tokens': 40}))
+    result = estimate([call])
+    assert result['complete'] and result['usd'] == pytest.approx(usd)
+    assert result['input_tokens'] == 1400 and result['cached_tokens'] == 300

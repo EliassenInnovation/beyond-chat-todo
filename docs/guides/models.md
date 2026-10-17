@@ -29,7 +29,7 @@ lines before switching profiles; explicit overrides take precedence.
 | Role | OpenAI profile | Anthropic profile |
 | --- | --- | --- |
 | Application agent | `gpt-6-luna` | `claude-haiku-5-5` |
-| Evaluation judges | `gpt-6-luna` | `claude-haiku-5-5` |
+| Evaluation judges | `gpt-6-luna` | `claude-opus-5-5` |
 | Exploratory personas | `gpt-4.1-mini` | `claude-haiku-5-5` |
 | Intent/action guards | `gpt-6-luna` | `claude-haiku-5-5` |
 | Merge judgment | Decisions API probability | Structured boolean answer |
@@ -258,30 +258,35 @@ and independent endpoints within one provider remain extension work.
 
 ## What we tested
 
-Validation: **309 offline tests passed; the latest full visible suite passed 51/51 with
-no missing judgments.** The five original confirmation cases also passed 15/15 repeated
-attempts. After the final empty-response handling repair, the affected multi-part request
-passed another 5/5 attempts. These are development checks, not a reliability baseline.
+The Anthropic profile uses **Haiku 5.5 for the application, guards, and personas**, and
+**Opus 5.5 for evaluation judges**. The judge needs to distinguish an actual state change
+from a plausible description of one, so a model that works well as the agent is not
+automatically the best evaluator. You can override the judge with `EVALBASICS_JUDGE_MODEL`.
+Opus costs more: rechecking 51 saved conversations used an estimated $1.72 in judge calls
+at the recorded standard rates, excluding agent and persona calls.
 
-The Anthropic profile was exercised on October 16, 2026 with `claude-haiku-5-5`
-for the agent, all guards, judges, and personas, without an OpenAI key. Tests covered
-real chat in the browser, the 51 visible evaluation cases, repeated guard scenarios,
-and all five exploratory personas. Offline tests check provider isolation, tool history,
-truncated responses, and recovery after a saved action.
+Validation on October 16, 2026:
 
-The initial full run achieved all 51 application outcomes but failed five confirmation
-checks: the model paraphrased text it had been asked to repeat. Application code now
-delivers confirmations directly. The model’s additional explanation remains independently
-assessed, including any incorrect claims; this does not relax the truthfulness requirement.
-Follow-up runs exposed an unsupported claim that deletion had been requested and an empty
-model response misreported as a service outage. The action instructions now explicitly require
-a tool call before claiming execution, and empty completed responses are handled accurately.
-Neither repair makes model-written answers infallible; unanswered requests still fail evaluation.
+- **312 offline tests passed**, including provider isolation, tool history, recovery, and cost accounting.
+- The latest full application run passed **51/51 visible cases**. Rechecking those saved
+  conversations with Opus also passed **51/51**, without missing judgments or replacing the originals.
+- Opus agreed with **201/202 calibration labels**. The four original disagreements each
+  matched their existing labels in five repeated checks. Eight contrast cases check both
+  correct and incorrect replies. Silence-related cases also exercise the same deterministic
+  check used by application evaluations.
 
-A separate judge check agreed with 190 of 194 existing fixture labels. The disagreements
-require review, and these labels are not all recorded as human-verified. Treat automated
-grades as evidence to inspect, not an independent guarantee of correctness. Review failures
-and sample apparent successes. Persona satisfaction is exploratory feedback, not a pass score.
+The remaining calibration disagreement concerns whether showing active tasks, including
+those overdue, sufficiently addresses a request to start with overdue tasks. The existing
+label accepts it; human review is needed to settle that criterion. Calibration labels were
+initially assigned by a coding agent, so agreement is development evidence, not independent
+proof of judge accuracy. Review disagreements and sample apparent successes. No existing
+labels were changed to improve the score.
 
-Tracing was disabled for these runs. Native Anthropic usage is recorded locally, but
-exported Langfuse traces have not been verified against a running Langfuse instance.
+Real browser chat and all five exploratory personas have also been exercised. Persona
+satisfaction is exploratory feedback, not a pass score. Application code delivers action
+confirmations directly; the model's additional explanation remains separately assessed.
+
+Changing the judge starts a new comparison period. Retain earlier results and never merge
+new grades into old control limits. Tracing was disabled for these checks: native usage is
+recorded locally, but exported Anthropic traces have not been verified against a running
+Langfuse instance.

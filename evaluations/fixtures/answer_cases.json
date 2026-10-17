@@ -478,5 +478,21 @@
   "source": "check-if-still-needed, 2026-10-03",
   "user": "Let's check if I still need to renew the passport and return the library books before changing dates.",
   "reply": "I can’t check that for you: the list can only store todos and dates. Do you want to keep “Renew passport” and “Return library books” on the list?"
+ },
+ {
+  "name": "saved-date-description",
+  "expect": "answered",
+  "why": "Reports the saved date and addresses the requested completion.",
+  "constructed": true,
+  "user": "Finish the agent call. Also, is the inspection scheduled?",
+  "reply": "The agent call is done. The inspection is scheduled for June 8."
+ },
+ {
+  "name": "saved-date-location-only",
+  "expect": "skipped",
+  "why": "Directions to the value do not answer whether the task has a date.",
+  "constructed": true,
+  "user": "Finish the agent call. Also, is the inspection scheduled?",
+  "reply": "The agent call is done. You can see the inspection date beside its title."
  }
 ]
