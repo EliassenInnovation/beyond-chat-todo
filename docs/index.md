@@ -55,8 +55,8 @@ Python and API details; you can read the examples without running them.
 
 </div>
 
-The **Consider** and **Practice** boxes are optional. Use one application and one user job
-throughout; each prompt adds to a small design note you can use with your team.
+We’ve added **Consider** and **Practice** boxes throughout the document to help you deepen
+your understanding and apply the ideas to your own application.
 
 The sample has been tested with OpenAI and Anthropic models. You can also connect hosted
 or local models through an OpenAI-compatible API. The [Choose models](guides/models.md)
