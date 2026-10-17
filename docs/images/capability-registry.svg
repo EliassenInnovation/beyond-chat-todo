@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 210 1540 605" width="1540" height="605" role="img" aria-label="The capability registry: placing an order, declared once">
+<rect width="1600" height="900" fill="#FFFFFF" />
+<rect x="60" y="236" width="850" height="552" rx="8" fill="#F2F1EE" />
+<text x="84" y="286" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">@REGISTRY.action('orders.place',</text>
+<text x="84" y="320" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    tool='place_order',</text>
+<text x="84" y="354" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    description='Ask to place the order for what is in the cart. '</text>
+<text x="84" y="388" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">                'Nothing is ordered until the user approves it.',</text>
+<text x="84" y="422" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    params={'cart_id': {'type': 'string'}},</text>
+<text x="84" y="456" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    effects=('write',),</text>
+<text x="84" y="490" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    policy={'person': 'allow', 'agent': 'approval'},</text>
+<text x="84" y="524" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    undone_by=None,     # nothing takes a placed order back</text>
+<text x="84" y="558" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    impact='one',</text>
+<text x="84" y="592" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    facts=('The store cannot change an order '</text>
+<text x="84" y="626" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">           'once it is placed.',),</text>
+<text x="84" y="660" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    propose=ask_to_place_order)</text>
+<text x="84" y="694" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">def place_order(ctx, cart_id):</text>
+<text x="84" y="728" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    order = ctx.store.place(cart_id)</text>
+<text x="84" y="762" font-family="Menlo, Consolas, 'Courier New', monospace" xml:space="preserve" font-size="19" fill="#1A1E33">    return {'placed': order.id, 'total': order.total}</text>
+<path d="M926,265 H936 V293 H926" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" />
+<text x="952" y="286" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">The action's name: every caller runs this one</text>
+<path d="M926,299 H936 V395 H926" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" />
+<text x="952" y="342" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">What the agent reads to decide</text>
+<text x="952" y="366" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">whether this is the tool to use</text>
+<path d="M926,401 H936 V463 H926" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" />
+<text x="952" y="439" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">Its inputs, and that it changes data</text>
+<path d="M926,469 H936 V497 H926" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" />
+<text x="952" y="490" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">A person may do it; the agent needs approval</text>
+<path d="M926,503 H936 V565 H926" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" />
+<text x="952" y="528" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">It can't be undone, so the app won't</text>
+<text x="952" y="554" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">start if the agent could do it alone</text>
+<path d="M926,571 H936 V633 H926" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" />
+<text x="952" y="596" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">A fact the agent needs: an order can't</text>
+<text x="952" y="622" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">be changed once it is placed</text>
+<path d="M926,639 H936 V667 H926" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" />
+<text x="952" y="660" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">For the agent: show the order, wait for Approve</text>
+<path d="M926,673 H936 V769 H926" fill="none" stroke="#6B93A8" stroke-width="2.5" stroke-linecap="round" />
+<text x="952" y="716" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">The code that places the order,</text>
+<text x="952" y="740" font-family="Calibri, Carlito, 'Segoe UI', sans-serif" font-size="21" fill="#1A1E33">written once for every caller</text>
+</svg>

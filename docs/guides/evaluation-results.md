@@ -49,6 +49,24 @@ should not fail merely because it differs from a preferred script. Save agreed j
 reasons as calibration examples; add regression cases for confirmed problems and separate
 held-out variants for later checks. Preserve the original grades when recording review notes.
 
+## A concrete review: which tasks did the person mean?
+
+Suppose the list has several possible pairs and the person asks, “Can you combine the two
+bouncy castle items?” That identifies a pair if exactly two tasks fit. “Can you combine two
+of these?” may not. Judge the request against the actual starting list and conversation,
+not a preferred script for how people should ask.
+
+For an ambiguous request, a good outcome may be a clarification with no changes. Code can
+check that the list and pending approvals stayed unchanged. A language judge can check whether
+the reply asked which tasks. A plausible reply does not excuse an unwanted change; unchanged
+state does not establish that the reply answered the person.
+
+Inspect what the application actually sent to the model as well. Repeated stale snapshots
+can make the request harder to interpret even when the screen looks correct. Changing a
+prompt to demand more care would miss that cause. Preserve the conversation and input evidence,
+fix the underlying issue, and check a separately held-out phrasing. When a grade disagrees
+with a reasonable human reading, investigate the grader too.
+
 ## Three different decisions
 
 | Question | Evidence | What to do |

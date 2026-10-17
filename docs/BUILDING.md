@@ -3,6 +3,7 @@
 The chapters under `docs/` are the sources for both GitHub reading and the documentation
 website. `mkdocs.yml` defines the chapter order. Do not create a second copy of the text.
 The editorial structure and source mapping are in [OUTLINE.md](OUTLINE.md).
+The [deck audit](DECK-AUDIT.md) records how the talk material was incorporated or intentionally omitted.
 
 From the repository root:
 

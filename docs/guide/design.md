@@ -19,6 +19,113 @@ Name tools for work people recognize. A tool per mouse click makes the agent rec
 the interface. A tool that changes any field can hide too much meaning. The useful boundary
 is an operation with clear inputs, consequences, and a result the application can report.
 
+## Declare what the application can do
+
+The **capability registry is a declarative structure**: a catalog of operations and their
+contracts, connected to the code that implements them. “Declarative” means that each entry
+states what an operation is, what it takes, and which rules apply. Shared code reads those
+declarations to offer tools, validate requests, enforce caller policy and dispatch execution.
+
+Without that structure, the tool list, permission checks, parameter definitions and descriptions
+can become separate lists that drift apart. The registry gives them a common source and gives
+a reviewer one place to inspect what the agent can do. Declarations can live beside their
+implementations in different modules; central registration does not require one giant source file.
+
+### What belongs in an entry, and why?
+
+| Declaration | Why it is there |
+| --- | --- |
+| Stable action ID and implementation | UI events and model tools resolve to the same operation, with one owner of its business logic. |
+| Tool name, description and application facts | Help the model recognize the job, understand limits and avoid inventing abilities. |
+| Input schema | Define required arguments and types; reject malformed calls before doing the work. |
+| Effects | Distinguish reading data, changing data and changing the presentation. |
+| Caller policy and supported interfaces | State who may act directly, who may only propose, and who is refused. |
+| Recovery and impact | Declare how a change can be taken back and how broadly it reaches; check that the policy fits those consequences. |
+| Proposal handler | Define what happens instead of execution when approval is required. |
+| Fresh-read requirements and guard names | Identify the evidence and intent checks needed before an agent changes existing data. |
+| Version and inspectable descriptor | Let tools and reviewers identify the contract a recorded run actually used. |
+
+These declarations have different consumers. The model gets the tool description and input
+schema; it does not enforce the policy. The dispatcher checks authority. In this sample,
+the agent adapter performs the declared freshness and semantic checks before dispatch.
+The implementation owns domain validation and saved results. A declaration has an effect only
+when code consumes and enforces it; writing a rule into metadata is not enough.
+
+### Example: placing an order
+
+[![An annotated action declaration for placing an order, with caller policy and an approval proposal handler.](../images/capability-registry.svg)](../images/capability-registry.svg)
+
+*Illustrative store policy, using the sample's declaration pattern. Open the diagram for a larger view.*
+
+In this example store, placing an order cannot be undone. A person can place it; an agent
+can only propose it. The declaration connects `orders.place` to one implementation and
+`propose` to the approval request. Its description and facts tell the model what the operation
+means. The example assumes this particular store's policy; not every store has the same
+cancellation or approval rules.
+
+The sample validates declarations when registering them: an agent-allowed write must declare
+recovery and meet its impact rule, and an approval policy must supply a proposal handler.
+On each call, shared execution checks the actual caller again. Offering a tool is a discovery
+decision, not authorization to execute it. Hiding a tool is not an enforcement mechanism.
+
+The registry is also not an authentication system. In a deployed application, trusted adapters
+must establish caller identity, and existing user and data-access permissions still apply.
+
+## If you already have an API, are you done?
+
+You may already have much of the foundation. An API can expose shared operations, input
+schemas, access checks and reliable results. Reuse those contracts and implementations;
+a registry need not duplicate them or introduce another service.
+
+What remains is to inspect whether that API provides the right operations and context for
+an agent, with suitable caller policies. If it already does, a thin tool adapter may be enough.
+An API contract can serve as the registry or supply much of it. The principle is a shared,
+inspectable contract with enforced rules, not a requirement to adopt this sample's Python class.
+
+### API calls and a person's job are not always the same thing
+
+![An agent between API endpoints and goals such as publishing a post, creating an invoice and scheduling a meeting.](../images/api-and-jobs.png)
+
+*An API makes operations callable. The tool design must also make the intended job understandable.*
+
+Many APIs are organized around records and fields. A person asks “Does this hose fit my
+vacuum?” An API may return product records without an operation called “check compatibility.”
+A useful tool can read those records and apply the application's compatibility rules, returning
+a result in the person's terms. The business rule still belongs to shared application code.
+
+Sometimes a clearer description is enough: an existing operation that changes a post's status
+can be described in terms of publishing, scheduling and unpublishing. A separate operation
+earns its place when the job has its own validation, side effects or recovery requirements.
+A successful field update does not by itself establish that the whole job happened.
+
+## If you do not have an API yet
+
+You do not need to build an HTTP service just to connect an embedded agent. The todo sample
+uses in-process Python calls. What matters is a boundary around the operation that both the
+UI and agent can use.
+
+Start with one job. Find its business logic and validation. If they live inside a screen's
+click handler, extract them into a shared operation, preserving current behavior with tests.
+Have the UI call that operation, declare its inputs and caller policy, then connect the agent.
+Move permission checks with the operation so bypassing the screen cannot bypass a rule.
+
+If you already have a service layer, start there. If the UI state is also scattered, give the
+relevant screen a shared state representation so the agent can both observe and operate it.
+A full application rewrite is not a prerequisite; an honest assessment of the work is.
+
+## Balance general tools with tools for important jobs
+
+General operations such as reading, adding and editing let an agent compose work you did not
+anticipate. But a common job can require several calls, each another opportunity to select the
+wrong item or stop halfway. A job-specific operation can own the validation, execution and
+result for that whole unit of work.
+
+Merging two tasks illustrates the tradeoff: rename one and request deletion of the other,
+or offer a merge operation that expresses the job directly. A dedicated tool is not automatically
+more reliable. Its value may be the place it provides for a useful guard or transactional rule.
+Measure the outcome, including effects on other jobs. Keep one tool per meaningful job, not
+one per way a person might phrase the request.
+
 ## Keep three decisions distinct
 
 | Decision | Owner | Example |
@@ -41,6 +148,11 @@ handle consequential actions the application cannot undo, such as transferring m
 placing a trade, or deleting a repository. It is not included because the sample needs a
 better Undo button. Ordinary todo deletion would rarely justify this gate; choose safeguards
 for the consequences in your own product.
+
+Reversibility is only one consideration. Also ask how much the change affects and whether
+the person is likely to notice a mistake. A recoverable bulk change may still justify a preview
+or approval: undo only helps after someone notices. Show the affected items or count and the
+consequences. Choose this policy for the product rather than automatically gating every write.
 
 Bind approval to the actual proposed details. A changed task must not silently inherit an
 old approval. Keep caller identity outside the model's arguments. The walkthrough shows

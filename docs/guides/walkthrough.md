@@ -108,6 +108,41 @@ The declaration on `add_todo` in [todos.py](../../todo/todos.py) supplies the de
 
 Application code delivers each receipt directly, followed by any additional explanation from the model. The model is told not to repeat the receipts. Evaluations check that every receipt reached the delivered response and judge the model’s explanation separately, including any claims it repeats. The recorded conversation retains both the delivered response and the original model text.
 
+## Follow a declaration through the registry
+
+The [design chapter](../guide/design.md#declare-what-the-application-can-do) explains the registry's
+purpose. Here is a shortened extract of the actual deletion declaration in
+[todos.py](../../todo/todos.py); its full description and guard semantics remain in that file:
+
+```python
+@REGISTRY.action(
+    'todos.delete', tool='request_delete', effects=('write',),
+    params=IDS, needs_current_read=True,
+    policy={'person': 'allow', 'agent': 'approval'},
+    propose=request_delete, guards=TASK_GUARDS,
+    # description and guard_description omitted here
+)
+def delete_todo(ctx, ids):
+    return {'deleted': [vars(ctx.todos.delete(i)) for i in named(ctx, ids)]}
+```
+
+Follow the declaration through [capabilities.py](../../todo/capabilities.py) and
+[agent.py](../../todo/agent.py):
+
+1. `Registry.action` binds the function to an `Action` and registers it by action ID and tool name. Registration rejects duplicate names and inconsistent declarations.
+2. `tools_for` builds the offered function schemas from the entries: name, description, application facts and parameters. The interface supplies ordering.
+3. `Agent.run_tool` resolves `request_delete` with `by_tool`. It validates arguments, checks the current-read requirement and runs the configured guards declared for that action. It checks for state changes again after remote guards return.
+4. `execute` independently checks the caller's policy and supported interface, validates arguments and enters the application's transaction boundary.
+5. Because the caller is the agent and policy is `approval`, execution calls `request_delete`, the proposal handler, instead of `delete_todo`. The proposal does not delete the task.
+
+The person's later approval is a separate operation with its own caller restriction and
+bound proposal details. The next section tests that boundary.
+
+`Registry.catalog()` exposes the declarations and guard definitions without the handler code,
+plus a revision derived from their contents. This makes the contract inspectable and gives
+recorded evidence a way to identify it. The registry does not itself implement persistence,
+user authentication, or every semantic check: those have explicit owners in the application.
+
 ## Request a deletion and inspect authority
 
 **Todo deletion stands in for an irreversible action.** The purpose is to demonstrate how

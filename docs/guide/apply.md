@@ -36,6 +36,29 @@ Repeated baseline collection serves a different purpose: estimating ordinary var
 a fixed configuration. Changing the model, grader or cases requires a new comparison period,
 not quietly moving the old chart's limits.
 
+## Keep a record of attempted work
+
+A trace helps explain how a model reached a result. An application audit record answers a
+different question: what was requested, what was allowed or refused, and what actually changed?
+Record the caller, operation, relevant versions, result and necessary review evidence at the
+execution boundary. Protect sensitive data and decide access and retention deliberately.
+
+Undo should add evidence of a reversal rather than erase the original action. Check the
+record against actual outcomes in tests. The todo's local evaluation records help illustrate
+inspection; they are not a durable production audit service.
+
+## Extend to other interfaces deliberately
+
+The same capability contract can support a command line, an API or an MCP adapter. MCP—the
+Model Context Protocol—lets an external agent discover and call tools, potentially combining
+capabilities from several applications. That does not replace each application's authority checks.
+
+Decide which operations make sense for each interface. Highlighting a control only helps a
+caller sharing that screen. A data read may be useful externally without needing to be offered
+to the embedded agent. Tool listing and permission to execute remain separate decisions.
+Across applications, also establish identity, consent, data movement and recovery when only
+some steps succeed. This todo sample does not implement an MCP server or cross-app workflow.
+
 ## Account for what the sample leaves out
 
 This is a local, single-user teaching app. Production work may require authentication,
