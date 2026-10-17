@@ -70,16 +70,7 @@ Compare verdicts with human-reviewed labels on both acceptable and unacceptable 
 
 ## How to read the results
 
-The sample's [example evaluation report](https://bobfischer.github.io/beyond-chat-todo/)
-shows what this looks like in practice. It records 20 runs of the same evaluation suite
-with the same configuration. You can inspect the results without installing anything
-or calling a model.
-
-Start with a recorded failure: read the request, what the agent did, and why the check
-failed. Then compare the runs. The chart shows how the measured failure rate varied;
-it does not, by itself, establish that the agent is good enough. The report also identifies
-whether all required checks completed and where human review questioned a grader's verdict.
-
+Before reading a report, learn [why we repeat evaluations and what control charts tell us](../guides/evaluation-results.md). Different failures have different consequences: an unauthorized action should not be averaged together with a minor issue in wording when deciding whether to release.
 
 **Distinguish a defect from a change in the measured rate.** Investigate deterministic failures and serious individual incidents directly. For a stable set of stochastic evaluations, small differences between runs can be ordinary variation. Use control-chart signals to investigate changes in that process; a stable rate can still be unacceptable. Define and freeze a baseline after reviewing it, and mark changed models, tools, cases or graders as new comparison periods. See [evidence and variation](../guides/evaluation-results.md) for the chart, limits and practical testing cadence.
 

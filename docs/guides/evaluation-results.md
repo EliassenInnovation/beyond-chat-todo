@@ -1,17 +1,73 @@
 # Review results and understand variation
 
-[![An evaluation report with evidence completeness, conversations and repeated-run charts.](../images/evaluation-review.png)](https://bobfischer.github.io/beyond-chat-todo/)
+## Why run the same evaluations more than once?
 
-*The public example preserves historical results and grading concerns. Its candidate limits are not an accepted quality baseline.*
+An agent may handle the same request differently on different attempts. A model judge may
+also vary in its assessment. One run shows what happened that time; repeated runs help us
+estimate how often failures occur and how much the measured rate varies.
 
-For a no-setup introduction, open the [worked example](https://bobfischer.github.io/beyond-chat-todo/):
-20 real run summaries, candidate chart limits, and a short human-review queue. It uses synthetic
-cases and makes no network or model calls.
+Keep the cases, starting states, application, model settings and grading rules the same
+when measuring this variation. Reset the application state between attempts. Repeating a
+suite does not make it more representative of users: you still need relevant cases and
+human review of both passing and failing outcomes.
 
-Use the local HTML report first for your own runs. Open a failing case to inspect the request, expected
-outcome, saved state, replies, tool calls, and grading evidence. Optional trace links lead
-to more detail in Langfuse. The repo owns the cases, graders, records and decision rules;
-Langfuse is one example integration, not a required service or a recommendation over alternatives.
+## What does a control chart tell you?
+
+A control chart plots a measure, such as failure rate, across comparable runs. Its center
+line is the average. Its control limits are calculated boundaries used to detect unusual
+variation. A point beyond a limit, or a specified pattern of points, is a reason to
+investigate what changed. Choose the investigation rules before looking at the results.
+
+You care about both the average and the variation: how often does the agent fail, and how
+consistent are the results? Compare like-sized runs or use a calculation that accounts for
+different run sizes. The limits' width depends on the measurement and calculation, not
+only on the quality of the agent.
+
+**Stable does not mean acceptable.** If performance is stable but not good enough, improve
+the process: tools, prompts, models, application code or grading. Do not treat each ordinary
+fluctuation as a separate defect. A chart cannot prove that an agent is safe, or that a
+judge's grades are correct.
+
+## Different failures need different decisions
+
+Define acceptance criteria by consequence, rather than giving the entire agent one
+acceptable failure rate.
+
+| What you measure | How to respond |
+| --- | --- |
+| An action performed without required approval, or another prohibited outcome | Require zero observed failures in the relevant tests. Investigate any occurrence; do not wait for a chart signal. Enforce the boundary in application code. |
+| Whether the agent completes a user job correctly | Set an explicit quality target. Review failures and track the average and variation across comparable runs. |
+| Clarity, brevity or another quality preference | Decide what matters to users and what level is acceptable. Improve it without treating every stylistic difference as a critical defect. |
+
+Zero observed failures is a requirement you can test; it is not proof that the true failure
+probability is zero. Keep targeted tests and safeguards for serious outcomes even when
+repeated evaluations have found none.
+
+One agent may need several charts—for different jobs or different kinds of failure—with
+separate targets and comparison periods. Keep the underlying case groups and attempt counts
+clear. A high overall pass rate must not hide a failure in a critical category. For a rare,
+prohibited event, a visible incident count and an immediate investigation rule may be more
+useful than a control chart.
+
+Langfuse can store separate named scores and show their distributions and trends. Its
+[Score Analytics](https://langfuse.com/docs/evaluation/scores/score-analytics) can also compare
+human and automated grades. Acceptance criteria, release decisions and the control-chart
+rules used here remain in the repository; Langfuse is optional.
+
+## See a recorded example
+
+The [example report](https://bobfischer.github.io/beyond-chat-todo/) contains 20 runs of the
+same suite and selected conversations for human review. It uses synthetic cases and needs
+no installation or model calls. Its overall chart illustrates repeated measurements;
+it is not a complete set of measures for every risk or user job.
+
+[![An evaluation report with conversations and repeated-run charts.](../images/evaluation-review.png)](https://bobfischer.github.io/beyond-chat-todo/)
+
+*Recorded results for review. The calculated limits have not been adopted as the reference for future runs.*
+
+Use the local HTML report for your own runs. Inspect the request, expected outcome, saved
+state, replies, tool calls and grading reasons. Optional trace links lead to more detail in
+Langfuse. The repository owns the cases, graders, records and decision rules.
 
 ## Read one conversation before the chart
 
