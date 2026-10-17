@@ -29,7 +29,7 @@ lines before switching profiles; explicit overrides take precedence.
 | Role | OpenAI profile | Anthropic profile |
 | --- | --- | --- |
 | Application agent | `gpt-6-luna` | `claude-haiku-5-5` |
-| Evaluation judges | `gpt-6-luna` | `claude-opus-5-5` |
+| Evaluation judges | `gpt-6-luna` | `claude-sonnet-5-5` |
 | Exploratory personas | `gpt-4.1-mini` | `claude-haiku-5-5` |
 | Intent/action guards | `gpt-6-luna` | `claude-haiku-5-5` |
 | Merge judgment | Decisions API probability | Structured boolean answer |
@@ -259,24 +259,30 @@ and independent endpoints within one provider remain extension work.
 ## What we tested
 
 The Anthropic profile uses **Haiku 5.5 for the application, guards, and personas**, and
-**Opus 5.5 for evaluation judges**. The judge needs to distinguish an actual state change
-from a plausible description of one, so a model that works well as the agent is not
-automatically the best evaluator. You can override the judge with `EVALBASICS_JUDGE_MODEL`.
-Opus costs more: rechecking 51 saved conversations used an estimated $1.72 in judge calls
-at the recorded standard rates, excluding agent and persona calls.
+**Sonnet 5.5 for evaluation judges**. A model that works well as the agent is not automatically
+the best evaluator. You can override the judge with `EVALBASICS_JUDGE_MODEL`.
+
+We selected Sonnet after comparing Haiku, Sonnet, and Opus against 206 calibration examples,
+with three judgments per example. Haiku agreed with 607/618 labels at its default effort;
+increasing its effort still produced errors in focused checks. Sonnet initially missed a
+claimed return that had not happened. Clarifying that a return implies a state change brought
+Sonnet to **618/618** across the full set. Opus also matched **618/618** in the initial comparison.
+No labels were changed during this model comparison.
+
+Regrading the same 51 saved application conversations cost an estimated **$0.88 with Sonnet**,
+compared with **$1.74 with Opus**, using reported tokens and standard rates. Both passed 51/51.
+These are judge costs, excluding agent and persona calls; actual charges and usage vary.
+Sonnet uses the provider's default effort. Opus remains an optional override, not a required
+part of the sample.
 
 Validation on October 16, 2026:
 
 - **312 offline tests passed**, including provider isolation, tool history, recovery, and cost accounting.
-- The latest full application run passed **51/51 visible cases**. Rechecking those saved
-  conversations with Opus also passed **51/51**, without missing judgments or replacing the originals.
-- After human review clarified two criteria, the full calibration produced **205/206**
-  agreements. Its one disagreement exposed an identical copy of a reviewed example with
-  the old label; that label has also been corrected. Original run records are preserved.
-- The eight disputed examples matched the reviewed criteria in **40/40 repeated checks**.
-  Four new contrast examples distinguish a truthful relative-position claim from an
-  incorrect original-position claim, and adequate responses to a requested priority.
-  A further **39/39 checks** passed across these contrasts, the duplicate, and disputed cases.
+- The latest full application run passed **51/51 visible cases**. Rechecking its saved
+  conversations with Sonnet also passed **51/51**, without missing judgments or replacing the originals.
+- The final Sonnet rubric matched **618/618 calibration judgments** (206 examples, three times
+  each), including correct and incorrect replies. These are repeated development checks,
+  not 618 independent examples or a guarantee of accuracy on new requests.
 
 The reviewed criteria separate truthfulness from task completion: “back below” can truthfully
 name a relative position without restoring the original slot. The outcome check must still
@@ -284,11 +290,11 @@ reject the wrong slot. Showing all active tasks, including overdue ones, does no
 address “overdue first”; the response needs to identify, highlight, filter to, or ask about
 the overdue tasks.
 
-Two labels were reviewed with the maintainer and changed; the identical duplicate was
-updated consistently. Other calibration labels were initially assigned by a coding agent,
-so agreement is development evidence, not independent proof of judge accuracy. Review
-disagreements and sample apparent successes. Silence-related cases also exercise the same
-deterministic check used by application evaluations.
+Before this model comparison, two labels were reviewed with the maintainer and changed;
+an identical duplicate was updated consistently. Other calibration labels were initially
+assigned by a coding agent, so agreement is development evidence, not independent proof of
+judge accuracy. Review disagreements and sample apparent successes. Silence-related cases
+also exercise the same deterministic check used by application evaluations.
 
 Real browser chat and all five exploratory personas have also been exercised. Persona
 satisfaction is exploratory feedback, not a pass score. Application code delivers action

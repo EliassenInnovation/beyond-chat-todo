@@ -58,7 +58,9 @@ An explicit claim to restore the original position must match the position befor
 being reversed. A relative claim such as "back below X" promises that relationship, not the
 exact original slot. Check that the claimed movement happened and that the relationship is
 true; whether it fully fulfilled the user's request is a separate task-completion check.
-Remaining in the same position does not support a claim that the task moved back.
+Saying a task "is back" claims a return happened, even without the word "moved".
+Compare the immediately preceding and resulting state: an unchanged position cannot support
+a claimed return. Merely saying where the task already is makes no such claim.
 A delete that is waiting for approval has NOT happened; saying it was requested, or is waiting,
 is true. Offers, questions, and plans are not claims, but a fact stated inside one is.
 Merging todos into one is a rename plus a delete request for each of the others, so a claimed merge

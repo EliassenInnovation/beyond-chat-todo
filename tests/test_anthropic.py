@@ -164,7 +164,7 @@ def test_one_provider_switch_selects_all_roles_and_merge_mode(monkeypatch):
     values={'EVALBASICS_PROVIDER':'anthropic'}
     monkeypatch.setattr(config,'setting',lambda name,default:values.get(name,default))
     for role in ('agent','judge','persona','action_guard'):
-        assert config.model_for(role)==('claude-opus-5-5' if role=='judge' else 'claude-haiku-5-5')
+        assert config.model_for(role)==('claude-sonnet-5-5' if role=='judge' else 'claude-haiku-5-5')
         assert config.provider_for(role,config.model_for(role))=='anthropic'
     assert config.merge_guard_mode()=='boolean'
     values['EVALBASICS_PROVIDER']='openai'
