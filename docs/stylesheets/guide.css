@@ -32,3 +32,10 @@
 .md-typeset .practice > .admonition-title { padding-left: .6rem; }
 .md-typeset .consider > .admonition-title::before,
 .md-typeset .practice > .admonition-title::before { display: none; }
+
+/* Compact web cover: real text, with the publisher's original vector logo. */
+.md-typeset .guide-cover { background: #1a1e33; color: white; padding: 2rem 1.5rem 1.3rem; margin: 0 0 1rem; border-radius: .3rem; }
+.md-typeset .guide-cover h1 { color: white; font-family: "Big Caslon", Caslon, "Times New Roman", serif; font-size: clamp(1.6rem, 4vw, 2.3rem); font-weight: 400; letter-spacing: 0; white-space: nowrap; margin: 0; }
+.md-typeset .guide-cover-subtitle { font-size: clamp(.7rem, 2vw, 1rem); white-space: nowrap; margin: .6rem 0 1.7rem; }
+.md-typeset .guide-cover img.guide-cover-logo { width: 160px; max-width: 45%; background: transparent; border-radius: 0; margin: 0; padding-top: .8rem; border-top: 2px solid #e6b573; }
+@media screen and (max-width: 30em) { .md-typeset .guide-cover { padding-inline: .8rem; } }

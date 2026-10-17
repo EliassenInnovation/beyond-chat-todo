@@ -1,6 +1,8 @@
-# Build helpful, trustworthy agents into your application
-
-> **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization’s security policies.
+<div class="guide-cover">
+<h1>Build better agents</h1>
+<p class="guide-cover-subtitle">Help your users get things done.</p>
+<img src="images/eliassen-primary-white.svg" alt="Eliassen Group" class="guide-cover-logo">
+</div>
 
 An agent can help people use capabilities they cannot find, understand unfamiliar workflows,
 and carry out work with them. Making that assistance useful takes more than a chat box:
@@ -14,6 +16,8 @@ a complicated business domain. Managing todos is the teaching example, not the r
 
 Follow the chapters from motivation and design through the working sample and evaluation,
 or use the chapter navigation to go directly to what you need.
+
+> **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization’s security policies.
 
 ## Choose a way through the guide
 
