@@ -2,17 +2,33 @@
 
 ![Build better agents. Help your users get things done. Eliassen Group.](images/guide-cover.svg){ .publication-cover }
 
+An AI agent embedded in an application can help people find useful capabilities,
+understand unfamiliar workflows, and get work done.
 
+For that agent to be useful, it needs a connection to the application. Depending on the
+job, it may need to see what you are doing, control the interface, and perform tasks on
+your behalf. It must also be safe and trustworthy. High-impact actions should require
+your approval through a process enforced by application code. The application needs
+controls and evaluation to keep the agent's advice and actions within applicable policies.
+Where required, it should keep an audit trail of the interaction, approvals and actions taken.
 
-An agent can help people use capabilities they cannot find, understand unfamiliar workflows,
-and carry out work with them. Making that assistance useful takes more than a chat box:
-the agent needs a connection to the real application, appropriate authority, and evidence
-that it understands and helps.
+Building this kind of agent takes work: designing tools, tuning prompts, and writing
+application code to guide its behavior. Supporting agents can help with specific judgments
+or checks where they are useful. There is no exact formula. It requires deliberate
+experimentation, measurement and ongoing evaluation as models and applications change.
 
-This guide explains how to build that connection. It is for developers, architects, and
-product people adding an agent to an application or website—or improving one they already have.
-A small TodoMVC-style application makes the design concrete without requiring you to learn
-a complicated business domain. Managing todos is the teaching example, not the reason to build an agent.
+If this sounds like a lot of work, it is. But that effort should be weighed against the
+friction your users already face: struggling to complete tasks, finding help that does
+not help, being unable to reach a person when they need one, and encountering dead ends.
+
+If your users experience these frustrations—or never discover capabilities that could
+make their work easier—building an embedded agent may be worth the investment.
+
+This guide explains how to approach that work. It is for developers, architects, and
+product people adding an agent to an application or website—or improving one they already
+have. A small TodoMVC-style application makes the design choices concrete without
+requiring you to learn a complicated business domain. Managing todos is the teaching
+example, not the reason to build an agent.
 
 Follow the chapters from motivation and design through the working sample and evaluation,
 or use the chapter navigation to go directly to what you need.
