@@ -255,10 +255,10 @@ embed those records. Completed case conversations are also checkpointed under
 Source snapshots live under `runs/sources/`. Interrupted runs may
 leave usage evidence without a completed evaluation: do not mistake them for successful runs.
 
-The report estimates standard GPT-6 Luna and GPT-4.1 mini token charges using the dated rates in
-`evaluations/eval_costs.py`. Other models, missing usage, nonstandard service tiers, and unsupported
+The report estimates model charges using the supported model IDs and dated rates in
+`evaluations/eval_costs.py`. Unrecognized models, missing usage, nonstandard service tiers, and unsupported
 long-context pricing remain unknown. Estimates exclude unreported retries, other charges and hosting. Provider billing
-is authoritative. The enabled merge guard uses separate input-only Decisions pricing. Token counts include application, judge and guard calls; changing the judge can
+is authoritative. When the merge guard uses the Decisions API, its calls have separate input-only pricing. Token counts include application, judge and guard calls; changing the judge can
 materially change cost. Review a full-run measurement before ordering a larger collection.
 
 See the [offline evaluation example](../../examples/evaluation-review/README.md) for a

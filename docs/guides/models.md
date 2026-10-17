@@ -34,7 +34,9 @@ lines before switching profiles; explicit overrides take precedence.
 | Intent/action guards | `gpt-6-luna` | `claude-haiku-5-5` |
 | Merge judgment | Decisions API probability | Structured boolean answer |
 
-All six guards remain enabled. The Anthropic profile makes no OpenAI calls. Boolean guard
+Both provider profiles use [guards](walkthrough.md#check-whether-the-proposed-action-fits-the-request) to check that
+proposed actions match the user's intent before execution. These checks supplement application-enforced
+permissions, validation, and approval. The Anthropic profile makes no OpenAI calls. Boolean guard
 answers are not probabilities; changing provider or judgment mode starts a new evaluation
 configuration. Both profiles have live development-run evidence. Switching providers still requires
 evaluation for your application; supported transport does not establish equivalent behavior.

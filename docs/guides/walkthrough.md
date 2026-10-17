@@ -131,7 +131,7 @@ Valid arguments and permission to act do not establish that the agent understood
 narrow question about intent before the proposed action executes. It is another judgment
 that can be evaluated, separate from the application's deterministic approval rules.
 
-Optional semantic guards sit in `Agent.run_tool`, after argument validation and before
+Guards check the agent's interpretation of the user's intent. They sit in `Agent.run_tool`, after argument validation and before
 `execute`. Each action names its guards; each guard declares its question, evidence, provider,
 and refusal. The merge and target/action checks use the same dispatch.
 
@@ -145,9 +145,9 @@ Completeness of the whole request belongs to the conversation eval, not to each 
 
 A guard can be wrong: it may accept an ambiguous reference or refuse a reasonable request.
 Test both kinds of error. These judgments supplement the deterministic protections; they
-do not establish that a request is safe or authorized. The sample's `.env.example` enables
-all six guards. See [model configuration](models.md) for their provider requirements and
-how to select them.
+do not establish that a request is safe or authorized. Both provider profiles use these guards
+as part of the application's design. See [model configuration](models.md) for their provider
+requirements.
 
 ## Give the agent knowledge and control of the screen
 
