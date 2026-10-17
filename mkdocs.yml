@@ -34,6 +34,8 @@ markdown_extensions:
   - fenced_code
   - attr_list
   - toc:
+      title: On this page
+      toc_depth: "2:2"
       permalink: true
 extra_css:
   - stylesheets/guide.css
