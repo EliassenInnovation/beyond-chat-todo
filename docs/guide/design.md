@@ -96,6 +96,14 @@ operation can enforce the rules, coordinate those steps, and handle failures con
 If the agent has only the individual building blocks, it must determine the sequence and
 handle partial completion each time someone asks.
 
+The request may also express a constraint rather than an exact value: “Move my appointment
+to later in the week.” The model can interpret that phrase as a date range, using the current
+date and conversation context, and pass the range to a tool that supports finding suitable
+times. Application code checks availability and preserves the appointment’s duration,
+participants and other requirements. The tool can return valid alternatives; if a choice
+remains and no user preference or application rule resolves it, the agent asks. The person
+does not have to translate their request into individual record updates.
+
 There are two benefits here. **The name and description help the agent recognize the job.**
 **The implementation handles the recurring workflow**, so the agent does not have to
 reconstruct it on every request. That implementation belongs in shared application code,
