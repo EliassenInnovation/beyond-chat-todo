@@ -106,10 +106,11 @@ Application code delivers each receipt directly, followed by any additional expl
 
 ## Request a deletion and inspect authority
 
-Deletion is gated here to demonstrate an approval mechanism, not because deleting an ordinary
-todo is inherently high-impact. The sample also makes deletion irreversible. Both are teaching
-choices, not requirements to copy into another app. A real todo app could provide recoverable
-deletion and reserve approval for more consequential actions.
+**Todo deletion stands in for an irreversible action.** The purpose is to demonstrate how
+application code requires a person's approval before an agent executes that action. We would
+include this demonstration even with a fully featured undo system; the approval gate teaches
+a separate capability. Ordinary todo deletion would rarely warrant it. This sample deliberately
+makes deletion irreversible to give the demonstration a concrete action to protect.
 
 Separate two questions when adapting this pattern: **does the mechanism enforce authority?**
 And **do this action's consequences and recoverability justify approval?** The walkthrough tests

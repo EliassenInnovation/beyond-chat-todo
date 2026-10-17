@@ -67,10 +67,12 @@ the current screen, let it change the view, return results from application code
 from some failures. The [walkthrough](docs/guides/walkthrough.md) explains each design problem,
 shows the implementation, and identifies what to carry into another application.
 
-The approval example uses todo deletion. That is a teaching choice: ordinary todo deletion
-is rarely high-impact, and a real todo app could make it recoverable. Choose safeguards for
-your application based on consequences and recoverability. Shared implementation does not
-require identical permissions for the person and the agent.
+**Todo deletion stands in for an irreversible action in this teaching sample.** It demonstrates
+how application code can require a person's approval before an agent carries out such an action.
+The approval gate is included to teach that pattern, independently of how capable the app's
+undo feature is. Ordinary todo deletion would rarely warrant it. Choose safeguards for your
+own application based on the action's consequences and recoverability. Shared implementation
+does not require identical permissions for the person and the agent.
 
 ## How do you know the agent is helping?
 
