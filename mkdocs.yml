@@ -39,7 +39,7 @@ markdown_extensions:
       toc_depth: "2-2"
       permalink: true
 extra_css:
-  - stylesheets/guide.css
+  - stylesheets/guide.css?v=20261017-brand
 nav:
   - Start here: index.md
   - Design:

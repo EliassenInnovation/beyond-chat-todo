@@ -1,5 +1,7 @@
 /* Reading layout, with no remote font dependency. */
-:root { --md-text-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+:root { --md-text-font: "Sofia Pro", "Sofia Pro Regular", Calibri, Arial, sans-serif; }
+/* Use installed brand fonts; approved office fallbacks need no webfont download. */
+.md-typeset h1, .md-typeset h2, .md-typeset h3, .md-typeset h4 { font-family: "Big Caslon", Caslon, "Times New Roman", serif; }
 .md-grid { max-width: 72rem; }
 /* Keep prose readable on large displays without widening diagrams or tables off-screen. */
 .md-content__inner { max-width: 76ch; margin-inline: auto; padding-inline: 1rem; }
