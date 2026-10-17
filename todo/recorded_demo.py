@@ -1,6 +1,7 @@
 """Display a recorded persona session without constructing a model client."""
 from pathlib import Path
 import json
+import re
 
 ASSETS = Path(__file__).resolve().parents[1] / 'docs' / 'demos'
 
@@ -17,5 +18,5 @@ def replay_html():
     script = script.replace("const styleResponse=await fetch('todo_view.css');if(!styleResponse.ok)throw Error('App styling could not be loaded.');const todoCss=await styleResponse.text();", f'const todoCss={css_payload};')
     script = script.replace('export function ', 'function ')
     page = (ASSETS / 'persona-replay.html').read_text().replace('data-guide-mode="true"', 'data-guide-mode="false"')
-    page = page.replace('<script type="module" src="persona-replay.js"></script>', '<script type="module">' + script + '</script>')
+    page = re.sub(r'<script type="module" src="persona-replay\.js(?:\?[^"]*)?"></script>', lambda _: '<script type="module">' + script + '</script>', page)
     return page
