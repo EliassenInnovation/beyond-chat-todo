@@ -69,8 +69,8 @@ shows the implementation, and identifies what to carry into another application.
 
 **Todo deletion stands in for an irreversible action in this teaching sample.** It demonstrates
 how application code can require a person's approval before an agent carries out such an action.
-Real examples include transferring money, placing a trade, or deleting a repository—actions
-whose effects may be irreversible or cannot be reliably undone by the application.
+Real examples include transferring money, placing a trade, or deleting a repository—
+consequential actions the application cannot undo.
 The approval gate is included to teach that pattern, independently of how capable the app's
 undo feature is. Ordinary todo deletion would rarely warrant it. Choose safeguards for your
 own application based on the action's consequences and recoverability. Shared implementation

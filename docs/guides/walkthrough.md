@@ -108,8 +108,8 @@ Application code delivers each receipt directly, followed by any additional expl
 
 **Todo deletion stands in for an irreversible action.** The purpose is to demonstrate how
 application code requires a person's approval before an agent executes that action. In a real
-application, this might be transferring money, placing a trade, or deleting a repository:
-actions whose effects may be irreversible or cannot be reliably undone by the application.
+application, this might be transferring money, placing a trade, or deleting a repository—
+consequential actions the application cannot undo.
 We would include this demonstration even with a fully featured undo system; the approval gate teaches
 a separate capability. Ordinary todo deletion would rarely warrant it. This sample deliberately
 makes deletion irreversible to give the demonstration a concrete action to protect.
