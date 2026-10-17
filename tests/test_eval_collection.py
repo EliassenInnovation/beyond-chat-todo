@@ -21,8 +21,9 @@ def test_offline_example_reconciles_and_keeps_original_grades():
     assert len(b['observations'])==20
     assert sum(o['expected'] for o in b['observations'])==3060
     assert sum(o['passed'] for o in b['observations'])==2956
-    assert 'quality baseline not accepted' in page
-    assert 'Illustrative candidate limits' in page
+    assert 'We have not adopted these limits' in page
+    assert 'How much did results vary between runs?' in page
+    assert 'recorded passes and failures' in page
     assert 'fetch(' not in page and '<script src=' not in page
     assert len(b['examples'])==8
 

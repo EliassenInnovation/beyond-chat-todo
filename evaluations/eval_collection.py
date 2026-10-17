@@ -42,7 +42,7 @@ def validate_notes(bundle, notes):
     ids = [x.get('id') for x in reviews]
     if len(ids) != len(set(ids)) or set(ids) != expected:
         raise ValueError('Review notes must contain each example exactly once.')
-    choices = {'unreviewed', 'grader_concern', 'application_concern', 'mixed', 'uncertain'}
+    choices = {'unreviewed', 'grader_concern', 'application_concern', 'mixed', 'uncertain', 'agree_pass', 'agree_fail'}
     if any(x.get('assessment') not in choices or not isinstance(x.get('note'), str) for x in reviews):
         raise ValueError('Invalid review assessment or note.')
     return sum(x['assessment'] != 'unreviewed' for x in reviews)
@@ -68,18 +68,18 @@ def chart(observations, candidate):
     rates = [o['failed'] / o['expected'] for o in observations if o['complete']]
     maximum = max(.1, math.ceil((max(rates + [candidate['upper']] if candidate else rates) + .01) * 10) / 10)
     y = lambda value: 215 - value / maximum * 170
-    parts = [f'<svg viewBox="0 0 800 270" role="img" aria-label="Recorded failure rates by run; exact counts are in the table below"><text x="8" y="45">{maximum:.0%}</text><text x="20" y="220">0%</text><line x1="65" x2="760" y1="215" y2="215" stroke="#8794a6"/>']
+    parts = [f'<svg viewBox="0 0 1030 290" role="img" aria-label="Recorded failure rates by run; exact counts are in the table below"><text x="65" y="20" font-size="14">Attempts marked as failures (%)</text><text x="8" y="45">{maximum:.0%}</text><text x="20" y="220">0%</text><line x1="65" x2="760" y1="215" y2="215" stroke="#8794a6"/>']
     if candidate:
-        for label, value in [('Candidate average', candidate['center']), ('Candidate upper limit', candidate['upper']), ('Candidate lower limit', candidate['lower'])]:
+        for label, value in [('Average failure rate', candidate['center']), ('Upper control limit', candidate['upper']), ('Lower control limit', candidate['lower'])]:
             if 0 <= value <= maximum:
-                parts.append(f'<line x1="65" x2="760" y1="{y(value):.2f}" y2="{y(value):.2f}" stroke="#aa7100" stroke-dasharray="6 5"><title>{label}: {value:.2%}</title></line>')
+                parts.append(f'<line x1="65" x2="760" y1="{y(value):.2f}" y2="{y(value):.2f}" stroke="#aa7100" stroke-dasharray="6 5"><title>{label}: {value:.2%}</title></line><text x="775" y="{y(value)+5:.2f}" font-size="14">{label}: {value:.2%}</text>')
     for i, o in enumerate(observations):
         x = 65 + i * 695 / max(1, len(observations)-1)
         if o['complete']:
             rate = o['failed']/o['expected']
             parts.append(f'<circle cx="{x:.2f}" cy="{y(rate):.2f}" r="5" fill="#334da0"><title>Observation {i+1}: {rate:.2%} recorded failures</title></circle>')
         parts.append(f'<text x="{x:.2f}" y="245" text-anchor="middle" font-size="12">{i+1}</text>')
-    return ''.join(parts)+'</svg>'
+    return ''.join(parts)+'<text x="410" y="280" text-anchor="middle" font-size="14">Evaluation run (in start-time order)</text></svg>'
 
 
 def example(item):
@@ -97,9 +97,9 @@ def example(item):
 <p>{e(item['question'])}</p><p class="muted">{e(item['run_label'])} · {e(attempt['case'])} · attempt {attempt['attempt']}</p>
 <details><summary>Conversation and application evidence</summary><p>Case expectation: {e(item['expectation'])}</p>
 <details><summary>Initial state</summary><pre>{e(json.dumps(attempt['before'],indent=2,ensure_ascii=False))}</pre></details>{''.join(turns)}</details>
-<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
+<label>Your assessment <select class="assessment"><option value="unreviewed">Not reviewed</option><option value="agree_pass">Agree: this is a successful outcome</option><option value="agree_fail">Agree: this is a failure</option><option value="grader_concern">Grader concern: response appears adequate</option><option value="application_concern">Application concern: response or action is wrong</option><option value="mixed">Both application and grading concerns</option><option value="uncertain">Needs discussion / insufficient evidence</option></select></label>
 <label>Why? <textarea class="note" placeholder="Describe the outcome that matters, rather than preferred wording."></textarea></label>
-<details><summary>Original flags and assistant review note</summary><pre>{e(json.dumps(checks,indent=2,ensure_ascii=False))}</pre><p>{e(item['assistant_note'])}</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article>'''
+<details><summary>Recorded result, flags and assistant review note</summary><p>Recorded result: {"Pass" if attempt.get("passed") else "Fail"}.</p><pre>{e(json.dumps(checks,indent=2,ensure_ascii=False))}</pre><p>{e(item['assistant_note'])}</p><p class="muted">This note is a proposed interpretation, not a human label.</p></details></article>'''
 
 
 def render(bundle):
@@ -111,18 +111,24 @@ def render(bundle):
     cost = sum(o['cost_usd'] or 0 for o in observations)
     candidate = bundle.get('candidate_limits')
     rows = ''.join(f'<tr><td>{i+1}</td><td>{e(o["run_label"])}</td><td>{o["passed"]}/{o["expected"]}</td><td>{o["failed"]}</td><td>{"Complete" if o["complete"] else "Incomplete"}</td></tr>' for i,o in enumerate(observations))
-    limits = (f'Average {candidate["center"]:.2%}; lower limit {candidate["lower"]:.2%}; upper limit {candidate["upper"]:.2%}. The negative lower limit is listed, not drawn.' if candidate else 'No candidate limits are available.')
+    limits = (f'Average {candidate["center"]:.2%}; lower limit {candidate["lower"]:.2%}; upper limit {candidate["upper"]:.2%}. The calculated lower limit is below zero. A failure rate cannot be negative, so it is not drawn.' if candidate else 'No candidate limits are available.')
     # Only a small identity payload enters script; user-controlled text stays escaped HTML.
     payload = json.dumps({'bundle_digest':bundle['bundle_digest'],'title':bundle['title']}).replace('<','\\u003c').replace('>','\\u003e').replace('&','\\u0026')
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(bundle['title'])}</title><style>{STYLE}</style></head><body><main>
-<h1>{e(bundle['title'])}</h1><p>A real, fixed-configuration collection from the todo starter. No server, account, or model calls are needed to read this page.</p>
-<section class="notice"><h2>Evidence complete; quality baseline not accepted</h2><p>{e(bundle['conclusion'])}</p><p>The scores below are the original recorded results. Human review notes do not change them.</p></section>
-<section><div class="metrics"><div class="metric"><b>{complete}/{len(observations)}</b><span>Runs with complete evidence</span></div><div class="metric"><b>{passed:,}/{total:,}</b><span>Recorded passes ({passed/total:.2%})</span></div><div class="metric"><b>${cost:.2f}</b><span>Estimated reported cost; excludes separate preflight</span></div></div></section>
-<section><h2>Observed variation</h2><p class="badge">Illustrative candidate limits—not an accepted baseline</p>{chart(observations,candidate)}<p>{e(limits)}</p>
-<p>{e(bundle['chart_note'])}</p><details><summary>All observations in start-time order</summary><div class="table"><table><thead><tr><th>Order</th><th>Run</th><th>Passes</th><th>Failures</th><th>Evidence</th></tr></thead><tbody>{rows}</tbody></table></div></details>
-<p>A stable rate can still contain unacceptable outcomes or grader errors. New important failures need review even when the overall rate remains within limits.</p></section>
-<section><h2>How to use this example</h2><p>Read a conversation and its actions, then decide whether the issue is in the application, the grader, or both. The original flag and assistant note are collapsed so you can form your own view first. These selected examples are a discussion queue, not a representative accuracy sample.</p>
-<p>For ordinary changes: offline tests → focused evals → a full regression run when model behavior can change. Twenty full runs establish variation; they are not required after every edit. A new prompt, model, tool or grader starts a reviewed comparison period, not automatically new control limits.</p>
+<h1>How consistently did the todo agent do the right thing?</h1>
+<p>We gave the agent a set of requests and checked its answers and changes to the task list. We ran the same tests {len(observations)} times, keeping the application, models and grading rules unchanged. Repeating the tests lets us see how much the results vary.</p>
+<p>This page contains recorded results and selected conversations for you to review. No installation, account or model calls are needed.</p>
+
+<section><div class="metrics"><div class="metric"><b>{complete}/{len(observations)}</b><span>Runs with all required records and judgments</span></div><div class="metric"><b>{passed:,}/{total:,}</b><span>Attempts marked successful ({passed/total:.2%})</span></div><div class="metric"><b>${cost:.2f}</b><span>Estimated model cost; excludes a separate preliminary check</span></div></div></section>
+<section><h2>How much did results vary between runs?</h2><p>Each dot shows the percentage of attempts marked as failures in one run. The average tells us how often the agent was marked wrong; the spread shows how much that rate varied. These are recorded grades, not independently verified measures of agent quality.</p><p>The dashed lines show the average and calculated control limits. Limits help identify changes that warrant investigation; they are not targets or boundaries of acceptable quality.</p>{chart(observations,candidate)}<p>{e(limits)}</p>
+<p>No run crossed a calculated limit, and there was no sequence of eight runs strictly above or below the average. That does not prove the process will remain stable: these runs were close together, some overlapped, and the limits were calculated from these same results.</p><details><summary>All observations in start-time order</summary><div class="table"><table><thead><tr><th>Order</th><th>Run</th><th>Passes</th><th>Failures</th><th>Evidence</th></tr></thead><tbody>{rows}</tbody></table></div></details>
+<p><strong>Stable does not mean good enough.</strong> If a stable failure rate is unacceptable, improve the tools, prompts, model or application code. Review both the average and the variation, using comparable run sizes. Investigate serious individual failures even when the overall rate stays within the limits.</p><p>We have not adopted these limits as the reference for future runs. Review found real agent mistakes and apparent grading mistakes; those need to be addressed before accepting a reference for future comparisons.</p></section>
+<section><h2>How to use this example</h2>
+<p>We pulled examples from the recorded runs and present them below for a person to review. This checks both the agent and the judge: a person should agree that an outcome marked as a failure really failed, and that one marked as a success really succeeded.</p>
+<ol><li>Read the request, starting state, actions and resulting state. Decide whether the agent did the right thing before looking at the recorded grade.</li><li>Open the recorded result and compare it with your judgment. A false failure can send you fixing acceptable behavior; a false success can hide a real problem.</li><li>Record your assessment and reason. If you disagree, determine whether the agent, the grading criteria or the judge needs to change.</li></ol>
+<p>Do this review even when the chart shows no unusual change. The chart summarizes rates; reading conversations reveals what those rates mean. Sample both successes and failures as part of ongoing review, rather than reading every interaction or only the failures.</p>
+<p>The examples here include recorded passes and failures, deliberately selected for discussion. They are not a representative sample from which to estimate overall accuracy. Assistant review notes are suggestions, not human judgments. Your notes remain separate from the original grades and do not change the chart.</p>
+<p>For ordinary changes: offline tests → focused evals → a full regression run when model behavior can change. Twenty full runs help estimate variation; they are not required after every edit. A new prompt, model, tool or grader starts a reviewed comparison period, not automatically new control limits.</p>
 <p><a href="../../docs/guides/evaluation-results.md">Evaluation workflow and chart limits</a> · <a href="README.md#what-this-example-measures">About this example</a> · <a href="collection.json">Portable evidence bundle</a></p></section>
 <section><h2>Human review queue</h2><p>Notes stay in this tab until you download them. Nothing is sent to a service or saved automatically. Download before closing or refreshing.</p><label>Reviewer (optional) <input id="reviewer" autocomplete="off"></label><noscript><p>JavaScript is disabled. The evidence is readable, but downloading structured notes requires JavaScript.</p></noscript></section>
 {''.join(example(x) for x in bundle['examples'])}
