@@ -34,7 +34,7 @@ markdown_extensions:
   - fenced_code
   - attr_list
   - toc:
-      title: On this page
+      title: In this section
       toc_depth: "2-2"
       permalink: true
 extra_css:
