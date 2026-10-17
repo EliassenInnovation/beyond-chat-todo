@@ -15,7 +15,6 @@
 @media screen and (max-width: 44.984375em) {
   .md-content__inner { padding-inline: .6rem; }
 }
-.md-typeset table:not([class]) { font-size: .76rem; }
 .md-typeset a { text-underline-offset: .16em; }
 .md-typeset a:hover { text-decoration: underline; }
 @media print { .md-sidebar, .md-header, .md-footer, .md-top { display: none; } }
@@ -58,12 +57,3 @@
   margin-top: .8rem;
   padding-top: .55rem;
 }
-
-/* Publication tables: brand mint header, apricot rules, compact rows. */
-.md-typeset table:not([class]) { font-size: .76rem; line-height: 1.35; border: 0; border-radius: 0; }
-.md-typeset table:not([class]) th { background: #8ebfb3; color: #1a1e33; padding: .45em .7em; border-bottom: 0; }
-.md-typeset table:not([class]) td { padding: .45em .7em; border-bottom: 1px solid #e6b573; vertical-align: top; }
-.md-typeset table:not([class]) :is(th, td) > :is(p, ul, ol) { margin-block: .15em; }
-
-.md-typeset .reading-paths table { table-layout: fixed; width: 100%; }
-.md-typeset .reading-paths th:first-child, .md-typeset .reading-paths td:first-child { width: 30%; }

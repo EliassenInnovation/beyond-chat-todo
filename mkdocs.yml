@@ -41,7 +41,8 @@ markdown_extensions:
       toc_depth: "2-2"
       permalink: true
 extra_css:
-  - stylesheets/guide.css?v=20261017-table-rules
+  - stylesheets/guide.css?v=20261017-shared-tables
+  - stylesheets/tables.css?v=1
 nav:
   - Cover: index.md
   - Design:

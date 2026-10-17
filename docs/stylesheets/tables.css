@@ -1,0 +1,20 @@
+/* Shared publication table style for the web guide and generated PDF. */
+:is(.md-typeset, .publication) table:not([class]) {
+  width: 100%; border-collapse: collapse; border: 0; border-radius: 0;
+  font-size: .88em; line-height: 1.35;
+}
+:is(.md-typeset, .publication) table:not([class]) :is(th, td) {
+  padding: .45em .7em; text-align: left; vertical-align: top; border: 0;
+}
+:is(.md-typeset, .publication) table:not([class]) th {
+  background: #8ebfb3; color: #1a1e33;
+}
+:is(.md-typeset, .publication) table:not([class]) td {
+  border-bottom: 1px solid #e6b573;
+}
+:is(.md-typeset, .publication) table:not([class]) :is(th, td) > :is(p, ul, ol) {
+  margin-block: .15em;
+}
+/* This table's content calls for a wider label column. */
+:is(.md-typeset, .publication) .reading-paths table { table-layout: fixed; }
+:is(.md-typeset, .publication) .reading-paths :is(th, td):first-child { width: 30%; }

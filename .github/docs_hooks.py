@@ -77,9 +77,6 @@ def on_post_build(config):
     h1,h2,h3,h4 { font-family:'Big Caslon',Caslon,'Times New Roman',serif; line-height:1.2; break-after:avoid; }
     h1 { font-size:26pt; color:#2e4294; } h2 { font-size:17pt; color:#2e4294; } h3 { font-size:14pt; color:#2e4294; }
     img { max-width:100%; height:auto; } .publication-cover { width:100%; display:block; }
-    table { width:100%; border-collapse:collapse; font-size:9pt; line-height:1.3; } th,td { padding:4px 6px; border:0; border-bottom:1px solid #e6b573; text-align:left; vertical-align:top; } th { background:#8ebfb3; color:#1a1e33; border-bottom:0; }
-    .reading-paths table { table-layout:fixed; }
-    .reading-paths th:first-child, .reading-paths td:first-child { width:30%; }
     .cover-anchor { display:none; }
     pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#f5f1ee; padding:10px; font-size:9pt; }
     a { color:#2e4294; } .headerlink,.print-guide-link { display:none; }
@@ -127,5 +124,5 @@ def on_post_build(config):
     cover = '<div class="cover-page">' + cover_match[1] + '</div>'
     introduction = sections[0].replace(cover_match[0], '').replace('<h1 id="chapter-0-cover" class="cover-anchor" aria-label="Cover"></h1>', '<h1>Introduction</h1>')
     body = controls + cover + toc + introduction + ''.join(sections[1:])
-    output = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Build better agents — complete guide</title><style>' + css + '</style></head><body>' + body + '</body></html>'
+    output = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Build better agents — complete guide</title><style>' + css + '</style><link rel="stylesheet" href="stylesheets/tables.css?v=1"></head><body class="publication">' + body + '</body></html>'
     (Path(config["site_dir"]) / "print.html").write_text(output)
