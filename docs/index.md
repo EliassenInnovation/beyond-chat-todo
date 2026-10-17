@@ -2,7 +2,7 @@
 
 ![Build better agents. Help your users get things done. Eliassen Group.](images/guide-cover.svg){ .publication-cover }
 
-<a href="print.html" class="print-guide-link">Print or save the complete guide as PDF</a>
+<a href="guide.pdf" class="print-guide-link">Download the complete guide as PDF</a> · <a href="print.html" class="print-guide-link">Read as one page</a>
 
 
 An agent can help people use capabilities they cannot find, understand unfamiliar workflows,

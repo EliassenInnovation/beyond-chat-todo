@@ -27,6 +27,7 @@ jobs:
         run: |
           pip install -r requirements-docs.txt
           mkdocs build --strict --site-dir _site/guide
+          weasyprint _site/guide/print.html _site/guide/guide.pdf
           python .github/check_docs.py _site/guide
       - name: Prepare the public evaluation example
         run: |

@@ -44,3 +44,6 @@
 }
 
 .md-typeset h1.cover-anchor { margin: 0; padding: 0; height: 0; overflow: hidden; }
+
+/* The site title is already present in the top bar. */
+.md-nav--primary > .md-nav__title { display: none; }
