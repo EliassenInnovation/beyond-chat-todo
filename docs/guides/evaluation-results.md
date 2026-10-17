@@ -28,6 +28,37 @@ the process: tools, prompts, models, application code or grading. Do not treat e
 fluctuation as a separate defect. A chart cannot prove that an agent is safe, or that a
 judge's grades are correct.
 
+## When the provider changes the model
+
+If the model identifier or revision returned by the API changes, automatically run the
+evaluation suite. Where the provider does not expose a revision, use its update notices
+and scheduled evaluations as additional triggers.
+
+**Start with three full runs**, using the same cases, starting states and grading rules.
+This is a practical screening policy, not a statistically established sample size. Repeated
+runs give intermittent problems more opportunities to appear than one run does; they do
+not guarantee that a regression will be found.
+
+Look for two things:
+
+- **New or substantially worse failures in any area.** Compare individual cases and failure
+  categories with previous results. A newly broken task can be hidden by a good overall rate.
+  Investigate every critical failure, and look for cases that now fail repeatedly.
+- **A signal against the existing control limits.** Compare each run with the current reviewed
+  limits and previously chosen pattern rules. Do not recalculate the limits just because the
+  model changed: that could hide the deterioration you are trying to detect.
+
+Automate the runs and send an alert when either check raises a concern, or when required
+checks cannot complete. Define the alert conditions before running the evaluations. Record
+the returned model identifier with each run so reviewers can connect a change in results
+with the provider update.
+
+If something looks wrong, inspect the conversations and repeat the affected cases first;
+you do not need 100 full-suite runs to start investigating. If all three runs complete
+without a concern, report “No regression signal detected in three runs” and continue normal
+monitoring. This is not proof that the models behave identically. Keep the old limits for
+comparison until review and further measurements justify adopting a new baseline.
+
 ## Different failures need different decisions
 
 Define acceptance criteria by consequence, rather than giving the entire agent one
