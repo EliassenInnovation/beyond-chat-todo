@@ -16,8 +16,6 @@ def replay_html():
     css_payload = json.dumps((ASSETS / 'todo_view.css').read_text())
     script = script.replace("const styleResponse=await fetch('todo_view.css');if(!styleResponse.ok)throw Error('App styling could not be loaded.');const todoCss=await styleResponse.text();", f'const todoCss={css_payload};')
     script = script.replace('export function ', 'function ')
-    page = (ASSETS / 'persona-replay.html').read_text()
+    page = (ASSETS / 'persona-replay.html').read_text().replace('data-guide-mode="true"', 'data-guide-mode="false"')
     page = page.replace('<script type="module" src="persona-replay.js"></script>', '<script type="module">' + script + '</script>')
-    page = page.replace('<a href="../index.html#introduction">← Back to the guide</a>', '')
-    page = page.replace('<a href="sam-recording.json">Download the recording</a>', '')
     return page
