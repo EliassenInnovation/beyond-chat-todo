@@ -15,6 +15,22 @@ a complicated business domain. Managing todos is the teaching example, not the r
 Follow the chapters from motivation and design through the working sample and evaluation,
 or use the chapter navigation to go directly to what you need.
 
+## Choose a way through the guide
+
+You do not need prior experience with agents or jobs to be done. The design chapters assume
+familiarity with an application's screens and workflows. The implementation chapters add
+Python and API details; you can read the examples without running them.
+
+| What you want to do | Start here | What you can take away |
+| --- | --- | --- |
+| Decide where an agent would help | [Why an embedded agent?](guide/why.md) | One user job worth improving. |
+| See the approach working | [Run the sample](guide/start.md), then [follow a request](guides/walkthrough.md) | A working example of shared operations and caller-specific authority. |
+| Assess an agent you already have | [Evaluate outcomes](guide/evaluation.md), then [read the report](guides/evaluation-results.md) | Evidence to distinguish application failures, grading problems and ordinary variation. |
+| Plan a change to your own app | [Apply the approach](guide/apply.md) | A scoped first capability and the evidence needed to review it. |
+
+The **Consider** and **Practice** boxes are optional. Use one application and one user job
+throughout; each prompt adds to a small design note you can use with your team.
+
 ## What you can inspect now
 
 ![The sample application and its embedded assistant, with a human exploratory tester.](images/exploratory-tester.png)

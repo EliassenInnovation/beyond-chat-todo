@@ -4,6 +4,10 @@ Start with the work your application already does. A **capability** is an operat
 meaning to the application: add an item, reschedule an appointment, or submit an order.
 The UI and agent should use the same implementation, validation and data.
 
+If you already separate UI event handlers from service or domain code, this extends a familiar
+idea: a model tool is another caller of that code. A **tool** is an operation exposed to the
+model through a name, a description and defined inputs; calling it still goes through the application.
+
 ## Build the capability once
 
 [![The UI and model tools sit above shared capabilities, grounded in users' jobs.](../images/shared-capabilities.svg)](../images/shared-capabilities.svg)
@@ -23,54 +27,9 @@ Name tools for work people recognize. A tool per mouse click makes the agent rec
 the interface. A tool that changes any field can hide too much meaning. The useful boundary
 is an operation with clear inputs, consequences, and a result the application can report.
 
-## Declare what the application can do
-
-The **capability registry is a declarative structure**: a catalog of operations and their
-contracts, connected to the code that implements them. “Declarative” means that each entry
-states what an operation is, what it takes, and which rules apply. Shared code reads those
-declarations to offer tools, validate requests, enforce caller policy and dispatch execution.
-
-Without that structure, the tool list, permission checks, parameter definitions and descriptions
-can become separate lists that become inconsistent. The registry gives them a common source and gives
-a reviewer one place to inspect what the agent can do. Declarations can live beside their
-implementations in different modules; central registration does not require all declarations to be in one source file.
-
-These declarations have different consumers. The model gets the tool description and input
-schema; it does not enforce the policy. The dispatcher checks authority. In this sample,
-the agent adapter performs the declared freshness and semantic checks before dispatch.
-The implementation owns domain validation and saved results. A declaration has an effect only
-when code consumes and enforces it; writing a rule into metadata is not enough.
-
-<span id="what-belongs-in-an-entry-and-why"></span>
-
-### Example: placing an order
-
-[![An annotated action declaration for placing an order, with caller policy and an approval proposal handler.](../images/registry-entry-trimmed.svg)](../images/registry-entry-trimmed.svg)
-
-*Example: a store where an agent must request approval before placing an order.*
-
-In this example store, placing an order cannot be undone. A person can place it; an agent
-can only propose it. The declaration connects `orders.place` to one implementation and
-`propose` to the approval request. Its description and facts tell the model what the operation
-means. The example assumes this particular store's policy; not every store has the same
-cancellation or approval rules.
-
-The sample also declares supported interfaces, fresh-read requirements, guard names and
-a versioned descriptor. These specify where an operation is available, which checks the
-agent must perform, and which contract an evaluation measured. The
-[walkthrough](../guides/walkthrough.md#follow-a-declaration-through-the-registry) follows those fields in the actual code.
-
-The sample validates declarations when registering them: an agent-allowed write must declare
-recovery and meet its impact rule, and an approval policy must supply a proposal handler.
-On each call, shared execution checks the actual caller again. Offering a tool is a discovery
-decision, not authorization to execute it. Hiding a tool is not an enforcement mechanism.
-
-The registry is also not an authentication system. In a deployed application, trusted adapters
-must establish caller identity, and existing user and data-access permissions still apply.
-
 ## If you already have an API, are you done?
 
-You may already have much of the foundation. An API can expose shared operations, input
+You may already have much of the foundation. An API (application programming interface) can expose shared operations, input
 schemas, access checks and reliable results. Reuse those contracts and implementations;
 a registry need not duplicate them or introduce another service.
 
@@ -142,6 +101,51 @@ more reliable. Its value may be the place it provides for a useful guard or tran
 Measure the outcome, including effects on other jobs. Keep one tool per meaningful job, not
 one per way a person might phrase the request.
 
+## Declare what the application can do
+
+The **capability registry is a declarative structure**: a catalog of operations and their
+contracts, connected to the code that implements them. “Declarative” means that each entry
+states what an operation is, what it takes, and which rules apply. Shared code reads those
+declarations to offer tools, validate requests, enforce caller policy and dispatch execution.
+
+Without that structure, the tool list, permission checks, parameter definitions and descriptions
+can become separate lists that become inconsistent. The registry gives them a common source and gives
+a reviewer one place to inspect what the agent can do. Declarations can live beside their
+implementations in different modules; central registration does not require all declarations to be in one source file.
+
+These declarations have different consumers. The model gets the tool description and input
+schema; it does not enforce the policy. The dispatcher checks authority. In this sample,
+the agent adapter performs the declared freshness and semantic checks before dispatch.
+The implementation owns domain validation and saved results. A declaration has an effect only
+when code consumes and enforces it; writing a rule into metadata is not enough.
+
+<span id="what-belongs-in-an-entry-and-why"></span>
+
+### Example: placing an order
+
+[![An annotated action declaration for placing an order, with caller policy and an approval proposal handler.](../images/registry-entry-trimmed.svg)](../images/registry-entry-trimmed.svg)
+
+*Example: a store where an agent must request approval before placing an order.*
+
+In this example store, placing an order cannot be undone. A person can place it; an agent
+can only propose it. The declaration connects `orders.place` to one implementation and
+`propose` to the approval request. Its description and facts tell the model what the operation
+means. The example assumes this particular store's policy; not every store has the same
+cancellation or approval rules.
+
+The sample also declares supported interfaces, fresh-read requirements, guard names and
+a versioned descriptor. These specify where an operation is available, which checks the
+agent must perform, and which contract an evaluation measured. The
+[walkthrough](../guides/walkthrough.md#follow-a-declaration-through-the-registry) follows those fields in the actual code.
+
+The sample validates declarations when registering them: an agent-allowed write must declare
+recovery and meet its impact rule, and an approval policy must supply a proposal handler.
+On each call, shared execution checks the actual caller again. Offering a tool is a discovery
+decision, not authorization to execute it. Hiding a tool is not an enforcement mechanism.
+
+The registry is also not an authentication system. In a deployed application, trusted adapters
+must establish caller identity, and existing user and data-access permissions still apply.
+
 ## Keep three decisions distinct
 
 | Decision | Owner | Example |
@@ -197,5 +201,11 @@ Decide what happens if a batch fails, a save fails, or the provider stops after 
 save. The sample demonstrates atomic local actions and recovery messages. It does not
 provide durable operation IDs or safe replay of uncertain network writes. Those are explicit
 limits to address when taking this design into a service.
+
+!!! practice "Practice — trace the existing operation"
+    For your chosen job, write down the screens or API calls involved today. Mark where
+    validation, saving and permissions happen. Circle any sequence that must succeed as one
+    operation. Use that sketch to decide what the UI and agent should share and what each
+    caller may do differently. You do not need to write a registry yet.
 
 Continue with [understanding and completing the request](requests.md), or [run the sample](start.md) to see these boundaries in code.

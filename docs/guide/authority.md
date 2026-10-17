@@ -24,6 +24,18 @@ A user asks a scheduling app to reschedule a full day. The change can be undone,
 
 ## Check intent with declared guards
 
+A field can contain a valid identifier and still name the wrong task. This is the gap between
+ordinary input validation and understanding the request:
+
+| Check | Example question | Owner |
+| --- | --- | --- |
+| Valid input | Does this appointment exist? | Application code |
+| Intended action | Is this the appointment the person meant to move? | An evaluated model guard, using the request and relevant state |
+| Authority | May this caller move it, and is approval required? | Application code |
+
+These checks answer different questions; passing one does not establish the others.
+
+
 Some mistakes concern meaning rather than permission: has the person uniquely identified the task, and does the proposed action fit the request? A model-based guard supplies a narrow judgment before execution. Application code invokes the guard, validates its answer, and decides whether to continue or return a refusal or clarification.
 
 The sample uses guards as part of its supported design. Each operation declares the relevant checks; each check specifies its question, evidence and required answer. Both positive and negative questions are possible. Choose wording by evaluating correct and incorrect actions, rather than assuming one phrasing is always better.
@@ -51,5 +63,11 @@ A guard can accept a bad interpretation or reject a good one. Measure both error
 **Keep an audit record of what the agent did.** Write one record for each change the agent attempts, applied or refused, with the checks that decided it, and one for each reply. Whether a reply's record holds the text the user saw and any draft a review changed depends on the organization's policy for capturing conversations; where the policy leaves the text out, the record says so. Record an undo or redo as a new record, and do not alter an earlier record while it is kept. Deleting records when their retention period ends, or when an authorized request requires it, is a separate step, and is itself recorded. [42](https://csrc.nist.gov/pubs/sp/800/92/final) [43](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) The application writes the records; where they go and how long they are kept is the deploying organization's policy, set in logging configuration rather than in code. Test the record like any other feature: compare each turn's records with what actually happened.
 
 **Let Undo reverse the user's own changes.** When several parties edit the same data, each one undoes their own changes. [47](https://doi.org/10.1145/198425.198427) The agent inside the application acts for the user, so its changes are the user's: the general Undo command reverts them as it reverts the user's own edits. Another party, such as an external chat app connected through MCP or another person, is different: the user's Undo and Redo leave its changes alone, and its changes are reversed deliberately from the change history. Undo names the change it will revert, for example "Undo Save notes," [46](https://developer.apple.com/design/human-interface-guidelines/undo-and-redo) so the user knows what will change before choosing it.
+
+!!! practice "Practice — write the boundary"
+    For your job, make two columns: **person using the UI** and **agent acting for the person**.
+    Write what each may do directly, what needs approval, and what is forbidden. Name one
+    misunderstanding a guard could check. Finally, describe what the application should
+    report if the change was saved but its response was lost.
 
 Next, [design the tools and evidence](tools.md) the model uses to choose an action.

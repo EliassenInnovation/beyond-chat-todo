@@ -16,6 +16,17 @@ The agent can only choose well from what it is given: the tools, their descripti
 
 ## Return facts and structured decisions
 
+Tool results need the context that a person would get from labels on the screen. Compare:
+
+| Returned data | What the agent can safely infer |
+| --- | --- |
+| `change: 1250` | Too little: the measure, unit, interval and scope are unknown. |
+| `measure: account balance change; amount: 1250; currency: USD; period: May 1–31; includes deposits and withdrawals` | The balance increased by $1,250 during that period. This does not establish investment return. |
+
+This is the same responsibility as labeling a chart or API field: define what the value means,
+not just its type.
+
+
 **Let the model and the application code each do their part.** You use an AI in an application because it can recognize what the user is trying to do and what matters to them. But an interaction with an agent often involves work that belongs in code: adding a group of numbers, analyzing a data set, confirming what was saved, giving the path to a setting. Asked for the combined balance of three accounts, the model works out which accounts the user means, and code adds them. A model asked to add numbers is usually right; a tested calculation in code gives the same answer every time, and that answer can be checked. This is why a chat app such as Claude or ChatGPT writes and runs Python when asked to analyze data. In an application, the application's own code meets the same need.
 
 **Show the application's own text instead of asking the model to repeat it.** When the application already knows the right words, show them as the application's own text: the confirmation of what was saved, the path to a setting built from the screen's own labels, where a moved item used to be. "Where do I change my cancellation fee?" needs the model to work out which setting the user means. The path to it, "Settings → Payments → Cancellation fee," is already known to the application and should reach the user exactly as written. Asking the model to retype that text adds only a chance to get it wrong: even current models sometimes fail to copy text exactly, when it is well within what they can read. [35](https://arxiv.org/abs/2607.16072) Every such answer then needs a check of its own. When the application shows the text, the words are exactly what the application wrote, so they can be tested once in code like any other output, and what remains to test is whether the model picked the right setting.
@@ -35,5 +46,10 @@ The agent can only choose well from what it is given: the tools, their descripti
 **Check what the agent passes to a tool before changing anything.** The inputs to a tool come from a model, so they can be close but not exact, or refer to something that does not exist. Correct small known differences, such as a ticker typed in lower case; check that identifiers exist and values are allowed; and when an input could mean more than one record, reject it and say which records it could mean, rather than guess.
 
 **Keep the conversation history true to what the user saw.** The agent reads the earlier conversation to decide what to do next, so that history has to match what actually happened. This matters most when anything between the agent and the user can change an answer, such as a reviewing model that rewrites it. Keep the version the user actually saw, and keep failed actions too. Otherwise, on the next turn, the agent may assume the user saw an answer they never received, or that a change was made when it failed.
+
+!!! practice "Practice — inspect one tool result"
+    Choose one result your job needs. Write the measure, units, time period and missing-data
+    behavior beside it. Add one example error and the valid alternatives the tool should
+    return. Check whether a reader could explain the result without guessing.
 
 Next, [connect other interfaces](interfaces.md), or [run the sample](start.md).

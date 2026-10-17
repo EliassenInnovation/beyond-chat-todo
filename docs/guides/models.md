@@ -5,6 +5,12 @@ provider requirements, and checks to make before relying on a replacement model.
 
 [Select models](#select-models) · [Model costs](#model-costs) · [Use another endpoint](#use-a-compatible-endpoint) · [Check compatibility](#compatibility-limits-to-check) · [Test the change](#try-a-replacement-and-measure-it)
 
+The sample gives models four jobs. The **agent** proposes application actions; a **guard**
+checks the meaning of a proposed action before it runs; a **persona** generates requests as
+a simulated user; and a **judge** evaluates a recorded result. These roles can use different
+models because doing the work, checking it and exploring it are different tasks.
+For a first run, use a provider profile below and leave the role overrides alone.
+
 ## Select models
 
 Run `./setup.sh`, then edit `.env` in the repository root. Choose a provider and add its key:

@@ -11,7 +11,7 @@
 .md-typeset p, .md-typeset ul, .md-typeset ol { margin-block: .7em; }
 .md-typeset h3 { margin-top: 1.2em; margin-bottom: .45em; }
 @media screen and (max-width: 44.984375em) {
-  .md-content__inner { padding-inline: .2rem; }
+  .md-content__inner { padding-inline: .6rem; }
 }
 .md-typeset table:not([class]) { font-size: .76rem; }
 .md-typeset a { text-underline-offset: .16em; }
@@ -20,3 +20,15 @@
 
 /* Keep the annotated declaration aligned with the surrounding prose. */
 .md-typeset img[src$="registry-entry-trimmed.svg"] { margin-left: 0; margin-right: auto; }
+
+/* Reader prompts: two consistent styles, with text labels as well as color. */
+.md-typeset .admonition.consider,
+.md-typeset .admonition.practice { font-size: inherit; box-shadow: none; border-radius: .3rem; margin-block: 1rem; }
+.md-typeset .admonition.consider { border-color: #6a829b; }
+.md-typeset .consider > .admonition-title { background-color: #eef2f6; }
+.md-typeset .admonition.practice { border-color: #39766e; }
+.md-typeset .practice > .admonition-title { background-color: #edf5f2; }
+.md-typeset .consider > .admonition-title,
+.md-typeset .practice > .admonition-title { padding-left: .6rem; }
+.md-typeset .consider > .admonition-title::before,
+.md-typeset .practice > .admonition-title::before { display: none; }

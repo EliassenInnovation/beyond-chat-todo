@@ -6,6 +6,12 @@ A tool can execute correctly while changing the wrong task. A fluent answer can 
 
 Use three kinds of evidence: deterministic tests for application rules, scripted conversations for repeated measurements of known jobs, and human or persona exploration for situations you have not anticipated. Keep their results distinguishable. Persona satisfaction and reviewer opinions are useful signals for investigation, not fixed-suite pass/fail verdicts.
 
+If you already write software tests, retain them. Code can establish that an operation
+validates and saves correctly. An **evaluation case** adds a starting situation, a user request
+and criteria for the whole interaction. Repeating it measures how reliably the model chooses
+and explains the right work. A **judge** is a model used to assess language against those
+criteria; it is part of the measuring system and also needs checking.
+
 ## Define success before judging it
 
 Check every part of the request, what must remain unchanged, and what the person needs to know. Record whether the user had to correct a mistake even if the final state is right. A necessary question about an ambiguous request is not such a correction.
@@ -13,6 +19,19 @@ Check every part of the request, what must remain unchanged, and what the person
 Fail responses for meaningful problems: incorrect claims, unauthorized changes, omitted work or misleading next steps. Do not fail a reasonable answer merely because it differs from preferred wording. When reasonable people disagree, show the exact request, starting state, action and answer; resolve the criterion before tuning a model to satisfy it.
 
 Use code for saved state, identifiers, arithmetic, permissions and delivery of application-written receipts. Use model judges for judgments that require interpreting language. Do not ask a judge whether the agent copied text that application code should have delivered directly.
+
+!!! practice "Practice — judge the whole request"
+    A person says, “Show overdue tasks first, and remove the completed ones.” The app shows
+    all active tasks without distinguishing overdue ones and creates deletion proposals for
+    completed tasks. The reply says the deletions await approval.
+
+    Write a verdict for each part: overdue priority, completed-task removal, and accurate
+    reporting. What evidence would you inspect before giving an overall verdict?
+
+The deletion may correctly remain pending under the application's approval policy, and its
+report may be accurate. Showing all active tasks has not addressed “overdue first.” Inspect
+the actual view, which tasks were proposed for deletion, and the policy before grading the
+whole response. A correct statement about one part cannot make the other part complete.
 
 ## Calibrate the judges
 

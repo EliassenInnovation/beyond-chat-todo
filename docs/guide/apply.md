@@ -65,6 +65,20 @@ to the embedded agent. Tool listing and permission to execute remain separate de
 Across applications, also establish identity, consent, data movement and recovery when only
 some steps succeed. This todo sample does not implement an MCP server or cross-app workflow.
 
+## Turn your notes into one scoped change
+
+!!! practice "Practice — write a first implementation brief"
+    Use the same application and job you chose earlier. Write a short brief naming:
+
+    - The person's situation and desired outcome.
+    - The existing operation to share, or the workflow that needs one owner.
+    - The context the agent needs and the authority of each caller.
+    - The outcome, recovery and communication checks you will run.
+    - The first person who will try it and the evidence you will review before expanding it.
+
+    Keep the scope to one useful job. Mark unanswered questions rather than filling them
+    with assumptions. Use the acceptance checks below to review that scope.
+
 ## Account for what the sample leaves out
 
 This is a local, single-user teaching app. Production work may require authentication,

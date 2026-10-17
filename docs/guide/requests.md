@@ -26,6 +26,16 @@ Design the conversation around what the person wants to accomplish. A job can be
 
 ## Interpret follow-up requests
 
+Keep one task in view across the conversation. The same short phrase can add work, correct
+an earlier value, or refer to a record already discussed:
+
+| Follow-up | What it changes | What to preserve |
+| --- | --- | --- |
+| “The other event type too” | Adds to the requested scope | The original event type remains included. |
+| “Sorry, 30 days” | Corrects the time interval | The requested measure and selected records remain the same. |
+| “Open it so I can fix that” | Requests navigation to a previously identified problem | The record and the field needing attention. |
+
+
 **Work out what the user is referring to and what they want done.** People rarely repeat a full request. Suppose the agent has just found that a customer's address fails validation, and the user says "open it so I can fix that." "It" is the customer, and "that" is the address problem. Opening the customer's overview gets the first right and loses the second; the useful place to open is the address editor. Keep track of the task the user is working on, not only the record they have selected, and do not make users repeat what is already clear from the conversation.
 
 **Work out what each follow-up changes.** Short follow-ups do different things. "That customer" says who the request is about; "the other event type too" adds to the earlier request; "sorry, 30 days" corrects one detail of it. Keep the user's task and their earlier requests in view, not only the most recent value. The model works out what a follow-up means from the conversation and the earlier tool calls; the application keeps the inputs and results and recalculates the same way every time. Research on conversational systems shows how often a request depends on what came before, and builds separate components that track each value the user has mentioned. [17](https://aclanthology.org/2020.emnlp-main.651/) [18](https://aclanthology.org/2020.tacl-1.36/) Use a separate task-state component only when the conversation and recorded calls do not provide enough reliable context.
@@ -57,5 +67,11 @@ Design the conversation around what the person wants to accomplish. A job can be
 **For a review, show the item itself and leave the decision to the person.** When people are asked to review something, put the item itself on screen, with the agent beside it to explain and point. Keep the decision on the screen's own controls, such as Approve and Reject, and have the agent point to evidence rather than give a verdict, so the review does not turn into trusting the agent's summary.
 
 **Combine applications without bypassing their rules.** An agent could combine calendar events with company notes from another application to prepare meeting briefings. Each application still controls its own reads and writes, and the connection needs permission to move data between them. Plan for partial completion when one application succeeds and another fails.
+
+!!! practice "Practice — add a follow-up"
+    Write a likely request for your chosen job and one short follow-up. Underline what the
+    follow-up changes. List what must stay the same and what application state the agent
+    needs to interpret it. If two interpretations remain reasonable, write the question
+    the agent should ask before acting.
 
 Next, [define authority and recovery](authority.md) for the actions the agent may propose.

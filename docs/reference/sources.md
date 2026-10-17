@@ -63,7 +63,7 @@ Numbers in the text identify the relevant source. The notes explain the connecti
 
 30. **Donald J. Wheeler (1993).** *Understanding Variation: The Key to Managing Chaos.* SPC Press. Common-cause and special-cause variation, process behavior charts, and why reacting to common-cause variation makes results worse. Consulted October 3, 2026.
 
-31. **Jim Kalbach (2020).** *The Jobs To Be Done Playbook: Align Your Markets, Organization, and Strategy Around Customer Needs.* Two Waves Books. Levels of jobs, from aspiration to big job, little job, and micro-job. Consulted October 3, 2026.
+31. **Jim Kalbach (2020).** [The Jobs To Be Done Playbook](https://rosenfeldmedia.com/books/jobs-to-be-done-book/). Rosenfeld Media. A practical introduction to customer needs, desired outcomes, and levels of jobs. The guide’s appointment example applies this perspective; it is not quoted from the book.
 
 32. **Anthropic (December 19, 2024).** [Building Effective AI Agents](https://www.anthropic.com/engineering/building-effective-agents). "While building our agent for SWE-bench, we actually spent more time optimizing our tools than the overall prompt." Consulted October 4, 2026.
 
@@ -96,3 +96,5 @@ Numbers in the text identify the relevant source. The notes explain the connecti
 46. **Apple.** [Human Interface Guidelines: Undo and redo](https://developer.apple.com/design/human-interface-guidelines/undo-and-redo). "Help people predict the results of undo and redo"; menu items can name the result, "like Undo Typing or Redo Bold." Consulted October 10, 2026.
 
 47. **Atul Prakash and Michael J. Knister (1994).** [A Framework for Undoing Actions in Collaborative Systems](https://doi.org/10.1145/198425.198427). ACM Transactions on Computer-Human Interaction 1(4). A framework that "allows users to individually reverse their own changes" when several people edit the same data. Consulted October 10, 2026.
+
+48. **Sharon L. Bowman.** [A Quick Guide to the 4Cs Map](https://bowperson.com/images/resources/quick-guide-to-four-c-map.pdf), accompanying *Training from the Back of the Room!*. Connections, concepts, concrete practice and conclusions inform this guide's reader prompts. This is an adaptation for self-directed documentation, not a claim that the guide implements a facilitated training course.

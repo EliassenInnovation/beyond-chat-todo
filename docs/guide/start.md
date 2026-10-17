@@ -1,7 +1,13 @@
 # Run the sample
 
+Python 3.11 or later is required. Run the commands from the cloned repository's root folder.
+If you want to inspect the shared operations before installing dependencies or supplying a key:
 
-Python 3.11 or later is required.
+```bash
+python3 -m todo.walkthrough
+```
+
+It uses disposable data and makes no model calls. For the interactive app:
 
 ```bash
 ./setup.sh
@@ -12,12 +18,9 @@ Setup installs the dependencies and creates `.env` from `.env.example` if absent
 not edit shell profiles or access a credential vault. The list works without API keys.
 For chat and paid evaluations, choose `EVALBASICS_PROVIDER=openai` or `anthropic` in `.env`
 and supply that provider's API key. The profile selects models for all roles; only one key is needed.
-Conversation and list data are sent to the model provider when you use chat. The example
-configuration enables intent and action guards for completion, dates, deletion requests,
-and unnamed merges. The OpenAI profile uses the Decisions API for its merge guard. The Anthropic profile
-uses boolean judgments for all guards; neither changes the code-enforced approval rules. Existing installations should copy the
-`EVALBASICS_GUARDS` selection from `.env.example` if they already specify a smaller set.
-See the model guide for configuration and provider compatibility.
+Conversation and list data are sent to the model provider when you use chat. Guards are enabled by default to check whether proposed changes fit the request.
+Keep the defaults for this first run; the [model chapter](../guides/models.md) explains
+provider differences and how to update an existing configuration.
 
 Langfuse is optional. Configure this project's own keys if you want synthetic evaluation
 or persona traces; no credentials are borrowed from other repositories. Ordinary app chats
@@ -30,18 +33,16 @@ For this app’s optional tracing setup, see [Langfuse integration](../guides/la
 For evidence completeness, run history, control limits, and acceptance criteria, see
 [reading evaluation results](../guides/evaluation-results.md).
 
-
 ## Try three different requests
 
 Use a separate test list with synthetic tasks. Ask “How do I hide completed tasks?”, then
 “Show me where”, then “Do it.” Compare the reply with what the screen does: instructions,
 a highlighted control, and a changed filter are different outcomes.
 
-No API key is needed to inspect the shared operations:
+!!! practice "Practice — predict, then compare"
+    Before sending each of the three requests, write down what you expect to change: the
+    explanation, the highlighted control, or the visible list. Compare the actual result
+    with that prediction. If you have no API key, use the offline walkthrough to inspect
+    the operations; it cannot tell you whether a model chooses the right one.
 
-```bash
-python3 -m todo.walkthrough
-```
-
-This uses disposable data and checks real application behavior without calling a model.
 Continue with [the implementation walkthrough](../guides/walkthrough.md).

@@ -31,6 +31,7 @@ plugins:
   - search
 markdown_extensions:
   - tables
+  - admonition
   - fenced_code
   - attr_list
   - toc:

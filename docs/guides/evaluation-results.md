@@ -13,6 +13,19 @@ outcome, saved state, replies, tool calls, and grading evidence. Optional trace 
 to more detail in Langfuse. The repo owns the cases, graders, records and decision rules;
 Langfuse is one example integration, not a required service or a recommendation over alternatives.
 
+## Read one conversation before the chart
+
+A **run** is one execution of the selected cases and attempts. A **baseline** is a reviewed
+set of comparable runs used to estimate ordinary variation. **Control limits** describe
+that observed variation; they are not the quality target or the permission to release.
+Start with a conversation so the aggregate numbers have a concrete meaning.
+
+!!! practice "Practice — inspect one result"
+    Open the public report, choose a conversation and write down the person's request,
+    what the application changed, and whether the required checks completed. Decide whether
+    the result meets the request before reading the grader's reason. Then compare them and
+    record one agreement or disagreement. No setup or paid call is needed.
+
 ## From exploration to human judgment
 
 Exploratory testers bring context and curiosity, but may repeatedly test the same kinds of requests. Personas
@@ -131,9 +144,9 @@ unwanted change, a false claim, or an important part of the request left unresol
 
 When a reasonable human reply fails, inspect the rubric and the evidence before changing
 the application to satisfy the grader. Exact wording checks need an explicit product reason;
-they should not masquerade as general measures of helpfulness. This sample's receipt-repetition
-check is a known architectural constraint pending direct rendering of application receipts,
-not a model of how all natural-language replies should be graded.
+they should not masquerade as general measures of helpfulness. The sample delivers application-written receipts directly and checks their delivery separately
+from the model's explanation. Exact delivery checks belong to that contract; they are not
+a reason to require fixed wording in the model's own prose.
 
 ## When a failure needs investigation
 

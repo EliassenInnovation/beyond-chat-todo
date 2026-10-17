@@ -12,6 +12,12 @@ The exploratory tester gives you a separate test list. Use it to test the intera
 changing your own list. Do not treat an awkward answer as automatically wrong: decide whether
 it accomplished the person's request and communicated accurately.
 
+!!! practice "Practice — explore beyond the expected path"
+    On a separate test list, write one request containing two tasks. Follow it with a
+    correction, then ask how to do something without asking the agent to do it. Record
+    the request, what changed, and what surprised you. Choose one observation to investigate;
+    an unexpected response is not automatically a defect.
+
 ## Broaden the exploration with personas
 
 Human testers may have difficulty thinking of new scenarios or may repeat familiar ones. A persona is another

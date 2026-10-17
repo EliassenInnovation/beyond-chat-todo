@@ -5,6 +5,10 @@ not claim that Langfuse is the tool you should choose. Cases, graders, saved out
 usage records, HTML reports, and monitoring rules live in the repo and work without a
 Langfuse account or server. The sample still installs the Langfuse Python SDK.
 
+A **trace** records the model requests, tool calls and results that led to an outcome. Use
+one when a report tells you what failed but you need to inspect how the agent reached it.
+Start with the local HTML report; add this integration when shared trace inspection would help.
+
 Use your existing Langfuse server or a [Langfuse Cloud project](https://langfuse.com/cloud).
 Create project API keys in that project's settings, and put the three values in this
 repo's `.env` (never commit the file):
