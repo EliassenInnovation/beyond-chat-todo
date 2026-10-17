@@ -31,25 +31,13 @@ can become separate lists that become inconsistent. The registry gives them a co
 a reviewer one place to inspect what the agent can do. Declarations can live beside their
 implementations in different modules; central registration does not require all declarations to be in one source file.
 
-### What belongs in an entry, and why?
-
-| Declaration | Why it is there |
-| --- | --- |
-| Stable action ID and implementation | UI events and model tools resolve to the same operation, with one owner of its business logic. |
-| Tool name, description and application facts | Help the model recognize the job, understand limits and avoid inventing abilities. |
-| Input schema | Define required arguments and types; reject malformed calls before doing the work. |
-| Effects | Distinguish reading data, changing data and changing the presentation. |
-| Caller policy and supported interfaces | State who may act directly, who may only propose, and who is refused. |
-| Recovery and impact | Declare how a change can be taken back and how broadly it reaches; check that the policy fits those consequences. |
-| Proposal handler | Define what happens instead of execution when approval is required. |
-| Fresh-read requirements and guard names | Identify the evidence and intent checks needed before an agent changes existing data. |
-| Version and inspectable descriptor | Let tools and reviewers identify the contract a recorded run actually used. |
-
 These declarations have different consumers. The model gets the tool description and input
 schema; it does not enforce the policy. The dispatcher checks authority. In this sample,
 the agent adapter performs the declared freshness and semantic checks before dispatch.
 The implementation owns domain validation and saved results. A declaration has an effect only
 when code consumes and enforces it; writing a rule into metadata is not enough.
+
+<span id="what-belongs-in-an-entry-and-why"></span>
 
 ### Example: placing an order
 
@@ -62,6 +50,11 @@ can only propose it. The declaration connects `orders.place` to one implementati
 `propose` to the approval request. Its description and facts tell the model what the operation
 means. The example assumes this particular store's policy; not every store has the same
 cancellation or approval rules.
+
+The sample also declares supported interfaces, fresh-read requirements, guard names and
+a versioned descriptor. These specify where an operation is available, which checks the
+agent must perform, and which contract an evaluation measured. The
+[walkthrough](../guides/walkthrough.md#follow-a-declaration-through-the-registry) follows those fields in the actual code.
 
 The sample validates declarations when registering them: an agent-allowed write must declare
 recovery and meet its impact rule, and an approval policy must supply a proposal handler.

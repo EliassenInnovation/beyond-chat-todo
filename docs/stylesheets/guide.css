@@ -17,3 +17,6 @@
 .md-typeset a { text-underline-offset: .16em; }
 .md-typeset a:hover { text-decoration: underline; }
 @media print { .md-sidebar, .md-header, .md-footer, .md-top { display: none; } }
+
+/* Keep the annotated declaration aligned with the surrounding prose. */
+.md-typeset img[src$="capability-registry.svg"] { margin-left: 0; margin-right: auto; }
