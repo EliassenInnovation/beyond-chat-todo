@@ -40,7 +40,6 @@ Before publishing: build strictly, check local links and anchors, visually inspe
 chapters and diagrams, and verify that the evaluation report remains available at its old URL.
 Documentation edits do not require paid model evaluations.
 
-Diagram layouts use a 560-unit-wide canvas, with 22-unit labels and body text where possible.
-Keep content stacked for the reading column; do not shrink a slide to fit. The registry uses
-18-unit code with explanations below each group. Render at the intended display width when
-checking text fit. Page titles remain in Markdown.
+Diagram layouts use an 800-unit-wide canvas and preserve paired columns, layers and cycles.
+Use larger labels and wrapped text rather than shrinking a slide or making every element
+a separate vertical card. Render at the reading-column width to check fit.
