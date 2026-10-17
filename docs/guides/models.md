@@ -270,17 +270,25 @@ Validation on October 16, 2026:
 - **312 offline tests passed**, including provider isolation, tool history, recovery, and cost accounting.
 - The latest full application run passed **51/51 visible cases**. Rechecking those saved
   conversations with Opus also passed **51/51**, without missing judgments or replacing the originals.
-- Opus agreed with **201/202 calibration labels**. The four original disagreements each
-  matched their existing labels in five repeated checks. Eight contrast cases check both
-  correct and incorrect replies. Silence-related cases also exercise the same deterministic
-  check used by application evaluations.
+- After human review clarified two criteria, the full calibration produced **205/206**
+  agreements. Its one disagreement exposed an identical copy of a reviewed example with
+  the old label; that label has also been corrected. Original run records are preserved.
+- The eight disputed examples matched the reviewed criteria in **40/40 repeated checks**.
+  Four new contrast examples distinguish a truthful relative-position claim from an
+  incorrect original-position claim, and adequate responses to a requested priority.
+  A further **39/39 checks** passed across these contrasts, the duplicate, and disputed cases.
 
-The remaining calibration disagreement concerns whether showing active tasks, including
-those overdue, sufficiently addresses a request to start with overdue tasks. The existing
-label accepts it; human review is needed to settle that criterion. Calibration labels were
-initially assigned by a coding agent, so agreement is development evidence, not independent
-proof of judge accuracy. Review disagreements and sample apparent successes. No existing
-labels were changed to improve the score.
+The reviewed criteria separate truthfulness from task completion: “back below” can truthfully
+name a relative position without restoring the original slot. The outcome check must still
+reject the wrong slot. Showing all active tasks, including overdue ones, does not by itself
+address “overdue first”; the response needs to identify, highlight, filter to, or ask about
+the overdue tasks.
+
+Two labels were reviewed with the maintainer and changed; the identical duplicate was
+updated consistently. Other calibration labels were initially assigned by a coding agent,
+so agreement is development evidence, not independent proof of judge accuracy. Review
+disagreements and sample apparent successes. Silence-related cases also exercise the same
+deterministic check used by application evaluations.
 
 Real browser chat and all five exploratory personas have also been exercised. Persona
 satisfaction is exploratory feedback, not a pass score. Application code delivers action

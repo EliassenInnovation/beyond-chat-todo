@@ -377,8 +377,8 @@
  },
  {
   "name": "fullrun-overdue-first-5",
-  "expect": "answered",
-  "why": "marks both done, says the deletes wait, and turns to the overdue tasks (shows them)",
+  "expect": "skipped",
+  "why": "Showing all active tasks does not identify or focus on the overdue tasks requested first.",
   "source": "2026-10-02T205807.558604Z.json attempt 5 (the judge called it skipped)",
   "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
   "reply": "Marked **Pay the electric bill** and **Buy sunscreen** done. I’ve requested their removal; click **Approve** on each approval card to delete them. The list is now showing active tasks, including the overdue ones."
@@ -494,5 +494,29 @@
   "constructed": true,
   "user": "Finish the agent call. Also, is the inspection scheduled?",
   "reply": "The agent call is done. You can see the inspection date beside its title."
- }
+ },
+{
+ "name": "overdue-priority-identified",
+ "expect": "answered",
+ "why": "Explicitly addresses the requested overdue priority.",
+ "source": "Constructed contrast for human-reviewed priority criterion",
+ "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+ "reply": "Marked **Pay the electric bill** and **Buy sunscreen** done. I’ve requested their removal; click **Approve** on each approval card to delete them. The overdue task is Renew passport; let’s start there."
+},
+{
+ "name": "overdue-priority-filtered",
+ "expect": "answered",
+ "why": "Explicitly addresses the requested overdue priority.",
+ "source": "Constructed contrast for human-reviewed priority criterion",
+ "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+ "reply": "Marked **Pay the electric bill** and **Buy sunscreen** done. I’ve requested their removal; click **Approve** on each approval card to delete them. I filtered the list to show only overdue tasks."
+},
+{
+ "name": "overdue-priority-question",
+ "expect": "answered",
+ "why": "Explicitly addresses the requested overdue priority.",
+ "source": "Constructed contrast for human-reviewed priority criterion",
+ "user": "Mark 'Pay the electric bill' and 'Buy sunscreen' as done and remove them from the list. Let's start by dealing with overdue tasks first.",
+ "reply": "Marked **Pay the electric bill** and **Buy sunscreen** done. I’ve requested their removal; click **Approve** on each approval card to delete them. Which overdue task would you like to tackle first?"
+}
 ]

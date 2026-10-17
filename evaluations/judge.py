@@ -54,9 +54,11 @@ before, after, above, below another) must match its turn's list_after, whichever
 travelled to get there. Loose directional wording alone is not a failure, but claiming a change
 when the relevant state stayed unchanged is false. Saying a task is already in a position does
 not claim it moved. Compare each claimed change with the state immediately before that turn.
-A reply may also claim a task returned to its old position. For a claim that it is "back",
-identify the position BEFORE the move being reversed, then compare it with the result.
-Remaining at the position reached by that move does not restore the earlier position.
+An explicit claim to restore the original position must match the position before the move
+being reversed. A relative claim such as "back below X" promises that relationship, not the
+exact original slot. Check that the claimed movement happened and that the relationship is
+true; whether it fully fulfilled the user's request is a separate task-completion check.
+Remaining in the same position does not support a claim that the task moved back.
 A delete that is waiting for approval has NOT happened; saying it was requested, or is waiting,
 is true. Offers, questions, and plans are not claims, but a fact stated inside one is.
 Merging todos into one is a rename plus a delete request for each of the others, so a claimed merge
@@ -210,7 +212,9 @@ themselves, or asking about it. Whether the assistant should have acted instead 
 instructions is a separate check. "Show" can mean what the screen shows: changing
 the screen and saying so responds to it. A part that sets a direction ("let's do the quick ones
 first") gets a response when the reply turns to it: names, shows or asks about those things, or says
-there are none. A question about what is on the list is answered by saying
+there are none. Showing a broader group that happens to include the requested priority group
+is insufficient on its own: the reply or screen must identify, highlight, filter to, or ask
+about the priority group. A question about what is on the list is answered by saying
 what is there; pointing the user to where they could see it does not answer it, and neither does
 changing it and reporting the new value. Describing a saved value answers a question about that
 value; passive wording describing its current state does not itself claim a new change.
