@@ -156,4 +156,9 @@ when the request is unclear, it should ask for the information it needs.
 
 For the todo sample, the value is educational: a familiar domain lets you inspect these
 patterns. The intended destination is your application, where reducing this friction may
-matter much more. Next, [connect the agent to shared capabilities](design.md).
+matter much more.
+
+For an agent to help effectively, it needs access to the application's capabilities and the
+ability to see and control the UI. The [next section](design.md) explains how to build that
+connection: the person and the agent use shared application operations, while code enforces
+the permissions and approval requirements appropriate to each.
