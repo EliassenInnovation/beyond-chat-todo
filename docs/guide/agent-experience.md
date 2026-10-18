@@ -28,17 +28,52 @@ and its answer. Let people resize or minimize the conversation without losing it
 
 ## Give the conversation the space it needs
 
-Advisor illustrates two different situations:
+In Advisor, the coach normally starts as a header and an input line. The person can open or
+close the conversation at any time. The application also adjusts it according to the result
+of a request.
 
-- **“Take me to where I can edit my thesis for NU.”** The useful result is the thesis editor.
-  The conversation stays minimized to one line because a larger chat response would add
-  little information and compete with the editing task.
-- **“MU has been dropping. I'm thinking of changing my sell rule.”** The person wants to
-  discuss a decision. The conversation expands to provide room for questions and explanation.
+**“Can you take me to where I can edit the thesis for MU?”** The application opens MU's
+settings and focuses the thesis field. The conversation stays minimized, leaving room for
+editing. The useful result is already on the screen.
 
-These examples describe Advisor's behavior as reported by its developer. Automatically
-choosing a panel size from the task is a design choice to evaluate, rather than a general
-rule established by the sources reviewed here.
+[![Advisor with MU's thesis editor open and the coach minimized to its input line.](../images/advisor-coach-minimized.png)](../images/advisor-coach-minimized.png)
+
+*The editor is the result. The person can start typing without reading a chat response.*
+
+**“What has the news been about MU?”** This request needs a written answer. The conversation
+opens to show the summary and its source links, while the holding remains visible.
+
+[![Advisor with the coach expanded to answer a question about MU news.](../images/advisor-coach-expanded.png)](../images/advisor-coach-expanded.png)
+
+*The answer needs space, so the conversation opens. Both screenshots use disguised example
+data; select either image to see it at full size.*
+
+### Let application code decide
+
+After the agent answers, Advisor checks whether the person can already see the result.
+The panel stays closed only when all of these conditions hold:
+
+- The agent changed something or took the person somewhere in the application.
+- Every step succeeded, without an error or warning.
+- Every part of the change is fully visible now, rather than scrolled out of view or hidden
+  behind a dialog.
+- The reply asks no question of the person.
+- Nothing has undone or replaced the change.
+
+When these conditions hold, the application briefly shows a short confirmation written by
+code. Otherwise, it opens the conversation so the person can read the reply. An error
+always opens it. Sending a message alone does not open the panel; the application waits
+for the result.
+
+Each part of the screen declares which settings and values it currently shows. Application
+code compares the change with those visible values. The agent's claim that something was
+“saved” cannot keep the panel closed.
+
+Advisor also opens the coach on first launch for a new user, to make it discoverable.
+Returning to the portfolio—for example, selecting a category, sorting the list, or closing
+a holding's detail view—closes the conversation. These are choices to test with users:
+if the person can see what happened, leave room for their work; if they need to read
+something, show it.
 
 Keep expansion and minimization predictable. Give people a way to override the choice, and
 keep their conversation available. Do not hide a question awaiting an answer, an error, or
