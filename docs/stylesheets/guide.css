@@ -65,3 +65,14 @@
 /* Short headings can carry a quieter explanatory subheading. */
 .md-typeset h2:has(+ .section-subhead) { margin-bottom: .12em; }
 .md-typeset p.section-subhead { font-family: "Big Caslon", Caslon, "Times New Roman", serif; font-size: 1.05em; font-style: italic; line-height: 1.3; margin-top: 0; margin-bottom: .65em; }
+
+/* Override Material's teal accent with the company's mint. */
+:root, [data-md-color-accent] {
+  --md-accent-fg-color: #8ebfb3;
+  --md-accent-fg-color--transparent: #8ebfb31a;
+  --md-accent-bg-color: #1a1e33;
+}
+.md-nav__link:is(:hover, :focus-visible) { color: #1a1e33; background-color: #8ebfb3; }
+.md-sidebar__scrollwrap { scrollbar-color: #8ebfb3 transparent; }
+.md-sidebar__scrollwrap::-webkit-scrollbar-thumb,
+.md-sidebar__scrollwrap:hover::-webkit-scrollbar-thumb { background-color: #8ebfb3; }
