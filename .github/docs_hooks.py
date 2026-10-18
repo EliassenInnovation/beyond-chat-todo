@@ -112,6 +112,8 @@ def on_post_build(config):
     pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#f5f1ee; padding:10px; font-size:9pt; }
     a { color:#2e4294; } .headerlink,.print-guide-link { display:none; }
     blockquote,.admonition { border-left:3px solid #6b93a8; margin:1em 0; padding:.2em 1em; }
+    .admonition.practice { border-color:#8ebfb3; }
+    .practice > .admonition-title { background:#8ebfb3; color:#1a1e33; padding:.35em .5em; }
     .admonition-title { font-weight:bold; } .chapter { margin-top:2em; }
     .contents ul { list-style:none; padding:0; margin:.3em 0 .7em; }
     .contents ul ul { padding-left:1.2em; margin:.15em 0 .6em; }

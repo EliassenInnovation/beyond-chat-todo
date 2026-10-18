@@ -27,8 +27,8 @@
 .md-typeset .admonition.practice { font-size: inherit; box-shadow: none; border-radius: .3rem; margin-block: 1rem; }
 .md-typeset .admonition.consider { border-color: #6a829b; }
 .md-typeset .consider > .admonition-title { background-color: #eef2f6; }
-.md-typeset .admonition.practice { border-color: #39766e; }
-.md-typeset .practice > .admonition-title { background-color: #edf5f2; }
+.md-typeset .admonition.practice { border-color: #8ebfb3; }
+.md-typeset .practice > .admonition-title { background-color: #8ebfb3; color: #1a1e33; }
 .md-typeset .consider > .admonition-title,
 .md-typeset .practice > .admonition-title { padding-left: .6rem; }
 .md-typeset .consider > .admonition-title::before,
