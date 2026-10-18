@@ -50,13 +50,13 @@ nav:
   - Introduction: https://bobfischer.github.io/beyond-chat-todo/guide/#introduction
   - Design:
     - Why an embedded agent?: guide/why.md
-    - Make room for the agent: guide/agent-experience.md
     - Shared capabilities and the registry: guide/design.md
     - Understand the request: guide/requests.md
     - Onboarding, when needed: guide/onboarding.md
     - Authority and recovery: guide/authority.md
     - Tools and current evidence: guide/tools.md
     - Interfaces and views: guide/interfaces.md
+    - The agent in the UI: guide/agent-experience.md
   - Implementation:
     - Run the sample: guide/start.md
     - Follow a request: guides/walkthrough.md

@@ -1,4 +1,4 @@
-# Make room for the agent
+# Design the agent’s place in the UI
 
 An embedded agent needs a place in the application. Familiar chat controls provide a useful
 starting point, but placement, size, and behavior should support the work people are doing.
@@ -88,6 +88,6 @@ as well as the words in the response.
     space the agent takes, and how the person can change that. Add one useful suggestion
     and state whether clicking it fills the input or submits the request.
 
-These interface choices need application support. The [next section](design.md) explains
-how the person and the agent can use shared application operations, while code enforces
-the permissions and approval requirements appropriate to each.
+These choices bring the design together: shared capabilities, appropriate authority, and an
+interface that supports the person's work. Next, [run the sample](start.md) to see these
+ideas in a working application.
