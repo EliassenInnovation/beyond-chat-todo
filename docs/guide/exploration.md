@@ -74,6 +74,33 @@ Let the simulated person use the same operations available to a real person. The
 
 Sample conversations to check that the personas behave plausibly. Keep synthetic test recording separate from real-user recording, show when capture is active, and follow the organization's data and consent policy. Repeat exploration after meaningful application or model changes, and turn confirmed findings into fixed cases with separate held-out variants.
 
+## Explore with richer application context
+
+The todo personas work with a small list. Advisor's persona runner shows the same approach
+with more context: a person's background, goals and concerns, alongside holdings distributed
+across several accounts.
+
+[![Advisor's persona runner with a returning-user mode, sample holdings, and the selected persona's background and concerns.](../images/advisor-persona-runner.png)](../images/advisor-persona-runner.png)
+
+*Advisor's persona runner, with Returning user selected. The runner launches the application with isolated sample holdings. Select the image to see it at full size.*
+
+That context gives the simulated person something substantial to discuss. A question can
+refer to an existing holding, a personal goal, or a tension between the person's preferences
+and their saved plans. The reviewer can inspect whether the agent uses the available
+information, asks for what is missing, and responds appropriately when the person changes
+direction.
+
+Test different stages of use. For onboarding, the persona knows its own background but the
+application has not yet learned it. For a returning user, populate the application with the
+data and saved context that someone would have accumulated through use. Keep the persona's
+private instructions separate from the information available to the application's agent;
+otherwise the test bypasses the very learning it is meant to exercise.
+
+These modes test different responsibilities: learning enough to help a new user, and using
+what is already known to help an established one. See [Onboarding, when needed](onboarding.md)
+for the design behind that distinction. Advisor is a separate application; its runner is an
+example here, while this repository supplies the smaller todo implementation.
+
 ## Review findings and create test cases
 
 The persona returns structured fields for messages, approval choices and reactions; the
