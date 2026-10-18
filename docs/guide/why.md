@@ -105,7 +105,9 @@ Start with a recurring difficulty that matters to your users. For example, repea
 calls and returns may show that people struggle to choose compatible replacement parts.
 An agent could help identify their equipment and use the application's product data to
 check which parts fit. Before building that assistance, decide how you will tell whether
-it helps: can people find a suitable part with less effort and fewer incorrect purchases?
+it helps: can people find a suitable part with less effort, fewer incorrect purchases, and
+fewer calls to support? Fewer calls should mean people are getting the help they need,
+not that reaching a person has become harder.
 
 ![A repeating improvement cycle: find a recurring difficulty, build useful assistance, check whether it helped, and choose the next priority.](../images/improvement-cycle.svg)
 
