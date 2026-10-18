@@ -96,17 +96,25 @@ to adopt a formal research method to use that distinction here. Jim Kalbach's
 is a practical introduction to understanding customer needs and desired outcomes.
 
 If you already use user stories, use cases, or support-call reasons, start with those.
-Look past the requested control to the result the person needs. “Add a Reschedule button”
-names a solution. “Keep an appointment when my availability changes” describes a job that
-could be served by a button, a form, or an agent. The implementation still has to preserve
-the appointment's requirements and avoid losing the original booking.
+Look past the requested feature to the result the person needs. “Add more product filters”
+names a solution. “Find a replacement part that fits the equipment I own” describes a job.
+People may know what is broken without knowing a model number, a part name, or how to
+check compatibility.
 
-![An appointment example connecting observed difficulty, the person's job, possible agent assistance and a successful outcome.](../images/job-to-assistance.svg)
+Start with a recurring difficulty that matters to your users. For example, repeated support
+calls and returns may show that people struggle to choose compatible replacement parts.
+An agent could help identify their equipment and use the application's product data to
+check which parts fit. Before building that assistance, decide how you will tell whether
+it helps: can people find a suitable part with less effort and fewer incorrect purchases?
 
-*An illustrative example: start with a difficulty you can observe, then connect assistance to a result you can check.*
+![A repeating improvement cycle: find a recurring difficulty, build useful assistance, check whether it helped, and choose the next priority.](../images/improvement-cycle.svg)
 
-The job gives the agent a purpose and gives you something to evaluate. A successful tool
-call is only a step; the question is whether the person achieved the intended result.
+*Check the result before deciding what to improve next.*
+
+Watch people use the assistance and review what happened. If they still struggle, use what
+you learn to improve it. If it works well enough, address the next priority while continuing
+to monitor it. A successful tool call is only a step; the question is whether the person
+achieved the intended result.
 
 !!! practice "Practice — describe one job"
     For the application you chose, write three sentences: the person's situation, what they
