@@ -1,8 +1,9 @@
 # Design the connection
 
-Start with the work your application already does. A **capability** is an operation with
-meaning to the application: add an item, reschedule an appointment, or submit an order.
-The UI and agent should use the same implementation, validation and data.
+Your application already provides **capabilities** through its UI and sometimes an API.
+These are operations that have meaning in the application: adding an item, rescheduling
+an appointment, or submitting an order. An embedded agent needs a way to use those same
+capabilities, with the same implementation, validation, and data.
 
 If you already separate UI event handlers from service or domain code, this extends a familiar
 idea: a model tool is another caller of that code. A **tool** is an operation exposed to the
