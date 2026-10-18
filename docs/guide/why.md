@@ -123,9 +123,9 @@ achieved the intended result.
     want to accomplish, and how they would know it was done. Avoid naming a button or an agent
     in the desired outcome. Then note how they do it today. Keep this example for the next chapters.
 
-## Understand both languages
+## Users use two languages
 
-<p class="section-subhead">People describe what they want to accomplish—or name the application’s controls.</p>
+<p class="section-subhead">The language of the application and the language of the job</p>
 
 [![Examples pairing a person's goal with the application's operations.](../images/two-languages.svg)](../images/two-languages.svg)
 
