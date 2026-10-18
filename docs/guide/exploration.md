@@ -82,7 +82,7 @@ across several accounts.
 
 [![Advisor's persona runner with a returning-user mode, sample holdings, and the selected persona's background and concerns.](../images/advisor-persona-runner.png)](../images/advisor-persona-runner.png)
 
-*Advisor's persona runner, with Returning user selected. The runner launches the application with isolated sample holdings. Select the image to see it at full size.*
+*Advisor's persona runner, with Returning user selected, shown with disguised example data. The runner launches the application with isolated sample holdings. Select the image to see it at full size.*
 
 That context gives the simulated person something substantial to discuss. A question can
 refer to an existing holding, a personal goal, or a tension between the person's preferences
