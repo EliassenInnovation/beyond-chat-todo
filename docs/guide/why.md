@@ -32,21 +32,31 @@ from a particular trip, organize a growing collection, or share selected photos 
 Each of these jobs may require several application capabilities. The person knows what they
 want to accomplish, but may not know which controls to use or in what order.
 
-!!! consider "Consider — where should the agent help first?"
-    Where do your users spend time today trying to resolve a problem?
+!!! consider "Consider — where could an agent help first?"
+    If you had an agent in your application or website, where would it help your users first?
+    What are they struggling to accomplish today?
 
     Write down one example and what tells you it matters: support calls, repeated questions,
-    abandoned tasks, or watching someone use the application. Where could an agent help
-    first, and why?
+    abandoned tasks, or watching someone use the application.
 
 ## Poor assistance can make the experience worse
 
 <img src="../images/laptop-toss.png" width="420" alt="A frustrated person tossing a laptop.">
 
 An agent that changes the wrong thing, invents an ability, or says it saved something when
-it did not adds uncertainty to an already difficult task. A convincing demonstration does
-not establish that the assistance is good enough for everyday use. Build the connection and
-the means to inspect its behavior together.
+it did not adds uncertainty to an already difficult task.
+
+Getting an agent to help with a few requests can be relatively easy. Making it reliably
+helpful across the range of situations and language your users bring can require extensive
+work. People leave things unstated, use different terms, change their minds, and assume the
+application understands their situation. Providing the capability is only part of the job;
+the agent must also recognize when and how to use it—or when to ask a question.
+
+That requires a deep understanding of your users, careful testing, and repeated improvement.
+It also means learning from real use: with users’ permission and appropriate privacy
+protections, examine production interactions to see where people struggle, where the agent
+misunderstands, and what needs to change. Plan how to capture and review those interactions
+under your organization’s policies, rather than treating production use as the end of the work.
 
 ## From finding help to doing the job together
 
