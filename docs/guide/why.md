@@ -109,7 +109,7 @@ it helps: can people find a suitable part with less effort, fewer incorrect purc
 fewer calls to support? Fewer calls should mean people are getting the help they need,
 not that reaching a person has become harder.
 
-![A repeating improvement cycle: find a recurring difficulty, build useful assistance, check whether it helped, and choose the next priority.](../images/improvement-cycle.svg)
+![A repeating improvement cycle: find a recurring difficulty, build useful assistance, check whether it helped, and choose the next priority.](../images/improvement-cycle-blue.svg)
 
 *Check the result before deciding what to improve next.*
 
