@@ -1,15 +1,16 @@
 # Why put an agent in the application?
 
 Today, many people reach for AI first when they need to get something done. They have
-experienced how much faster it can be to plan a trip, understand an unfamiliar subject,
-compare options, or work through an everyday task.
+experienced how much faster it can be to compare options, understand something unfamiliar,
+or work through an everyday task.
+
+They bring those expectations to your application. If it leaves them searching through
+menus, reading help pages and working out every step themselves, it can feel outdated—even
+when its underlying capabilities are excellent.
 
 <img src="../images/wagon.png" width="420" alt="A covered wagon labeled Your App Name Goes Here.">
 
-Those experiences shape what they expect from your application. They want help accomplishing
-their goal, without having to discover every feature or learn every control first. A capable
-application can feel harder to use than it needs to when the person has to leave it to ask
-for help, then translate the answer back into its controls.
+An embedded agent can help people put those capabilities to work.
 
 The opportunity is especially clear for useful features people encounter infrequently,
 workflows spanning several screens, and workplaces where new staff repeatedly have to learn
