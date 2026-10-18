@@ -127,14 +127,23 @@ achieved the intended result.
 
 <p class="section-subhead">The language of the application and the language of the job</p>
 
-[![Examples pairing a person's goal with the application's operations.](../images/two-languages.svg)](../images/two-languages.svg)
+Applications teach us useful ways to think about our work. Someone who has never used a
+paper spreadsheet can learn to organize information in rows, columns, and sheets through
+Excel. Those concepts become part of how they think, not just how they operate the software.
 
-*Both kinds of request must reach the same application capabilities.*
+![Familiar words learned from presentation software, spreadsheets, online stores, email, and music applications.](../images/apps-teach-language.svg)
+
+*Our applications have trained us. We think—and ask—in their words.*
+
+An agent should understand both languages. A person may describe an outcome—“show me sales
+by region”—or ask directly for a pivot table. Both are valid requests. The agent should help
+with either, without requiring people to express everything as a job to be done.
 
 A person may ask for “something to stop this pipe leaking” or “a half-inch compression fitting.”
-A helpful hardware-store clerk understands both. Application users similarly switch between
-their goal and the vocabulary the interface has taught them. Tool descriptions need to connect
-those languages, and the agent needs enough context to recognize when more information is needed.
+A helpful hardware-store clerk understands both. Tool names and descriptions should similarly
+connect what people want to accomplish with the familiar names of the application's controls
+and operations. When someone names a specific operation, the agent should respect that choice;
+when the request is unclear, it should ask for the information it needs.
 
 For the todo sample, the value is educational: a familiar domain lets you inspect these
 patterns. The intended destination is your application, where reducing this friction may
