@@ -51,9 +51,9 @@ nav:
   - Design:
     - Why an embedded agent?: guide/why.md
     - Make room for the agent: guide/agent-experience.md
-    - Onboarding, when needed: https://bobfischer.github.io/beyond-chat-todo/guide/guide/agent-experience.html#onboarding-when-needed
     - Shared capabilities and the registry: guide/design.md
     - Understand the request: guide/requests.md
+    - Onboarding, when needed: guide/onboarding.md
     - Authority and recovery: guide/authority.md
     - Tools and current evidence: guide/tools.md
     - Interfaces and views: guide/interfaces.md
