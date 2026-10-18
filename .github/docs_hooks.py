@@ -77,6 +77,10 @@ def on_post_build(config):
     h1,h2,h3,h4 { font-family:'Big Caslon',Caslon,'Times New Roman',serif; line-height:1.2; break-after:avoid; }
     h1 { font-size:26pt; color:#2e4294; } h2 { font-size:17pt; color:#2e4294; } h3 { font-size:14pt; color:#2e4294; }
     img { max-width:100%; height:auto; } .publication-cover { width:100%; display:block; }
+
+/* Matching landscape frames preserve the action while trimming the lower foreground. */
+.story-image { position: relative; width: 100%; padding-top: 60%; overflow: hidden; margin: .85rem 0 .45rem; break-inside: avoid; }
+.story-image img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; margin: 0; }
     .cover-anchor { display:none; }
     pre { white-space:pre-wrap; overflow-wrap:anywhere; background:#f5f1ee; padding:10px; font-size:9pt; }
     a { color:#2e4294; } .headerlink,.print-guide-link { display:none; }

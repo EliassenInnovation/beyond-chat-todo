@@ -8,7 +8,7 @@ They bring those expectations to your application. If it leaves them searching t
 menus, reading help pages and working out every step themselves, it can feel outdated—even
 when its underlying capabilities are excellent.
 
-<img src="../images/wagon.png" width="420" alt="A covered wagon labeled Your App Name Goes Here.">
+<div class="story-image"><img src="../images/wagon.png" alt="A covered wagon labeled Your App Name Goes Here."></div>
 
 An embedded agent can help people put those capabilities to work.
 
@@ -41,7 +41,7 @@ want to accomplish, but may not know which controls to use or in what order.
 
 ## Poor assistance can make the experience worse
 
-<img src="../images/laptop-toss.png" width="420" alt="A frustrated person tossing a laptop.">
+<div class="story-image"><img src="../images/laptop-toss.png" alt="A frustrated person tossing a laptop."></div>
 
 An agent that changes the wrong thing, invents an ability, or says it saved something when
 it did not adds uncertainty to an already difficult task.
