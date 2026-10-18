@@ -1,5 +1,22 @@
 # Why put an agent in the application?
 
+Today, many people reach for AI first when they need to get something done. They have
+experienced how much faster it can be to plan a trip, understand an unfamiliar subject,
+compare options, or work through an everyday task.
+
+<img src="../images/wagon.png" width="420" alt="A covered wagon labeled Your App Name Goes Here.">
+
+Those experiences shape what they expect from your application. They want help accomplishing
+their goal, without having to discover every feature or learn every control first. A capable
+application can feel harder to use than it needs to when the person has to leave it to ask
+for help, then translate the answer back into its controls.
+
+The opportunity is especially clear for useful features people encounter infrequently,
+workflows spanning several screens, and workplaces where new staff repeatedly have to learn
+the same application. Start with a job where that friction matters, not with a goal to add chat.
+
+## Connect that expectation to your application
+
 Your application may already do what a person needs. The difficulty is often discovering
 that capability, learning its controls, and working out the sequence that completes the job.
 An embedded agent can help people make that connection.
@@ -20,23 +37,6 @@ want to accomplish, but may not know which controls to use or in what order.
     Write down one example and what tells you it matters: support calls, repeated questions,
     abandoned tasks, or watching someone use the application. Where could an agent help
     first, and why?
-
-## Expectations come from other experiences
-
-<img src="../images/wagon.png" width="420" alt="A covered wagon labeled Your App Name Goes Here.">
-
-Today, many people reach for AI first when they need to get something done. They have
-experienced how much faster it can be to plan a trip, understand an unfamiliar subject,
-compare options, or work through an everyday task.
-
-Those experiences shape what they expect from your application. They want help accomplishing
-their goal, without having to discover every feature or learn every control first. A capable
-application can feel harder to use than it needs to when the person has to leave it to ask
-for help, then translate the answer back into its controls.
-
-The opportunity is especially clear for useful features people encounter infrequently,
-workflows spanning several screens, and workplaces where new staff repeatedly have to learn
-the same application. Start with a job where that friction matters, not with a goal to add chat.
 
 ## Poor assistance can make the experience worse
 
