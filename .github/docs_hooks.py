@@ -29,6 +29,31 @@ def on_page_markdown(markdown, page, config, files):
     return re.sub(r"\]\(([^)]+)\)", rewrite, markdown)
 
 
+def on_page_content(html, page, config, files):
+    """Give local images a new cache key only when their contents change."""
+    from hashlib import sha256
+    from html import escape, unescape
+    from urllib.parse import parse_qsl, unquote, urlencode, urlunsplit
+
+    def version_image(match):
+        prefix, raw_url, suffix = match.groups()
+        parsed = urlsplit(unescape(raw_url))
+        if parsed.scheme or parsed.netloc or parsed.path.startswith("/"):
+            return match[0]
+        target = (DOCS / page.file.src_uri).parent / unquote(parsed.path)
+        target = target.resolve()
+        if not target.is_relative_to(DOCS) or not target.is_file():
+            return match[0]
+        version = sha256(target.read_bytes()).hexdigest()[:12]
+        query = [(key, value) for key, value in parse_qsl(parsed.query)
+                 if key != "v"]
+        query.append(("v", version))
+        url = urlunsplit(parsed._replace(query=urlencode(query)))
+        return prefix + escape(url, quote=True) + suffix
+
+    return re.sub(r'(<img\b[^>]*?\bsrc=")([^"]+)(")', version_image, html)
+
+
 _PRINT_PAGES = []
 _PRINT_NAV = []
 
