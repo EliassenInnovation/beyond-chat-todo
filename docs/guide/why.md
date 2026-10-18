@@ -159,6 +159,7 @@ patterns. The intended destination is your application, where reducing this fric
 matter much more.
 
 For an agent to help effectively, it needs access to the application's capabilities and the
-ability to see and control the UI. The [next section](design.md) explains how to build that
-connection: the person and the agent use shared application operations, while code enforces
-the permissions and approval requirements appropriate to each.
+ability to see and control the UI. First, consider [where the agent belongs in the interface](agent-experience.md)
+and how it should share space with the person's work. Then we will look at the architecture:
+shared application operations, with code enforcing the permissions and approval requirements
+appropriate to each caller.

@@ -98,3 +98,14 @@ Numbers in the text identify the relevant source. The notes explain the connecti
 47. **Atul Prakash and Michael J. Knister (1994).** [A Framework for Undoing Actions in Collaborative Systems](https://doi.org/10.1145/198425.198427). ACM Transactions on Computer-Human Interaction 1(4). A framework that "allows users to individually reverse their own changes" when several people edit the same data. Consulted October 10, 2026.
 
 48. **Sharon L. Bowman.** [A Quick Guide to the 4Cs Map](https://bowperson.com/images/resources/quick-guide-to-four-c-map.pdf), accompanying *Training from the Back of the Room!*. Connections, concepts, concrete practice and conclusions inform this guide's reader prompts. This is an adaptation for self-directed documentation, not a claim that the guide implements a facilitated training course.
+
+
+## The agent's place in the interface
+
+The [interface chapter](../guide/agent-experience.md) cites these sources beside the guidance they support. Consulted October 18, 2026.
+
+- **Microsoft.** [Guidelines for Human-AI Interaction](https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/). Context, timing, invocation, dismissal, and user control.
+- **SAP.** [Joule panel](https://www.sap.com/design-system/fiori-design-android/v25-4/joule/components/joule-panel). Panel sizes, resizing, minimization, and access to the underlying application.
+- **SAP.** [Working with conversations](https://help.sap.com/docs/joule/joule-work-621104a90a01407fbb2d1613db39a54d/working-with-conversations). Prompt-library selections populate an editable input.
+- **Nielsen Norman Group.** [10 Guidelines for Designing Your Site's AI Chatbots](https://www.nngroup.com/articles/ai-chatbots-design-guidelines/). Relevant suggestions and visible awareness of the user's context.
+- **Google.** [Suggestion chips](https://developers.google.com/assistant/conversation-design/chips). Earlier conversation-design guidance describing chips that submit a response; cited for the interaction distinction, not as a current product integration recommendation.
