@@ -71,6 +71,68 @@ requirements of the visual pattern. Start with the simplest approach that produc
 accurate suggestions. Model-generated suggestions still need to respect available
 capabilities, the current context, and the user's permissions.
 
+## Learn enough about the user to help
+
+Some assistance depends on knowing more than the current request. A financial application
+may need to understand a person's goals, time horizon, and circumstances before it can
+provide relevant guidance. A personal shopper may need clothing sizes, preferred colors,
+style, and budget. Collect the information that matters to the task rather than assuming
+preferences from demographic details.
+
+There are two hypotheses here, and they need different tests:
+
+1. **Relevant user context improves assistance.** Learning and recording a few fundamental
+   facts—or using information already in the application—may improve the agent's responses
+   and decisions.
+2. **Gradual onboarding is a better experience.** Asking for information as it becomes
+   useful may feel more natural than requiring several screens of questions before the
+   person can begin. It could also become a series of unwanted interruptions. We have not
+   established which approach works better, or in which situations.
+
+These are proposed directions to investigate, not findings demonstrated by the todo sample.
+Advisor previously included onboarding, but it was accidentally removed. That behavior
+needs to be restored and tested before we present Advisor as a working onboarding example.
+
+### Ask when the information matters
+
+One design to test is to let people begin with useful work, then ask a focused question when
+the answer would improve the current task. Explain why it is needed, record it with the
+person's knowledge, and let them inspect and correct it. Avoid repeatedly asking for facts
+the application already has, while giving people a way to update information that has changed.
+
+Decide what “enough context” means for each kind of assistance. A shopper might browse
+without a saved size, but a size-specific recommendation needs more information. When a
+missing fact is essential, ask before proceeding; when it is optional, allow the person to
+skip it and make the limitation clear. A gradual approach should not become persistent
+nudging to complete a profile that the current task does not need.
+
+An onboarding prompt could focus on learning the basics and helping the person get started.
+An ongoing-assistance prompt could use established context without repeating that introduction.
+Application state should determine which instructions apply. This is an application design
+choice; persona tests can exercise it, but do not establish that it improves the experience.
+
+### Test usefulness and experience separately
+
+To test whether context helps, compare responses to the same tasks with relevant facts
+available and with those facts missing. Have reviewers assess relevance, unsupported
+assumptions, appropriate questions, and whether the task was completed. A good response
+with missing information may be a question rather than an immediate recommendation.
+
+To test the experience, let real participants try an upfront questionnaire and a gradual
+approach on comparable tasks. Observe whether they reach a useful result, where they stop,
+how often questions interrupt their work, and whether they understand why information is
+requested. Ask about their sense of control and willingness to continue. Include returning
+users to find out whether gradual onboarding becomes repetitive over time.
+
+Personas can help find missed questions and failures to save or reuse information. They
+cannot establish that real people find an interaction natural or less annoying. Keep the
+simulated person's private background separate from what the application has learned.
+
+!!! consider "Consider — what does the agent need to know?"
+    Choose one task. Write down which user facts are essential, which would improve the
+    result, and which are unnecessary. What does the application already know? When would
+    asking for each missing fact help the person with the task in front of them?
+
 ## Keep the application and conversation connected
 
 Show the result where the person will use it. Navigation should reveal the destination;
