@@ -71,7 +71,7 @@ requirements of the visual pattern. Start with the simplest approach that produc
 accurate suggestions. Model-generated suggestions still need to respect available
 capabilities, the current context, and the user's permissions.
 
-## Learn enough about the user to help
+## Onboarding, when needed
 
 Some assistance depends on knowing more than the current request. A financial application
 may need to understand a person's goals, time horizon, and circumstances before it can
