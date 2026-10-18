@@ -43,7 +43,7 @@ markdown_extensions:
 extra_javascript:
   - javascripts/demo-return.js?v=1
 extra_css:
-  - stylesheets/guide.css?v=20261018-nav-mint
+  - stylesheets/guide.css?v=20261018-nav-text
   - stylesheets/tables.css?v=1
 nav:
   - Cover: index.md

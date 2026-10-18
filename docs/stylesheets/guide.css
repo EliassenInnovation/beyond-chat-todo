@@ -72,7 +72,7 @@
   --md-accent-fg-color--transparent: #8ebfb31a;
   --md-accent-bg-color: #1a1e33;
 }
-.md-nav__link:is(:hover, :focus-visible) { color: #1a1e33; background-color: #8ebfb3; }
+.md-nav__link:is(:hover, :focus-visible) { color: #8ebfb3; background-color: transparent; }
 .md-sidebar__scrollwrap { scrollbar-color: #8ebfb3 transparent; }
 .md-sidebar__scrollwrap::-webkit-scrollbar-thumb,
 .md-sidebar__scrollwrap:hover::-webkit-scrollbar-thumb { background-color: #8ebfb3; }
