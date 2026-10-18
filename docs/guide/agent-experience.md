@@ -28,9 +28,11 @@ and its answer. Let people resize or minimize the conversation without losing it
 
 ## Give the conversation the space it needs
 
-In Advisor, the coach normally starts as a header and an input line. The person can open or
-close the conversation at any time. The application also adjusts it according to the result
-of a request.
+One option is to let the application adjust the conversation panel to the task, while
+letting the person open or close it at any time. Advisor illustrates this approach: the
+coach normally starts as a header and an input line, and the application decides whether
+the result of a request needs more space. A fixed panel or a panel opened only by the
+person may suit another application better.
 
 **“Can you take me to where I can edit the thesis for MU?”** The application opens MU's
 settings and focuses the thesis field. The conversation stays minimized, leaving room for
@@ -48,7 +50,7 @@ opens to show the summary and its source links, while the holding remains visibl
 *The answer needs space, so the conversation opens. Both screenshots use disguised example
 data; select either image to see it at full size.*
 
-### Let application code decide
+### How Advisor makes the choice
 
 After the agent answers, Advisor checks whether the person can already see the result.
 The panel stays closed only when all of these conditions hold:
