@@ -60,7 +60,7 @@ under your organization’s policies, rather than treating production use as the
 
 ## From finding help to doing the job together
 
-![Six kinds of assistance, from help search to combining application capabilities.](../images/levels.svg)
+![Six kinds of assistance, from help search to combining application capabilities.](../images/assistance-levels.svg)
 
 *The first two levels find instructions. The later levels connect assistance to the working application.*
 

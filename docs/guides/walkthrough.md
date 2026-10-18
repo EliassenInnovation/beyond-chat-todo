@@ -21,7 +21,7 @@ who already understands the operation may want the agent to perform it. Connecti
 to the app makes both possible, but it must distinguish what the person is asking for.
 The progression below starts with familiar help and shows what that connection adds.
 
-[![Six levels of assistance, from finding help to doing the job with the person.](../images/levels.svg)](../images/levels.svg)
+[![Six levels of assistance, from finding help to doing the job with the person.](../images/assistance-levels.svg)](../images/assistance-levels.svg)
 
 Try the progression in the sample: ask “How do I hide completed tasks?” for directions,
 “Show me where to do that” to highlight **Active**, then “Do it for me” to change the filter.
