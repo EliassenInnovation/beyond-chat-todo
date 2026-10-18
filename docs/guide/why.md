@@ -139,11 +139,20 @@ An agent should understand both languages. A person may describe an outcome—�
 by region”—or ask directly for a pivot table. Both are valid requests. The agent should help
 with either, without requiring people to express everything as a job to be done.
 
+![Examples of requests expressed as desired outcomes and in the application's familiar language.](../images/two-languages.svg)
+
+*Both ways of asking are valid. The agent should understand and respond to either.*
+
 A person may ask for “something to stop this pipe leaking” or “a half-inch compression fitting.”
 A helpful hardware-store clerk understands both. Tool names and descriptions should similarly
 connect what people want to accomplish with the familiar names of the application's controls
 and operations. When someone names a specific operation, the agent should respect that choice;
 when the request is unclear, it should ask for the information it needs.
+
+!!! consider "Consider — what language do your users already use?"
+    Which terms from your application have become part of how users describe their work?
+    Listen for both the outcomes they want and the controls or operations they name.
+    Your agent should understand both.
 
 For the todo sample, the value is educational: a familiar domain lets you inspect these
 patterns. The intended destination is your application, where reducing this friction may
