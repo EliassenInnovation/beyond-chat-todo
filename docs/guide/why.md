@@ -64,10 +64,14 @@ under your organization’s policies, rather than treating production use as the
 
 *The first two levels find instructions. The later levels connect assistance to the working application.*
 
-Search and AI-assisted retrieval remain useful. They usually leave the person to perform
-the steps. An agent connected to the app can explain in its own vocabulary, highlight the
-relevant control, or carry out an authorized operation. It can also combine operations into
-a workflow nobody provided a dedicated button for.
+Search is useful when it quickly gets people to the information they need. Basic keyword
+search can return many irrelevant results, especially for common terms. AI-assisted search
+can improve relevance, but the person still has to understand the information and apply it
+in the application.
+
+An embedded agent can connect that information to what the person is doing—explaining the
+next step, pointing to the relevant control, or carrying out an authorized task. It can also
+combine operations into a workflow nobody provided a dedicated button for.
 
 These are choices, not a requirement to automate everything. “How do I?” asks for instruction.
 “Show me” asks for a demonstration. “Do it” asks for action. Treating all three as permission
