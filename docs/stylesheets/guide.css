@@ -61,3 +61,6 @@
 /* Matching landscape frames preserve the action while trimming the lower foreground. */
 .md-typeset .story-image { position: relative; width: 100%; padding-top: 60%; overflow: hidden; margin: .85rem 0 .45rem; break-inside: avoid; }
 .md-typeset .story-image img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; margin: 0; }
+
+/* Short headings can carry a quieter explanatory subheading. */
+.md-typeset p.section-subhead { font-size: .92em; font-style: italic; margin-top: -.15em; margin-bottom: .65em; }
