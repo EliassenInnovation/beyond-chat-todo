@@ -2,7 +2,17 @@
 
 Your application may already do what a person needs. The difficulty is often discovering
 that capability, learning its controls, and working out the sequence that completes the job.
-An embedded agent can shorten that distance.
+An embedded agent can help people make that connection.
+
+On an ecommerce site, a person might want to find a product that fits their needs, check
+whether other buyers recommend it, complete a purchase, resolve a problem, or return
+something unsuitable.
+
+In a photography application, they might want to improve a poorly lit photo, find pictures
+from a particular trip, organize a growing collection, or share selected photos with friends.
+
+Each of these jobs may require several application capabilities. The person knows what they
+want to accomplish, but may not know which controls to use or in what order.
 
 !!! consider "Consider — where should the agent help first?"
     Where do your users spend time today trying to resolve a problem?
@@ -48,6 +58,16 @@ These are choices, not a requirement to automate everything. “How do I?” ask
 to change data would make the agent less helpful.
 
 ## Start with the job people want to accomplish
+
+Start with what the person is trying to accomplish, rather than the features your
+application provides. A person does not arrive wanting to use search, filters and comparison
+controls. They want to replace a broken washing machine with one that fits their space and
+budget, will last, and can be delivered before the laundry piles up.
+
+Understanding that job helps you decide where an agent could help and which capabilities
+it needs: checking dimensions, comparing products, reviewing information about reliability,
+confirming availability and arranging delivery. The agent can help assess likely durability
+using available evidence; it cannot promise how long the machine will last.
 
 A **job to be done** is what someone is trying to accomplish in a particular situation.
 It is a way to understand the need before choosing a feature or a solution. You do not need
