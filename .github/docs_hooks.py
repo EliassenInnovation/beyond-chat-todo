@@ -137,7 +137,7 @@ def on_post_build(config):
       .contents { break-before:page; } tr,figure { break-inside:avoid; }
     }
     """
-    controls = '<div class="print-controls"><a href="guide.pdf">Download the formatted PDF</a> · <button onclick="window.print()">Print this page</button><p>Choose Save as PDF, Letter paper, and turn off browser headers and footers.</p></div>'
+    controls = '<div class="print-controls"><a href="guide.pdf">Download the last PDF export</a> · <button onclick="window.print()">Print this page</button><p>The PDF is exported separately and may lag behind this web guide. To print this version, choose Save as PDF, Letter paper, and turn off browser headers and footers.</p></div>'
     # Keep the cover and introduction first, followed by the contents and all chapters.
     toc_entries = []
     for page in _PRINT_PAGES:
