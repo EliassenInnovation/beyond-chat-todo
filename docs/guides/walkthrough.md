@@ -36,8 +36,8 @@ The assistant receives the app's control names and locations, plus current list 
 Its screen actions use the same shared operations as the person's controls. This is why both
 knowing what the person sees and being able to control the UI matter.
 
-Level 6, "do something new for me," can be explored by combining existing operations. On a
-separate test list with distinct due dates, try "Show my unfinished tasks due this week, and move the
+Level 6, "do something new for me," can be explored by combining existing operations. On the
+exploratory tester's list (it has several due dates), try "Show my unfinished todos due this week, and move the
 earliest one to the top." There is no dedicated button for that combined request: the agent
 must interpret the criteria, select tasks, change the view and reorder the chosen task. If no
 tasks qualify or the choice is ambiguous, an appropriate response may be an explanation or a
@@ -83,7 +83,7 @@ can only propose that trade for approval enforced in code. The shared capability
 operation; sharing it does not grant the agent the person's authority. First follow
 a simple addition, then examine that distinction in the sample's deletion mechanism.
 
-In the app, type a task in What needs to be done? and press Enter. With chat configured, ask the assistant to add another task. The language model's wording and choice of calls can vary; inspect the saved result rather than expecting an exact transcript.
+In the app, type a todo in What needs to be done? and press Enter. With chat configured, ask the assistant to add another todo. The language model's wording and choice of calls can vary; inspect the saved result rather than expecting an exact transcript.
 
 Both paths arrive at the same declaration:
 
@@ -159,7 +159,7 @@ And do this action's consequences and recoverability justify approval? The walkt
 the first; the second is a product decision. Match safeguards to consequences rather than gating
 every write.
 
-Ask the assistant to delete a named task. It calls the `request_delete` tool, which resolves to the `todos.delete` action. For the agent, that action's policy is `approval`, so `execute` runs its proposal function. The task remains, and an Approve/Deny card appears.
+Ask the assistant to delete a named todo. It calls the `request_delete` tool, which resolves to the `todos.delete` action. For the agent, that action's policy is `approval`, so `execute` runs its proposal function. The task remains, and an Approve/Deny card appears.
 
 Typing "approved" in chat cannot approve it. Even a direct call to `todos.approve` with `actor='agent'` is refused. The offline walkthrough attempts that bypass and checks that the task remains. Only the UI adapter establishes `actor='person'`; actor identity is not a model-supplied argument.
 
@@ -207,7 +207,7 @@ receives the screen's control descriptions. These describe application state, no
 or which pixels are inside the browser viewport. Hidden tasks remain available as data; they
 are not mistaken for tasks the person can currently see.
 
-Ask to show only unfinished tasks, or use Active below the list. Both paths call `view.show`. It changes the shared [View](../../todo/view.py), not the stored tasks. The offline walkthrough shows only one task and verifies that the saved file remains byte-for-byte unchanged.
+Ask to show only unfinished todos, or use Active below the list. Both paths call `view.show`. It changes the shared [View](../../todo/view.py), not the stored tasks. The offline walkthrough shows only one task and verifies that the saved file remains byte-for-byte unchanged.
 
 ## Fail a batch without leaving half of it saved
 
