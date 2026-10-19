@@ -60,6 +60,13 @@ _PRINT_NAV = []
 
 def on_nav(nav, config, files):
     """Capture reading order for the complete printable publication."""
+    # Keep the cover and introduction separately reachable without a deployment URL.
+    from mkdocs.structure.nav import Link
+    for i, item in enumerate(nav.items):
+        if getattr(item, "is_page", False) and item.file.src_uri == "index.md":
+            nav.items.insert(i + 1, Link("Introduction", item.url + "#introduction"))
+            break
+    nav.items.append(Link("Download for coding agents (.md)", "agent-guide.md"))
     _PRINT_PAGES.clear()
     _PRINT_PAGES.extend(nav.pages)
     _PRINT_NAV.clear()
@@ -129,12 +136,25 @@ def on_post_build(config):
       .contents a::after { content:leader('.') target-counter(attr(href), page); }
       body { padding:0; max-width:none; }
       .print-controls { display:none; } .chapter { break-before:page; margin:0; }
-      .chapter:first-of-type { break-before:auto; }
       @page cover { size:letter; margin:0; @bottom-center { content:none; } @bottom-right { content:none; } }
       .cover-page { page:cover; width:8.5in; height:11in; margin:0; padding:0; break-after:page; overflow:hidden; }
       .cover-page .publication-cover { width:8.5in; height:11in; display:block; }
-      .chapter:first-of-type { break-before:auto; }
       .contents { break-before:page; } tr,figure { break-inside:avoid; }
+      p,li,dd { widows:3; orphans:3; }
+      .chapter > p:last-child { break-before:avoid; }
+      .contents li { widows:2; orphans:2; }
+      .publication table { table-layout:fixed; width:100%; }
+      .publication th,.publication td { overflow-wrap:anywhere; }
+      .publication td code { overflow-wrap:anywhere; }
+      .publication table:has(th:nth-child(5)):not(:has(th:nth-child(6))) th:first-child { width:7%; }
+      .publication table:has(th:nth-child(5)):not(:has(th:nth-child(6))) th:nth-child(2) { width:12%; }
+      .publication table:has(th:nth-child(5)):not(:has(th:nth-child(6))) th:nth-child(3) { width:11%; }
+
+      .admonition-title { break-after:avoid; }
+      p:has(> img),p:has(> a > img) { break-inside:avoid; break-after:avoid; }
+      .story-image { break-after:avoid; }
+      p:has(> img) + p,p:has(> a > img) + p { break-before:avoid; }
+
     }
     """
     controls = '<div class="print-controls"><a href="guide.pdf">Download the last PDF export</a> · <button onclick="window.print()">Print this page</button><p>The PDF is exported separately and may lag behind this web guide. To print this version, choose Save as PDF, Letter paper, and turn off browser headers and footers.</p></div>'
@@ -159,3 +179,98 @@ def on_post_build(config):
     body = controls + cover + toc + introduction + ''.join(sections[1:])
     output = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Build better agents — complete guide</title><style>' + css + '</style><link rel="stylesheet" href="stylesheets/tables.css?v=1"></head><body class="publication">' + body + '<script src="javascripts/demo-return.js?v=1"></script></body></html>'
     (Path(config["site_dir"]) / "print.html").write_text(output)
+    export_agent_markdown(config)
+
+
+
+def export_agent_markdown(config):
+    """Generate a portable text edition from the same sources and navigation as the guide."""
+    from hashlib import sha256
+    from html import unescape
+    from urllib.parse import urljoin, unquote
+
+    sources = {Path(page.file.src_uri): page for page in _PRINT_PAGES}
+    prefixes = {source: "guide-" + str(i) for i, source in enumerate(sources)}
+    fingerprint = sha256()
+    for source in sources:
+        fingerprint.update(source.as_posix().encode())
+        fingerprint.update((DOCS / source).read_bytes())
+    sections = []
+    toc = []
+    for source, page in sources.items():
+        prefix = prefixes[source]
+        title = "Introduction" if source == Path("index.md") else page.title
+        toc.append(f"- [{title}](#{prefix})")
+        markdown = (DOCS / source).read_text()
+        # Rendered IDs preserve MkDocs' actual heading slugs, including duplicate headings.
+        heading_ids = iter(re.findall(r'<h[1-6]\b[^>]*\bid="([^"]+)"', page.content))
+        lines = []
+        fence = None
+        for line in markdown.splitlines():
+            marker = re.match(r"^\s*(`{3,}|~{3,})", line)
+            if marker:
+                token = marker[1]
+                if fence is None:
+                    fence = token
+                elif token[0] == fence[0] and len(token) >= len(fence):
+                    fence = None
+                lines.append(line)
+                continue
+            if fence:
+                lines.append(line)
+                continue
+            heading = re.match(r"^(#{1,6})\s+(.+)$", line)
+            html_heading = re.match(r'<h([1-6])\b[^>]*>(.*?)</h\1>', line)
+            if heading or html_heading:
+                anchor = next(heading_ids)
+                if anchor == "cover":
+                    continue
+                level = len(heading[1]) if heading else int(html_heading[1])
+                label = heading[2] if heading else re.sub(r"<[^>]+>", "", html_heading[2])
+                lines.append(f'<a id="{prefix}-{anchor}"></a>')
+                lines.append("#" * min(level + 1, 6) + " " + label)
+                continue
+            if ".publication-cover" in line:
+                continue
+            # Preserve legacy anchors, with a per-chapter namespace.
+            line = re.sub(r'\bid="([^"]+)"', lambda m: f'id="{prefix}-{m[1]}"', line)
+            lines.append(line)
+        if next(heading_ids, None) is not None:
+            raise ValueError(f"Markdown export missed a heading in {source}")
+        markdown = "\n".join(lines)
+
+        def destination(value):
+            parsed = urlsplit(unescape(value))
+            if parsed.scheme or parsed.netloc or value.startswith("/"):
+                return value
+            target = (DOCS / source).parent / unquote(parsed.path) if parsed.path else DOCS / source
+            target = target.resolve()
+            if target.is_relative_to(DOCS):
+                relative = target.relative_to(DOCS)
+                if relative in sources:
+                    return "#" + prefixes[relative] + ("-" + parsed.fragment if parsed.fragment else "")
+                return urljoin(config["site_url"], relative.as_posix()) + ("#" + parsed.fragment if parsed.fragment else "")
+            if target.is_relative_to(ROOT):
+                return REPO + target.relative_to(ROOT).as_posix() + ("#" + parsed.fragment if parsed.fragment else "")
+            raise ValueError(f"Export link leaves the repository: {source}: {value}")
+
+        # Rewrite links outside code fences; code examples remain byte-for-byte intact.
+        chunks = re.split(r'(^\s*```[^\n]*\n.*?^\s*```\s*$|^\s*~~~[^\n]*\n.*?^\s*~~~\s*$)', markdown,
+                          flags=re.M | re.S)
+        for i in range(0, len(chunks), 2):
+            chunks[i] = re.sub(r'\]\(([^)\s]+)\)', lambda m: "](" + destination(m[1]) + ")", chunks[i])
+            chunks[i] = re.sub(r'(href|src)="([^"]+)"',
+                               lambda m: m[1] + '="' + destination(m[2]) + '"', chunks[i])
+        sections.append(f'<a id="{prefix}"></a>\n\n' + "".join(chunks))
+    # The export contains all chapters, appendices and checks, rather than a second summary.
+    header = ("# Build better agents — coding-agent edition\n\n"
+              "Generated from the guide's maintained Markdown sources. Edit those sources; "
+              "this file is regenerated on every build and publication.\n\n"
+              f"Source content revision: `{fingerprint.hexdigest()[:16]}`.\n\n"
+              "Use the guide to assess an existing application or propose a new architecture. "
+              "Adapt its principles, examples and acceptance checks to the application's goals "
+              "and agreed scope. The Apply chapter includes an architectural assessment prompt.\n\n"
+              "This edition includes the guide text, implementation examples, evaluation guidance, "
+              "appendices and acceptance checks. Illustrations and repository code are linked.\n\n"
+              "## Contents\n\n")
+    (Path(config["site_dir"]) / "agent-guide.md").write_text(header + "\n".join(toc) + "\n\n" + "\n\n---\n\n".join(sections) + "\n")

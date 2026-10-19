@@ -65,6 +65,29 @@ to the embedded agent. Tool listing and permission to execute remain separate de
 Across applications, also establish identity, consent, data movement and recovery when only
 some steps succeed. This todo sample does not implement an MCP server or cross-app workflow.
 
+## Use this guide with a coding agent
+
+Give the agent the complete guide and access to the application it will assess. Begin by
+asking it to connect the principles to the existing architecture and your priorities.
+For example:
+
+> Read this guide and inspect our application. Trace a representative request through the
+> UI, application operations, validation, permissions, storage, and feedback. Explain which
+> parts of the approach we already support, which principles would help with our goals,
+> and what tradeoffs or open questions need our decision. Use code references and distinguish
+> implemented behavior from behavior verified by tests. Propose an incremental architecture
+> and implementation plan, with acceptance checks adapted to our application. Start with
+> assessment and a proposal; we will agree on the implementation scope together.
+
+For a new application, ask for a proposed ownership split and a first end-to-end operation
+instead of a trace through existing code. In either case, record the choices you adopt,
+adapt, or set aside and why. The Todo code demonstrates implementations the agent can
+inspect; the examples provide starting points for your application's design.
+
+Use the [acceptance checks](../principles/implementation.md) to verify the agreed behavior.
+Revisit additional prompts, context handling, and model checks as models improve, and simplify
+when evaluation shows the intended behavior is preserved.
+
 ## Write a brief for the first change
 
 !!! practice "Practice — write a first implementation brief"

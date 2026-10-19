@@ -21,6 +21,14 @@ Tests above are in [tests/test_reference.py](../../tests/test_reference.py) unle
 
 ## How to read the assessment
 
+This table preserves the earlier review against its stated check definitions. The guide's
+October 19 reconciliation makes optional inspection and saved-calculation designs explicit
+and revises several checks. The historical results below have not been rerun or relabeled.
+In particular, gaps against the proposed inspection export format are gaps against that
+example contract, rather than a requirement for every application to adopt it. Agree on the
+applicable checks before using this table as a template for another application.
+
+
 **Pass** means the stated portion of the check was exercised with the evidence given. **Fail** means a required part is absent or contradicted by the code, even if other parts work. **Not run** means implementation or historical evidence exists but the acceptance scenario was not established in this review. **Not applicable** names a feature the sample does not offer. UI tests use Streamlit AppTest and the real component adapter; they do not establish every browser interaction.
 
 The [walkthrough](walkthrough.md) follows real application paths and explains their limitations. These links identify the main evidence:

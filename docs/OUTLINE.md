@@ -1,7 +1,8 @@
 # Guide structure
 
 The README introduces the purpose and minimum setup. The guide combines the principles,
-working implementation and evaluation method into one sequence. The original standalone
+working implementation and evaluation method into one sequence. This guide is the source of
+truth for the approach, including its appendices and adaptable acceptance checks. The original standalone
 principles and evaluation bodies are no longer maintained; their old URLs point readers here.
 
 | Part | Chapters and reader's questions |
@@ -10,7 +11,7 @@ principles and evaluation bodies are no longer maintained; their old URLs point 
 | Implementation | Run the sample, follow a request through shared execution, and choose models for the different roles. |
 | Evaluation | Explore with people and personas; define outcomes and calibrate judges; run evaluations and interpret complete evidence and variation; add optional tracing. |
 | Application | Choose one useful job in an existing product, preserve its behavior, share its operation, and measure the benefit. |
-| Review references | Stable implementation checks, the sample's coverage and limitations, and sources supporting the guidance. |
+| Review references | Adaptable implementation checks, the sample's coverage and limitations, and sources supporting the guidance. |
 
 Use diagrams beside the concept they explain. Keep headings and captions in Markdown,
 retain the diagram's relationships, and size labels for the reading column. No slide titles
@@ -33,3 +34,11 @@ a recorded interaction. Prompts are optional and should build on the reader's ow
 Avoid a box in every section, decorative diagrams, and quizzes that test vocabulary alone.
 The reader should leave with a scoped implementation brief. This adapts Bowman's
 [4Cs map](https://bowperson.com/images/resources/quick-guide-to-four-c-map.pdf) to a guide.
+
+## Architectural handoff
+
+Explain principles, reasons, tradeoffs, and examples. Teams choose what to adopt and adapt
+to greenfield or existing applications. Use Todo code for reproducible implementation
+examples; Advisor illustrates broader experiences and context. Detailed record formats
+are optional examples in appendices, with acceptance checks scoped to the chosen design.
+The Apply chapter gives a coding agent an assessment entry point before implementation.

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-label="A correction preserves the requested measure and changes the interval"><desc>The original request asks for holding returns over 20 days. The recorded call mistakenly compares balances. The follow-up changes the interval to 30 days. Comparing the original words and recorded inputs supports a corrected request for returns over 30 days. Tool names are illustrative.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#1A1E33;font-size:20px}.head{fill:white;font-weight:700}.label{font-weight:700}.small{font-size:18px}.code{font-family:monospace;font-size:18px}</style>
+<rect width="800" height="360" fill="white"/>
+<rect x="16" y="12" width="368" height="134" rx="7" fill="#F5F1EE"/>
+<path d="M23 12 H377 Q384 12 384 19 V52 H16 V19 Q16 12 23 12 Z" fill="#2E4294"/>
+<text x="30" y="39" class="head">1. Original request</text>
+<text x="30" y="80" class="">&quot;What&#x27;s each holding&#x27;s return</text>
+<text x="30" y="106" class="">over 20 days?&quot;</text>
+<rect x="416" y="12" width="368" height="134" rx="7" fill="#F5F1EE"/>
+<path d="M423 12 H777 Q784 12 784 19 V52 H416 V19 Q416 12 423 12 Z" fill="#2E4294"/>
+<text x="430" y="39" class="head">2. Recorded tool call</text>
+<text x="430" y="78" class="code">compare_balances(period=20d)</text>
+<text x="430" y="113" class="small">The agent selected balance comparison.</text>
+<path d="M387 81 h28 m-8 -7 l8 7 -8 7" fill="none" stroke="#6B93A8" stroke-width="3"/>
+<rect x="16" y="170" width="368" height="134" rx="7" fill="#F5F1EE"/>
+<path d="M23 170 H377 Q384 170 384 177 V210 H16 V177 Q16 170 23 170 Z" fill="#2E4294"/>
+<text x="30" y="197" class="head">3. Follow-up</text>
+<text x="30" y="238" class="">&quot;Sorry, 30 days.&quot;</text>
+<rect x="416" y="170" width="368" height="134" rx="7" fill="#F5F1EE"/>
+<path d="M423 170 H777 Q784 170 784 177 V210 H416 V177 Q416 170 423 170 Z" fill="#2E4294"/>
+<text x="430" y="197" class="head">4. Corrected tool call</text>
+<text x="430" y="236" class="code">get_returns(period=30d)</text>
+<text x="430" y="271" class="small">Keep returns; update the interval.</text>
+<path d="M387 239 h28 m-8 -7 l8 7 -8 7" fill="none" stroke="#6B93A8" stroke-width="3"/>
+<path d="M600 148 V158 H200 V168 m-6 -6 l6 6 6 -6" fill="none" stroke="#6B93A8" stroke-width="2"/>
+<text x="16" y="339" class="small">Read the original words alongside the recorded call. Tool names are illustrative.</text>
+</svg>

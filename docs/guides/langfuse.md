@@ -8,6 +8,8 @@ Langfuse account or server. The sample still installs the Langfuse Python SDK.
 A **trace** records the model requests, tool calls and results that led to an outcome. Use
 one when a report tells you what failed but you need to inspect how the agent reached it.
 Start with the local HTML report; add this integration when shared trace inspection would help.
+The [inspection appendix](../reference/inspection.md) describes an example mapping between
+application capabilities, offered tools, and execution records. Adapt it to your tracing system.
 
 You can run Langfuse on your own computer using its
 [Docker Compose setup](https://langfuse.com/self-hosting/deployment/docker-compose),

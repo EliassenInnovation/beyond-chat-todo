@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="390" viewBox="0 0 800 390" role="img" aria-label="Conversation history grows while current screen context is refreshed"><desc>Two illustrative Todo requests show the conversation history growing from a request to show active tasks to include its tool call, result, reply, and a follow-up. Each request has one current screen state. Turn one shows all seven tasks; turn two shows the two active tasks, Renew passport and Return library books. Other model inputs are omitted.</desc>
+<style>text{font-family:Arial,sans-serif;fill:#1A1E33;font-size:20px}.head{fill:white;font-weight:700}.label{font-weight:700}.small{font-size:18px}.code{font-family:monospace;font-size:18px}</style>
+<rect width="800" height="390" fill="white"/>
+<rect x="16" y="12" width="360" height="334" rx="7" fill="#F5F1EE"/>
+<path d="M23 12 H369 Q376 12 376 19 V52 H16 V19 Q16 12 23 12 Z" fill="#2E4294"/>
+<text x="30" y="39" class="head">Turn 1 · Show active tasks</text>
+<text x="30" y="80" class="label">Conversation history</text>
+<rect x="424" y="12" width="360" height="334" rx="7" fill="#F5F1EE"/>
+<path d="M431 12 H777 Q784 12 784 19 V52 H424 V19 Q424 12 431 12 Z" fill="#2E4294"/>
+<text x="438" y="39" class="head">Turn 2 · Complete the second task</text>
+<text x="438" y="80" class="label">Conversation history</text>
+<text x="30" y="112" class="small">Person: &quot;Show active tasks.&quot;</text>
+<text x="438" y="112" class="small">Earlier request, tool call and result</text>
+<text x="438" y="137" class="small">Agent: lists passport, then books</text>
+<text x="438" y="162" class="small">Person: &quot;Mark the second one done.&quot;</text>
+<path d="M386 135 h28 m-8 -7 l8 7 -8 7" fill="none" stroke="#6B93A8" stroke-width="3"/>
+<rect x="30" y="194" width="332" height="136" rx="5" fill="#8EBFB3"/>
+<text x="42" y="222" class="label">Current screen state</text>
+<rect x="438" y="194" width="332" height="136" rx="5" fill="#8EBFB3"/>
+<text x="450" y="222" class="label">Current screen state</text>
+<text x="42" y="252" class="small">Filter: All · 7 tasks visible</text>
+<text x="42" y="278" class="small">Task IDs: current visible list</text>
+<text x="450" y="252" class="small">Filter: Active · 2 tasks visible</text>
+<text x="450" y="276" class="small">Renew passport · Return library books</text>
+<text x="450" y="300" class="small">Task IDs: current visible list</text>
+<text x="16" y="376" class="small">History grows; each request carries one refreshed screen state.</text>
+</svg>

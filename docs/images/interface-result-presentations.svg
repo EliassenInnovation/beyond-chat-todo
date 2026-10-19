@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="320" viewBox="0 0 800 320" role="img" aria-label="One application result supplies a view and complete text for supporting hosts, or complete text alone for other hosts."><desc>One application result supplies a view and complete text for supporting hosts, or complete text alone for other hosts.</desc><style>text{font-family:Arial,sans-serif;fill:#1A1E33;font-size:20px}.head{fill:white;font-weight:700}.label{font-weight:700}.small{font-size:18px}</style><rect width="800" height="320" fill="white"/><rect x="180" y="12" width="440" height="68" rx="6" fill="#2E4294"/>
+<text x="200" y="39" class="head">Application code computes one result</text>
+<text x="200" y="64" style="fill:white;font-size:18px">Figures, units, dates, and missing-data indicators</text>
+<path d="M400 80V100H200V120 M400 100H600V120" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<path d="M194 112L200 120L206 112 M594 112L600 120L606 112" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<rect x="16" y="124" width="368" height="180" rx="6" fill="#F5F1EE"/>
+<rect x="416" y="124" width="368" height="180" rx="6" fill="#F5F1EE"/>
+<text x="32" y="153" class="label">Host supports views</text>
+<text x="432" y="153" class="label">Host uses text only</text>
+<text x="32" y="188">Person: interactive card</text>
+<text x="32" y="218">Model: complete text answer</text>
+<text x="32" y="252" class="small">Tell the model a view is supplied,</text>
+<text x="32" y="277" class="small">so it can add useful interpretation.</text>
+<text x="432" y="188">Model: complete text answer</text>
+<text x="432" y="218">Same figures and context</text>
+<text x="432" y="252" class="small">The answer stands on its own.</text></svg>

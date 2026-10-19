@@ -16,11 +16,12 @@ list, or form can let them refer to both without switching views. A bottom panel
 horizontal space but reduces the height available for the task. A floating window takes
 less permanent space, but can cover the content or controls people need.
 
-The todo sample uses a side panel. Advisor uses a bottom panel. Neither placement is a
+![Three conversation placements: a side panel reduces working width, a bottom panel reduces working height, and a floating window covers part of the content.](../images/agent-panel-placements.svg)
+
+The Todo sample uses a side panel. Advisor uses a bottom panel. Neither placement is a
 requirement of the architecture. SAP's Joule guidance describes large, medium, and minimized
 panels, and advises against a full-screen panel when people need to interact with content
-outside the conversation. Its guidance supports choosing the panel size around the work;
-it does not establish one universal placement. [SAP: Joule panel](https://www.sap.com/design-system/fiori-design-android/v25-4/joule/components/joule-panel)
+outside the conversation. Choose the panel size around the work. [SAP: Joule panel](https://www.sap.com/design-system/fiori-design-android/v25-4/joule/components/joule-panel)
 
 Try the layout on a normal laptop, with realistic content. Check whether opening the agent
 hides a field, compresses a table, or forces people to scroll repeatedly between a request
@@ -34,7 +35,7 @@ coach normally starts as a header and an input line, and the application decides
 the result of a request needs more space. A fixed panel or a panel opened only by the
 person may suit another application better.
 
-**“Can you take me to where I can edit the thesis for MU?”** The application opens MU's
+“Can you take me to where I can edit the thesis for MU?” The application opens MU's
 settings and focuses the thesis field. The conversation stays minimized, leaving room for
 editing. The useful result is already on the screen.
 
@@ -42,7 +43,7 @@ editing. The useful result is already on the screen.
 
 *The editor is the result. The person can start typing without reading a chat response.*
 
-**“What has the news been about MU?”** This request needs a written answer. The conversation
+“What has the news been about MU?” This request needs a written answer. The conversation
 opens to show the summary and its source links, while the holding remains visible.
 
 [![Advisor with the coach expanded to answer a question about MU news.](../images/advisor-coach-expanded.png)](../images/advisor-coach-expanded.png)
@@ -53,40 +54,41 @@ data; select either image to see it at full size.*
 ### How Advisor makes the choice
 
 After the agent answers, Advisor checks whether the person can already see the result.
-The panel stays closed only when all of these conditions hold:
+The panel stays closed only when the agent changed something or moved to a screen, every
+step succeeded without an error or warning, the whole change is visible, the reply asks no
+question, and no undo or later edit has replaced the change:
 
-- The agent changed something or took the person somewhere in the application.
-- Every step succeeded, without an error or warning.
-- Every part of the change is fully visible now, rather than scrolled out of view or hidden
-  behind a dialog.
-- The reply asks no question of the person.
-- Nothing has undone or replaced the change.
+![Advisor checks for errors, a change or navigation, successful steps, a fully visible result, no question, and a change that is still current. A failed check opens the conversation; passing every check keeps it closed.](../images/advisor-panel-decision.svg)
 
-When these conditions hold, the application briefly shows a short confirmation written by
-code. Otherwise, it opens the conversation so the person can read the reply. An error
-always opens it. Sending a message alone does not open the panel; the application waits
-for the result.
+When these conditions hold, the application shows a confirmation in the status bar at the
+bottom of the window for six seconds. Application code writes that confirmation, following
+[the principle of displaying application-written text](tools.md#show-application-written-text).
+Otherwise, it opens the conversation so the person can read the reply. An error always
+opens it. Sending a message alone does not open the panel; the application waits for the result.
+If the person has opened the conversation, it stays open after a successful change.
 
 Each part of the screen declares which settings and values it currently shows. Application
 code compares the change with those visible values. The agent's claim that something was
 “saved” cannot keep the panel closed.
 
-Advisor also opens the coach on first launch for a new user, to make it discoverable.
-Returning to the portfolio—for example, selecting a category, sorting the list, or closing
-a holding's detail view—closes the conversation. These are choices to test with users:
-if the person can see what happened, leave room for their work; if they need to read
-something, show it.
+Advisor also opens the coach when a person has no saved settings and an AI provider is
+configured, to make it discoverable. Returning to the portfolio—for example, selecting a
+category, sorting the list, or closing a holding's detail view—closes the conversation.
+
+These choices came from the author's judgment while using Advisor and have not yet been
+tested with real users. The rule behind them is to keep the work visible when it shows the
+result, and to open the conversation when there is something to read.
 
 Keep expansion and minimization predictable. Give people a way to override the choice, and
-keep their conversation available. Do not hide a question awaiting an answer, an error, or
-an approval that requires attention. Microsoft's human–AI interaction guidelines recommend
+keep their conversation available. Keep questions awaiting an answer, errors, and approvals
+visible until the person deals with them. Microsoft's human–AI interaction guidelines recommend
 making assistance easy to invoke and dismiss and timing it to the user's context.
-[Microsoft: Guidelines for Human-AI Interaction](https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/)
+[Microsoft: human-AI interaction guidelines](https://www.microsoft.com/en-us/research/project/guidelines-for-human-ai-interaction/)
 
 ## Offer relevant starting points
 
 A blank input box can leave people unsure what to ask. Small clickable suggestions—often
-called **suggestion chips**—can show useful requests for the current screen, selection, or
+called suggestion chips—can show useful requests for the current screen, selection, or
 conversation. For example, a product page might offer “Check compatibility” or “Compare
 with another product.” Only offer requests the agent can actually handle in that context.
 
@@ -115,7 +117,8 @@ an edit should appear in the application. Chat can confirm what happened, explai
 or ask for missing information. It need not repeat everything already visible on the screen.
 
 Make it clear which item or selection the agent is working with, especially after the person
-navigates elsewhere. Preserve manual controls so people can continue the task directly.
+navigates elsewhere. Advisor's panel header names its scope, such as "Coach - Total Portfolio"
+or "Coach - MU", and each scope keeps its own conversation. Preserve manual controls so people can continue the task directly.
 Evaluate the whole interaction: the screen, focus, scrolling, suggestions, and conversation,
 as well as the words in the response.
 

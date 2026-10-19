@@ -47,11 +47,11 @@ extra_css:
   - stylesheets/tables.css?v=1
 nav:
   - Cover: index.md
-  - Introduction: https://bobfischer.github.io/beyond-chat-todo/guide/#introduction
+  # docs_hooks.py adds a relative Introduction anchor after Cover.
   - Design:
     - Why an embedded agent?: guide/why.md
     - Shared capabilities and the registry: guide/design.md
-    - Understand the request: guide/requests.md
+    - Understand and complete the request: guide/requests.md
     - Onboarding, when needed: guide/onboarding.md
     - Authority and recovery: guide/authority.md
     - Tools and current evidence: guide/tools.md
@@ -68,6 +68,10 @@ nav:
     - Example evaluation report: https://bobfischer.github.io/beyond-chat-todo/
     - Optional tracing: guides/langfuse.md
   - Apply it to your app: guide/apply.md
+  - Appendices:
+    - How to build and extend your registry: reference/capability-declarations.md
+    - Inspect capabilities and execution: reference/inspection.md
+    - Support references to earlier work: reference/conversation-references.md
   - Review references:
     - Implementation and acceptance checks: principles/implementation.md
     - Sample coverage and limitations: guides/sample-assessment.md

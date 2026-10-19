@@ -175,7 +175,8 @@ that can be evaluated, separate from the application's deterministic approval ru
 
 Guards check the agent's interpretation of the user's intent. They sit in `Agent.run_tool`, after argument validation and before
 `execute`. Each action names its guards; each guard declares its question, evidence, provider,
-and refusal. The merge and target/action checks use the same dispatch.
+decision rule, and refusal. The [Todo guard examples](../guide/authority.md#two-guard-questions-from-todo)
+show how `require_yes` distinguishes yes-to-proceed from no-to-proceed checks. The merge and target/action checks use the same dispatch.
 
 [guard_check.py](../../todo/guard_check.py) groups checks that need the same evidence and runs independent
 groups concurrently. The input check cannot see the model's proposed selection; the output

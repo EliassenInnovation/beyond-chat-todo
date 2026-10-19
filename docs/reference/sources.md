@@ -1,7 +1,9 @@
 # Sources and further reading
 
 
-Numbers in the text identify the relevant source. The notes explain the connection and its limits. Source review dates are noted where available; these references support the guidance rather than establish current provider compatibility.
+Chapters link directly to sources beside the passages they support, using the author or
+organization and a short title. This bibliography keeps the full details and notes about
+each source's relevance and limits. The numbered entries remain stable for earlier references. Source review dates are noted where available; these references support the guidance rather than establish current provider compatibility.
 
 1. **Alistair Cockburn (2005).** [Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture). Driving the same application through user interfaces, programs, and tests. The central capability catalog here is an application of that separation, not a requirement of the original pattern.
 
@@ -102,9 +104,10 @@ Numbers in the text identify the relevant source. The notes explain the connecti
 
 ## The agent's place in the interface
 
-The [interface chapter](../guide/agent-experience.md) cites these sources beside the guidance they support. Consulted October 18, 2026.
+The [interface chapter](../guide/agent-experience.md) draws on Amershi and colleagues'
+guidelines (entry 5 above) and the sources below. It cites them beside the guidance they
+support. These additional sources were consulted October 18, 2026.
 
-- **Microsoft.** [Guidelines for Human-AI Interaction](https://www.microsoft.com/en-us/haxtoolkit/ai-guidelines/). Context, timing, invocation, dismissal, and user control.
 - **SAP.** [Joule panel](https://www.sap.com/design-system/fiori-design-android/v25-4/joule/components/joule-panel). Panel sizes, resizing, minimization, and access to the underlying application.
 - **SAP.** [Working with conversations](https://help.sap.com/docs/joule/joule-work-621104a90a01407fbb2d1613db39a54d/working-with-conversations). Prompt-library selections populate an editable input.
 - **Nielsen Norman Group.** [10 Guidelines for Designing Your Site's AI Chatbots](https://www.nngroup.com/articles/ai-chatbots-design-guidelines/). Relevant suggestions and visible awareness of the user's context.

@@ -48,6 +48,10 @@ Diagrams are SVG adaptations of the October 13 talk's diagram bodies. Keep headi
 in Markdown. Internal labels belong in the diagram, but slide titles, chevrons, decorative
 footers and fixed slide canvases do not. Inspect at desktop and narrow widths after changes.
 
+Before the public release, make the sample repository public and verify that its HTTPS
+clone URL works without authentication. The reader-facing setup instructions assume public
+access.
+
 Before publishing: build strictly, check local links and anchors, visually inspect the main
 chapters and diagrams, and verify that the evaluation report remains available at its old URL.
 Documentation edits do not require paid model evaluations.
@@ -55,3 +59,6 @@ Documentation edits do not require paid model evaluations.
 Diagram layouts use an 800-unit-wide canvas and preserve paired columns, layers and cycles.
 Use larger labels and wrapped text rather than shrinking a slide or making every element
 a separate vertical card. Render at the reading-column width to check fit.
+
+Use regular-weight prose rather than bold emphasis for words or sentences. Keep headings
+and table headers distinct through their existing styles.
