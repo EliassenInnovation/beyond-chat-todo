@@ -14,7 +14,7 @@ application’s validation and permission checks.
 
 [![The UI and model tools sit above shared capabilities, grounded in users' jobs.](../images/shared-capabilities.svg)](../images/shared-capabilities.svg)
 
-*Different interfaces reach one owner of each operation. Sharing implementation does not grant identical authority.*
+*The UI, API, and agent call the same application code for each operation. The application checks who is calling and enforces the permissions for that caller.*
 
 For example, a person may place a trade directly through the application, while an agent
 proposing the same trade must obtain the person’s approval through a dialog enforced by
