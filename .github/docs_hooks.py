@@ -130,7 +130,7 @@ def on_post_build(config):
     blockquote { border:1px solid #2e4294; background:#edf1f8; padding:.65em .9em; }
     @media print {
       @page { size:letter; margin:.7in .7in .8in;
-        @bottom-center { content:counter(page); font:9pt Arial,sans-serif; color:white; text-align:left; vertical-align:bottom; padding:0 .7in 8pt; width:8.5in; margin-left:-.7in; margin-right:-.7in; background:url("images/marketing-footer.svg") center bottom / 8.5in 56pt no-repeat; }
+        @bottom-center { content:counter(page); font:9pt Arial,sans-serif; color:white; text-align:left; vertical-align:bottom; padding:0 0 8pt; text-indent:.7in; width:8.5in; margin-left:-.7in; margin-right:-.7in; background:url("images/marketing-footer.svg") center bottom / 8.5in 56pt no-repeat; }
 
       }
       .contents a::after { content:leader('.') target-counter(attr(href), page); }
