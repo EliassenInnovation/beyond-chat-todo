@@ -1,4 +1,4 @@
-# Build an Agent Into Your Application
+# Build an agent into your application
 
 You want people to get more done with your application: ask about what they are seeing,
 learn how to use a capability, and have the agent carry out work when asked. How do you
@@ -23,11 +23,11 @@ The progression below starts with familiar help and shows what that connection a
 
 [![Six levels of assistance, from finding help to doing the job with the person.](../images/assistance-levels.svg)](../images/assistance-levels.svg)
 
-Try the progression in the sample: ask “How do I hide completed tasks?” for directions,
-“Show me where to do that” to highlight **Active**, then “Do it for me” to change the filter.
+Try the progression in the sample: ask "How do I hide completed todos?" for directions,
+"Show me where to do that" to highlight Active, then "Do it for me" to change the filter.
 The intended results are different: explanation, demonstration, and execution.
 
-The departure from levels 1–2 is the connection to the working application. The assistant can
+Levels 3 to 6 need a connection to the running application. The assistant can
 use its current state, speak in the names of its controls, point to those controls and carry
 out authorized actions. The person can move from explanation to demonstration to execution
 within the same conversation.
@@ -36,9 +36,9 @@ The assistant receives the app's control names and locations, plus current list 
 Its screen actions use the same shared operations as the person's controls. This is why both
 knowing what the person sees and being able to control the UI matter.
 
-Level 6, “do something new for me,” can be explored by combining existing operations. On a
-separate test list with distinct due dates, try “Show my unfinished tasks due this week, and move the
-earliest one to the top.” There is no dedicated button for that combined request: the agent
+Level 6, "do something new for me," can be explored by combining existing operations. On a
+separate test list with distinct due dates, try "Show my unfinished tasks due this week, and move the
+earliest one to the top." There is no dedicated button for that combined request: the agent
 must interpret the criteria, select tasks, change the view and reorder the chosen task. If no
 tasks qualify or the choice is ambiguous, an appropriate response may be an explanation or a
 question. Check that hidden tasks remain stored and unrelated tasks keep their relative order.
@@ -57,15 +57,15 @@ python3 -m todo.walkthrough
 
 Python 3.11 or later is enough. The script uses the real capability registry and domain code with a disposable list, checks each outcome, and removes its data on exit. It does not simulate a language model or claim to test one.
 
-For the full app and tests:
+Follow [Run the sample](../guide/start.md) to install dependencies, configure a provider,
+and open the application. Then run the offline tests:
 
 ```bash
-./setup.sh
 .venv/bin/python -m pytest -q
-.venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
-The list works without a provider key. Chat requires the API key for the provider selected in this repository's `.env`; see [model setup](models.md). Chat sends the conversation and current list to the model provider and incurs API charges. Langfuse is optional and separate: ordinary app chats are not exported there. Use synthetic tasks for this walkthrough.
+The offline suite uses model stand-ins and ignores your local provider and model settings.
+Use the exploratory tester's scratch list for the interactive exercises below.
 
 ## Build the capability once; control who can use it
 
@@ -80,10 +80,10 @@ use the same data, with restrictions appropriate to the caller.
 
 For example, a person may be allowed to place a trade directly through a UI, while an agent
 can only propose that trade for approval enforced in code. The shared capability owns the
-operation; sharing it does not grant the agent the person's authority. We'll first follow
+operation; sharing it does not grant the agent the person's authority. First follow
 a simple addition, then examine that distinction in the sample's deletion mechanism.
 
-In the app, type a task in **What needs to be done?** and press Enter. With chat configured, ask the assistant to add another task. The language model's wording and choice of calls can vary; inspect the saved result rather than expecting an exact transcript.
+In the app, type a task in What needs to be done? and press Enter. With chat configured, ask the assistant to add another task. The language model's wording and choice of calls can vary; inspect the saved result rather than expecting an exact transcript.
 
 Both paths arrive at the same declaration:
 
@@ -106,7 +106,7 @@ implement a general UI state machine for navigation or multi-step workflows.
 
 The declaration on `add_todo` in [todos.py](../../todo/todos.py) supplies the description, parameters, effects, and policy. `execute` checks the caller and arguments before invoking it. A batch validates every item before changing any, then commits once. The tool's returned receipt comes from application code.
 
-Application code delivers each receipt directly, followed by any additional explanation from the model. The model is told not to repeat the receipts. Evaluations check that every receipt reached the delivered response and judge the model’s explanation separately, including any claims it repeats. The recorded conversation retains both the delivered response and the original model text.
+Application code delivers each receipt directly, followed by any additional explanation from the model. The model is told not to repeat the receipts. Evaluations check that every receipt reached the delivered response and judge the model's explanation separately, including any claims it repeats. The recorded conversation retains both the delivered response and the original model text.
 
 ## Follow a declaration through the registry
 
@@ -145,38 +145,39 @@ user authentication, or every semantic check: those have explicit owners in the 
 
 ## Request a deletion and inspect authority
 
-**Todo deletion stands in for an irreversible action.** The purpose is to demonstrate how
+[![The agent proposes deletion, the person approves through the screen, and code checks the proposal before deleting. Agent approval and changed proposals are refused.](../images/todo-approval-flow.svg)](../images/todo-approval-flow.svg)
+
+Todo deletion stands in for an irreversible action. The purpose is to demonstrate how
 application code requires a person's approval before an agent executes that action. In a real
 application, this might be transferring money, placing a trade, or deleting a repository—
 consequential actions the application cannot undo.
-We would include this demonstration even with a fully featured undo system; the approval gate teaches
-a separate capability. Ordinary todo deletion would rarely warrant it. This sample deliberately
-makes deletion irreversible to give the demonstration a concrete action to protect.
+Ordinary todo deletion would rarely warrant this approval gate; here it provides a small
+example whose authority rules can be inspected and tested.
 
-Separate two questions when adapting this pattern: **does the mechanism enforce authority?**
-And **do this action's consequences and recoverability justify approval?** The walkthrough tests
+Separate two questions when adapting this pattern: does the mechanism enforce authority?
+And do this action's consequences and recoverability justify approval? The walkthrough tests
 the first; the second is a product decision. Match safeguards to consequences rather than gating
 every write.
 
 Ask the assistant to delete a named task. It calls the `request_delete` tool, which resolves to the `todos.delete` action. For the agent, that action's policy is `approval`, so `execute` runs its proposal function. The task remains, and an Approve/Deny card appears.
 
-Typing “approved” in chat cannot approve it. Even a direct call to `todos.approve` with `actor='agent'` is refused. The offline walkthrough attempts that bypass and checks that the task remains. Only the UI adapter establishes `actor='person'`; actor identity is not a model-supplied argument.
+Typing "approved" in chat cannot approve it. Even a direct call to `todos.approve` with `actor='agent'` is refused. The offline walkthrough attempts that bypass and checks that the task remains. Only the UI adapter establishes `actor='person'`; actor identity is not a model-supplied argument.
 
-Click **Deny** and the task stays. A fresh request followed by **Approve** deletes it. Deletion is intentionally irreversible in this sample and clears older undo history; this is a design choice, not a requirement of the principles.
+Click Deny and the task stays. A fresh request followed by Approve deletes it.
 
-Approval applies to the requested task details. Rename the task, change its date, or mark it done after the request: approving the old request is refused. Deny it and request deletion again. Legacy saved requests without bound details also require renewal. These paths are covered by `test_approval_is_bound_to_requested_details_after_reload` and `test_legacy_approval_without_snapshot_requires_new_request` in [tests/test_reference.py](../../tests/test_reference.py).
+Approval applies to the requested task details. Rename the task, change its date, or mark it done after the request: approving the old request is refused. Deny it and request deletion again. This behavior is covered by `test_approval_is_bound_to_requested_details_after_reload` in [tests/test_reference.py](../../tests/test_reference.py).
 
 ## Check whether the proposed action fits the request
 
 Valid arguments and permission to act do not establish that the agent understood the person.
-“Move the appointment” might still refer to more than one task. A model-based guard asks a
+"Move the appointment" might still refer to more than one task. A model-based guard asks a
 narrow question about intent before the proposed action executes. It is another judgment
 that can be evaluated, separate from the application's deterministic approval rules.
 
-Guards check the agent's interpretation of the user's intent. They sit in `Agent.run_tool`, after argument validation and before
+Guards sit in `Agent.run_tool`, after argument validation and before
 `execute`. Each action names its guards; each guard declares its question, evidence, provider,
 decision rule, and refusal. The [Todo guard examples](../guide/authority.md#two-guard-questions-from-todo)
-show how `require_yes` distinguishes yes-to-proceed from no-to-proceed checks. The merge and target/action checks use the same dispatch.
+show how `require_yes` distinguishes yes-to-proceed from no-to-proceed checks.
 
 [guard_check.py](../../todo/guard_check.py) groups checks that need the same evidence and runs independent
 groups concurrently. The input check cannot see the model's proposed selection; the output
@@ -188,7 +189,7 @@ Completeness of the whole request belongs to the conversation eval, not to each 
 
 A guard can be wrong: it may accept an ambiguous reference or refuse a reasonable request.
 Test both kinds of error. These judgments supplement the deterministic protections; they
-do not establish that a request is safe or authorized. Both provider profiles use these guards
+do not establish that a request is safe or authorized. Both the OpenAI and Anthropic configurations use these guards
 as part of the application's design. See [model configuration](models.md) for their provider
 requirements.
 
@@ -206,9 +207,7 @@ receives the screen's control descriptions. These describe application state, no
 or which pixels are inside the browser viewport. Hidden tasks remain available as data; they
 are not mistaken for tasks the person can currently see.
 
-Ask to show only unfinished tasks, or use **Active** below the list. Both paths call `view.show`. It changes the shared [View](../../todo/view.py), not the stored tasks. The offline walkthrough shows only one task and verifies that the saved file remains byte-for-byte unchanged.
-
-For the language distinction, try “How do I hide completed tasks?”, then “Show me where”, then “Do it.” The intended outcomes are directions, a highlighted control, and a changed filter. The offline script proves the operations differ; paid evaluation is needed to measure how reliably the model chooses among them.
+Ask to show only unfinished tasks, or use Active below the list. Both paths call `view.show`. It changes the shared [View](../../todo/view.py), not the stored tasks. The offline walkthrough shows only one task and verifies that the saved file remains byte-for-byte unchanged.
 
 ## Fail a batch without leaving half of it saved
 
@@ -236,7 +235,7 @@ A request can save a task successfully and then lose the model service while ask
 
 The test substitutes a model that first requests an addition and then raises a provider error. The agent returns a code-written interruption message with the saved action receipt, retains that reply in conversation history, and records an undo entry. The person's Undo button then removes the addition.
 
-This is distinct from losing the response to the write itself. The sample has no durable operation IDs or replay receipts: repeating an addition after an uncertain response may add a duplicate. It therefore does **not** provide reliable retry protection. Do not retry writes automatically when adapting it to a network service; implement operation identity and recovery first.
+This is distinct from losing the response to the write itself. The sample has no durable operation IDs or replay receipts: repeating an addition after an uncertain response may add a duplicate. It therefore does not provide reliable retry protection. Do not retry writes automatically when adapting it to a network service; implement operation identity and recovery first.
 
 ## Find out whether the agent understood and helped
 
@@ -254,7 +253,10 @@ With a configured model, these commands make paid API calls:
 .venv/bin/python -m evaluations.evals --repeat 3
 ```
 
-The second command runs the visible suite. Held-out cases require an explicit case name and `--held-out`; do not inspect or run them while developing a fix. A configured Langfuse project receives synthetic evaluation traces; without it, local run reports remain available.
+The second command runs the visible suite. Held-out cases are kept back to check whether a
+fix works beyond the examples used during development. They require an explicit case name
+and `--held-out`. Keep their contents out of development feedback; the
+[held-out case rules](../principles/implementation.md#check-6-9) explain when to run them. A configured Langfuse project receives synthetic evaluation traces; without it, local run reports remain available.
 
 Open the generated `runs/evals.html`. Start with a case's question, expand an attempt, and compare the actual state and tool results with the reply. Follow the trace link when available for the full model request. Sample passing cases too.
 
@@ -270,13 +272,18 @@ These tests demonstrate that reporting rule without a model call:
 
 Use the [evaluation report guide](evaluation-results.md) to distinguish complete evidence,
 unusual variation, and acceptable performance. A five-run pilot helps inspect failures
-and cost; it does not establish statistical control.
+and cost. More runs are needed to understand whether variation between runs is normal.
 
 Human exploratory testers may repeatedly test the same kinds of requests. Personas automate another source of requests
 and reactions, helping you explore interactions you might not have tried. Sam is one such
 simulated tester. Keep the visible persona player for watching the experience. For unattended exploration,
-run `python -m evaluations.personas --persona sam --turns 3 --max-tokens 50000` using the project’s
-virtual environment. Review flagged findings and sample apparently successful conversations in the saved HTML
+run:
+
+```bash
+.venv/bin/python -m evaluations.personas --persona sam --turns 3 --max-tokens 50000
+```
+
+Review flagged findings and sample apparently successful conversations in the saved HTML
 beside each JSON record, then decide whether
 a candidate finding should become a regression case. Persona findings do not enter the
 fixed-suite control chart. The [README](../../README.md#watch-personas-or-run-them-unattended)
@@ -296,12 +303,12 @@ language inside them.
 | `done`, `satisfied` | Whether to end the conversation, and whether the persona considers its goal met or has given up. |
 | `frustrated`, `why` | A reaction and explanation to help a reviewer find interactions worth inspecting. |
 
-This avoids guessing from prose whether “that's enough” means satisfaction or giving up.
+This avoids guessing from prose whether "that's enough" means satisfaction or giving up.
 The visible player and headless runner use the same turn format and application operations.
 The player lets you watch or step through; the headless runner saves the interaction for
 later review. See [personas.py](../../evaluations/personas.py) for the response format and runner.
 
-“Satisfied” is the persona's opinion, not proof of a correct outcome. Inspect the saved state
+"Satisfied" is the persona's opinion, not proof of a correct outcome. Inspect the saved state
 and conversation, review flagged findings, and sample apparent successes. A persona can
 misunderstand the screen or overlook a mistake just as the assistant can.
 
@@ -321,6 +328,6 @@ for understanding the sample.
 Keep the shared capability ownership, caller-specific authority, validation before changes,
 and truthful results. Adapt the domain and storage to your application. Before using this
 sample as a production foundation, address its documented limitations, including concurrent
-storage, reliable retries, cancellation, audit records, directly rendered action results,
+storage, reliable retries, cancellation, audit records,
 and budget controls. The value of the sample is that these decisions are visible and small
 enough to inspect.
