@@ -135,6 +135,8 @@ def on_post_build(config):
       }
       .contents a::after { content:leader('.') target-counter(attr(href), page); }
       body { padding:0; max-width:none; }
+      img[src$=".svg"],img[src*=".svg?"] { width:80%; display:block; margin:.45em auto; }
+
       .print-controls { display:none; } .chapter { break-before:page; margin:0; }
       @page cover { size:letter; margin:0; @bottom-center { content:none; } @bottom-right { content:none; } }
       .cover-page { page:cover; width:8.5in; height:11in; margin:0; padding:0; break-after:page; overflow:hidden; }
