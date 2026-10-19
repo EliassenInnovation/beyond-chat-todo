@@ -51,8 +51,7 @@ Restart the app or command after changing settings:
 Try an addition and read it back. Chat and evaluation calls incur provider charges. The manual
 list and offline tests need no key. Langfuse stays off in the sample configuration.
 
-Process environment variables override `.env`, and setup preserves an existing `.env`. Keep
-keys out of source control. Leave provider base URLs unset for the standard endpoints.
+Process environment variables override `.env`. Keep keys out of source control. Leave provider base URLs unset for the standard endpoints.
 
 ## Change one model
 
@@ -92,7 +91,7 @@ message:
 .venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
-Try adding a task, reading it back, changing a date, undoing a change, asking an ambiguous
+Try adding a todo, reading it back, changing a date, undoing a change, asking an ambiguous
 question, and requesting deletion. Check both the resulting state and the explanation.
 Approval remains a person's action. Permission comes from the application's policy, whatever
 tools the model chooses to call.
@@ -166,13 +165,21 @@ Guards check whether the proposed action fits the person's request. Their judgme
 wrong. Application code separately enforces validation, permissions, current-state checks, and
 deletion approval, and maintains undo where supported.
 
-### The merge guard
-
-The existing merge guard asks a separate model whether the user identified which tasks to
-merge. All declared guards are enabled by default. The Streamlit app, persona runner and eval
+All declared guards are enabled by default. The Streamlit app, persona runner and eval
 runner use the same selection: `EVALBASICS_GUARDS` in the environment takes precedence over
 this repo's `.env`, then the code default. An explicitly empty shell environment value
 disables guards. `evals.py --guard NAME` adds a guard to the configured selection.
+
+The default selection includes these checks and `todos.merge_unnamed`:
+
+```text
+todos.target_identified,todos.extra_tasks,todos.omitted_tasks,todos.operation_matches,todos.wrong_values
+```
+
+### The merge guard
+
+The existing merge guard asks a separate model whether the user identified which todos to
+merge.
 
 With the OpenAI configuration, this guard uses `GUARD_MODEL` in `todo/agent.py` (`gpt-6-luna`)
 and the Decisions API, which returns a probability for a yes/no question. [The merge call in
@@ -192,13 +199,7 @@ proposed actions. They use `EVALBASICS_ACTION_GUARD_MODEL` and the action-guard 
 independently of the assistant model. Each provider configuration uses its own key; no second
 account is needed.
 
-These checks are enabled by default, alongside `todos.merge_unnamed`:
-
-```text
-todos.target_identified,todos.extra_tasks,todos.omitted_tasks,todos.operation_matches,todos.wrong_values
-```
-
-The input check receives dialogue through the latest user request, current tasks, and date. It
+The input check receives dialogue through the latest user request, current todos, and date. It
 receives neither the proposed action nor the model's narration of that proposal. The output
 checks also receive that action, tool meanings, and computed calendar facts. Both requests run
 concurrently before a write. Each returns boolean answers, not calibrated confidence scores.
@@ -211,8 +212,9 @@ receives an error and the person can still use the app's controls. Local tool re
 HTML eval report include the answers; Langfuse is optional.
 
 These checks cover the three measured operations; adding one to another operation requires
-evaluation. The merge question runs separately and receives the conversation text declared as
-its input.
+evaluation. The merge question runs separately. It receives the user and assistant messages
+available when the merge is proposed, including any text accompanying that proposal.
+The todo list, tool results, and system prompt are excluded from that input.
 
 Check both false refusals and incorrect approvals when changing these models. Ambiguous
 references and dates require particular attention. Computed weekdays help with calendar
@@ -227,8 +229,7 @@ probabilities, rather than a conversational reply.
 [Jev](https://docs.typesafe.ai/introduction.md) is one example.
 
 An LLM can also answer a narrow question using structured output. That makes it usable as a
-decision step; it does not make a yes/no answer a calibrated probability. The distinction here
-is the job and interface, not a claim that the underlying model technologies cannot overlap.
+decision step; it does not make a yes/no answer a calibrated probability.
 
 A boolean answer gives code a yes/no decision. A probability also allows code to apply a
 threshold measured against examples. Evaluate either form for false refusals and incorrect
@@ -276,7 +277,7 @@ establish compatibility.
 - Structured results: personas return their message plus approval choices, completion, and
   reactions as named fields; judges return a verdict and supporting quote. The
   [walkthrough explains the persona turn](walkthrough.md#how-a-persona-takes-a-turn). Both
-  require the schema contract; an endpoint that
+  require the declared field names and types; an endpoint that
   merely returns JSON text may not enforce it. Check refusals and truncated output as well as
   successful calls. An unavailable judgment must remain missing evidence, never a pass.
 - Generation options: `agent.options()` currently sends `reasoning_effort='none'` for names
@@ -309,7 +310,7 @@ with three judgments per example. Haiku agreed with the recorded correct/incorre
 in 607 of 618 attempts at its default effort; increasing its effort still produced errors in
 focused checks. Sonnet initially missed a claimed return that had not happened. Clarifying
 that a return implies a state change brought Sonnet to 618/618 across the full set. Opus also
-matched 618/618 in the initial comparison. No labels were changed during this model
+matched 618/618 in the initial comparison. No recorded judgments were changed during this model
 comparison.
 
 Regrading the same 51 saved application conversations cost an estimated $0.88 with Sonnet,
