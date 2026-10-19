@@ -5,28 +5,40 @@ website. `mkdocs.yml` defines the chapter order. Do not create a second copy of 
 The editorial structure and source mapping are in [OUTLINE.md](OUTLINE.md).
 The [deck audit](DECK-AUDIT.md) records how the talk material was incorporated or intentionally omitted.
 
-From the repository root:
+## Edit and review locally
+
+Run `./preview.sh` from the repository root, then open **http://127.0.0.1:8000/guide/**.
+The script creates an isolated documentation environment on first use. Leave it running;
+changes to chapters, images, styles, navigation and the public report rebuild the site and
+reload the browser. Stop it with Ctrl-C. An optional port can be supplied: `./preview.sh 8001`.
+
+The preview uses the same MkDocs configuration, theme, assets and page structure as the
+published site. The guide is under `/guide/`, the evaluation report is at `/`, and the
+recorded demo stays in the guide. Links within the publication stay local. Source-code
+and research links still go to their original destinations.
+
+The preview retains the last published PDF; it does not regenerate PDFs during editing.
+Web edits stay local until an explicit release. Do not deploy each editorial change.
+
+## Publish a complete release
+
+After reviewing locally, run:
 
 ```bash
-python3 -m venv /tmp/todo-docs
-/tmp/todo-docs/bin/pip install -r requirements-docs.txt
-/tmp/todo-docs/bin/mkdocs serve
+./publish.sh "Update guide examples"
 ```
 
-Open the address printed by MkDocs. To create the static guide:
+This commits documentation and release-tool changes, pushes `main`, and starts the GitHub
+Actions release. It waits for a strict site build, fresh PDF generation, link checks and
+publication. A failure returns a nonzero exit status; the previous public site remains in
+place until deployment succeeds. Git and authenticated GitHub CLI (`gh auth login`) are
+required. Existing staged changes must be committed or unstaged first. Application and
+test edits are not included in the documentation commit. Previously committed changes on
+`main` are pushed with the release.
 
-```bash
-/tmp/todo-docs/bin/mkdocs build --strict
-```
-
-Output is in `site/guide/`. Dependencies are separate from the application's requirements.
-The site uses relative HTML links, local assets and system fonts. Search needs an HTTP server;
-for an offline preview, serve `site/` with `python3 -m http.server --directory site`.
-
-The **Publish documentation and evaluation example** GitHub Actions workflow builds the guide
-at `/guide/` alongside the existing report at `/`. It publishes only documentation and the
-explicit public example files, never `.env`, `todos.json` or local `runs/`.
-Run the workflow manually after reviewing a documentation change.
+The release includes only the guide and explicitly public evaluation example, never `.env`,
+`todos.json` or local `runs/`. To change the public report itself, commit its source changes
+before publishing. The PDF and web guide are built from the same commit.
 
 Links to repository code are rewritten to GitHub during the build by `.github/docs_hooks.py`;
 relative source links stay useful when reading Markdown. Keep the old chapter paths and anchors

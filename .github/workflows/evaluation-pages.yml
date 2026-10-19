@@ -1,4 +1,5 @@
 name: Publish documentation and evaluation example
+run-name: Publish guide ${{ inputs.expected_sha || github.sha }}
 
 on:
   workflow_dispatch:
@@ -6,7 +7,11 @@ on:
       build_pdf:
         description: 'Generate a new PDF export (slower; otherwise retain the published PDF)'
         type: boolean
-        default: false
+        default: true
+      expected_sha:
+        description: Commit requested by publish.sh
+        type: string
+        required: false
 
 permissions:
   contents: read
@@ -25,6 +30,13 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Verify requested revision
+        env:
+          EXPECTED_SHA: ${{ inputs.expected_sha }}
+        run: |
+          if [ -n "$EXPECTED_SHA" ]; then
+            test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          fi
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -43,18 +55,7 @@ jobs:
       - name: Check guide links
         run: python .github/check_docs.py _site/guide
       - name: Prepare the public evaluation example
-        run: |
-          mkdir -p _site
-          cp examples/evaluation-review/index.html examples/evaluation-review/collection.json _site/
-          python3 - <<'PY'
-          from pathlib import Path
-          page = Path('_site/index.html')
-          text = page.read_text()
-          base = 'https://github.com/bobfischer/beyond-chat-todo/blob/main/'
-          text = text.replace('href="../../docs/guides/evaluation-results.md"', f'href="{base}docs/guides/evaluation-results.md"')
-          text = text.replace('href="README.md#what-this-example-measures"', f'href="{base}examples/evaluation-review/README.md#what-this-example-measures"')
-          page.write_text(text)
-          PY
+        run: python scripts/prepare_docs_site.py _site
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

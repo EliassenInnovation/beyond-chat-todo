@@ -12,3 +12,5 @@ runs/
 
 # Generated documentation
 site/
+
+.venv-docs/
