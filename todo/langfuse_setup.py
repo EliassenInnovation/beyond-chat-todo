@@ -32,9 +32,9 @@ SCORE_CONFIGS = {
 }
 
 
-def load_env(paths=ENV_FILES, environ=os.environ):
+def load_env(paths=None, environ=os.environ):
     """Copy KEY=value lines into environ. Real environment variables and earlier files win."""
-    for path in paths:
+    for path in ENV_FILES if paths is None else paths:
         if not path.exists():
             continue
         for line in path.read_text().splitlines():

@@ -1224,3 +1224,16 @@ def test_calibration_counts_the_labels_a_person_checked(tmp_path):
                                 {'set': 'claims', 'name': 'x', 'by': 'Bob', 'on': '2026-10-03', 'agreed': True}]))
     checked, changed, labelled = judge_calibration.checks('asks', path)
     assert (checked, changed) == (2, 1) and labelled == len(json.loads(judge_calibration.QUESTIONS['asks'][0].read_text()))
+
+
+def test_settings_follow_configured_files_and_can_disable_file_loading(tmp_path, monkeypatch):
+    from todo import langfuse_setup
+    path = tmp_path / '.env'
+    path.write_text('EVALBASICS_PROVIDER=anthropic\n')
+    monkeypatch.delenv('EVALBASICS_PROVIDER', raising=False)
+    monkeypatch.setattr(langfuse_setup, 'ENV_FILES', (path,))
+    assert langfuse_setup.setting('EVALBASICS_PROVIDER', 'openai') == 'anthropic'
+    monkeypatch.setattr(langfuse_setup, 'ENV_FILES', ())
+    assert langfuse_setup.setting('EVALBASICS_PROVIDER', 'openai') == 'openai'
+    monkeypatch.setenv('EVALBASICS_PROVIDER', 'anthropic')
+    assert langfuse_setup.setting('EVALBASICS_PROVIDER', 'openai') == 'anthropic'
