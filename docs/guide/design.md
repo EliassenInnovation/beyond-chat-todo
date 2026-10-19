@@ -6,8 +6,9 @@ an appointment, or submitting an order. An embedded agent needs a way to use tho
 capabilities, with the same implementation, validation, and data.
 
 If you already separate UI event handlers from service or domain code, this extends a familiar
-idea: a model tool is another caller of that code. A **tool** is an operation exposed to the
-model through a name, a description and defined inputs; calling it still goes through the application.
+idea: an AI agent is another caller of that code. It accesses capabilities through **tools**,
+each with a name, a description, and defined inputs. Tool calls still go through the
+application’s validation and permission checks.
 
 ## Build the capability once
 
