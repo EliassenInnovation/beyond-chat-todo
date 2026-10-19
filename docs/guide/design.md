@@ -20,10 +20,12 @@ For example, a person may place a trade directly through the application, while 
 proposing the same trade must obtain the person’s approval through a dialog enforced by
 application code. Both use the same trading operation; their permissions differ.
 
-Keep the screen's event handling and the model's tool adapter focused on translating requests into shared operations. Both reach the shared
-operation. Otherwise, a rule fixed in the UI can remain broken in the agent's separate copy.
-An existing service layer may already provide this boundary; you do not have to rebuild
-an application before adding one useful capability.
+The UI and the agent’s tools translate user requests into calls to shared operations.
+Because both use the same implementation, fixing an issue fixes it for both the UI and the agent.
+
+If your application already has a service layer, the agent’s tools can call it. Otherwise,
+start by moving the operations the agent needs out of UI event handlers and into code
+that both can use.
 
 Name tools for work people recognize. A tool per mouse click makes the agent reconstruct
 the interface. A tool that changes any field can hide too much meaning. The useful boundary
