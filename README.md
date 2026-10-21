@@ -127,10 +127,9 @@ not a complete production architecture. [See its coverage and limitations](docs/
 
 ## License
 
-The sample's original code and accompanying documentation are licensed under [MIT](LICENSE).
+The sample's original code and accompanying documentation are © Eliassen Group. All rights reserved. Confidential draft.
 The styling in [todo_view.css](todo/assets/todo_view.css) is adapted from
 [TodoMVC app CSS](https://github.com/tastejs/todomvc-app-css), copyright Sindre Sorhus,
 under [CC BY 4.0](licenses/todomvc-app-css.txt). We changed its layout and sizing and added
 styles for dates, approvals, undo, and other app controls. The TodoMVC attribution does not
 imply endorsement of this sample.
-The license does not grant trademark rights in the Eliassen Innovations name or branding.
