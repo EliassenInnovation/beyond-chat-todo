@@ -138,4 +138,4 @@ because they come from the product's requirements.
 
 [Sources and further reading](reference/sources.md) provide additional background.
 
-The guide and sample are provided by Eliassen Innovations under the repository's MIT license.
+© Eliassen Group. All rights reserved. Confidential draft.
