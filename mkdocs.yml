@@ -13,6 +13,7 @@ exclude_docs: |
   DECK-AUDIT.md
   OUTLINE.md
   BUILDING.md
+  MAINTENANCE.md
 hooks:
   - .github/docs_hooks.py
 theme:
