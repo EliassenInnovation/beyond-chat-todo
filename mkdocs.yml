@@ -42,9 +42,11 @@ markdown_extensions:
       permalink: true
 extra_javascript:
   - javascripts/demo-return.js?v=1
+  - javascripts/checklist-builder.js?v=3
 extra_css:
   - stylesheets/guide.css?v=20261018-nav-text
   - stylesheets/tables.css?v=1
+  - stylesheets/checklist-builder.css?v=2
 nav:
   - Cover: index.md
   # docs_hooks.py adds a relative Introduction anchor after Cover.
@@ -68,6 +70,7 @@ nav:
     - Example evaluation report: https://bobfischer.github.io/beyond-chat-todo/
     - Optional tracing: guides/langfuse.md
   - Apply it to your app: guide/apply.md
+  - Build your coding-agent handoff: guide/checklist-builder.md
   - Appendices:
     - How to build and extend your registry: reference/capability-declarations.md
     - Inspect capabilities and execution: reference/inspection.md

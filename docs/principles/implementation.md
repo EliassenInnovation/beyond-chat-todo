@@ -4,6 +4,9 @@ For coding agents and the engineers who direct them
 
 <a class="md-button" href="../agent-guide.md" download>Download for coding agents (.md)</a>
 
+Use the [checklist builder](../guide/checklist-builder.md) to select and adapt checks for
+your application, preview the handoff, and download it for a coding agent.
+
 The download includes the complete guide and acceptance checks, generated from the same
 source on every build.
 
@@ -114,26 +117,32 @@ contract; 1.13 requires person-confirmed discard through application-owned contr
 
 <a id="check-1-1"></a>
 
+<!-- builder: embedded,mcp -->
 - Check 1.1 — Shared behavior. Find and run the same operation through each supported interface. Inspect the saved result and the feedback, then exercise the supported recovery action. Verify that each interface uses the shared behavior and enforces the permissions assigned to its caller.
 
 <a id="check-1-2"></a>
 
+<!-- builder: embedded,mcp -->
 - Check 1.2 — Shared validation. Try invalid input and a failed save through each supported interface. Confirm stored data is unchanged and each error explains what the caller can correct or try next.
 
 <a id="check-1-3"></a>
 
+<!-- builder: embedded,mcp -->
 - Check 1.3 — Adapter boundaries. Trace a capability through the code that connects each interface to it. Verify that each route calls the shared implementation for validation and changes to application data.
 
 <a id="check-1-4"></a>
 
+<!-- builder: embedded,mcp -->
 - Check 1.4 — Purpose in the tool's description. Inspect the tool definitions actually delivered to each supported agent interface. Verify that they convey the user need, result, and limits, distinguish related operations, and preserve the shared capability's meaning.
 
 <a id="check-1-5"></a>
 
+<!-- builder: embedded,mcp -->
 - Check 1.5 — Interfaces fit their callers. Trace one user job through screen controls, agent actions, and command-line commands where supported. Include a read, an editor-opening request, and a supplied-content update: only the last may change stored content. Verify that each interface applies the same rules for which records the operation affects, how inputs are validated, and how changes can be recovered.
 
 <a id="check-1-6"></a>
 
+<!-- builder: embedded,mcp -->
 - Check 1.6 — Screen actions fit the caller. Inspect the tool listing served to each interface. By default, screen actions must be absent from callers that do not share the user's screen, and rejected if invoked by name, while remaining available to the embedded agent. Where an external chat app is offered screen actions, verify that they work through that interface and that the agent uses them only when the user explicitly asks. Test both cases.
 
 <a id="make-the-capability-registry-inspectable"></a>
@@ -144,34 +153,42 @@ matter to the application, then verify that design. The
 
 <a id="check-1-7"></a>
 
+<!-- builder: mcp -->
 - Check 1.7 — Inspectable catalog. Export the agreed catalog and validate its chosen fields, unique IDs, versions, schemas, and handler bindings. Verify that screen controls and agent tools resolve to the same registered owner. Change a description and confirm the catalog revision changes.
 
 <a id="check-1-8"></a>
 
+<!-- builder: mcp -->
 - Check 1.8 — Offered versus executed. Capture a real model request and verify its recorded list of offered tools matches the definitions actually delivered. Follow a resulting tool call to its resolved application action. Verify actions taken directly through screen controls are observable without fabricated model-call IDs.
 
 <a id="check-1-9"></a>
 
+<!-- builder: mcp -->
 - Check 1.9 — Records match what happened. Exercise success, validation rejection, policy denial, handler failure, cancellation, and partial or uncertain effects where supported. Compare observations with actual state. Interrupt execution and verify an incomplete trace is not labeled successful; fail the exporter and verify a committed write is not retried.
 
 <a id="check-1-10"></a>
 
+<!-- builder: mcp -->
 - Check 1.10 — Portable inspection. Read the adopted catalog, coverage description, and observations through an independent consumer without importing application handlers. Follow local and MCP calls where supported, recognize coverage gaps, and verify redaction occurs before export. Inspection access must not grant permission to invoke or replay actions.
 
 <a id="check-1-11"></a>
 
+<!-- builder: mcp -->
 - Check 1.11 — Protected observation. Verify that instrumentation alone exposes no public inspection endpoint and captures no unauthorized content. Test catalog and trace access across app, user, and workspace boundaries, collector credential scope, redaction before export, and configured retention and deletion. Confirm that malicious instructions in a recorded result, and an observer's request to grant itself access, cannot authorize debugging actions. Verify that every recorded conversation says so to the person in it, including a tester typing into a simulated user's conversation, and that production conversations reach the trace store only under a separate, explicit decision.
 
 <a id="check-1-12"></a>
 
+<!-- builder: -->
 - Check 1.12 — Tools for repeated jobs. From test results and use, list the jobs users ask for again and again that the agent does by combining general tools. Where one does not perform as well as you need, consider a tool made for that job, as general as the job allows (merge any two or more items, not one pair). If one is added, keep the general tools, and rerun the whole suite (Check 4.5).
 
 <a id="check-1-13"></a>
 
+<!-- builder: embedded -->
 - Check 1.13 — Screen actions run through the application's own state. Verify agent screen actions use application-owned navigation and controls, and that the visible screen and recorded state agree. Verify directions come from the actual controls. Navigate with a partial edit present: preserve the draft where supported; if leaving would discard it, require the person's confirmation before navigating. Test canceling and confirming, and verify the agent cannot supply that confirmation.
 
 <a id="check-1-14"></a>
 
+<!-- builder: mcp -->
 - Check 1.14 — Views supplement a complete text answer. MCP Apps lets a chat app display an interactive view supplied by an application's MCP server. The tool must also provide a complete text answer for chat apps that cannot display the view.
 
   Test the tool through two client connections: one that announces support for views and one that does not. Verify that:
@@ -188,42 +205,52 @@ matter to the application, then verify that design. The
 
 <a id="check-2-1"></a>
 
+<!-- builder: embedded -->
 - Check 2.1 — Subject and task. Discuss a problem, then ask "open it so I can fix that." Verify the target, the destination, and the absence of unrequested changes.
 
 <a id="check-2-2"></a>
 
+<!-- builder: embedded -->
 - Check 2.2 — Context corrections. Change selection and ask about "this one"; correct a prior request; try an ambiguous reference. Verify the agent acts when the context supports one reasonable reading, and asks when plausible readings would produce materially different results.
 
 <a id="check-2-3"></a>
 
+<!-- builder: embedded -->
 - Check 2.3 — Complete scope. Request every member of a named list. Verify all intended records are handled on the first request and unrelated records are preserved.
 
 <a id="check-2-4"></a>
 
+<!-- builder: embedded -->
 - Check 2.4 — Visible outcomes. Exercise a multi-step job and undo. Check saved state and every visible representation, then repeat with the result offscreen and unsaved edits present. Explain unfinished work without obscuring the result or stealing focus.
 
 <a id="check-2-5"></a>
 
+<!-- builder: -->
 - Check 2.5 — Jobs in ordinary language. Express a real job several ways without naming controls or tools, including an exploratory question, an information request, a clear change request, and an ambiguous acceptance of two offers. Grade useful outcomes, appropriate reads or actions, and necessary clarification; do not require one prescribed tool sequence for every phrasing.
 
 <a id="check-2-6"></a>
 
+<!-- builder: -->
 - Check 2.6 — Additive references. Request one action, then "the other event type too." Verify the agent keeps the earlier subject, adds the requested event type, handles every intended record, and preserves the earlier settings. Repeat after an unrelated turn and with several plausible subjects; clarify only when needed.
 
 <a id="check-2-7"></a>
 
+<!-- builder: -->
 - Check 2.7 — Repair after a wrong turn. Include an actual mistaken assistant response before a user correction. Verify the correction updates the original request rather than the mistaken substitute. Score resulting state or calculation, answer truthfulness, and task completion separately; record a lost reference or metric substitution as a failure reason. Do not grade exact wording.
 
 <a id="check-2-8"></a>
 
+<!-- builder: -->
 - Check 2.8 — Reference evidence and boundaries. Resolve a returned object, then exercise an expired or missing reference, a stale or deleted object, changed selection, a cross-workspace identifier, a failed write, and ambiguous antecedents. Verify scope and current permissions, refresh values when required, and never treat a proposed or rejected action as committed. Export only policy-permitted reference evidence.
 
 <a id="check-2-9"></a>
 
+<!-- builder: -->
 - Check 2.9 — Revise a named result without changing the original. Where the application supports saved, revisable calculations, revise a computed result by its explicit ID and changed inputs. Verify unchanged inputs and original dated source data are preserved, the original result is untouched, a new result ID is returned, and all constraints are revalidated. Test invalid changes and missing, expired, or inaccessible IDs; never fall back to the latest result. Confirm that describing, referencing, or revising a hypothetical plan does not execute it or save it as a user setting.
 
 <a id="check-2-10"></a>
 
+<!-- builder: -->
 - Check 2.10 — Familiar forms, documents, and spreadsheets. For a job whose data lives in a familiar form, document, spreadsheet, or calendar, have the agent make a change. Verify the change lands in the form, document, or spreadsheet itself, appears the way it already shows changes, and passes its own validation. For a review task, verify the item under review stays primary on screen, the decision is made only through the screen's controls, and the agent points to evidence rather than recommending a verdict unless asked.
 
 ### 3. Enforce permissions, approval and recovery in code
@@ -232,72 +259,89 @@ matter to the application, then verify that design. The
 
 <a id="check-3-1"></a>
 
+<!-- builder: embedded -->
 - Check 3.1 — Atomic outcomes. Fail a single operation's save and retry a completed request. Verify that a failed save leaves stored data unchanged, retrying a completed request preserves the original result without applying the change again, and each reply reports what actually happened.
 
 <a id="check-3-2"></a>
 
+<!-- builder: embedded -->
 - Check 3.2 — Recovery. Undo and redo a change. Verify the affected state and visible views; introduce an intervening edit and confirm recovery does not silently overwrite it.
 
 <a id="check-3-3"></a>
 
+<!-- builder: embedded,mcp -->
 - Check 3.3 — Enforced authority. Call a forbidden operation directly and through every supported interface. Verify execution rejects it independently of prompts and tool listings.
 
 <a id="check-3-4"></a>
 
+<!-- builder: embedded,mcp -->
 - Check 3.4 — Approval applies to this exact change. For actions requiring approval, try none, approval claimed in agent text, and changed proposal details, including consequential reversible actions and an interface without an approval channel. None may bypass the gate.
 
 <a id="check-3-5"></a>
 
+<!-- builder: -->
 - Check 3.5 — Combined impact. For an operation that needs approval at scale, verify that the agent has an operation that takes one item or many, whose approval rule sees the whole change, and report any path where repeated single-item calls reach the same result without approval.
 
 <a id="check-3-6"></a>
 
+<!-- builder: embedded,mcp -->
 - Check 3.6 — Data and resource boundaries. Place hostile instructions and prohibited data in inputs and stored records. Verify prohibited data is filtered before a model request and application permissions reject actions requested by hostile instructions. Exhaust call, time, cost, and retry limits; verify execution stops at the configured limit and reports what completed.
 
 <a id="check-3-7"></a>
 
+<!-- builder: -->
 - Check 3.7 — Guards. For each guard, record its question, evidence, answer format, decision rule, and refusal behavior. Test the declared answer that permits the action: some guards ask whether an action is appropriate (yes permits it), while others ask whether a problem is present (no permits it). Where a guard returns a probability, test values on both sides of its threshold and exactly at the boundary. Measure false refusals and missed problems against independently labeled cases, and compare behavior with and without the guard. Verify invalid or unavailable required answers stop the protected action. Use the [todo app declarations and tests](../guide/authority.md#two-guard-questions-from-todo) as examples.
 
 <a id="check-3-8"></a>
 
+<!-- builder: mcp -->
 - Check 3.8 — Audit record. Run turns that apply, refuse, and fail a change, and one where a review rewrites the reply. Verify one record per attempted change with its outcome and the checks that decided it, one record per reply with the text the user saw where the capture policy includes it and a mark that it was left out where it does not, and undo and redo recorded as new records that leave earlier records unchanged. Verify an evaluation compares each turn's records with what actually happened. Where the records go and how long they are kept is set in logging configuration, not in code.
 
 <a id="check-3-9"></a>
 
+<!-- builder: mcp -->
 - Check 3.9 — Undo scope. Have the embedded agent change a field, then use the general Undo command; verify it reverts that change and names it. Have an external client change a field; verify the general Undo leaves it alone, that it does not clear the user's Redo, and that it can still be reversed from the change history.
 
 <a id="check-3-10"></a>
 
+<!-- builder: -->
 - Check 3.10 — Uncertain outcomes. Let a change be saved and drop its reply before the caller receives it. Retry the request and verify that the change is applied once, that the retry returns the first outcome, that each attempt is recorded with its own identifier and both with the change's identifier, and that until the outcome is known the user is told the change is pending, not that it failed.
 
 <a id="check-3-11"></a>
 
+<!-- builder: -->
 - Check 3.11 — Stopping a request. Stop a request of several changes after the first is saved and before the second starts. Verify that the second does not run, that nothing is left half-saved, that the first stays saved and can be undone, and that the user is told which changes were saved and which were not.
 
 ### 4. Give the model clear tools and current evidence
 
 <a id="check-4-1"></a>
 
+<!-- builder: embedded -->
 - Check 4.1 — Relevant reads. Verify that data questions make relevant reads, navigation follow-ups avoid unrelated reads, and general explanations need no application data. Expose failed reads without inventing facts.
 
 <a id="check-4-2"></a>
 
+<!-- builder: embedded -->
 - Check 4.2 — Current evidence. Change a quantity between turns; verify the next factual answer reads it. Change a summary's source data and verify source dates and staleness are communicated.
 
 <a id="check-4-3"></a>
 
+<!-- builder: embedded -->
 - Check 4.3 — Delivered history. Rewrite an answer through review, fail an action, then continue the conversation. Verify history reflects the delivered answer, the actual outcome, and the current selection.
 
 <a id="check-4-4"></a>
 
+<!-- builder: embedded -->
 - Check 4.4 — Application-written text. List the answer text the application can produce itself: save confirmations, directions to a setting, calculated results, the old and new place of a moved item, pending approvals. Verify the application shows each one as its own text and the model supplies only the choice (the destination, the operation, whether to ask). Confirm no prompt or tool description asks the model to repeat such text.
 
 <a id="check-4-5"></a>
 
+<!-- builder: evaluation -->
 - Check 4.5 — Whole-suite rerun. After adding a capability, changing a tool description or result text, reordering tools, or adding a prompt sentence, run every case, not only the ones the change was meant to fix. Compare per-case results with the previous run and investigate any case that dropped, including cases unrelated to the change. Fix the tool description or result a drop exposes rather than the tool order. When the suite is too slow or costly to run in full after every change, run the cases closest to the change each time and the full suite before each release, and say in the report which was run.
 
 <a id="check-4-6"></a>
 
+<!-- builder: embedded -->
 - Check 4.6 — One current copy. Where data goes with every message, hold a conversation of ten or more turns that changes that data, and read what the model received on the last turn. Confirm it holds one copy of the data, the current one.
 
 ### 5. Explore with simulated users
@@ -306,80 +350,99 @@ matter to the application, then verify that design. The
 
 <a id="check-5-1"></a>
 
+<!-- builder: evaluation -->
 - Check 5.1 — Credible scenarios. Inspect persona starting data, goals, and private backstory. Check plausibility with human observations; do not treat simulations as evidence of customer demand.
 
 <a id="check-5-2"></a>
 
+<!-- builder: evaluation -->
 - Check 5.2 — Adaptive exploration. Run varied personas and adversarial inputs. Verify the simulated user responds to what actually happens, including refusals and errors. Set turn, time, and spending limits, verify that the harness enforces them, and inspect the saved transcript, tool calls, errors, and state changes.
 
 <a id="check-5-3"></a>
 
+<!-- builder: evaluation -->
 - Check 5.3 — Preserved failures. Reproduce a real-user or persona failure from saved starting state. Keep a fixed regression scenario alongside continued exploratory runs.
 
 <a id="check-5-4"></a>
 
+<!-- builder: evaluation -->
 - Check 5.4 — Actions available to simulated users. List the actions the persona harness lets the simulated user take. Each must be one the person could take on the screen (typing, clicking a visible control such as Approve or Deny). Try an action the person could not take, such as approving a request with no approval control shown, and confirm the harness neither performs it nor records it as done.
 
 ### 6. Evaluate the user's outcome
 
 <a id="check-6-1"></a>
 
+<!-- builder: evaluation -->
 - Check 6.1 — Outcome evidence. Check a conversation that sounds successful but misses part of the task. Verify evaluation catches the saved-state gap and records the extra questions, corrections, or manual steps the user needed to finish it.
 
 <a id="check-6-2"></a>
 
+<!-- builder: evaluation -->
 - Check 6.2 — Judge calibration. Compare model judgments with labels of the same evidence. State who made the labels: a person, or an agent whose labels a person sampled and decided. Investigate disagreements and report review failures as unavailable rather than as passes or failures. For each judge that is asked more than once, show from the labeled set that taking the majority of several answers improves agreement; a judge whose errors repeat is asked once.
 
 <a id="check-6-3"></a>
 
+<!-- builder: evaluation -->
 - Check 6.3 — Comparable runs. Compare versions using fixed starting data and criteria. Record model, prompt, tools, costs, latency, and individual failures; report exploratory runs separately.
 
 <a id="check-6-4"></a>
 
+<!-- builder: evaluation -->
 - Check 6.4 — Tool independence. Stop the observability platform and run a suite. The same report and exit code must result, and the report must say what was and was not recorded. Where cases are pushed to the platform, edit one case in the platform's interface and confirm the next run refuses with a conflict rather than measuring the edited case.
 
 <a id="check-6-5"></a>
 
+<!-- builder: evaluation -->
 - Check 6.5 — Served model. Read back a run and confirm every generation records the model that served it. Request an alias and confirm a dated snapshot, where the provider uses one, appears in the record; request a dated snapshot and confirm a different served model is flagged. Where the provider does not report which version served the call, confirm the record says so instead of repeating the requested name.
 
 <a id="check-6-6"></a>
 
+<!-- builder: evaluation -->
 - Check 6.6 — Checks protect outcomes. For each check in a suite, name what it protects: trust, a policy line, or completion of the job. Run a correct answer phrased differently from the expectation and confirm no check fails it on wording alone. Confirm a check that fails good answers is retired and replaced, not edited in place.
 
 <a id="check-6-7"></a>
 
+<!-- builder: evaluation -->
 - Check 6.7 — Grade only model-written text. For each check that reads answer text, mark whether that text is written by the model or by code. A check that grades the model's restatement of code's text is a design finding: move the text to the application (Check 4.4) and grade the choice or the state in code. Confirm judges read only model-written text, and that application-written text is marked so they can tell the difference.
 
 <a id="check-6-8"></a>
 
+<!-- builder: evaluation -->
 - Check 6.8 — Grader assignment. For each check in a suite, name its grader: code, a model judging one specific criterion (a narrow judge), a model assessing the overall conversation (a broad judge), or a person. Flag any judge deciding something code can compute (state, arithmetic, identifiers, the destination chosen) and any agent-written figure the application could have computed. Confirm persona agents and independent reviewers produce material and second opinions, not pass or fail.
 
 <a id="check-6-9"></a>
 
+<!-- builder: evaluation -->
 - Check 6.9 — Unseen cases for the same kind of task. For each case found in use or by a persona, find a held-out case for the same job with different items and words, written by someone other than the person making the fix, or by a separate session whose cases the fixing session cannot read. Confirm the tooling refuses to run it during fixing unless asked explicitly. Develop the fix against the visible cases, freeze it, and only then run the held-out cases. Confirm that no fix, description, or example copies a held-out case's items or phrasing; vocabulary of the job that any user would use is expected to be shared. A held-out case may already pass before the fix; record that as a result. Keep held-out case contents and detailed results outside the development process. Once that evidence is used to diagnose or improve the system, move the case into the visible set and replace it. Running the case alone does not expose it. The same applies when an automated optimizer, rather than a person, searches over prompts or tool descriptions.
 
 <a id="check-6-10"></a>
 
+<!-- builder: evaluation -->
 - Check 6.10 — Reliability across attempts. For jobs where consistency matters, report pass^k, the estimated probability that all k attempts at the same job succeed, beside the pass rate. State k, the number of attempts, and how the estimate was calculated. Confirm the report does not present a pass rate alone as how often a repeated job succeeds.
 
 <a id="check-6-11"></a>
 
+<!-- builder: evaluation -->
 - Check 6.11 — Injected failures. Run the suite with read failures, write failures, and timeouts injected. Confirm truthful reporting and complete recovery, and compare pass rates and pass^k with the clean run.
 
 <a id="check-6-12"></a>
 
+<!-- builder: evaluation -->
 - Check 6.12 — Wording borrowed from test cases. Review tool names, descriptions, fixed lists of choices, and messages for wording that matches a test case or a reported conversation. Try each with a request nobody has used before. Remove wording that serves only one case, and rerun the suite.
 
 <a id="check-6-13"></a>
 
+<!-- builder: evaluation -->
 - Check 6.13 — One place to see what happened. From a failed result, open the conversation as a developer and as a coding agent. Both must reach the same record: what the model was sent, the tools it called and what they returned, the state after each turn, and each check's verdict.
 
 <a id="check-6-14"></a>
 
+<!-- builder: evaluation -->
 - Check 6.14 — Release decision. Before a release run, confirm a written rule names who decides, the failures that block the release, the failure rate accepted for the rest, and what makes a run inconclusive, such as ungraded judgments or a required check that did not run. Confirm the report applies the rule as written and gives cost and time for each completed job as well as for each model call.
 
 <a id="check-6-15"></a>
 
+<!-- builder: evaluation -->
 - Check 6.15 — Experiment records. Pick an improvement a report claims and follow its link to the experiment record. Confirm the record gives the change, the model and application versions, the cases and the number of attempts, the grading criteria, the result, and what the experiment could not show.
 
 ### 7. Put the principles to work
@@ -388,10 +451,12 @@ These checks make the working rules reportable for the assigned integration task
 
 <a id="check-7-1"></a>
 
+<!-- builder: embedded -->
 - Check 7.1 — Scoped integration. Trace one assigned job before and after integration. Verify preserved behavior, shared execution, feedback, and recovery through existing and agent interfaces.
 
 <a id="check-7-2"></a>
 
+<!-- builder: embedded -->
 - Check 7.2 — Bounded delivery. Report in-scope gaps against check IDs. Keep unrelated improvements separate; do not add interfaces, redesign the application, or change policy without task authorization.
 
 ## Evaluation infrastructure

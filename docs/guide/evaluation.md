@@ -38,12 +38,6 @@ report may be accurate. Showing all active tasks has not addressed "overdue firs
 the actual view, which tasks were proposed for deletion, and the policy before grading the
 whole response. A correct statement about one part cannot make the other part complete.
 
-## Calibrate the judges
-
-A narrow judge can check one failure type, such as claiming a save that did not happen. A broader outcome judgment can find omissions the narrow checks do not cover. Choose the combination by measuring it; require each verdict to identify evidence.
-
-Compare verdicts with human-reviewed labels on both acceptable and unacceptable answers. State how labels were produced: a person labeling every case is different from a person reviewing a sample of model labels. Inspect both false failures and missed failures. Reserve separate examples for evaluating a changed judge so that calibration does not become memorization.
-
 ## What to evaluate
 
 **Block serious failures before the user sees them; measure the rest.** Some failures must never reach the user, such as an answer that breaks a policy or reports a change that did not happen; stop those in the application before the answer is shown. The checks that stop them can miss a failure or stop a good answer, so measure them like any other check. Others are matters of quality or style, such as an answer that is longer than it needs to be. Measure those in evaluation. Do not rewrite answers in production each time one falls short.
@@ -60,7 +54,15 @@ Compare verdicts with human-reviewed labels on both acceptable and unacceptable 
 
 **Reduce repeated mistakes by changing the judge or its input.** Judges that compare two answers tend to favor whichever is shown first; for those, ask twice with the order swapped. [Zheng et al.: LLM-as-a-judge](https://arxiv.org/abs/2306.05685) For other repeated mistakes, judges from different model families help, [Verga et al.: judges and juries](https://arxiv.org/abs/2404.18796) though different models often share mistakes, including when they act as judges, [Kim et al.: correlated errors](https://arxiv.org/abs/2506.07962) so checking judges against people is still needed.
 
-**Measure before choosing a judge model.** Compare candidates against human-reviewed examples, including good answers that should pass and bad answers that should fail. A larger or newer model is not automatically a better judge. Include cost, latency, unavailable responses and disagreement patterns in the comparison.
+<span id="calibrate-the-judges"></span>
+
+**Measure before choosing a judge model.** A narrow judge checks one failure type, such as
+claiming a save that did not happen; a broader outcome judge can find omissions beyond
+those checks. Compare candidates and combinations against human-reviewed examples of
+acceptable and unacceptable answers, requiring evidence for each verdict. State whether
+people labeled every example or reviewed a sample of model labels. Inspect false failures
+and missed failures, and reserve separate examples for evaluating a changed judge. Compare
+cost, latency, unavailable responses, and disagreement patterns alongside accuracy.
 
 **Missing judgment is missing evidence.** Record an unreadable or unavailable verdict as ungraded. An attempt cannot pass until all required checks are complete. A known failure remains a failure even if another check is missing. Show graded, failed and incomplete counts with each score; missing evidence must not improve the apparent pass rate. Mark a release decision inconclusive when required evidence is absent. A required runtime guard that cannot answer must not let the protected change proceed.
 
@@ -157,6 +159,6 @@ an individual edit.
 
 Create a separate case for the same job with different data and wording. Keep it out of the development session, and run it after the fix is frozen. Keep its contents and detailed results outside the development process. Once that evidence is used to diagnose or improve the system, move it into the visible set and replace it with a fresh held-out case. Running it alone does not expose it. Review tool descriptions for phrases copied from failing examples; the tool should describe a class of jobs.
 
-Read failed cases and sample passing ones. A useful report lets a reviewer move from a run's totals to the request, the state after each turn, the tool results and the grader's reason. Neither a large score table nor a trace without application state supplies that context.
+A useful report lets a reviewer move from a run's totals to the request, the state after each turn, the tool results and the grader's reason. Neither a large score table nor a trace without application state supplies that context.
 
 Next, [run the evaluations and read evidence and variation](../guides/evaluation-results.md). [Optional tracing](../guides/langfuse.md) supplements the local reports; it does not own the cases or grading rules.

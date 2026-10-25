@@ -1,6 +1,6 @@
 """The app: your todo list, with a chat with the agent (the assistant) beside it.
 
-    .venv/bin/python -m streamlit run todo/app.py
+    .venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 
 Both work on the same TodoList object: tick a box and the agent sees it the next time it
 reads the list; ask the agent and the list updates. Deleting differs on purpose: you delete

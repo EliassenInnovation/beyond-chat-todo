@@ -317,7 +317,7 @@ def main(argv=None):
     parser.add_argument('--persona', action='append', choices=sorted(PERSONAS), help='default: all')
     parser.add_argument('--turns', type=positive, default=MAX_TURNS)
     parser.add_argument('--max-tokens', type=positive, default=100000,
-                        help='shared allowance across personas, agent and judges; checked between calls, not a billing cap')
+                        help='shared allowance across personas, agent, guards and judges; checked between calls, not a billing cap')
     parser.add_argument('--output-dir', type=Path, default=RUNS / 'personas')
     parser.add_argument('--trace', action='store_true', help='export synthetic sessions to configured Langfuse')
     parser.add_argument('--replay', type=Path, help='render a saved JSON record as offline HTML; no API calls')

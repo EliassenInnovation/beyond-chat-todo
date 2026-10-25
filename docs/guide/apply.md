@@ -8,7 +8,7 @@ they need. Include examples of asking for instructions as well as asking for act
 
 Use support-call reasons, abandoned tasks and user research to identify common or costly jobs. Compare the agent with the help and controls people already have. Early evidence may be a useful new workflow; as adoption grows, measure completion, corrections, time saved, support effort and cost per completed job.
 
-Improve an existing application one job at a time. Trace the current behavior, including unwritten rules that need a domain expert, capture it in tests, and move it behind a shared boundary. Functional behavior should remain stable even when unit tests must change with the internal structure. A development agent can trace code and draft checks; people supply business rules that were never recorded.
+Improve an existing application one job at a time. Trace the current behavior, including unwritten rules that need a domain expert, capture it in tests, and move it behind a shared boundary. Functional behavior should remain stable even when unit tests must change with the internal structure. A coding agent can trace code and draft checks; people supply business rules that were never recorded.
 
 ## Make one operation shared
 
@@ -100,7 +100,12 @@ when evaluation shows the intended behavior is preserved.
     - The first person who will try it and the evidence you will review before expanding it.
 
     Keep the scope to one useful job. Mark unanswered questions rather than filling them
-    with assumptions. Use the acceptance checks below to review that scope.
+    with assumptions. Use the [acceptance checks](../principles/implementation.md) to review that scope.
+
+Use the [checklist builder](checklist-builder.md) to record those decisions and download
+persistent instructions plus detailed checks. Presets suggest a starting scope; review the
+remaining checks and note adaptations or reasons for setting them aside. The full guide
+remains available as a separate download.
 
 ## Check what the sample does not provide
 

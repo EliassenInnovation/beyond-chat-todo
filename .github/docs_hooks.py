@@ -68,7 +68,8 @@ def on_nav(nav, config, files):
             break
     nav.items.append(Link("Download for coding agents (.md)", "agent-guide.md"))
     _PRINT_PAGES.clear()
-    _PRINT_PAGES.extend(nav.pages)
+    _PRINT_PAGES.extend(page for page in nav.pages
+                        if page.file.src_uri != "guide/checklist-builder.md")
     _PRINT_NAV.clear()
     _PRINT_NAV.extend(nav.items)
 
@@ -182,6 +183,7 @@ def on_post_build(config):
     output = '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Build better agents — complete guide</title><style>' + css + '</style><link rel="stylesheet" href="stylesheets/tables.css?v=1"></head><body class="publication">' + body + '<script src="javascripts/demo-return.js?v=1"></script></body></html>'
     (Path(config["site_dir"]) / "print.html").write_text(output)
     export_agent_markdown(config)
+    export_checklist_data(config)
 
 
 
@@ -276,3 +278,16 @@ def export_agent_markdown(config):
               "appendices and acceptance checks. Illustrations and repository code are linked.\n\n"
               "## Contents\n\n")
     (Path(config["site_dir"]) / "agent-guide.md").write_text(header + "\n".join(toc) + "\n\n" + "\n\n---\n\n".join(sections) + "\n")
+
+
+def export_checklist_data(config):
+    """Build the static configurator from maintained Markdown, never a second check list."""
+    import importlib.util
+    import json
+    spec = importlib.util.spec_from_file_location("checklist_data", ROOT / ".github/checklist_data.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    pages = [(page.file.src_uri, page.title, page.url) for page in _PRINT_PAGES]
+    data = module.build_data(ROOT, config["site_url"], pages, config["repo_url"])
+    (Path(config["site_dir"]) / "checklist-data.json").write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n")

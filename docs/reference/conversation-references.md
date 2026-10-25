@@ -32,20 +32,33 @@ a further design choice for workflows that need it.
 
 ## Revise a saved calculation when reproducibility matters
 
-Suppose a person asks for the payment on a $30,000 loan over five years, then says "try six
-years." Carry forward the amount and interest rate, change the term, and calculate again.
-An application may retain those inputs with a result identifier. One illustrative request is:
+A person asks Advisor's coach for a Treasury ladder that pays out each month. Advisor
+returns schedule A. The person says "keep everything to 12 months or less." The coach
+sends this revision, with `A` standing for the earlier result's ID:
 
 ```json
 {
-  "based_on": "calculation-42",
-  "changes": {"term_years": 6}
+  "based_on": "A",
+  "changes": {"max_term": 12}
 }
 ```
 
-`based_on` identifies the earlier calculation; `changes` supplies the revised inputs.
-These field names are an example, not Todo tools. An existing scenario or calculation model
-may already provide the necessary state.
+Advisor carries forward the earlier inputs, applies the shorter maximum term, validates
+the complete set, and recalculates. If this changes the plan, it returns schedule B with
+its own ID and reports the effective difference. Schedule A remains available for comparison.
+A correction that already matches the plan returns the existing result marked unchanged.
+
+These are Advisor's field names; Todo has no saved calculations. Advisor accepts exactly
+one of three request shapes: `inputs` for a new plan, `based_on` plus `changes` for a
+revision, or `result_id` for retrieval. Code rejects mixed shapes and either revision field
+on its own. An existing scenario or calculation model in your application may already
+provide the necessary state.
+
+Advisor's results are immutable and addressed by ID within the caller's owner and workspace.
+Each revision names the result it changes; there is no "latest result" lookup. Results
+expire after 90 days, and each scope holds at most 500. A full store refuses new results
+while preserving live ones. The schedule is a calculation: revising it changes no portfolio
+setting and places no order.
 
 Resolve the selected result under current access rules, combine the revised inputs, validate
 the complete set, and calculate a new result. Preserve the earlier result for comparison.

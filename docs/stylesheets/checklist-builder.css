@@ -1,0 +1,30 @@
+#checklist-builder { margin: 1.5rem 0; }
+#checklist-builder details { border: 1px solid #b7c0cb; border-radius: 6px; padding: .6rem; margin: .7rem 0; }
+#checklist-builder summary { cursor: pointer; font-weight: 600; }
+#checklist-builder label { display: block; margin-top: .7rem; }
+#checklist-builder textarea { display: block; width: 100%; padding: .5rem; border: 1px solid #8393a6; border-radius: 4px; font: inherit; background: var(--md-default-bg-color); color: var(--md-default-fg-color); }
+#checklist-builder select, #checklist-builder button { font: inherit; padding: .4rem .6rem; border: 1px solid #8393a6; border-radius: 4px; background: var(--md-default-bg-color); color: var(--md-default-fg-color); }
+#checklist-builder button { cursor: pointer; }
+#checklist-builder button:disabled { opacity: .5; cursor: default; }
+#checklist-builder :focus-visible { outline: 3px solid #48669d; outline-offset: 2px; }
+.builder-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: .8rem 0; }
+.builder-check { border-top: 1px solid #b7c0cb; padding: 1rem 0; margin-top: .5rem; }
+.builder-explanation, #checklist-builder pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+#checklist-builder pre { max-height: 30rem; overflow: auto; padding: 1rem; }
+.builder-chapter input { margin-right: .3rem; }
+@media print { #checklist-builder { display: none; } }
+
+.builder-tree { display: grid; grid-template-columns: minmax(150px, 1fr) minmax(0, 3fr); gap: 1.2rem; align-items: start; }
+.builder-presets { position: sticky; top: 4rem; border-left: 4px solid #48669d; padding: 0 .7rem; }
+#checklist-builder .builder-presets h3 { margin-top: 0; }
+#checklist-builder .builder-group-choice { display: flex; gap: .45rem; align-items: baseline; cursor: pointer; font-weight: 600; }
+.builder-group-choice span { flex: 1; }
+.builder-group-choice small { font-weight: normal; white-space: nowrap; }
+.builder-branch { background: #f2f5f8; color: #1a1e33; border: 1px solid #d0dae5; border-radius: 8px; padding: .5rem .8rem; margin-bottom: 1rem; }
+#checklist-builder .builder-check { margin: .4rem 0 0; padding: .4rem 0; }
+.builder-check-row { display: flex; gap: .5rem; align-items: baseline; }
+#checklist-builder .builder-check-row details { border: 0; margin: 0; padding: 0; flex: 1; min-width: 0; }
+#checklist-builder .builder-check-row summary { font-weight: 400; }
+.builder-decision { display: block; margin-left: 1.5rem; color: #42596d; }
+#checklist-builder input[type=checkbox] { width: 1rem; height: 1rem; flex-shrink: 0; accent-color: #48669d; cursor: pointer; }
+@media (max-width: 640px) { .builder-tree { grid-template-columns: 1fr; } .builder-presets { position: static; } }

@@ -40,6 +40,15 @@ Keep declarations beside the implementation they describe. Register them togethe
 of the application can find them. The registry need not become a single file containing all
 business logic, prompts, screens, and checks.
 
+Registries will need different data elements according to their applications. The shared
+principle is to keep capability-specific information with the capability it describes.
+When adding information or behavior that belongs to a particular tool or capability, ask
+how the registry can incorporate it. A guard, a fact to learn, guidance, or a presentation
+hint can live with the capability it describes, and the relevant code can consume that
+declaration. This keeps additions discoverable and avoids maintaining a parallel catalog
+of the same tools. Choose fields because code will use them. Separately reviewed access
+policy can remain separate, as in Advisor's policy lists described below.
+
 ## Choose the declarations you need
 
 The following categories distinguish the information from the code that uses it. An adapter is
@@ -190,8 +199,8 @@ differences and tests that shared guidance names only tools callable by every ag
 it.
 
 Server instructions are text the MCP server sends when a client connects. The client can provide
-them to its model alongside the tool descriptions (see the [MCP specification's initialization
-response](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/docs/specification/2025-06-18/schema.mdx#initializeresult)).
+them to its model alongside the tool descriptions (see [server instructions in the MCP
+schema](https://modelcontextprotocol.io/specification/2026-07-28/schema#discoverresult)).
 Hosts may keep those instructions from when they connected. In the tested Advisor connection,
 Claude's desktop app retains them until restarted. After changing guidance, reconnect or restart
 the host as needed and verify the instructions it received before testing the agent's behavior.
@@ -253,6 +262,11 @@ reference guards by name. Each guard declares its evidence and how to interpret 
 The [two worked examples](../guide/authority.md#two-guard-questions-from-todo) show a yes-to-proceed
 question and a no-to-proceed question, and link to the execution code and tests.
 
+[![Todo's merge declaration names a guard that checks which todos the person means before merging, when that guard is enabled.](../images/registry-guard.svg)](../images/registry-guard.svg)
+
+*The merge operation references its registered guard by name. Ellipses omit other fields;
+operations use the guards they declare and the execution configuration enables.*
+
 In the todo app, these guards use `provider='chat'` and return Boolean answers.
 `require_yes=True` permits execution on yes; `require_yes=False` permits it on no.
 The [`Guard.refuses` method](../../todo/capabilities.py) applies that declaration.
@@ -291,20 +305,32 @@ checkers receive the new version.
 The [evaluation chapters](../guide/evaluation.md) explain how to examine these checks and the
 agent's results.
 
-## Use profile declarations for onboarding
+<span id="use-profile-declarations-for-onboarding"></span>
+
+## Declare facts for learning and maintaining personal context
 
 Some applications become more useful as they learn relevant information about the person.
 Advisor, for example, records financial goals and other planning context. A profile declaration
 can identify the stored fact, how code determines whether it is known, which operation records
-it, and whether it is one of the few facts onboarding asks for first.
+it, and whether it is one of the few facts onboarding asks for first. These declarations
+can support both initial learning and keeping the person's model current during later use.
 
-```text
-profile fact: financial goals
-read from: saved planning context
-known when: a goal has been recorded
-record with: the goals update capability
-ask for during initial onboarding: yes
-```
+For ongoing maintenance, consider declaring how to retrieve a fact's last-confirmed date,
+which events make it worth reviewing, and which operation records a confirmation or correction.
+Code supplies the saved information and elapsed time; guidance helps the agent decide whether
+checking it would help with the current request. A confirmation can refresh the date while
+leaving the value unchanged. Choose these fields for the application's needs, and keep
+record-specific guidance with the capability that owns the record.
+
+The Advisor example below shows the narrower case of identifying a missing fact during
+onboarding. Its `ProfileFact` declaration checks whether goals are known; it does not declare
+confirmation dates or review events.
+
+[![Advisor's profile declaration identifies goals, how to check saved data, and the tool that records them; onboarding code supplies progress and guidance helps the agent decide when to ask.](../images/registry-profile.svg)](../images/registry-profile.svg)
+
+*Advisor declares this fact on its philosophy capability. Ellipses omit the label and other
+facts. Onboarding guidance is declared separately on the onboarding capability; the profile
+snippet shown here checks whether goals are known.*
 
 For Advisor's embedded agent, onboarding code calculates progress from saved data and the
 declarations on every request. It includes the relevant gaps in the state the application sends
@@ -357,8 +383,10 @@ Use focused checks for the connections your application implements:
 - Verify that response checkers receive the application facts supplied to the agent.
 
 As the registry grows, check for declarations that no code uses and lists kept by hand
-elsewhere, such as which tools external agents may call. Advisor still has three such lists.
-These are places where adding or changing a capability requires more than one update.
+elsewhere, such as which tools external agents may call. Advisor deliberately keeps four
+tool lists governing reads, writes, tools omitted from the coach's list, and coach-only
+tools. These form a reviewed policy: declaring a capability alone grants no agent access.
+Exposing a new capability therefore takes a second, deliberate policy update.
 
 Version declarations when a change affects the behavior being evaluated. Keep enough information
 with evaluation results to identify which implementation, declarations, prompts, and models

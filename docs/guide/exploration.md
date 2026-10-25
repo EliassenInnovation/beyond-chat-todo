@@ -13,8 +13,8 @@ agent is trustworthy, helpful, and follows the application's policies.
 
 [![Reviewing scored evaluations and observing exploratory sessions contribute complementary evidence, followed by improvements and retesting.](../images/testing-approaches.svg)](../images/testing-approaches.svg)
 
-*Review scored cases and observe complete interactions. Both contribute evidence toward a
-trustworthy, helpful agent that follows the application's policies.*
+*Scored evaluations and observed sessions each find different problems; both feed
+improvements and retesting.*
 
 ## Start with exploratory testing
 
@@ -52,14 +52,15 @@ screen description, and approval actions, with a separate test list for each ses
 .venv/bin/python -m evaluations.personas --replay runs/personas/RECORD.json
 ```
 
-The first command makes paid calls for the persona, application agent, and a judge that
-checks whether the assistant's claims match what actually changed.
+The first command makes paid calls for the persona, the application agent and its guard
+checks, and a judge that checks whether the assistant's claims match what actually changed.
 It saves JSON checkpoints throughout the conversation and creates a standalone HTML review
 beside the record. The second command regenerates that review without making model calls.
 Use Previous/Next to inspect the recorded conversation, approval clicks, and state changes.
 It does not rerun actions or reproduce the visual interface.
 
-`--max-tokens` is shared across all selected personas and all three model roles.
+`--max-tokens` is shared across all selected personas and every model call: persona,
+agent, guards, and judge.
 See [model costs and allowances](../guides/models.md#try-a-replacement-and-measure-it)
 for how this limit works. Choose a small turn limit for an initial exploration.
 Ctrl-C retains the latest checkpoint. A record left with status `running` after a forceful

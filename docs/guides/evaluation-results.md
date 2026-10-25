@@ -30,9 +30,10 @@ judge's grades are correct.
 
 ## When the provider changes the model
 
-If the model identifier or revision returned by the API changes, automatically run the
-evaluation suite. Where the provider does not expose a revision, use its update notices
-and scheduled evaluations as additional triggers.
+Configure your scheduler or CI to run the evaluation suite when the model identifier or
+revision returned by the API changes. The sample does not automate this trigger. Where the
+provider does not expose a revision, use its update notices and scheduled evaluations as
+additional triggers.
 
 **Start with three full runs**, using the same cases, starting states and grading rules.
 This is a practical screening policy, not a statistically established sample size. Repeated
@@ -74,9 +75,11 @@ needs attention regardless of the chart.
 *An original illustration, not actual todo results or a Langfuse interface. The result link
 shown in the image is illustrative.*
 
-The evaluation runner can send notifications to the team's messaging tool. Results can
-link to a local report or to records in an optional service such as Langfuse; the team
-still defines which results require attention and who responds.
+The sample's evaluation runner does not send notifications. Connect your scheduler or CI
+to your team's messaging tool, and alert on the run's completeness, designated concern
+checks, and chart signals. Results can link to a local report or to records in an optional
+service such as Langfuse; the team still defines which results require attention and who
+responds.
 
 ## Different failures need different decisions
 
@@ -266,8 +269,6 @@ small rate fluctuation as a regression.
 
 That does not mean ignoring individual failures. A new failure mode, an approval bypass, or
 another consequential error deserves review even if the aggregate rate stays within limits.
-A stable but unacceptable failure rate calls for improvement. Ordinary variation describes the
-process; it does not excuse its outcomes.
 
 ## What happens to the chart when code changes?
 

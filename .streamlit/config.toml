@@ -10,3 +10,6 @@ textColor = "#111111"
 # what a viewer needs.
 [client]
 toolbarMode = "viewer"
+
+[server]
+address = "127.0.0.1"
