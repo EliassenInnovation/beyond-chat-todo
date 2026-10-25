@@ -1,12 +1,27 @@
 # Explore the experience
 
-Fixed cases tell you about questions you already thought to ask. Exploration finds questions
-you missed. Start by using the application yourself: combine requests, change your mind,
-refer to todos indirectly, and compare the explanation with the screen and saved state.
+An agent receives a wide range of requests: different wording, incomplete information,
+references to earlier conversations, changes of mind, and unexpected combinations of tasks.
+Its response also depends on application state and model behavior. Testing that range takes
+several approaches.
+
+Fixed cases check known requirements. AI-generated cases broaden the situations considered,
+and automated checks and AI scoring make larger collections practical to assess. Human
+review checks those judgments, while hands-on exploration and watching simulated users
+reveal problems in the interaction. Together, these approaches build evidence that the
+agent is trustworthy, helpful, and follows the application's policies.
+
+[![Reviewing scored evaluations and observing exploratory sessions contribute complementary evidence, followed by improvements and retesting.](../images/testing-approaches.svg)](../images/testing-approaches.svg)
+
+*Review scored cases and observe complete interactions. Both contribute evidence toward a
+trustworthy, helpful agent that follows the application's policies.*
 
 ## Start with exploratory testing
 
 [![A person explores task merging and a request containing several tasks.](../images/exploratory-tester.png)](../images/exploratory-tester.png)
+
+Start by using the application yourself: combine requests, change your mind, refer to todos
+indirectly, and compare the explanation with the screen and saved state.
 
 The exploratory tester gives you a separate test list. Use it to test the interaction without
 changing your own list.
@@ -62,6 +77,13 @@ regression. Keep exploratory sessions separate from the
 Headless exploration checks the conversation and saved state. Use the visible player and
 human testing to examine rendering, layout, and interaction through browser controls.
 
+Reviewing many saved conversations is demanding. During development, watch some persona
+sessions as they happen. The visible player lets a person notice confusing navigation,
+repeated questions, unclear feedback, or a successful change that still leaves the task
+unfinished. Pause to inspect the moment that needs attention. Combine these observed
+sessions with headless runs for broader coverage and sampled review of their records.
+Real people are still needed to assess whether the interaction helps them accomplish their work.
+
 ## Design personas that explore useful situations
 
 - Base situations on real work: support-call reasons, abandoned workflows, and observed
@@ -82,6 +104,20 @@ and other interactions beyond those operations.
 Keep synthetic test recording separate from real-user recording, show when capture is active,
 and follow the organization's data and consent policy. Repeat exploration after meaningful
 application or model changes, then review the findings using the process below.
+
+## Use AI to generate and challenge test cases
+
+Give a model the application's jobs and policies and ask it to propose varied cases,
+including ordinary requests, ambiguous ones, and attempts to cross a permission boundary.
+Review the proposed cases and expected outcomes before using them to judge changes. Include
+situations found through actual use so the collection reflects the work people bring to the app.
+
+During Advisor's development, the author used Perplexity to generate compliance test cases,
+had the Advisor agent score them, and returned the results to Perplexity for review. This
+provided another perspective for refining Advisor. Treat such a review as development
+feedback: people responsible for the policies still need to assess consequential judgments.
+Agreement between models establishes agreement on those cases; assessing compliance also
+requires checking the policy, coverage, and actual application behavior.
 
 ## Explore with richer application context
 
@@ -121,6 +157,34 @@ The persona returns structured fields for messages, approval choices and reactio
 Satisfaction is the simulated person's opinion, not proof that the application worked.
 
 [![Exploration produces findings for human review; confirmed problems become regression cases and separate held-out variants, while unconfirmed findings remain in the records.](../images/exploration-to-regression.svg)](../images/exploration-to-regression.svg)
+
+Review both passing and failing scores against the request and application outcome. A judge
+can miss a problem or penalize a valid response:
+
+| Automated score | Human review agrees | Human review disagrees |
+|---|---|---|
+| Pass | The request was completed correctly. | A requirement was missed or an incorrect change was made. |
+| Fail | The interaction has a problem to fix. | A valid response was penalized; investigate the scoring. |
+
+The Todo HTML review described above lets a person inspect the conversation and state
+changes. Use it for apparent successes as well as flagged problems. The image below shows
+a focused human-review question about a proposed action.
+
+### Choose how much to review
+
+For a small pilot, read every conversation. As the collection grows, review flagged failures
+and take a random sample of passes. Include different jobs, personas, and starting states;
+record any extra cases selected to investigate a particular concern separately from the
+random sample. Targeted review helps find problems, while a random sample can help estimate
+how often they occur in the collection it represents.
+
+Record the number reviewed from each group and how often people disagreed with the scoring.
+Choose the sample size according to the variety of work, the consequences of a missed
+problem, and the precision needed for the decision. A few reviewed successes leave substantial
+uncertainty. Repeated disagreement is a reason to investigate the judge and expand review.
+The [evaluation chapter](evaluation.md) explains uncertainty with small numbers of attempts.
+
+### Resolve disagreements and retain the evidence
 
 Review flagged findings and sample apparent successes. If reviewers disagree with one another
 or with a judge, show the exact request, starting state, and proposed action. Ask a focused

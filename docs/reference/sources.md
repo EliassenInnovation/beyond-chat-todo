@@ -110,3 +110,14 @@ support. These additional sources were consulted October 18, 2026.
 
 - **SAP.** [Joule panel](https://www.sap.com/design-system/fiori-design-android/v25-4/joule/components/joule-panel). Panel sizes, resizing, minimization, and access to the underlying application.
 - **Nielsen Norman Group.** [10 Guidelines for Designing Your Site's AI Chatbots](https://www.nngroup.com/articles/ai-chatbots-design-guidelines/). Relevant suggestions and visible awareness of the user's context.
+
+
+## Evaluation-driven improvement
+
+The [evaluation chapter](../guide/evaluation.md#let-a-coding-agent-run-budgeted-experiments)
+uses these sources for automated improvement and the limits of its scoring. Consulted
+October 25, 2026.
+
+- **Anthropic (2025).** [Writing effective tools for agents — with agents](https://www.anthropic.com/research/writing-tools-for-agents). Engineering report on using Claude Code and evaluation transcripts to improve tools, with held-out testing.
+- **Lakshya A. Agrawal and colleagues (ICLR 2026).** [GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning](https://arxiv.org/abs/2507.19457). Prompt optimization through reflection on execution traces and evaluation feedback.
+- **Mohamed Hesham Elganayni and colleagues (2026).** [Exploiting LLM-as-a-Judge Disposition on Free Text Legal QA via Prompt Optimization](https://arxiv.org/abs/2604.20726). Studies how the optimization judge affects transfer to other judges, including judge-specific overfitting.

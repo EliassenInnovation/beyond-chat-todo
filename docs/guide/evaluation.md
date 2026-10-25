@@ -111,7 +111,35 @@ connecting offered tools, executed operations, and application outcomes.
 
 **Make each conversation easy for a reviewer to read.** If you use a tool to record conversations between people and the agent, make sure each record carries the context a reviewer needs. The most important piece is the state after each turn: the list, the record, or the plan as the user saw it. Then the conversation reads in order: what was said, what the agent did, and what changed. Without it, a reviewer has to work out in their head what the application looked like at each point. When the state is recorded, reviewers often notice that a change nobody asked for came from the turn before.
 
-**Let a development agent run the experiments.** Evaluation exists to improve the model, the tools, the prompts, and the judges until the results are good enough. People and models both suggest good improvements. Testing each one, one hypothesis at a time, is work a development agent does well and quickly; set an explicit budget for the work. The person sets the direction, makes each decision when there is a choice between approaches, and reads the conversations; the agent runs the experiments. If the agent fixing a problem also writes the held-out cases, they are no longer unseen, so have a separate session write them.
+## Let a coding agent run budgeted experiments
+
+Give a coding agent a defined scope and an evaluation budget to try improvements to prompts,
+tool descriptions, and tool signatures. Let it inspect execution records, propose a change,
+and compare the result with the baseline. Keep the evaluation procedure fixed during that
+comparison and record each configuration and its results. Review changes to the judge as
+separate experiments, using examples assessed by people.
+
+This approach has research and engineering support. Anthropic describes using Claude Code
+to improve tool implementations and descriptions from evaluation transcripts, with gains
+checked on held-out tasks. GEPA studies prompt improvement through reflection on execution
+traces and repeated evaluation. These results support the development method within the
+settings tested. [Anthropic: improving tools with agents](https://www.anthropic.com/research/writing-tools-for-agents);
+[GEPA](https://arxiv.org/abs/2507.19457).
+
+Automated iteration can make the agent experience worse while improving its evaluation
+score. A judge may reward unnecessary questions, longer replies, or steps that interfere
+with the person's task. Research on prompt optimization has found that improvements can
+be specific to the judge used during optimization.
+[Elganayni and colleagues: judge-dependent prompt optimization](https://arxiv.org/abs/2604.20726).
+
+Define successful outcomes, use code checks for what the application can verify, and
+validate model judgments against human review of both passing and failing examples.
+Watch complete interactions to assess the person's effort and the usefulness of the result.
+Keep the best verified version available so unsuccessful experiments can be reversed.
+Freeze the proposed changes before [checking that they generalize](#check-that-a-fix-generalizes).
+The [Todo walkthrough](../guides/walkthrough.md) explains how to run its visible and held-out
+cases; [Check 6.9](../principles/implementation.md#check-6-9) applies the same separation to
+automated optimization. Have someone outside the fixing session prepare the held-out cases.
 
 ## Scale testing to the change
 

@@ -414,6 +414,13 @@ remain unknown. Estimates exclude unreported retries, other charges and hosting.
 is authoritative. When the merge guard uses the Decisions API, its calls have separate input-only pricing. Token counts include application, judge and guard calls; changing the judge can
 materially change cost. Review a full-run measurement before ordering a larger collection.
 
+To forecast a larger collection, start with a small representative pilot using the same
+models, guards, judges, and persona settings you plan to use. Measure input, output, and
+cached tokens by model across its cases or conversations, then scale that usage to the
+planned number of cases and repetitions and apply your supplied rates. Allow for variation
+in conversation length and tool calls; a short, simple case can understate the usage of a
+mixed suite. The sample estimates recorded runs; it does not automate this pre-run forecast.
+
 See the [offline evaluation example](../../examples/evaluation-review/README.md) for a
 collection with no chart signals where grading concerns still prevented accepting a
 quality baseline.

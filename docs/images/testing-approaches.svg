@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="350" viewBox="0 0 800 350" role="img" aria-labelledby="title desc">
+<title id="title">Two approaches to testing an agent</title>
+<desc id="desc">Review scored evaluations, including failures and sampled passes, and explore the application yourself or watch personas. Both contribute evidence for a trustworthy, helpful agent that follows application policies. Improve the application and repeat both approaches.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#48669d"/></marker></defs>
+<rect width="800" height="350" fill="white"/>
+<g font-family="Arial, sans-serif" font-size="16" fill="#1a1e33">
+<rect x="20" y="16" width="368" height="159" rx="8" fill="#f2f1ee"/>
+<rect x="412" y="16" width="368" height="159" rx="8" fill="#f2f1ee"/>
+<path d="M28 16H380Q388 16 388 24V58H20V24Q20 16 28 16" fill="#48669d"/>
+<path d="M420 16H772Q780 16 780 24V58H412V24Q412 16 420 16" fill="#48669d"/>
+<g fill="white" font-weight="bold" text-anchor="middle"><text x="204" y="43">Review scored evaluations</text><text x="596" y="43">Explore and observe</text></g>
+<text x="38" y="86">Known requirements + AI-generated cases</text>
+<text x="38" y="115">Code checks and model judgments</text>
+<text x="38" y="144">Human review: failures and sampled passes</text>
+<text x="430" y="86">Use the application yourself</text>
+<text x="430" y="115">Watch personas use the screen</text>
+<text x="430" y="144">Inspect the interaction and task outcome</text>
+<g stroke="#48669d" stroke-width="2" fill="none" marker-end="url(#arrow)"><path d="M204 175V195H400V214"/><path d="M596 175V195H400" marker-end="none"/></g>
+<rect x="105" y="220" width="590" height="65" rx="8" fill="#8ebfb3"/>
+<g text-anchor="middle"><text x="400" y="246" font-weight="bold">Evidence for a trustworthy, helpful agent</text><text x="400" y="270">that follows the application's policies</text>
+<text x="400" y="324">Improve, then repeat both approaches</text></g>
+<path d="M400 285V303" stroke="#48669d" stroke-width="2" marker-end="url(#arrow)"/>
+</g></svg>
