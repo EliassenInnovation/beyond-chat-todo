@@ -15,3 +15,6 @@ runs/
 site/
 
 .venv-docs/
+
+# Local Claude worktree settings
+.claude/settings.json
