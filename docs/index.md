@@ -30,6 +30,13 @@ product people adding an agent to an application or website—or improving one t
 have. A small TodoMVC-style application makes the design choices concrete without
 requiring you to learn a complicated business domain.
 
+Throughout this guide, "application" includes desktop applications, web applications, and
+the services behind them. The principles apply across these environments: shared operations,
+application-enforced permissions, and agents working with current data. Where the code runs
+changes how the parts connect. The examples run locally; a hosted web application will
+usually put shared operations and access controls on its server. The
+[interfaces chapter](guide/interfaces.md#choose-where-the-mcp-server-runs) explains local and remote connections.
+
 We also draw examples from Advisor, a separate investment application that combines
 portfolio information with an embedded agent called the coach. It illustrates how these
 ideas work with richer user context: learning about a person's goals, navigating to relevant

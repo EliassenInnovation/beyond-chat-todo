@@ -55,7 +55,7 @@ with the provider update.
 
 If something looks wrong, inspect the conversations and repeat the affected cases first;
 you do not need 100 full-suite runs to start investigating. If all three runs complete
-without a concern, report “No regression signal detected in three runs” and continue normal
+without a concern, report "No regression signal detected in three runs" and continue normal
 monitoring. This is not proof that the models behave identically. Keep the old limits for
 comparison until review and further measurements justify adopting a new baseline.
 
@@ -142,7 +142,7 @@ screen experience, or headlessly to collect more conversations. Neither replaces
 Inspect flagged findings and sample apparently successful conversations; reviewing only flags
 can miss failures the judges do not recognize.
 
-A persona's “satisfied” or “frustrated” status is its own reported reaction, not an evaluation
+A persona's "satisfied" or "frustrated" status is its own reported reaction, not an evaluation
 pass or failure. Compare it with the saved state and conversation: the persona may overlook
 a problem or complain about something the app handled correctly. The
 [walkthrough explains how each persona turn works](walkthrough.md#how-a-persona-takes-a-turn),
@@ -154,7 +154,7 @@ example review form makes the choice concrete:
 
 [![Human review form showing a dentist task, conversational reference, proposed date change, and judgment choices.](../images/human-review.png)](../images/human-review.png)
 
-Here, “Move that to Wednesday” follows a conversation about calling the dentist. The reviewer
+Here, "Move that to Wednesday" follows a conversation about calling the dentist. The reviewer
 can assess the reference using that context instead of requiring the person to repeat the task
 name. The screenshot illustrates a review technique; it is not another required service.
 
@@ -172,9 +172,9 @@ held-out variants for later checks. Preserve the original grades when recording 
 
 ## A concrete review: which tasks did the person mean?
 
-Suppose the list has several possible pairs and the person asks, “Can you combine the two
-bouncy castle items?” That identifies a pair if exactly two tasks fit. “Can you combine two
-of these?” may not. Judge the request against the actual starting list and conversation,
+Suppose the list has several possible pairs and the person asks, "Can you combine the two
+bouncy castle items?" That identifies a pair if exactly two tasks fit. "Can you combine two
+of these?" may not. Judge the request against the actual starting list and conversation,
 not a preferred script for how people should ask.
 
 For an ambiguous request, a good outcome may be a clarification with no changes. Code can
@@ -247,7 +247,7 @@ a human might give is correct.
 Keep different questions separate: did the reply address the request, was its account true,
 and did the application perform the right action? Explaining that email is unavailable can
 address an email request without completing it. Correctly restoring a change can respond to
-“put it back” without using those exact words. Conversely, fluent wording cannot rescue an
+"put it back" without using those exact words. Conversely, fluent wording cannot rescue an
 unwanted change, a false claim, or an important part of the request left unresolved.
 
 When a reasonable human reply fails, inspect the rubric and the evidence before changing
@@ -406,9 +406,11 @@ embed those records. Completed case conversations are also checkpointed under
 Source snapshots live under `runs/sources/`. Interrupted runs may
 leave usage evidence without a completed evaluation: do not mistake them for successful runs.
 
-The report estimates model charges using the supported model IDs and dated rates in
-`evaluations/eval_costs.py`. Unrecognized models, missing usage, nonstandard service tiers, and unsupported
-long-context pricing remain unknown. Estimates exclude unreported retries, other charges and hosting. Provider billing
+The report estimates model charges only from rates you supply in `model_rates.json` (copy
+`model_rates.example.json` and fill in your provider's current rates); the sample ships no
+prices. Without that file the report shows token counts and an unknown cost. Models you have
+not priced, missing usage, nonstandard service tiers, and unsupported long-context pricing
+remain unknown. Estimates exclude unreported retries, other charges and hosting. Provider billing
 is authoritative. When the merge guard uses the Decisions API, its calls have separate input-only pricing. Token counts include application, judge and guard calls; changing the judge can
 materially change cost. Review a full-run measurement before ordering a larger collection.
 

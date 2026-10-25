@@ -108,16 +108,9 @@ The [result-reference example](../reference/conversation-references.md) develops
 
 ## Explain what the results mean
 
-Put the meaning, scope, dates, and units next to the numbers in each tool result. In an
-investment application such as Advisor, an account's balance change can include deposits
-and withdrawals as well as market movement. Labeling it clearly helps the agent distinguish
-it from investment return. Similarly, a drop in open support tickets can come from closing
-them or moving them to another team.
-
-When a tool rejects a request, say what it can do instead. If a tool supports returns for
-one month, three months, year to date, one year, and three years, an error for a 20-day request
-should list those choices. The agent can then offer a supported period and ask which would
-help.
+Give the agent enough context to explain a result and offer supported alternatives when a
+request is rejected; [Tools and current evidence](tools.md#return-facts-and-structured-decisions)
+shows how to label results and return useful errors.
 
 ## Complete the job and report what happened
 

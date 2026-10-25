@@ -1,4 +1,6 @@
-# Bring your own model
+<span id="bring-your-own-model"></span>
+
+# Choose models
 
 Choose a provider, run the sample, then change one model and measure the result. The settings
 below belong in `.env` at the repository root; restart the app after changing them.
@@ -130,34 +132,13 @@ variation](evaluation-results.md) for comparisons over time.
 
 [![A guarded change uses agent calls around two parallel guard checks; persona and judge calls are added in runs that use them.](../images/model-call-costs.svg)](../images/model-call-costs.svg)
 
-Model prices vary widely. Providers generally charge for input tokens (the instructions,
-conversation, and application data sent to the model) and output tokens (its response,
-including billable reasoning). One user request can involve several model calls, including
-guards and follow-up calls after tools return results.
-
-Budget separately for using the app and evaluating it. Evals add judge calls; persona runs
-also pay for the simulated user. Repeated runs multiply those costs, and a more expensive
-judge can cost more than the agent it evaluates. Choose models for each role using measured
-quality, response time, and total cost.
-
-For current rates, caching discounts, and other billing details, see [OpenAI API
-pricing](https://developers.openai.com/api/docs/pricing) and [Anthropic API
-pricing](https://platform.claude.com/docs/en/about-claude/pricing). The sample's recorded
-costs are estimates for particular configurations and workloads; check your provider's usage
-dashboard for actual charges. Start with a small run before budgeting for a larger evaluation.
-The [tested configuration](#tested-configurations) below gives an example of how model choice
-affected this sample's grading costs.
-
-The local estimator in [eval_costs.py](../../evaluations/eval_costs.py) recognizes a small set
-of model IDs and rates. An unfamiliar model or usage format produces an unknown estimate, not
-a free run. A compatible provider reusing a recognized model ID may charge different rates;
-the current estimator does not distinguish provider prices. Use your provider's billing as
-authoritative, and update/test the estimator before using its numbers to plan a new provider's
-budget.
-
-Langfuse is optional and does not select or host your model. Verify tracing compatibility for
-any new provider separately from task behavior. Local records remain the primary evidence; see
-the app-specific [Langfuse guide](langfuse.md).
+One request can involve several model calls: the agent, guards, and, in evaluation and
+persona runs, judges and simulated users. Repeated runs multiply them. Providers charge
+for the input and output tokens of each call; see your provider's pricing page and usage
+dashboard for current rates and actual charges. The sample includes no prices. To see cost
+estimates in run reports, copy `model_rates.example.json` to `model_rates.json` and fill in
+your provider's current rates; without it, reports show token counts only. Your provider's
+billing is authoritative.
 
 ## Guards
 
@@ -269,6 +250,9 @@ endpoints within one provider require a code change. A gateway's Claude model ca
 OpenAI-compatible path with an explicit `openai` role override; a model name alone does not
 establish compatibility.
 
+If you use Langfuse, verify tracing with a new provider separately from task behavior; see
+the [Langfuse guide](langfuse.md).
+
 ## Compatibility limits to check
 
 - Tool protocol: the adapter must preserve call IDs, arguments, and matching results.
@@ -313,9 +297,7 @@ that a return implies a state change brought Sonnet to 618/618 across the full s
 matched 618/618 in the initial comparison. No recorded judgments were changed during this model
 comparison.
 
-Regrading the same 51 saved application conversations cost an estimated $0.88 with Sonnet,
-compared with $1.74 with Opus, using reported tokens and standard rates. Both passed 51/51.
-These are judge costs, excluding agent and persona calls; actual charges and usage vary.
+Regrading the same 51 saved conversations with Sonnet and with Opus passed 51/51 with each.
 Sonnet uses the provider's default effort. Opus remains an optional override, not a required
 part of the sample.
 

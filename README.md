@@ -72,8 +72,11 @@ ANTHROPIC_API_KEY=your-key-here
 .venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
-The list works without a key. Chat sends conversation and list data to the selected provider
-and incurs charges. Use synthetic tasks when exploring. Keep `.env` private.
+The list works without a key. The live assistant, evaluations, and personas send
+conversation and list data to the selected provider using your key, and you are
+responsible for those charges. We suggest you follow your model provider's practices for
+setting limits on spending.
+Use synthetic tasks when exploring. Keep `.env` private.
 [Model configuration and tested choices](docs/guides/models.md) are in the guide.
 Langfuse is optional; [its short setup chapter](docs/guides/langfuse.md) covers this sample's integration.
 

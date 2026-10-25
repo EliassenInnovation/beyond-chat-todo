@@ -61,7 +61,7 @@ execution. A receipt is a short confirmation of what changed.
 | Agent guidance | Usage instructions and their intended audience | Code assembles instructions for each agent. | When external agents connect or tool choice needs guidance. |
 | Profile facts | Stored fact, how code tells whether it is known, and how to record it | Onboarding code calculates progress and relevant gaps. | When assistance depends on learning about the person. |
 | Named agent actions | Operations such as stopping setup questions | Tool-building code exposes the supported actions. | When the person should control a workflow through conversation. |
-| Interface actions | Control names, destinations, and navigation functions | UI tools open or highlight controls; descriptions support instructions. | When adding “Tell me how” or “Show me.” |
+| Interface actions | Control names, destinations, and navigation functions | UI tools open or highlight controls; descriptions support instructions. | When adding "Tell me how" or "Show me." |
 | Guards | Check names, questions, and evidence inputs | The save path checks the proposed action against its context. | When a save depends on what the person meant. |
 | Presentation | A card or view associated with a capability | A compatible host displays the result. | When a visual result helps and the host supports it. |
 | Command-line interface (CLI) metadata | Command names and argument descriptions | Command-handling code builds commands and help. | If the application has a command interface. |
@@ -167,8 +167,8 @@ Suppose the implementation returns this result after approval and a successful s
 {"order_id": "order-1042", "status": "placed", "total": "42.50"}
 ```
 
-The declared change-description function can produce a receipt such as “Placed order order-1042.
-Total: 42.50.” Tool responses carry the actual result back to the calling agent. Before
+The declared change-description function can produce a receipt such as "Placed order order-1042.
+Total: 42.50." Tool responses carry the actual result back to the calling agent. Before
 approval, the result instead reports that approval is pending. This keeps the result consistent
 with the stage the application has reached.
 
@@ -196,7 +196,7 @@ Hosts may keep those instructions from when they connected. In the tested Adviso
 Claude's desktop app retains them until restarted. After changing guidance, reconnect or restart
 the host as needed and verify the instructions it received before testing the agent's behavior.
 
-## Connect capabilities to “Tell me how” and “Show me”
+## Connect capabilities to "Tell me how" and "Show me"
 
 The worked declaration identifies the Cart screen and Place order control, and references
 functions to open the screen and highlight the control. Code supplies that information to the
@@ -207,9 +207,9 @@ There are three different uses:
 
 | Person asks | How the declaration is used |
 | --- | --- |
-| “How do I place my order?” | Code supplies the screen and control names to the agent, which explains the steps using the application's terminology. |
-| “Show me where.” | The agent requests navigation; application code calls the declared functions to open the cart and highlight the control. |
-| “Place the order for me.” | The agent requests the business operation; execution code checks permissions and obtains the required approval. |
+| "How do I place my order?" | Code supplies the screen and control names to the agent, which explains the steps using the application's terminology. |
+| "Show me where." | The agent requests navigation; application code calls the declared functions to open the cart and highlight the control. |
+| "Place the order for me." | The agent requests the business operation; execution code checks permissions and obtains the required approval. |
 
 Implement and test the navigation and highlighting functions, then connect them through the
 declaration. Check their behavior against current state: an empty cart, an open dialog, and a
@@ -236,8 +236,8 @@ person did not request, infer a missing address, or turn an uncertain preference
 instruction. Record enough information to inspect the original arguments and the correction when
 troubleshooting.
 
-A guard checks a narrower question about the proposed action and its context. For example: “Has
-the person identified which cart they want to order?” A model-based guard may interpret the
+A guard checks a narrower question about the proposed action and its context. For example: "Has
+the person identified which cart they want to order?" A model-based guard may interpret the
 conversation, but it can be wrong. Code-enforced permissions and required approval still apply
 regardless of its answer.
 
@@ -267,7 +267,7 @@ may use deterministic code, another model, or both. A guard checks a proposed ac
 execution; a response reviewer checks what the agent is about to tell the person.
 
 Use the facts in the worked declaration both in the tool description and in the reviewer's
-evidence. If the agent says “I'll watch your order and tell you if anything changes,” the fact
+evidence. If the agent says "I'll watch your order and tell you if anything changes," the fact
 that the application does not monitor orders in the background gives the check a reason to flag
 the claim.
 
@@ -276,7 +276,7 @@ reviewer may flag a true statement simply because it did not receive the support
 Advisor follows this rule by supplying the registered application facts to its review stages.
 
 Application facts describe behavior and limitations. They do not prove that a particular
-operation succeeded. To check “Your order was placed,” a reviewer also needs the result of that
+operation succeeded. To check "Your order was placed," a reviewer also needs the result of that
 call—for example, an application-generated order ID and status. To check an amount, it needs the
 relevant returned data, not just a general statement about the application.
 
@@ -306,28 +306,28 @@ record with: the goals update capability
 ask for during initial onboarding: yes
 ```
 
-For Advisor’s embedded agent, onboarding code calculates progress from saved data and the
+For Advisor's embedded agent, onboarding code calculates progress from saved data and the
 declarations on every request. It includes the relevant gaps in the state the application sends
 with that request. An external agent obtains the same calculation through a read operation when
 its guidance tells it to. The agent can answer the person's current question and, when
 appropriate, ask about one of those gaps. A save goes through the same validation and applicable
 checks as other changes.
 
-“Known” must mean more than a nonempty field. Preserve qualifications: “early retirement might
-be nice” is not a commitment to retire at a particular age. In Advisor, a remark about one stock
+"Known" must mean more than a nonempty field. Preserve qualifications: "early retirement might
+be nice" is not a commitment to retire at a particular age. In Advisor, a remark about one stock
 is not the person's comfort with risk overall. Checks on the proposed save should reflect that
 distinction.
 
 Named actions such as `stop_asking` and `resume` can let the person control the experience
 through conversation. The application implements their state changes. Code counts conversations
 so onboarding stops after a set number of conversations, even if some facts are still missing.
-See [Onboarding, when needed](../guide/onboarding.md).
+See [Learn about me](../guide/onboarding.md).
 
 ## Describe results, recovery, and presentation
 
 The implementation should return what actually happened. Change-description functions can turn
-those results into receipts and history entries: “Changed delivery option from standard to
-express,” for example. Generate that description from the applied change, not merely the model's
+those results into receipts and history entries: "Changed delivery option from standard to
+express," for example. Generate that description from the applied change, not merely the model's
 request. A failed save must not produce a success receipt.
 
 An undo declaration should identify a real recovery operation and its limits. A description of a

@@ -110,7 +110,7 @@ conversation. Keeping the persona's private instructions separate lets the test 
 how the application learns about the person.
 
 These modes test different responsibilities: learning enough to help a new user, and using
-what is already known to help an established one. See [Onboarding, when needed](onboarding.md)
+what is already known to help an established one. See [Learn about me](onboarding.md)
 for the design behind that distinction. Advisor is a separate application; its runner is an
 example here, while this repository supplies the smaller todo implementation.
 

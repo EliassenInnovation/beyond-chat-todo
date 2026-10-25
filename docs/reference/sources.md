@@ -65,7 +65,7 @@ each source's relevance and limits. The numbered entries remain stable for earli
 
 30. **Donald J. Wheeler (1993).** *Understanding Variation: The Key to Managing Chaos.* SPC Press. Common-cause and special-cause variation, process behavior charts, and why reacting to common-cause variation makes results worse. Consulted October 3, 2026.
 
-31. **Jim Kalbach (2020).** [The Jobs To Be Done Playbook](https://rosenfeldmedia.com/books/jobs-to-be-done-book/). Rosenfeld Media. A practical introduction to customer needs, desired outcomes, and levels of jobs. The guide’s appointment example applies this perspective; it is not quoted from the book.
+31. **Jim Kalbach (2020).** [The Jobs To Be Done Playbook](https://rosenfeldmedia.com/books/jobs-to-be-done-book/). Rosenfeld Media. A practical introduction to customer needs, desired outcomes, and levels of jobs. The guide's appointment example applies this perspective; it is not quoted from the book.
 
 32. **Anthropic (December 19, 2024).** [Building Effective AI Agents](https://www.anthropic.com/engineering/building-effective-agents). "While building our agent for SWE-bench, we actually spent more time optimizing our tools than the overall prompt." Consulted October 4, 2026.
 
@@ -109,6 +109,4 @@ guidelines (entry 5 above) and the sources below. It cites them beside the guida
 support. These additional sources were consulted October 18, 2026.
 
 - **SAP.** [Joule panel](https://www.sap.com/design-system/fiori-design-android/v25-4/joule/components/joule-panel). Panel sizes, resizing, minimization, and access to the underlying application.
-- **SAP.** [Working with conversations](https://help.sap.com/docs/joule/joule-work-621104a90a01407fbb2d1613db39a54d/working-with-conversations). Prompt-library selections populate an editable input.
 - **Nielsen Norman Group.** [10 Guidelines for Designing Your Site's AI Chatbots](https://www.nngroup.com/articles/ai-chatbots-design-guidelines/). Relevant suggestions and visible awareness of the user's context.
-- **Google.** [Suggestion chips](https://developers.google.com/assistant/conversation-design/chips). Earlier conversation-design guidance describing chips that submit a response; cited for the interaction distinction, not as a current product integration recommendation.

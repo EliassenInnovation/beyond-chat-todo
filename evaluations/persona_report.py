@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 import tempfile
 
-from evaluations.eval_costs import estimate
+from evaluations.eval_costs import estimate, rates_note
 
 
 def save_record(path, record):
@@ -97,7 +97,7 @@ button{padding:8px 16px;font:inherit;cursor:pointer}button:disabled{cursor:defau
 [hidden]{display:none!important}</style><main><h1>Persona session review</h1>
 <p>Recorded conversation and application state. Reviewing this file makes no model calls and changes no tasks.
 This is a transcript review, not a visual UI test or a new simulation.</p>
-''' + f'<p>Reported tokens: {tokens}. Usage complete: {complete}. Estimated standard API cost: {cost_text} (excludes unreported charges). Token allowances are checked between calls; they are not dollar billing caps.</p>' + '''
+''' + f'<p>Reported tokens: {tokens}. Usage complete: {complete}. Estimated API cost: {cost_text}. {esc(rates_note())} Token allowances are checked between calls; they are not dollar billing caps.</p>' + '''
 <nav aria-label="Review steps" hidden><button id="previous">Previous</button><span id="position" aria-live="polite"></span><button id="next">Next</button><button id="all">Show all</button></nav>
 ''' + body + '''</main><script>
 const frames=[...document.querySelectorAll('.frame')];let index=0,all=false;

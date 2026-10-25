@@ -11,7 +11,9 @@ the current state and available tools depend on the application and host.*
 
 ## Make tool choices clear
 
-Improve the tools before adding rules or reviewers. Expect to spend most of your effort here. Inspect the tool description, inputs and returned evidence before assuming another prompt rule will fix the problem. Anthropic reports the same for its own coding agent: "we actually spent more time optimizing our tools than the overall prompt." [Anthropic: building effective agents](https://www.anthropic.com/engineering/building-effective-agents) When the agent gets a job wrong, first read what it actually received from each tool: the tool's description, its inputs, and the result or error it returned. A tracing tool, such as Langfuse, makes this practical: it shows the tools the model had to choose from, each tool's description and inputs, and what each returned, in a form that is easy to review (see [evaluation](evaluation.md)). Is the tool's purpose clear? Can the agent tell it apart from similar tools? Does an error say what to do instead? Fix those, and move predictable work and checking of inputs into code. [OpenAI: function-calling best practices](https://developers.openai.com/api/docs/guides/function-calling#best-practices-for-defining-functions) Add a rule to the prompt, or another model to review the agent's answers, only for problems that remain, and check that each one is worth the time and complexity it adds.
+Improve the tools before adding rules or reviewers. Expect to spend most of your effort here. Inspect the tool description, inputs and returned evidence before assuming another prompt rule will fix the problem. Anthropic reports the same for its SWE-bench agent: "we actually spent more time optimizing our tools than the overall prompt." [Anthropic: building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
+
+When the agent gets a job wrong, first read what it actually received from each tool: the tool's description, its inputs, and the result or error it returned. A tracing tool, such as Langfuse, makes this practical: it shows the tools the model had to choose from, each tool's description and inputs, and what each returned, in a form that is easy to review (see [evaluation](evaluation.md)). Is the tool's purpose clear? Can the agent tell it apart from similar tools? Does an error say what to do instead? Fix those, and move predictable work and checking of inputs into code. [OpenAI: function-calling best practices](https://developers.openai.com/api/docs/guides/function-calling#best-practices-for-defining-functions) Add a rule to the prompt, or another model to review the agent's answers, only for problems that remain, and check that each one is worth the time and complexity it adds.
 
 In Advisor, a question about how fast MU was dropping initially received a cautious answer
 based on a single quote. The missing evidence was a series of prices over time. Adding a
@@ -60,6 +62,11 @@ Tool results need the context that a person would get from labels on the screen.
 
 This is the same responsibility as labeling a chart or API field: define the measure, units, time period, and scope alongside its type.
 
+When a tool rejects a request, say what it can do instead. If a tool supports returns for
+one month, three months, year to date, one year, and three years, an error for a 20-day request
+should list those choices. The agent can then offer a supported period and ask which would
+help.
+
 Let the model and application code each do their part. Asked for the combined balance of
 three accounts, the model identifies which accounts the person means. Application code
 validates that selection, reads the balances, and adds them. The application displays the
@@ -73,28 +80,31 @@ calculates and displays the result from its data.*
 
 <a id="show-application-written-text"></a>
 
-Show the application's own text instead of asking the model to repeat it. When the application already knows the right words, show them as the application's own text: the confirmation of what was saved, the path to a setting built from the screen's own labels, where a moved item used to be. "Where do I change my cancellation fee?" needs the model to work out which setting the user means. The path to it, "Settings → Payments → Cancellation fee," is already known to the application and should reach the user exactly as written. Asking the model to retype that text adds only a chance to get it wrong: even current models sometimes fail to copy text exactly, when it is well within what they can read. [Wen et al.: copying errors](https://arxiv.org/abs/2607.16072) Every such answer then needs a check of its own. When the application shows the text, the words are exactly what the application wrote, so they can be tested once in code like any other output, and what remains to test is whether the model picked the right setting.
+Show the application's own text instead of asking the model to repeat it. When the application already knows the right words, show them as the application's own text: the confirmation of what was saved, the path to a setting built from the screen's own labels, where a moved item used to be. "Where do I change my cancellation fee?" needs the model to work out which setting the user means. The path to it, "Settings → Payments → Cancellation fee," is already known to the application and should reach the user exactly as written. Asking the model to retype that text adds only a chance to get it wrong: even current models sometimes fail to copy text exactly, even when it is well within what they can read. [Wen et al.: copying errors](https://arxiv.org/abs/2607.16072) Every such answer then needs a check of its own. When the application shows the text, the words are exactly what the application wrote, so they can be tested once in code like any other output, and what remains to test is whether the model picked the right setting.
 
-In the sample, a receipt is a short confirmation written by application code of what
+In the Todo sample, a receipt is a short confirmation written by application code of what
 changed. Receipts reach the person directly, followed by any additional model explanation.
 An evaluation checks the receipts and judges the explanation separately, so it can detect
 an inaccurate model claim even when the operation and its confirmation were correct.
 
 Use structured responses when code consumes a model's answer. A judge's verdict, a persona's next action, and a guard's decision need named fields with defined types and allowed values. Use the provider's supported schema mechanism rather than trying to infer those fields from free-form prose. Validate the result in application code, including values and relationships that a schema cannot establish. A refusal, truncated response or invalid result is unavailable evidence, not a successful decision. The [model chapter](../guides/models.md) describes the sample's provider adapters.
 
-Let the agent name a whole group. A request such as “every open ticket in this sprint” should be representable as a selector that application code resolves. This avoids having the model copy a long list of identifiers and accidentally omit members. Validate the selector, show the affected scope, and apply the same authority and transaction rules as other writes. Keep selectors general, rather than matching the wording of one evaluation case.
+Let the agent name a whole group. A request such as "every open ticket in this sprint" should be representable as a selector that application code resolves. This avoids having the model copy a long list of identifiers and accidentally omit members. Validate the selector, show the affected scope, and apply the same authority and transaction rules as other writes. Keep selectors general, rather than matching the wording of one evaluation case.
 
-## Validate against current state
+<span id="validate-against-current-state"></span>
+
+## Read current state and keep the history accurate
 
 Read before answering, from the source that owns the fact. Before the agent makes a claim about the application's data, it should read that data with a tool, from the part of the application that owns it. The code that runs the agent can require the read; a prompt can only ask for it. If the read fails, the agent should say so and limit its answer. [Yao et al.: ReAct](https://arxiv.org/abs/2210.03629) The conversation records what was said, not what is still true, so read again whenever the data may have changed, including changes the user made on another screen.
 
-Give the agent the same warnings about old or missing data that the user sees. If the application would show the user that data is out of date, missing, or could not be checked, through a date, a warning, or a dash in place of a value, its tool results should tell the agent the same thing. Otherwise the agent will state an old earnings date, or a missing value, as current fact. Include useful freshness context too: a quote result can name its
-observation time, whether the market is open, and whether it is the latest available quote.
+Give the agent the same warnings about old or missing data that the user sees. If the application would show the user that data is out of date, missing, or could not be checked, through a date, a warning, or a dash in place of a value, its tool results should tell the agent the same thing. Otherwise the agent will state an old earnings date, or a missing value, as current fact.
+
+Include useful freshness context too: a quote result can name its observation time, whether the market is open, and whether it is the latest available quote.
 That helps the agent explain the evidence accurately when the market is closed.
 
 Check what the agent passes to a tool before changing anything. The inputs to a tool come from a model, so they can be close but not exact, or refer to something that does not exist. Correct small known differences, such as a ticker typed in lower case; check that identifiers exist and values are allowed; and when an input could mean more than one record, reject it and say which records it could mean, rather than guess.
 
-Keep the conversation history true to what the user saw. The agent reads the earlier conversation to decide what to do next, so that history has to match what actually happened. This matters most when anything between the agent and the user can change an answer, such as a reviewing model that rewrites it. Keep the version the user actually saw, and keep failed actions too. Otherwise, on the next turn, the agent may assume the user saw an answer they never received, or that a change was made when it failed.
+Keep the conversation history true to what the user saw. The agent reads the earlier conversation to decide what to do next, so that history has to match what actually happened. This matters most when anything between the agent and the user can change an answer, such as a reviewing model that rewrites it. Keep the version the user actually saw, and keep failed actions too. Otherwise, on the next turn, the agent may assume the user saw an answer they never received, or that a change was made when it failed. See [Interpret follow-up requests](requests.md#interpret-follow-up-requests) for preserving the person's words alongside tool calls and results.
 
 !!! practice "Practice — inspect one tool result"
     Choose one result your job needs. Write the measure, units, time period and missing-data

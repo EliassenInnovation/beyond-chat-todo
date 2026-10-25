@@ -21,7 +21,7 @@ who already understands the operation may want the agent to perform it. Connecti
 to the app makes both possible, but it must distinguish what the person is asking for.
 The progression below starts with familiar help and shows what that connection adds.
 
-[![Six levels of assistance, from finding help to doing the job with the person.](../images/assistance-levels.svg)](../images/assistance-levels.svg)
+[![Six levels of assistance, with learning about the person and noticing outdated information alongside levels two through six.](../images/assistance-levels.svg)](../images/assistance-levels.svg)
 
 Try the progression in the sample: ask "How do I hide completed todos?" for directions,
 "Show me where to do that" to highlight Active, then "Do it for me" to change the filter.
@@ -37,11 +37,12 @@ Its screen actions use the same shared operations as the person's controls. This
 knowing what the person sees and being able to control the UI matter.
 
 Level 6, "do something new for me," can be explored by combining existing operations. On the
-exploratory tester's list (it has several due dates), try "Show my unfinished todos due this week, and move the
-earliest one to the top." There is no dedicated button for that combined request: the agent
+exploratory tester's list (it has several due dates), try "Show my unfinished todos that are
+overdue or due in the next week, and move the earliest one to the top." There is no dedicated button for that combined request: the agent
 must interpret the criteria, select tasks, change the view and reorder the chosen task. If no
 tasks qualify or the choice is ambiguous, an appropriate response may be an explanation or a
-question. Check that hidden tasks remain stored and unrelated tasks keep their relative order.
+question. On the starting exploratory list, expect "Renew passport" at the top and undated
+tasks hidden but still stored. Check that unrelated tasks keep their relative order.
 
 That last example is an exploration prompt, not a validated reliability claim or a new built-in
 workflow. The sample supplies composable operations; evaluations measure whether a chosen model

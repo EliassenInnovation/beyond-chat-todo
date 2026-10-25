@@ -117,3 +117,28 @@ def test_a_persona_that_stays_silent_ends_the_conversation_as_a_harness_note(mon
     run = play(monkeypatch, {'message': 'add Pack the suit'}, None, None)
     assert run['turns'][-1] == {'n': 2, 'user': None, 'persona_stopped': "I can't help with that."}
     assert [f['kind'] for f in run['findings']] == ['note: the persona stopped (the harness, not the agent)']
+
+
+def test_current_openai_persona_uses_supported_parameters_and_preserves_user_role(monkeypatch):
+    """A reasoning model must not receive the legacy persona temperature setting."""
+    monkeypatch.setattr(personas, 'MODEL', 'gpt-6-luna')
+    monkeypatch.setattr(personas, 'provider_for', lambda *args: 'openai')
+    result = dict(click='none', message='Can you show just my chores?', done=False,
+                  satisfied=False, frustrated=False, why='')
+    requests = []
+
+    def create(**kwargs):
+        requests.append(kwargs)
+        assert kwargs['model'] == 'gpt-6-luna'
+        assert kwargs['reasoning_effort'] == 'none'
+        assert 'temperature' not in kwargs
+        assert kwargs['response_format']['json_schema']['strict'] is True
+        return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(result)))])
+
+    client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+    history = []
+    actual = personas.persona_says(client, 'priya', personas.PERSONAS['priya'], history,
+                                  '[ ] Take out the recycling (Priya)', None)
+    assert actual == result
+    assert 'You are playing a person' in requests[0]['messages'][0]['content']
+    assert history[-1] == {'role': 'assistant', 'content': result['message']}

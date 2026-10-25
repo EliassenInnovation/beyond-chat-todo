@@ -1,11 +1,11 @@
-# Design the agent’s place in the UI
+# Design the agent's place in the UI
 
 An embedded agent needs a place in the application. Familiar chat controls provide a useful
 starting point, but placement, size, and behavior should support the work people are doing.
 Sometimes the conversation is the work. Sometimes it should help people reach a screen and
 then leave that screen available to them.
 
-This section offers an initial set of design choices to try. The public guidance linked
+This chapter offers an initial set of design choices to try. The public guidance linked
 below provides established patterns; the Advisor examples illustrate particular choices,
 not evidence that one layout works best for every application.
 
@@ -35,7 +35,7 @@ coach normally starts as a header and an input line, and the application decides
 the result of a request needs more space. A fixed panel or a panel opened only by the
 person may suit another application better.
 
-“Can you take me to where I can edit the thesis for MU?” The application opens MU's
+"Can you take me to where I can edit the thesis for MU?" The application opens MU's
 settings and focuses the thesis field. The conversation stays minimized, leaving room for
 editing. The useful result is already on the screen.
 
@@ -43,7 +43,7 @@ editing. The useful result is already on the screen.
 
 *The editor is the result. The person can start typing without reading a chat response.*
 
-“What has the news been about MU?” This request needs a written answer. The conversation
+"What has the news been about MU?" This request needs a written answer. The conversation
 opens to show the summary and its source links, while the holding remains visible.
 
 [![Advisor with the coach expanded to answer a question about MU news.](../images/advisor-coach-expanded.png)](../images/advisor-coach-expanded.png)
@@ -56,7 +56,7 @@ data; select either image to see it at full size.*
 After the agent answers, Advisor checks whether the person can already see the result.
 The panel stays closed only when the agent changed something or moved to a screen, every
 step succeeded without an error or warning, the whole change is visible, the reply asks no
-question, and no undo or later edit has replaced the change:
+question, and no undo or later edit has replaced the change.
 
 ![Advisor checks for errors, a change or navigation, successful steps, a fully visible result, no question, and a change that is still current. A failed check opens the conversation; passing every check keeps it closed.](../images/advisor-panel-decision.svg)
 
@@ -69,56 +69,49 @@ If the person has opened the conversation, it stays open after a successful chan
 
 Each part of the screen declares which settings and values it currently shows. Application
 code compares the change with those visible values. The agent's claim that something was
-“saved” cannot keep the panel closed.
+"saved" cannot keep the panel closed.
 
 Advisor also opens the coach when a person has no saved settings and an AI provider is
-configured, to make it discoverable. Returning to the portfolio—for example, selecting a
+configured, to make it discoverable and begin [onboarding](onboarding.md#onboarding-when-needed). Returning to the portfolio—for example, selecting a
 category, sorting the list, or closing a holding's detail view—closes the conversation.
+Advisor has no approvals that wait on the person. If the coach has asked a question and
+the person then returns to the portfolio, the panel collapses; the question is still in
+the conversation when they reopen it.
 
 These choices came from the author's judgment while using Advisor and have not yet been
 tested with real users. The rule behind them is to keep the work visible when it shows the
 result, and to open the conversation when there is something to read.
 
-Keep expansion and minimization predictable. Give people a way to override the choice, and
-keep their conversation available. Keep questions awaiting an answer, errors, and approvals
-visible until the person deals with them. Microsoft's human–AI interaction guidelines recommend
-making assistance easy to invoke and dismiss and timing it to the user's context.
+When adapting this behavior, make pending questions, errors, and approvals take precedence
+over automatic minimization: keep the panel open or keep the pending item visible elsewhere.
+Let the person explicitly dismiss or defer it. Keep expansion and minimization predictable,
+and give people a way to override the choice while retaining their conversation.
 [Microsoft: human-AI interaction guidelines](https://www.microsoft.com/en-us/research/project/guidelines-for-human-ai-interaction/)
+
+For temporary confirmations, use the platform's accessibility mechanism to announce a status
+message without moving focus. On the web, this is covered by
+[WCAG: status messages](https://www.w3.org/WAI/WCAG21/Understanding/status-messages.html).
+Also keep the confirmation available afterwards, for example in the conversation or change
+history, so people can read it at their own pace. These are design recommendations to check
+when implementing a timed confirmation.
 
 ## Offer relevant starting points
 
-A blank input box can leave people unsure what to ask. Small clickable suggestions—often
-called suggestion chips—can show useful requests for the current screen, selection, or
-conversation. For example, a product page might offer “Check compatibility” or “Compare
-with another product.” Only offer requests the agent can actually handle in that context.
-
-Nielsen Norman Group recommends relevant prompt suggestions and describes examples that
-change with the conversation. It also recommends making it clear that an assistant knows
-what the person is looking at. [NN/g: AI chatbot design guidelines](https://www.nngroup.com/articles/ai-chatbots-design-guidelines/)
-
-Decide what clicking a suggestion does. It might fill the input so the person can edit it,
-submit a request immediately, or start an application action. These are different interactions.
-SAP's prompt library fills the input for editing before sending; Google's conversation-design
-guidance describes chips that submit a response. Make the behavior apparent, and keep any
-required execution checks and approvals in place.
-[SAP: Working with conversations](https://help.sap.com/docs/joule/joule-work-621104a90a01407fbb2d1613db39a54d/working-with-conversations),
-[Google: Suggestion chips](https://developers.google.com/assistant/conversation-design/chips)
-
-Suggestions can be prewritten and selected by application state, generated by a model, or
-selected from an approved set with model assistance. Those are implementation options, not
-requirements of the visual pattern. Start with the simplest approach that produces useful,
-accurate suggestions. Model-generated suggestions still need to respect available
-capabilities, the current context, and the user's permissions.
+A blank input can leave people unsure what to ask. Suggestions, short clickable requests,
+can show what the agent can do for the current screen or conversation; offer only requests
+it can handle there. Make it apparent whether selecting one fills the input for editing or
+submits the request, and run a submitted suggestion through the same checks and approvals
+as a typed one. [NN/g: AI chatbot design guidelines](https://www.nngroup.com/articles/ai-chatbots-design-guidelines/)
 
 ## Keep the application and conversation connected
 
-Show the result where the person will use it. Navigation should reveal the destination;
-an edit should appear in the application. Chat can confirm what happened, explain a limit,
-or ask for missing information. It need not repeat everything already visible on the screen.
+Show the result where the person will use it; [Understand and complete the request](requests.md#complete-the-job-and-report-what-happened)
+explains how application code can choose where feedback appears.
 
-Make it clear which item or selection the agent is working with, especially after the person
-navigates elsewhere. Advisor's panel header names its scope, such as "Coach - Total Portfolio"
-or "Coach - MU", and each scope keeps its own conversation. Preserve manual controls so people can continue the task directly.
+Make it clear which item or selection the agent is working with, especially after the
+person navigates elsewhere. Advisor's panel header names it, such as "Coach - Total
+Portfolio" or "Coach - MU". Preserve manual controls so
+people can continue the task directly.
 Evaluate the whole interaction: the screen, focus, scrolling, suggestions, and conversation,
 as well as the words in the response.
 

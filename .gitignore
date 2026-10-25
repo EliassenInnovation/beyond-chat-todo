@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 .env
+model_rates.json
 .DS_Store
 todos.json
 runs/

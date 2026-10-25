@@ -17,7 +17,7 @@ script: rows open in place with <details>.
 """
 
 import evaluations.eval_monitor as eval_monitor
-from evaluations.eval_costs import estimate
+from evaluations.eval_costs import estimate, rates_note
 
 import json
 import math
@@ -396,9 +396,9 @@ def monitor_panel(record, history, baseline, policy):
 <div><div class="label">Variation</div><h2>{e(stability['status'].replace('_', ' ').capitalize())}</h2><p>{e(stability['message'])}</p></div>
 <div><div class="label">Acceptance</div><h2>{e(acceptance['status'].replace('_', ' ').capitalize())}</h2><p>{e(acceptance['message'])}</p></div></div>
 <p><b>Estimated {'original run ' if record.get('rejudged') else ''}API cost:</b> {dollars}. {usage_text}</p>
+<p>{e(rates_note())}</p>
 <p>Guard configuration: {e(', '.join(record.get('guards', [])) or 'none')}</p>
 <details><summary>Comparable history and control-chart readiness ({len(comparable)} runs)</summary>
-<p>Cost estimates use standard supported-model rates checked 2026-10-15. Unreported retries and other charges are excluded; unknown usage or models remain unpriced.</p>
 <p>Points are ordered runs, not elapsed time. Only matching configurations are shown.
 History describes this fixed suite, not all possible user requests. No limits are fitted automatically.
 An owner must review a stable period of at least 20 comparable runs before freezing a baseline.

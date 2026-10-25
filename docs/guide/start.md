@@ -1,10 +1,20 @@
 # Run the sample
 
-You can watch a
-[recorded session in your browser](../demos/persona-replay.html) without installing anything
-or supplying a model key. To run it locally, use Python 3.11 or later and follow the steps below.
+## No key, no install: watch the browser replay
 
-## Get the code
+Open the [recorded session in your browser](../demos/persona-replay.html). The "Persona"
+picker shows "Prerecorded Run": a saved session in which Sam uses the assistant. Use
+"Next" to step through the conversation, including Sam's approval decisions, or "Play"
+to watch it run. The replay makes no model calls.
+
+[![The recorded demo shows the todo list on the left, the conversation on the right, and the Prerecorded Run selection with Play and Next controls.](../images/todo-recorded-session.png)](../images/todo-recorded-session.png)
+
+*The browser replay after Sam's first request, with two deletions awaiting approval.
+Select the image to view it at full size.*
+
+## No key, code only: inspect the operations
+
+Use Python 3.11 or later. The commands below are for macOS and Linux.
 
 Clone the sample repository:
 
@@ -22,16 +32,18 @@ python3 -m todo.walkthrough
 
 This prints five steps using disposable data, with no dependencies or model calls.
 
-## Set up and start the app
+## With a key: use the live assistant
 
-Install the dependencies and create `.env` from `.env.example`:
+We suggest you follow your model provider's practices for setting limits on spending.
+
+From the cloned repository folder, install the dependencies and create `.env` from
+`.env.example`:
 
 ```bash
 ./setup.sh
 ```
 
-Setup preserves an existing `.env`. For a recorded replay or manual use of the list, leave
-the model keys empty. To use the live assistant, edit `.env` before starting the app:
+Setup preserves an existing `.env`. Edit it before starting the app:
 
 - Set `EVALBASICS_PROVIDER` to `openai` or `anthropic`.
 - Fill in `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` for the selected provider.
@@ -49,15 +61,11 @@ Start the app:
 .venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
-With no model key configured, the "Persona" picker selects "Prerecorded Run". The app replays
-a saved session in which Sam uses the assistant. Use "Next" to step through the conversation,
-including Sam's approval decisions, or "Play" to watch it run. The replay makes no new model
-calls. Uncheck "Show recorded demo" in the sidebar to use the list manually.
+Open http://127.0.0.1:8501. The start command prints this address and usually opens a
+browser. Streamlit's suggestion to install `watchdog` is optional.
 
-[![The recorded demo shows the todo list on the left, the conversation on the right, and the Prerecorded Run selection with Play and Next controls.](../images/todo-recorded-session.png)](../images/todo-recorded-session.png)
-
-*The browser replay after Sam's first request, with two deletions awaiting approval.
-Select the image to view it at full size.*
+Without a key, the app still lets you use the list by hand. Uncheck "Show recorded demo"
+in the sidebar to reach it.
 
 With a model key configured, you can type requests to the live assistant and use the
 persona player. Ordinary list changes are saved to `todos.json` in the repository root,
@@ -71,7 +79,7 @@ For additional setup and evaluation guidance:
 - [Read evaluation results](../guides/evaluation-results.md): evidence completeness, run
   history, variation, and acceptance criteria.
 
-## Try three different requests
+### Try three different requests
 
 The app calls its tasks "todos." With a model key configured, the "Persona" picker appears
 below the conversation (`EVALBASICS_PERSONA_PLAYER=true` in the default `.env`). Select

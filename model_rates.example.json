@@ -1,0 +1,18 @@
+{
+  "_note": "Copy to model_rates.json and fill in your provider's current rates in USD per million tokens, from its pricing page. Leave a rate null to keep that model unpriced. guards lists input-only rates for decision-style guard calls.",
+  "rates_date": null,
+  "openai": {
+    "gpt-6-luna": {"input": null, "cached": null, "cache_write": null, "output": null},
+    "gpt-6-sol": {"input": null, "cached": null, "cache_write": null, "output": null},
+    "gpt-4.1-mini": {"input": null, "cached": null, "cache_write": null, "output": null},
+    "gpt-4.1-mini-2025-04-14": {"input": null, "cached": null, "cache_write": null, "output": null}
+  },
+  "anthropic": {
+    "claude-haiku-5-5": {"input": null, "output": null, "cached": null, "write_5m": null, "write_1h": null},
+    "claude-sonnet-5-5": {"input": null, "output": null, "cached": null, "write_5m": null, "write_1h": null},
+    "claude-opus-5-5": {"input": null, "output": null, "cached": null, "write_5m": null, "write_1h": null}
+  },
+  "guards": {
+    "gpt-6-luna": null
+  }
+}

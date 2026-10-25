@@ -64,10 +64,11 @@ under your organization's policies, and use what you learn to guide ongoing impr
 
 ## From finding help to doing the job together
 
-![Six kinds of assistance: help search, help search with AI, tell me how, show me how, do it for me, and do something new.](../images/assistance-levels.svg)
+[![Six levels of assistance, with learning about the person and noticing outdated information supporting levels two through six.](../images/assistance-levels.svg)](../images/assistance-levels.svg)
 
 *Help search and help search with AI find instructions. Tell me how, show me how, do it for me,
-and do something new connect assistance to the working application.*
+and do something new connect assistance to the working application. Learn about me supports
+levels 2–6.*
 
 Search is useful when it quickly gets people to the information they need. Basic keyword
 search can return many irrelevant results, especially for common terms. AI-assisted search
@@ -81,6 +82,11 @@ combine operations into a workflow nobody provided a dedicated button for.
 Match the response to the request. "How do I?" calls for instruction, "Show me" for a
 demonstration, and "Do it" for action. The person's request determines which kind of assistance
 is appropriate.
+
+One kind of support runs alongside levels 2–6. "Learn about me" builds the
+application's understanding of the person's goals, preferences, and circumstances, and keeps
+it up to date. This can improve assistance across those levels. The chapter
+[Learn about me](onboarding.md) shows ways to provide it.
 
 ## Start with the job people want to accomplish
 

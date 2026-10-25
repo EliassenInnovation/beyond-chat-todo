@@ -18,3 +18,8 @@ from todo import langfuse_setup
 
 # Explicit fixture files still work in configuration tests.
 langfuse_setup.ENV_FILES = ()
+
+from evaluations import eval_costs
+
+# Cost tests use fixed test rates, never a developer's own model_rates.json.
+eval_costs.RATES_FILE = Path(__file__).resolve().parent / 'model_rates_test.json'

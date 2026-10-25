@@ -52,7 +52,7 @@ nav:
     - Why an embedded agent?: guide/why.md
     - Shared capabilities and the registry: guide/design.md
     - Understand and complete the request: guide/requests.md
-    - Onboarding, when needed: guide/onboarding.md
+    - Learn about me: guide/onboarding.md
     - Authority and recovery: guide/authority.md
     - Tools and current evidence: guide/tools.md
     - Interfaces and views: guide/interfaces.md

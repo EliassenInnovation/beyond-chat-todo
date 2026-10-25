@@ -1,0 +1,18 @@
+{
+  "_note": "Test rates for offline cost-estimate tests only; not provider prices.",
+  "rates_date": "test",
+  "openai": {
+    "gpt-6-sol": {"input": 2.00, "cached": 0.20, "cache_write": 2.50, "output": 10.00},
+    "gpt-6-luna": {"input": 0.10, "cached": 0.01, "cache_write": 0.125, "output": 0.50},
+    "gpt-4.1-mini": {"input": 0.40, "cached": 0.10, "cache_write": null, "output": 1.60},
+    "gpt-4.1-mini-2025-04-14": {"input": 0.40, "cached": 0.10, "cache_write": null, "output": 1.60}
+  },
+  "anthropic": {
+    "claude-haiku-5-5": {"input": 0.10, "output": 0.50, "cached": 0.01, "write_5m": 0.125, "write_1h": 0.20},
+    "claude-sonnet-5-5": {"input": 2.00, "output": 10.00, "cached": 0.10, "write_5m": 2.50, "write_1h": 4.00},
+    "claude-opus-5-5": {"input": 4.00, "output": 20.00, "cached": 0.20, "write_5m": 5.00, "write_1h": 8.00}
+  },
+  "guards": {
+    "gpt-6-luna": 0.10
+  }
+}

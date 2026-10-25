@@ -1,42 +1,69 @@
-"""Estimated standard API cost from reported usage; never a billing ledger.
+"""Estimated API cost from reported usage and rates you supply; never a billing ledger.
 
-Verified 2026-10-15:
-https://developers.openai.com/api/docs/guides/decisions
-https://developers.openai.com/api/docs/models/gpt-6-luna
-https://developers.openai.com/api/docs/models/gpt-4.1-mini
-Additional rates verified 2026-10-16:
-https://developers.openai.com/api/docs/models/gpt-6-sol
-https://docs.typesafe.ai/models
-Claude Haiku 5.5 rates verified 2026-10-16:
-https://platform.claude.com/docs/en/models/haiku-5-5/overview
-Claude Sonnet 5.5 and Opus 5.5 rates verified 2026-10-16:
-https://platform.claude.com/docs/en/models/opus-5-5/overview
-https://platform.claude.com/docs/en/models/sonnet-5-5/overview
-Unknown models or missing usage stay unknown. OpenAI cached tokens are a subset of input;
+The sample ships no prices. To estimate cost, copy model_rates.example.json to model_rates.json
+at the repository root and fill in your provider's current rates (USD per million tokens).
+Without that file, or for a model left blank, cost stays unknown and token counts are still
+reported. Unknown models or missing usage stay unknown.
+A compatible provider reusing a recognized model ID may charge different rates; these
+estimates do not distinguish providers.
+OpenAI cached tokens are a subset of input;
 Anthropic cache reads and writes are additional to uncached input.
 """
-RATES = {'gpt-6-sol': {'input': 2.00, 'cached': 0.20, 'cache_write': 2.50, 'output': 10.00},
-         'gpt-6-luna': {'input': 0.10, 'cached': 0.01, 'cache_write': 0.125, 'output': 0.50},
-         'gpt-4.1-mini': {'input': 0.40, 'cached': 0.10, 'cache_write': None, 'output': 1.60}}
-RATES['gpt-4.1-mini-2025-04-14'] = RATES['gpt-4.1-mini']
+import json
+from pathlib import Path
 
-ANTHROPIC_RATES = {
-    'claude-haiku-5-5': dict(input=0.10, output=0.50, cached=0.01, write_5m=0.125, write_1h=0.20),
-    'claude-sonnet-5-5': dict(input=2.00, output=10.00, cached=0.10, write_5m=2.50, write_1h=4.00),
-    'claude-opus-5-5': dict(input=4.00, output=20.00, cached=0.20, write_5m=5.00, write_1h=8.00),
-}
+RATES_FILE = Path(__file__).resolve().parents[1] / 'model_rates.json'
+OPENAI_FIELDS = ('input', 'cached', 'cache_write', 'output')
+ANTHROPIC_FIELDS = ('input', 'output', 'cached', 'write_5m', 'write_1h')
 
 
-def estimate(generations):
+def _number(value):
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and value >= 0
+
+
+def load_rates(path=None):
+    """The rates file as {'openai', 'anthropic', 'guards', 'rates_date', 'source'}; empty when absent.
+
+    A model counts as priced only when every required rate is a number. OpenAI's cache_write may
+    be null for a model with no cache-write price. A malformed file raises, naming the file."""
+    path = Path(path) if path else RATES_FILE
+    empty = dict(openai={}, anthropic={}, guards={}, rates_date=None, source=None)
+    if not path.exists():
+        return empty
+    try:
+        data = json.loads(path.read_text())
+    except ValueError as exc:
+        raise ValueError(f'{path} is not valid JSON: {exc}') from None
+    if not isinstance(data, dict):
+        raise ValueError(f'{path} must contain a JSON object.')
+    rates = dict(empty, rates_date=data.get('rates_date'), source=path.name)
+    for section, fields in (('openai', OPENAI_FIELDS), ('anthropic', ANTHROPIC_FIELDS)):
+        for model, entry in (data.get(section) or {}).items():
+            if not isinstance(entry, dict):
+                raise ValueError(f'{path}: {section}.{model} must be an object of rates.')
+            optional = ('cache_write',) if section == 'openai' else ()
+            if all(_number(entry.get(f)) or (f in optional and entry.get(f) is None) for f in fields):
+                rates[section][model] = {f: entry.get(f) for f in fields}
+    for model, rate in (data.get('guards') or {}).items():
+        if _number(rate):
+            rates['guards'][model] = rate
+    return rates
+
+
+def estimate(generations, rates=None):
+    rates = load_rates() if rates is None else rates
+    openai_rates, anthropic_rates, guard_rates = rates['openai'], rates['anthropic'], rates['guards']
+    provenance = dict(rates_date=rates.get('rates_date'), rates_source=rates.get('source'),
+                      assumption='Standard processing; reported responses only; excludes unreported retries and other charges.')
     if not generations:
-        return dict(usd=None, complete=False, input_tokens=0, output_tokens=0, cached_tokens=0)
+        return dict(usd=None, complete=False, input_tokens=0, output_tokens=0, cached_tokens=0, **provenance)
     total, inputs, outputs, cached, complete = 0.0, 0, 0, 0, True
     for g in generations:
         usage = g.get('usage') or {}
-        rate = RATES.get(g.get('served_model'))
+        rate = openai_rates.get(g.get('served_model'))
         if g.get('purpose') == 'guard':
-            # Decisions and Jev bill input only; rates are provider/model specific.
-            guard_rate = {'gpt-6-luna': 0.10, 'jev-1.14.0': 0.042}.get(g.get('served_model'))
+            # Decisions-style guards bill input only; rates are provider/model specific.
+            guard_rate = guard_rates.get(g.get('served_model'))
             inp = usage.get('input_tokens')
             out = usage.get('output_tokens', 0)
             if (g.get('error') or guard_rate is None
@@ -59,7 +86,7 @@ def estimate(generations):
                 complete = False
                 continue
             inputs += inp + cache + writes; outputs += out; cached += cache
-            native_rate = ANTHROPIC_RATES.get(g.get('served_model'))
+            native_rate = anthropic_rates.get(g.get('served_model'))
             if (g.get('error') or native_rate is None
                     or inp + cache + writes > 100000
                     or g.get('service_tier') not in (None, 'default', 'standard')):
@@ -88,5 +115,15 @@ def estimate(generations):
             continue
         total += ((inp-cache-writes)*rate['input']+cache*rate['cached']+writes*(rate['cache_write'] or 0)+out*rate['output'])/1e6
     return dict(usd=round(total, 8) if complete else None, known_usd=round(total, 8),
-                complete=complete, input_tokens=inputs, output_tokens=outputs, cached_tokens=cached,
-                rates_date='2026-10-16', assumption='Standard processing; reported responses only; excludes unreported retries and other charges.')
+                complete=complete, input_tokens=inputs, output_tokens=outputs, cached_tokens=cached, **provenance)
+
+
+def rates_note(rates=None):
+    """One sentence for reports: where the estimate's rates came from, or how to supply them."""
+    rates = load_rates() if rates is None else rates
+    if not any(rates[k] for k in ('openai', 'anthropic', 'guards')):
+        return ('No model rates were supplied, so cost is not estimated; token counts are shown. To estimate cost, '
+                'copy model_rates.example.json to model_rates.json and fill in your provider\'s current rates.')
+    dated = f" dated {rates['rates_date']}" if rates.get('rates_date') else ''
+    return (f"Cost estimates use the rates you supplied in {rates['source']}{dated}. Unreported retries and other charges "
+            'are excluded; unknown usage or models remain unpriced. Your provider\'s billing is authoritative.')

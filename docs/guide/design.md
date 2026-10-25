@@ -183,15 +183,12 @@ the same tool.
 
 ## Keep three decisions distinct
 
-| Decision | Owner | Example |
-| --- | --- | --- |
-| May this caller perform this operation? | Application code | An agent may propose deletion but may not approve its own request. |
-| Does the proposed action fit what the person asked? | An evaluated intent guard | Has the person uniquely identified the task being changed? |
-| Is the result good enough? | Tests, evals and human review | Did every requested change happen, and was the explanation accurate? |
+Before execution, distinguish input validation, interpretation of the request, and authority.
+The [three checks in Authority and recovery](authority.md#check-intent-with-declared-guards)
+show who owns each decision. Evaluate a model guard's mistakes as well as its successes.
 
-Application code enforces authority, while a model-based guard checks the interpretation
-of the request. Evaluate the guard's mistakes as well as its successes. The sample gives
-each guard a narrow question and explicit evidence.
+After execution, tests, evaluations, and human review assess the result: did every requested
+change happen, and was the explanation accurate?
 
 ## Match approval to consequences
 
