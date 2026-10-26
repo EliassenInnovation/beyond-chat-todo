@@ -2,7 +2,7 @@
 
 Design the conversation around what the person wants to accomplish. The earlier chapter
 [starts with the job](why.md#start-with-the-job-people-want-to-accomplish); here, the task is
-to interpret a particular request, carry it through, and help the person see the result.
+to interpret a particular request, complete it, and help the person see the result.
 
 <span id="start-with-the-job"></span>
 
@@ -32,7 +32,7 @@ request is clear and allowed, carry it out.
 
 ## Supply current context
 
-Send enough screen context to orient the agent: the current view, the selection, unsaved
+Send enough information for the agent to understand the screen: the current view, the selection, unsaved
 work, and whether the context changed. The agent can read further details through a tool.
 
 Compare representative requests with different amounts of context. A small application may
@@ -54,7 +54,7 @@ person's original words, recorded tool calls and results, and relevant applicati
 to improve its chances of resolving those references correctly. Ask when the remaining
 interpretations would lead to materially different outcomes.
 
-Keep the task in view across the conversation. The same short phrase can add work, correct
+Keep track of the task throughout the conversation. The same short phrase can add work, correct
 an earlier value, or refer to a record already discussed:
 
 | Follow-up | What it changes | What to preserve |
@@ -106,11 +106,7 @@ than a general system of named action groups or saved calculations.
 
 The [result-reference example](../reference/conversation-references.md) develops those options.
 
-## Explain what the results mean
-
-Give the agent enough context to explain a result and offer supported alternatives when a
-request is rejected; [Tools and current evidence](tools.md#return-facts-and-structured-decisions)
-shows how to label results and return useful errors.
+<span id="explain-what-the-results-mean"></span>
 
 ## Complete the job and report what happened
 
@@ -124,6 +120,10 @@ priority list" includes every client on that list. The
 [tool design chapter](tools.md#return-facts-and-structured-decisions) describes one way to
 make this reliable: let the agent name the whole group, and let application code find its
 members.
+
+Give the agent enough context to explain a result and offer supported alternatives when a
+request is rejected. [Tools and current evidence](tools.md#return-facts-and-structured-decisions)
+shows how to label results and return useful errors.
 
 Report completed work, outstanding items, and what happens next, using the application's
 actual results. "Reminders saved; two clients have no meeting scheduled yet" distinguishes
@@ -147,7 +147,7 @@ Forms, documents, spreadsheets, presentations, and calendars provide familiar wa
 check, and review information. A form marks required fields and validates them before
 submission; a spreadsheet exposes formulas and cell references; a calendar shows conflicts.
 Let the agent fill in the form, edit the document, or work in the spreadsheet while those
-checks remain in place. Conversation can help explain why a total moved, which fields need
+checks remain in place. Conversation can help explain why a total changed, which fields need
 attention, or what changed since last week.
 
 Show the agent's changes through the application's existing review features: tracked edits
@@ -169,4 +169,5 @@ one application succeeds and another fails.
     needs to interpret it. If two interpretations remain reasonable, write the question
     the agent should ask before acting.
 
-Next, [define authority and recovery](authority.md) for the actions the agent may propose.
+Next, [Learn about me](onboarding.md) explains how saved personal context can improve
+assistance across requests.

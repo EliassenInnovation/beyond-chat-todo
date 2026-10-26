@@ -2,8 +2,9 @@
 
 # Shared capabilities and the registry
 
-Your application already provides capabilities through its UI and sometimes an API.
-These are operations that have meaning in the application: adding an item, rescheduling
+Your application already provides capabilities through its user interface (UI) and sometimes
+an application programming interface (API).
+These capabilities provide actions that have meaning in the application: adding an item, rescheduling
 an appointment, or submitting an order. An embedded agent needs a way to use those same
 capabilities, with the same implementation, validation, and data.
 
@@ -11,6 +12,34 @@ If you already separate UI event handlers from service or domain code, this exte
 idea: an AI agent is another caller of that code. It accesses capabilities through tools,
 each with a name, a description, and defined inputs. Tool calls still go through the
 application's validation and permission checks.
+
+## Terms used in this guide
+
+- A **capability** groups related actions, such as reading notes, opening their editor, and
+  saving a revision.
+- An **action** is one operation a caller can request, with defined inputs, checks, and a
+  result. In this guide, **operation** is an ordinary word for work the application performs.
+- A **tool** is the interface through which a model requests an action. A tool may expose
+  one action or several related actions.
+- A **guard** checks a proposed action before execution, using the request and relevant context.
+- An **answer check** checks a proposed reply before the person sees it. It may use code,
+  a model, or both. An evaluation judge scores recorded behavior; a reviewer is a person.
+- A **receipt** is a code-written confirmation of a committed change.
+
+## How one request reaches the application
+
+The agent works through a cycle controlled by application code:
+
+1. The application sends the person's message, relevant context, and available tool
+   definitions to the model.
+2. The model returns a reply or requests a tool call with specific inputs.
+3. Application code checks the proposed call, obtains approval if required, and runs the
+   operation when allowed. It returns the result, refusal, or error to the model.
+4. The model uses that result to choose another call or produce a reply. The application
+   repeats the cycle until a reply is ready or a stopping condition is reached.
+
+The model requests operations; application code executes them. The registry described
+below connects the available tools to those operations and their rules.
 
 ## Build the capability once
 
@@ -55,8 +84,8 @@ modules. The registry collects them into one set that application code can read.
 *The agent selects place_order from the available tools. Its declaration and implementation
 live together in the orders module.*
 
-The model receives tool
-descriptions and input schemas. When a call arrives, application code checks the caller's
+The model receives tool descriptions and input schemas, which define the accepted fields,
+types, and values. When a call arrives, application code checks the caller's
 permissions, validates the inputs, and performs the operation or requests approval. In the
 Todo sample, code also checks that the agent has read the latest application data through
 a tool before acting. It invokes declared intent guards: model-based checks that a proposed
@@ -169,10 +198,10 @@ Move the needed operations incrementally, estimating the work for each.
 
 ## Balance general tools with tools for important jobs
 
-General operations such as reading, adding and editing let an agent compose work you did not
-anticipate. A common job can require several calls, each another opportunity to select the
-wrong item or stop halfway. A job-specific operation can own the validation, execution and
-result for that whole unit of work.
+General operations such as reading, adding, and editing let an agent build workflows you
+did not anticipate. A common job can require several calls, each another opportunity to select the
+wrong item or stop halfway. An operation designed for that job can handle validation, execution, and
+reporting for the whole job.
 
 Merging two tasks illustrates the tradeoff: rename one and request deletion of the other,
 or offer a merge operation that expresses the job directly. A dedicated operation can check
@@ -181,37 +210,16 @@ both tasks unchanged. Evaluate whether those checks improve reliability, includi
 on other jobs. Add one tool per job; different phrasings of the same request should reach
 the same tool.
 
-## Keep three decisions distinct
-
-Before execution, distinguish input validation, interpretation of the request, and authority.
-The [three checks in Authority and recovery](authority.md#check-intent-with-declared-guards)
-show who owns each decision. Evaluate a model guard's mistakes as well as its successes.
-
-After execution, tests, evaluations, and human review assess the result: did every requested
-change happen, and was the explanation accurate?
-
-## Match approval to consequences
-
-Declare approval requirements on each capability and enforce them in the shared code.
-Choose them according to the scope of the change, how readily a person would notice a
-mistake, and how it can be recovered. [Authority and recovery](authority.md#enforce-policy-and-approval)
-explains how to choose safeguards and bind approval to the exact proposed change.
-
+<span id="keep-three-decisions-distinct"></span>
+<span id="match-approval-to-consequences"></span>
 <span id="know-what-the-person-sees-and-be-able-to-change-the-view"></span>
+<span id="share-screen-state-and-actions"></span>
+<span id="report-facts-from-the-application-and-plan-for-failure"></span>
 
-## Share screen state and actions
-
-When a job involves navigation or screen controls, give the agent current view state and
-named actions that use the same code as the UI. [Interfaces and views](interfaces.md#observe-and-operate-the-screen)
-shows how observation and control connect to shared application state.
-
-## Report facts from the application and plan for failure
-
-Have each capability return what actually happened, including any partial or uncertain
-outcome. [Tools and current evidence](tools.md#return-facts-and-structured-decisions) explains
-how code-written confirmations reach the person, while
-[Authority and recovery](authority.md#protect-data-and-handle-interrupted-work) covers
-interrupted saves and safe retries, including the limits of this local sample.
+The following chapters explain how to [interpret requests](requests.md),
+[check intent, enforce permissions, and recover from failures](authority.md),
+[return accurate results](tools.md), and [share screen state and actions](interfaces.md).
+Together, these show how the shared operations support the complete interaction.
 
 !!! practice "Practice — trace the existing operation"
     For your chosen job, write down the screens or API calls involved today. Mark where

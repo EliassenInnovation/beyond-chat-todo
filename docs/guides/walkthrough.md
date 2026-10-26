@@ -1,18 +1,21 @@
-# Build an agent into your application
+<span id="build-an-agent-into-your-application"></span>
+
+# Follow a request
 
 You want people to get more done with your application: ask about what they are seeing,
 learn how to use a capability, and have the agent carry out work when asked. How do you
 connect that assistance to your application without creating a second implementation of
 its business logic or giving the agent more authority than it should have?
 
-This walkthrough uses a small todo app to make those choices visible. Its familiar domain
+This walkthrough uses a small todo app to make those choices visible. Its familiar task list
 lets you concentrate on the design. Start with one capability, connect both the UI and the
 agent to it, then add the context and restrictions each caller needs. Finally, examine what
 happens when execution fails or the model misunderstands.
 
-You do not need to read the other documents first. Each section explains a problem, shows
-how the sample addresses it, and points to the code. You can read along without running
-models; the commands below let you inspect the behavior yourself.
+This is the code companion to [Shared capabilities and the registry](../guide/design.md).
+It follows a request through the Todo implementation, showing where code checks inputs,
+enforces permissions, saves changes, and reports the result. You can read the code without
+running models; the commands below let you inspect the behavior yourself.
 
 ## Begin with the kind of help the person wants
 
@@ -21,14 +24,12 @@ who already understands the operation may want the agent to perform it. Connecti
 to the app makes both possible, but it must distinguish what the person is asking for.
 The progression below starts with familiar help and shows what that connection adds.
 
-[![Six levels of assistance, with learning about the person and noticing outdated information alongside levels two through six.](../images/assistance-levels.svg)](../images/assistance-levels.svg)
-
 Try the progression in the sample: ask "How do I hide completed todos?" for directions,
 "Show me where to do that" to highlight Active, then "Do it for me" to change the filter.
 The intended results are different: explanation, demonstration, and execution.
 
 Levels 3 to 6 need a connection to the running application. The assistant can
-use its current state, speak in the names of its controls, point to those controls and carry
+use its current state, use the names of its controls, point to those controls and carry
 out authorized actions. The person can move from explanation to demonstration to execution
 within the same conversation.
 
@@ -45,7 +46,7 @@ question. On the starting exploratory list, expect "Renew passport" at the top a
 tasks hidden but still stored. Check that unrelated tasks keep their relative order.
 
 That last example is an exploration prompt, not a validated reliability claim or a new built-in
-workflow. The sample supplies composable operations; evaluations measure whether a chosen model
+workflow. The sample supplies operations that can be combined; evaluations measure whether a chosen model
 uses them correctly.
 
 ## Start without a model or credentials
@@ -66,23 +67,14 @@ and open the application. Then run the offline tests:
 ```
 
 The offline suite uses model stand-ins and ignores your local provider and model settings.
-Use the exploratory tester's scratch list for the interactive exercises below.
+Use the exploratory tester's test list for the interactive exercises below.
 
 ## Build the capability once; control who can use it
-
-[![The UI and model tools share application capabilities.](../images/shared-capabilities.svg)](../images/shared-capabilities.svg)
-
-*One implementation, with authority appropriate to each caller.*
 
 Suppose you add an agent to an existing application. Implementing its actions separately
 would give you two places to maintain validation, data access, and business rules. Instead,
 connect both callers to the same capability. They follow the same underlying process and
 use the same data, with restrictions appropriate to the caller.
-
-For example, a person may be allowed to place a trade directly through a UI, while an agent
-can only propose that trade for approval enforced in code. The shared capability owns the
-operation; sharing it does not grant the agent the person's authority. First follow
-a simple addition, then examine that distinction in the sample's deletion mechanism.
 
 In the app, type a todo in What needs to be done? and press Enter. With chat configured, ask the assistant to add another todo. The language model's wording and choice of calls can vary; inspect the saved result rather than expecting an exact transcript.
 
@@ -113,7 +105,7 @@ Application code delivers each receipt directly, followed by any additional expl
 
 The [design chapter](../guide/design.md#declare-what-the-application-can-do) explains the registry's
 purpose. Here is a shortened extract of the actual deletion declaration in
-[todos.py](../../todo/todos.py); its full description and guard semantics remain in that file:
+[todos.py](../../todo/todos.py); its full description and guard rules remain in that file:
 
 ```python
 @REGISTRY.action(
@@ -142,7 +134,7 @@ bound proposal details. The next section tests that boundary.
 `Registry.catalog()` exposes the declarations and guard definitions without the handler code,
 plus a revision derived from their contents. This makes the contract inspectable and gives
 recorded evidence a way to identify it. The registry does not itself implement persistence,
-user authentication, or every semantic check: those have explicit owners in the application.
+user authentication, or every check of meaning or intent: those have explicit owners in the application.
 
 ## Request a deletion and inspect authority
 
@@ -157,7 +149,7 @@ example whose authority rules can be inspected and tested.
 
 Separate two questions when adapting this pattern: does the mechanism enforce authority?
 And do this action's consequences and recoverability justify approval? The walkthrough tests
-the first; the second is a product decision. Match safeguards to consequences rather than gating
+the first; the second is a product decision. Match safeguards to consequences rather than requiring approval for
 every write.
 
 Ask the assistant to delete a named todo. It calls the `request_delete` tool, which resolves to the `todos.delete` action. For the agent, that action's policy is `approval`, so `execute` runs its proposal function. The task remains, and an Approve/Deny card appears.
@@ -177,8 +169,8 @@ that can be evaluated, separate from the application's deterministic approval ru
 
 Guards sit in `Agent.run_tool`, after argument validation and before
 `execute`. Each action names its guards; each guard declares its question, evidence, provider,
-decision rule, and refusal. The [Todo guard examples](../guide/authority.md#two-guard-questions-from-todo)
-show how `require_yes` distinguishes yes-to-proceed from no-to-proceed checks.
+decision rule, and refusal. The [registry appendix](../reference/capability-declarations.md#separate-validation-normalization-and-guards)
+explains how `require_yes` distinguishes yes-to-proceed from no-to-proceed checks.
 
 [guard_check.py](../../todo/guard_check.py) groups checks that need the same evidence and runs independent
 groups concurrently. The input check cannot see the model's proposed selection; the output
@@ -224,7 +216,7 @@ A more important test fails the actual file replacement after a multi-item addit
 .venv/bin/python -m pytest -q tests/test_reference.py -k 'failed_batch or batch_commits'
 ```
 
-`TodoList.transaction` restores the in-memory state when the operation or save raises. `save` writes a temporary file beside the destination, flushes it, and replaces the destination only when the write is complete. A UI change and its undo entry share that transaction. This demonstrates an atomic registered action under the tested failures; it does not turn the JSON file into a concurrent database or establish durability under every power-loss condition.
+`TodoList.transaction` restores the in-memory state when the operation or save raises an exception. `save` writes a temporary file beside the destination, flushes it, and replaces the destination only when the write is complete. A UI change and its undo entry share that transaction. This demonstrates an atomic registered action under the tested failures; it does not turn the JSON file into a concurrent database or establish durability under every power-loss condition.
 
 ## Recover when the model stops after saving
 
@@ -236,7 +228,7 @@ A request can save a task successfully and then lose the model service while ask
 
 The test substitutes a model that first requests an addition and then raises a provider error. The agent returns a code-written interruption message with the saved action receipt, retains that reply in conversation history, and records an undo entry. The person's Undo button then removes the addition.
 
-This is distinct from losing the response to the write itself. The sample has no durable operation IDs or replay receipts: repeating an addition after an uncertain response may add a duplicate. It therefore does not provide reliable retry protection. Do not retry writes automatically when adapting it to a network service; implement operation identity and recovery first.
+This is distinct from losing the response to the write itself. The sample has no durable operation IDs or stored results for repeated requests: repeating an addition after an uncertain response may add a duplicate. It therefore does not provide reliable retry protection. Do not retry writes automatically when adapting it to a network service; implement operation identity and recovery first.
 
 ## Find out whether the agent understood and helped
 
@@ -275,10 +267,9 @@ Use the [evaluation report guide](evaluation-results.md) to distinguish complete
 unusual variation, and acceptable performance. A five-run pilot helps inspect failures
 and cost. More runs are needed to understand whether variation between runs is normal.
 
-Human exploratory testers may repeatedly test the same kinds of requests. Personas automate another source of requests
-and reactions, helping you explore interactions you might not have tried. Sam is one such
-simulated tester. Keep the visible persona player for watching the experience. For unattended exploration,
-run:
+[Explore the experience](../guide/exploration.md) explains how to use people and simulated
+users to find problems beyond fixed cases. The visible persona player lets you watch the
+interaction. For unattended exploration, run:
 
 ```bash
 .venv/bin/python -m evaluations.personas --persona sam --turns 3 --max-tokens 50000
@@ -306,12 +297,11 @@ language inside them.
 
 This avoids guessing from prose whether "that's enough" means satisfaction or giving up.
 The visible player and headless runner use the same turn format and application operations.
-The player lets you watch or step through; the headless runner saves the interaction for
-later review. See [personas.py](../../evaluations/personas.py) for the response format and runner.
+The player lets you watch or step through the interaction. The headless runner runs without
+displaying the interface and saves the interaction for later review. See [personas.py](../../evaluations/personas.py) for the response format and runner.
 
-"Satisfied" is the persona's opinion, not proof of a correct outcome. Inspect the saved state
-and conversation, review flagged findings, and sample apparent successes. A persona can
-misunderstand the screen or overlook a mistake just as the assistant can.
+See [Review findings and create test cases](../guide/exploration.md#review-findings-and-create-test-cases)
+for interpreting persona reactions and checking the recorded outcomes.
 
 ## Take one capability back to your application
 

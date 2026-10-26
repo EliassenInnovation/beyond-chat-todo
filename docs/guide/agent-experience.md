@@ -1,4 +1,6 @@
-# Design the agent's place in the UI
+<span id="design-the-agents-place-in-the-ui"></span>
+
+# The agent in the UI
 
 An embedded agent needs a place in the application. Familiar chat controls provide a useful
 starting point, but placement, size, and behavior should support the work people are doing.
@@ -21,7 +23,7 @@ less permanent space, but can cover the content or controls people need.
 The Todo sample uses a side panel. Advisor uses a bottom panel. Neither placement is a
 requirement of the architecture. SAP's Joule guidance describes large, medium, and minimized
 panels, and advises against a full-screen panel when people need to interact with content
-outside the conversation. Choose the panel size around the work. [SAP: Joule panel](https://www.sap.com/design-system/fiori-design-android/v25-4/joule/components/joule-panel)
+outside the conversation. Choose a panel size that leaves enough space for the task. [SAP: Joule panel](https://www.sap.com/design-system/fiori-design-android/v25-4/joule/components/joule-panel)
 
 Try the layout on a normal laptop, with realistic content. Check whether opening the agent
 hides a field, compresses a table, or forces people to scroll repeatedly between a request
@@ -41,15 +43,14 @@ editing. The useful result is already on the screen.
 
 [![Advisor with MU's thesis editor open and the coach minimized to its input line.](../images/advisor-coach-minimized.png)](../images/advisor-coach-minimized.png)
 
-*The editor is the result. The person can start typing without reading a chat response.*
+*MU's thesis editor is open and ready for typing, while the conversation stays minimized.*
 
 "What has the news been about MU?" This request needs a written answer. The conversation
 opens to show the summary and its source links, while the holding remains visible.
 
 [![Advisor with the coach expanded to answer a question about MU news.](../images/advisor-coach-expanded.png)](../images/advisor-coach-expanded.png)
 
-*The answer needs space, so the conversation opens. Both screenshots use disguised example
-data; select either image to see it at full size.*
+*The answer needs space, so the conversation opens. Select either image to see it at full size.*
 
 ### How Advisor makes the choice
 
@@ -72,7 +73,7 @@ code compares the change with those visible values. The agent's claim that somet
 "saved" cannot keep the panel closed.
 
 Advisor also opens the coach when a person has no saved settings and an AI provider is
-configured, to make it discoverable and begin [onboarding](onboarding.md#onboarding-when-needed). Returning to the portfolio—for example, selecting a
+configured, to help the person find it and begin [onboarding](onboarding.md#onboarding-when-needed). Returning to the portfolio—for example, selecting a
 category, sorting the list, or closing a holding's detail view—closes the conversation.
 Advisor has no approvals that wait on the person. If the coach has asked a question and
 the person then returns to the portfolio, the panel collapses; the question is still in
@@ -82,9 +83,9 @@ These choices came from the author's judgment while using Advisor and have not y
 tested with real users. The rule behind them is to keep the work visible when it shows the
 result, and to open the conversation when there is something to read.
 
-When adapting this behavior, make pending questions, errors, and approvals take precedence
+When adapting this behavior, give pending questions, errors, and approvals priority
 over automatic minimization: keep the panel open or keep the pending item visible elsewhere.
-Let the person explicitly dismiss or defer it. Keep expansion and minimization predictable,
+Let the person explicitly dismiss the item or postpone dealing with it. Keep expansion and minimization predictable,
 and give people a way to override the choice while retaining their conversation.
 [Microsoft: human-AI interaction guidelines](https://www.microsoft.com/en-us/research/project/guidelines-for-human-ai-interaction/)
 

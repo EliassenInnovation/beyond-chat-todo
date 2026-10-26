@@ -1,6 +1,6 @@
-# Building Helpful, Trustworthy Agents Into Your Application
+# Build better agents
 
-> **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization’s security policies.
+> **Security scope:** These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization's security policies.
 
 Principles, a working example, and evaluation tools from Eliassen Innovations to help you
 build or improve an agent inside your application or website.

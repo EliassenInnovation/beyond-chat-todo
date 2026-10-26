@@ -50,7 +50,7 @@ Restart the app or command after changing settings:
 .venv/bin/python -m streamlit run todo/app.py --server.address 127.0.0.1
 ```
 
-Try an addition and read it back. Chat and evaluation calls incur provider charges. The manual
+Add a todo, then ask the assistant to read it back. Chat and evaluation calls incur provider charges. The manual
 list and offline tests need no key. Langfuse stays off in the sample configuration.
 
 Process environment variables override `.env`. Keep keys out of source control. Leave provider base URLs unset for the standard endpoints.
@@ -74,7 +74,7 @@ EVALBASICS_MODEL=claude-haiku-5-5
 ```
 
 That mixed configuration needs both keys. Judge and guard changes should be measured
-separately from agent changes when you want to attribute a difference.
+separately from agent changes so you can identify which change caused a difference.
 
 ### Updating an existing .env
 
@@ -84,7 +84,7 @@ provider's defaults. If your file sets `EVALBASICS_GUARDS`, compare that selecti
 
 ## Try a replacement and measure it
 
-Use the [exploratory tester's scratch list](../guide/start.md#try-three-different-requests)
+Use the [exploratory tester's test list](../guide/start.md#try-three-different-requests)
 and leave trace export off. These first commands make no model calls until you send a chat
 message:
 
@@ -106,21 +106,15 @@ Next, run a small visible eval before paying for the full suite:
 ```
 
 These commands incur charges at your provider. Token allowances are stop conditions between
-calls, not dollar caps; an in-flight call can exceed the allowance. Inspect the JSON/HTML
+calls, not dollar caps; a call already in progress can exceed the allowance. Inspect the JSON/HTML
 record for provider errors, missing judgments and token usage, not just passes. The small run
 checks the connection; the full visible suite checks wider behavior. Keep held-out cases
 separate from development feedback, following the [held-out case
 rules](../principles/implementation.md#check-6-9).
 
 When comparing assistant models, keep the judge, cases, tool order and other settings fixed.
-Changing the judge at the same time changes the measuring instrument. Review a judge against
-examples marked correct or incorrect by a person before trusting its scores; a different model
-family can be useful but is not automatically a better judge. The existing calibration command
-makes paid calls:
-
-```bash
-.venv/bin/python -m evaluations.judge_calibration --repeat 3
-```
+For judge comparisons and the calibration command, see
+[Compare judge models](evaluation-results.md#compare-judge-models).
 
 Keep results from different settings separate when comparing runs. Local records retain
 requested and served model details, plus hashes that identify endpoint settings without saving
@@ -180,15 +174,15 @@ proposed actions. They use `EVALBASICS_ACTION_GUARD_MODEL` and the action-guard 
 independently of the assistant model. Each provider configuration uses its own key; no second
 account is needed.
 
-The input check receives dialogue through the latest user request, current todos, and date. It
-receives neither the proposed action nor the model's narration of that proposal. The output
+The input check receives the conversation up to and including the latest user request, current todos, and date. It
+receives neither the proposed action nor the model's description of that proposal. The output
 checks also receive that action, tool meanings, and computed calendar facts. Both requests run
-concurrently before a write. Each returns boolean answers, not calibrated confidence scores.
+at the same time before a write. Each returns boolean answers, not calibrated confidence scores.
 Date changes additionally check the proposed values.
 
 Checks apply to one operation at a time: a request containing several operations need not be
 completed by one call. The final-response eval checks completeness across the request. A
-missing key, timeout, refusal, or invalid answer prevents that invocation; the assistant
+missing key, timeout, refusal, or invalid answer prevents that call; the assistant
 receives an error and the person can still use the app's controls. Local tool records and the
 HTML eval report include the answers; Langfuse is optional.
 
@@ -207,14 +201,12 @@ A conversational LLM can interpret a request, propose tool calls, and explain re
 purpose-built decision model answers narrower questions for application code, such as "Has the
 user uniquely identified a task?" Its interface returns typed answers, often with
 probabilities, rather than a conversational reply.
-[Jev](https://docs.typesafe.ai/introduction.md) is one example.
-
 An LLM can also answer a narrow question using structured output. That makes it usable as a
 decision step; it does not make a yes/no answer a calibrated probability.
 
 A boolean answer gives code a yes/no decision. A probability also allows code to apply a
 threshold measured against examples. Evaluate either form for false refusals and incorrect
-approvals. Jev is not integrated into this sample.
+approvals.
 
 ## Use a compatible endpoint
 
@@ -278,46 +270,11 @@ Add a provider adapter at the model-call boundary for messages, tool calls, resu
 structured output, errors and usage. Keep domain operations and authority in
 `capabilities.execute`; do not reimplement todo actions for each provider. Agent, judge, guard
 and persona paths need separate verification. OpenAI-compatible and native Anthropic paths are
-implemented; other native APIs and independent endpoints within one provider remain extension
-work.
+implemented; other native APIs and independent endpoints within one provider require additional
+implementation.
 
-## Tested configurations {#tested-configurations}
-
+<span id="tested-configurations"></span>
 <span id="what-we-tested"></span>
 
-The Anthropic configuration uses Haiku 5.5 for the application, guards, and personas, and
-Sonnet 5.5 for evaluation judges. A model that works well as the agent is not automatically
-the best evaluator. You can override the judge with `EVALBASICS_JUDGE_MODEL`.
-
-Sonnet was selected after comparing Haiku, Sonnet, and Opus against 206 calibration examples,
-with three judgments per example. Haiku agreed with the recorded correct/incorrect judgments
-in 607 of 618 attempts at its default effort; increasing its effort still produced errors in
-focused checks. Sonnet initially missed a claimed return that had not happened. Clarifying
-that a return implies a state change brought Sonnet to 618/618 across the full set. Opus also
-matched 618/618 in the initial comparison. No recorded judgments were changed during this model
-comparison.
-
-Regrading the same 51 saved conversations with Sonnet and with Opus passed 51/51 with each.
-Sonnet uses the provider's default effort. Opus remains an optional override, not a required
-part of the sample.
-
-Development snapshot from October 16, 2026:
-
-- 312 offline tests passed, including provider isolation, tool history, recovery, and cost accounting.
-- The latest full application run passed 51/51 visible cases. Rechecking its saved
-  conversations with Sonnet also passed 51/51, without missing judgments or replacing the originals.
-- The final Sonnet grading instructions matched 618/618 calibration judgments (206 examples, three times
-  each), including correct and incorrect replies. These are repeated development checks,
-  not 618 independent examples or a guarantee of accuracy on new requests.
-
-Most calibration examples were initially marked correct or incorrect by a coding agent.
-Agreement with those judgments is development evidence. Review disagreements and sample
-apparent successes before relying on the judge for a new application.
-
-Real browser chat and all five exploratory personas have also been exercised. Persona
-satisfaction is exploratory feedback, not a pass score. Application code delivers action
-confirmations directly; the model's additional explanation remains separately assessed.
-
-Retain earlier results when changing the judge, and compare the configurations separately.
-Tracing was disabled for these checks: native usage is recorded locally, but exported
-Anthropic traces have not been verified against a running Langfuse instance.
+See [Tested configurations](evaluation-results.md#tested-configurations) for the recorded
+model comparisons and their limits.

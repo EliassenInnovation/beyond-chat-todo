@@ -30,7 +30,7 @@ a local application with a local MCP server. A hosted web application can expose
 capabilities through a server alongside its existing backend services, using the service's
 authentication and permissions to control access to each person's data and operations.
 
-Choose the connection according to where those capabilities and data live and which hosts
+Choose the connection according to where those capabilities run and their data is stored and which hosts
 must reach them. MCP supports local process connections through standard input and output
 (stdio), and network connections through Streamable HTTP. HTTP can also serve local
 connections. A desktop host can connect to a remote service; the location of the screen
@@ -58,7 +58,7 @@ screen context and onboarding progress. An external agent can read onboarding pr
 with `get_onboarding`, following the server instructions. Advisor does not expose its
 current screen state to external agents. The host receives those instructions when it
 connects; the application does not
-push its embedded agent's per-turn context into that external conversation.
+automatically send its embedded agent's context to that external conversation on each turn.
 
 | Context | Advisor's embedded agent | External agent through Advisor's MCP server |
 | --- | --- | --- |
@@ -83,13 +83,13 @@ changing a filter.*
 
 In the Todo sample, the agent receives a structured description of the active filter and
 visible task IDs. The screen controls and agent change that view state through shared
-dispatch. Filtering changes which tasks are shown while preserving the underlying list.
+dispatch: code that routes both kinds of request to the same operation. Filtering changes which tasks are shown while preserving the underlying list.
 
 For jobs that involve the screen, give the embedded agent both an observation of what the
 person sees and named actions that can change that view. A central state store or state
 machine can coordinate selection, navigation and filters. Each screen component declares the
 actions it owns; clicks and agent calls use the same dispatch. Keep screen state distinct
-from saved domain data.
+from saved application data.
 
 In a hosted web application, the browser can send the current view, selection, and unsaved-work
 state with each message. Server-side application code runs the agent's tool loop and enforces
@@ -141,7 +141,7 @@ render that view, with some differences in sizing and display.
 
 A chat agent can instead create a visualization from returned data. Different hosts,
 models, or requests may produce different representations. The person can ask for changes
-right in the conversation: "Compare it with last month," "Use a table," or "Show just these
+in the conversation: "Compare it with last month," "Use a table," or "Show just these
 two accounts."
 
 Choose the balance that suits the task. A designed view has a defined shape and supports
@@ -168,7 +168,7 @@ text-only fallback for hosts that do not support the extension.
 figures with dates and distinguishes the holding's value history from investment return. This capture
 shows the card alone; select it to view at full size.*
 
-Negotiate view support when the client connects. Send view metadata only to clients that
+Check whether the client supports views when it connects. Send view metadata only to clients that
 announce support. Supply a complete text answer to both kinds of client, including every
 figure the view presents. Compute the figures once in application code, with dates, units
 and missing-data indicators, and use that result for both presentations.
@@ -181,7 +181,7 @@ if the view fails to display.*
 When a view is supplied, tell the model that the person can already see it and ask for
 useful interpretation rather than repetition. Keep the text complete even then, because
 rendering may fail. Test both connections: view support present and absent. Check that
-presentation metadata is scoped to the connection, so one client's capabilities do not
+presentation metadata applies only to its own connection, so one client's capabilities do not
 affect another's result.
 
 !!! consider "Consider — does another interface serve a real job?"
@@ -190,4 +190,5 @@ affect another's result.
     If there is, list which data and screen operations that caller actually needs.
 
 The [acceptance checks](../principles/implementation.md) provide a review reference.
-Continue with [the running sample](start.md).
+Continue with [The agent in the UI](agent-experience.md) to decide where the conversation
+belongs and how it stays connected to the person's work.

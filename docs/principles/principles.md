@@ -1,4 +1,4 @@
-# Building helpful, trustworthy agents
+# Build better agents
 
 <span id="introduction"></span>
 <span id="the-ten-to-take-away"></span>

@@ -34,8 +34,8 @@ changing your own list.
 
 ## Broaden the exploration with personas
 
-Human testers may have difficulty thinking of new scenarios or may repeat familiar ones. A persona is another
-model playing a person with a situation and goals. Sam demonstrates automated exploratory
+Human testers may have difficulty thinking of new scenarios or may repeat familiar ones.
+A persona is another model simulating a person with a situation and goals. Sam demonstrates automated exploratory
 testing, not a claim that people need an agent to manage a simple todo list.
 
 [![Sam explores cleanup and filtering while deletion requests wait for approval.](../images/persona-sam.png)](../images/persona-sam.png)
@@ -61,18 +61,18 @@ It does not rerun actions or reproduce the visual interface.
 
 `--max-tokens` is shared across all selected personas and every model call: persona,
 agent, guards, and judge.
-See [model costs and allowances](../guides/models.md#try-a-replacement-and-measure-it)
+See [Try a replacement and measure it](../guides/models.md#try-a-replacement-and-measure-it)
 for how this limit works. Choose a small turn limit for an initial exploration.
 Ctrl-C retains the latest checkpoint. A record left with status `running` after a forceful
 termination is incomplete, not a successful session.
 
-Langfuse is optional. Headless runs export traces only with `--trace` and your own project
-keys; local records and the HTML review work without it.
+Langfuse is optional. Headless runs, which run without displaying the interface, export
+traces only with `--trace` and your own project keys; local records and the HTML review work without it.
 
 The review page flags the persona's frustration and reason, claims of changes that did not
 happen, and turns without a usable judgment. These are candidates for human review. Follow
 [the review process below](#review-findings-and-create-test-cases) before treating one as a
-regression. Keep exploratory sessions separate from the
+problem to cover with a repeatable test. Keep exploratory sessions separate from the
 [fixed suite's run-to-run results](../guides/evaluation-results.md).
 
 Headless exploration checks the conversation and saved state. Use the visible player and
@@ -128,10 +128,10 @@ across several accounts.
 
 [![Advisor's persona runner with a returning-user mode, sample holdings, and the selected persona's background and concerns.](../images/advisor-persona-runner.png)](../images/advisor-persona-runner.png)
 
-*Advisor's persona runner, with Returning user selected, shown with disguised example data. The runner launches the application with isolated sample holdings. Select the image to see it at full size.*
+*Advisor's persona runner, with Returning user selected. The runner launches the application with isolated sample holdings. Select the image to see it at full size.*
 
 That context gives the simulated person something substantial to discuss. A question can
-refer to an existing holding, a personal goal, or a tension between the person's preferences
+refer to an existing holding, a personal goal, or a conflict between the person's preferences
 and their saved plans. The reviewer can inspect whether the agent uses the available
 information, asks for what is missing, and responds appropriately when the person changes
 direction.
@@ -168,8 +168,8 @@ can miss a problem or penalize a valid response:
 | Fail | The interaction has a problem to fix. | A valid response was penalized; investigate the scoring. |
 
 The Todo HTML review described above lets a person inspect the conversation and state
-changes. Use it for apparent successes as well as flagged problems. The image below shows
-a focused human-review question about a proposed action.
+changes. Use it for apparent successes as well as flagged problems. The [dentist review-form example](../guides/evaluation-results.md#from-exploration-to-human-judgment)
+shows a focused human-review question about a proposed action.
 
 ### Choose how much to review
 
@@ -192,9 +192,7 @@ or with a judge, show the exact request, starting state, and proposed action. As
 question: "Did the person uniquely identify this todo?" or "Were other items requested too?"
 Keep the original judgment and the corrected one; grading uses the corrected one.
 
-[![A focused human review of a request and proposed action.](../images/human-review.png)](../images/human-review.png)
-
-For a confirmed problem, create a repeatable regression case and a separately worded held-out
-variant. Keep the variant out of development feedback according to the
+For a confirmed problem, create a repeatable regression case to check that the problem stays fixed. Also create a separately
+worded held-out variant to test the same behavior without using it during development. Keep the variant out of development feedback according to the
 [held-out case rules](../principles/implementation.md#check-6-9). Retain unconfirmed findings
 for later review. Next, [evaluate the outcome systematically](evaluation.md).

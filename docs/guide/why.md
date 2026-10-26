@@ -2,7 +2,7 @@
 
 # Why an embedded agent?
 
-Today, many people reach for AI first when they need to get something done. They have
+Today, many people use AI first when they need to get something done. They have
 experienced how much faster it can be to compare options, understand something unfamiliar,
 or work through an everyday task.
 
@@ -12,11 +12,11 @@ when its underlying capabilities are excellent.
 
 <div class="story-image"><img src="../images/wagon.png" alt="A covered wagon labeled Your App Name Goes Here, suggesting an application that feels outdated."></div>
 
-An embedded agent can help people put those capabilities to work.
+An embedded agent can help people use those capabilities.
 
 The opportunity is especially clear for useful features people encounter infrequently,
 workflows spanning several screens, and workplaces where new staff repeatedly have to learn
-the same application. Start with a job where that friction costs your users time or money.
+the same application. Start with a job where those difficulties cost your users time or money.
 
 <span id="connect-that-expectation-to-your-application"></span>
 
@@ -106,7 +106,7 @@ that distinction when reviewing everyday requests and support calls. Jim Kalbach
 is a practical introduction to understanding customer needs and desired outcomes.
 
 If you already use user stories, use cases, or support-call reasons, start with those.
-Look past the requested feature to the result the person needs. "Add more product filters"
+Identify the result the person needs, as well as the feature they request. "Add more product filters"
 names a solution. "Find a replacement part that fits the equipment I own" describes a job.
 People may know what is broken without knowing a model number, a part name, or how to
 check compatibility.

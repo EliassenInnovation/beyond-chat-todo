@@ -56,6 +56,7 @@ def on_page_content(html, page, config, files):
 
 _PRINT_PAGES = []
 _PRINT_NAV = []
+_PAGE_URLS = {}
 
 
 def on_nav(nav, config, files):
@@ -67,6 +68,8 @@ def on_nav(nav, config, files):
             nav.items.insert(i + 1, Link("Introduction", item.url + "#introduction"))
             break
     nav.items.append(Link("Download for coding agents (.md)", "agent-guide.md"))
+    _PAGE_URLS.clear()
+    _PAGE_URLS.update((Path(page.file.src_uri), page.url) for page in nav.pages)
     _PRINT_PAGES.clear()
     _PRINT_PAGES.extend(page for page in nav.pages
                         if page.file.src_uri != "guide/checklist-builder.md")
@@ -253,7 +256,13 @@ def export_agent_markdown(config):
                 relative = target.relative_to(DOCS)
                 if relative in sources:
                     return "#" + prefixes[relative] + ("-" + parsed.fragment if parsed.fragment else "")
-                return urljoin(config["site_url"], relative.as_posix()) + ("#" + parsed.fragment if parsed.fragment else "")
+                # Some pages (such as the interactive builder) are omitted from the
+                # text edition. Link to their built URL, not their Markdown source.
+                path = _PAGE_URLS.get(relative, relative.as_posix())
+                url = urljoin(config["site_url"], path)
+                if parsed.query:
+                    url += "?" + parsed.query
+                return url + ("#" + parsed.fragment if parsed.fragment else "")
             if target.is_relative_to(ROOT):
                 return REPO + target.relative_to(ROOT).as_posix() + ("#" + parsed.fragment if parsed.fragment else "")
             raise ValueError(f"Export link leaves the repository: {source}: {value}")

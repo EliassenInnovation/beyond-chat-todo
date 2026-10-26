@@ -64,7 +64,7 @@ Start the app:
 Open http://127.0.0.1:8501. The start command prints this address and usually opens a
 browser. Streamlit's suggestion to install `watchdog` is optional.
 
-Without a key, the app still lets you use the list by hand. Uncheck "Show recorded demo"
+Without a key, the app still lets you use the list directly. Uncheck "Show recorded demo"
 in the sidebar to reach it.
 
 With a model key configured, you can type requests to the live assistant and use the
@@ -83,7 +83,7 @@ For additional setup and evaluation guidance:
 
 The app calls its tasks "todos." With a model key configured, the "Persona" picker appears
 below the conversation (`EVALBASICS_PERSONA_PLAYER=true` in the default `.env`). Select
-"Exploratory Tester". It starts a scratch list of ten made-up todos, two of them already
+"Exploratory Tester". It starts a separate test list of ten fictional todos, two of them already
 done, in a temporary folder; your normal list is untouched.
 
 If tracing is enabled, exploratory test conversations are recorded to Langfuse; the app

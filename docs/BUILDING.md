@@ -56,6 +56,16 @@ Before publishing: build strictly, check local links and anchors, visually inspe
 chapters and diagrams, and verify that the evaluation report remains available at its old URL.
 Documentation edits do not require paid model evaluations.
 
+Also check the coding-agent export against the built site and repository:
+
+```bash
+python3 .github/check_agent_export.py site/guide https://bobfischer.github.io/beyond-chat-todo/guide/ https://github.com/bobfischer/beyond-chat-todo
+```
+
+Use the configured `site_url` and `repo_url` if those addresses change. The checker validates
+local export anchors, built page and asset destinations, and repository-file links.
+
+
 Diagram layouts use an 800-unit-wide canvas and preserve paired columns, layers and cycles.
 Use larger labels and wrapped text rather than shrinking a slide or making every element
 a separate vertical card. Render at the reading-column width to check fit.

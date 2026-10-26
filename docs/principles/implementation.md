@@ -12,7 +12,7 @@ source on every build.
 
 > Security scope: These practices address agent behavior and do not make an application secure. Authentication, authorization, encryption, transport security, and other application security controls require separate design and review under your organization's security policies.
 
-This chapter is part of the [guide](../index.md), which is the source of truth for the
+This chapter is part of the [guide](../index.md), which defines the
 approach. These checks help engineers and coding agents apply its principles to a particular
 application. Select and adapt them to the architecture, priorities, and behavior you agree
 to build. Record which checks apply, how you adapted them, and the reasons for setting others
@@ -29,8 +29,8 @@ implementation. For an initial architectural assessment, start with
 
 Keep the project's persistent instructions short: name the adopted principles, link to
 this page, and record the team's decisions about which checks apply. Load the relevant
-chapters and detailed checks when a task needs them. This keeps the guide as the source of
-truth while preserving decisions specific to the application.
+chapters and detailed checks when a task needs them. This keeps the guide as the main
+reference while preserving decisions specific to the application.
 
 Assign a capability, the interfaces to examine, the changes allowed, and the check IDs.
 For example: "Review rescheduling through the screen and command line against Checks
@@ -43,7 +43,8 @@ against the applicable acceptance checks.
 ### Who owns what
 
 - The capability owns what an operation is: its purpose, actions, inputs, checks on those inputs, what it changes, its limits, the names and meanings of its inputs, and results that later requests can refer to.
-- The model and the code that runs the agent: the model works out what the user is referring to and what a correction changes; the code that runs it keeps the user's requests and the tool history. Application code stores inputs and results and recalculates. Start with conversation and tool history; add explicit task state when the workflow or evaluation evidence calls for it.
+- The model interprets what the user is referring to and what a correction changes.
+- The code that runs the agent keeps the user's requests and tool history. Application code stores inputs and results and recalculates. Start with conversation and tool history; add explicit task state when the workflow or evaluation evidence calls for it.
 - Shared execution, the code every operation runs through, owns policy, approval, saving, history, undo, and reporting what actually happened.
 - Each interface owns how a caller finds and reaches an operation, and how the result is shown. Screen controls, agent tools, and command-line commands are each designed for their caller and share the same behavior underneath; one capability need not be one tool.
 
@@ -51,7 +52,7 @@ A user's job may need several capabilities. The agent combines them; application
 
 ### Inspection and records
 
-When the task covers making the application inspectable, give each action an ID that does not change, a versioned description of its inputs, and a statement of what it changes; send every caller through shared execution. Record the tools each caller was actually offered, and link each call, from inside the app or through MCP, to what happened in the application. Use existing tracing tools, with a written mapping of the application's details onto them. Record conversation content only where policy says so; limit who can read the records, and remove protected data before it leaves. Permission to read the records does not include permission to steer or replay. See [Checks 1.7–1.11](#make-the-capability-registry-inspectable) and the
+When the task covers making the application inspectable, give each action an ID that does not change, a versioned description of its inputs, and a statement of what it changes; send every caller through shared execution. Record the tools each caller was actually offered, and link each call, from inside the app or through MCP, to what happened in the application. Use existing tracing tools, with a written mapping of the application's details onto them. Record conversation content only where policy says so; limit who can read the records, and remove protected data before it leaves. Permission to read the records does not include permission to change execution or rerun actions. See [Checks 1.7–1.11](#make-the-capability-registry-inspectable) and the
 [inspection appendix](../reference/inspection.md) for an example record format.
 
 References to earlier work: preserve the person's words, actual tool calls and results,
@@ -64,7 +65,7 @@ optional record formats. Adapt Checks 2.8–2.9 when adopting those features.
 ### Check index
 
 - [1.1](#check-1-1) Shared behavior; [1.2](#check-1-2) Shared validation; [1.3](#check-1-3) Adapter boundaries; [1.4](#check-1-4) Purpose in the tool's description; [1.5](#check-1-5) Interfaces fit their callers; [1.6](#check-1-6) Screen actions fit the caller; [1.7](#check-1-7) Inspectable catalog; [1.8](#check-1-8) Offered versus executed; [1.9](#check-1-9) Records match what happened; [1.10](#check-1-10) Portable inspection; [1.11](#check-1-11) Protected observation; [1.12](#check-1-12) Tools for repeated jobs; [1.13](#check-1-13) Screen actions run through the application's own state; [1.14](#check-1-14) Views supplement a complete text answer.
-- [2.1](#check-2-1) Subject and task; [2.2](#check-2-2) Context corrections; [2.3](#check-2-3) Complete scope; [2.4](#check-2-4) Visible outcomes; [2.5](#check-2-5) Jobs in ordinary language; [2.6](#check-2-6) Additive references; [2.7](#check-2-7) Repair after a wrong turn; [2.8](#check-2-8) Reference evidence and boundaries; [2.9](#check-2-9) Revise a named result without changing the original; [2.10](#check-2-10) Familiar forms, documents, and spreadsheets.
+- [2.1](#check-2-1) Subject and task; [2.2](#check-2-2) Context corrections; [2.3](#check-2-3) Complete scope; [2.4](#check-2-4) Visible outcomes; [2.5](#check-2-5) Jobs in ordinary language; [2.6](#check-2-6) Additive references; [2.7](#check-2-7) Correction after a misunderstanding; [2.8](#check-2-8) Reference evidence and boundaries; [2.9](#check-2-9) Revise a named result without changing the original; [2.10](#check-2-10) Familiar forms, documents, and spreadsheets; [2.11](#check-2-11) Accurate personal context; [2.12](#check-2-12) Current personal context; [2.13](#check-2-13) Relevant questions and remembered answers.
 - [3.1](#check-3-1) Atomic outcomes; [3.2](#check-3-2) Recovery; [3.3](#check-3-3) Enforced authority; [3.4](#check-3-4) Approval applies to this exact change; [3.5](#check-3-5) Combined impact; [3.6](#check-3-6) Data and resource boundaries; [3.7](#check-3-7) Guards; [3.8](#check-3-8) Audit record; [3.9](#check-3-9) Undo scope; [3.10](#check-3-10) Uncertain outcomes; [3.11](#check-3-11) Stopping a request.
 - [4.1](#check-4-1) Relevant reads; [4.2](#check-4-2) Current evidence; [4.3](#check-4-3) Delivered history; [4.4](#check-4-4) Application-written text; [4.5](#check-4-5) Whole-suite rerun; [4.6](#check-4-6) One current copy.
 - [5.1](#check-5-1) Credible scenarios; [5.2](#check-5-2) Adaptive exploration; [5.3](#check-5-3) Preserved failures; [5.4](#check-5-4) Actions available to simulated users.
@@ -107,7 +108,9 @@ Include the test harnesses and stored evidence in the deployment review; see
 
 ## Acceptance checks
 
-Check revision note — October 19, 2026: Checks 1.7 and 1.10 apply to the adopted inspection
+Check revision note — October 26, 2026: Added optional Checks 2.11–2.13 for applications
+that retain personal context. Language clarified without changing existing requirements.
+The October 19 revision remains in effect: Checks 1.7 and 1.10 apply to the adopted inspection
 contract; 1.13 requires person-confirmed discard through application-owned controls;
 2.9 applies to saved-calculation workflows; 3.7 follows the guard's declared decision rule;
 6.9 treats held-out evidence as exposed when used in development. Existing IDs are retained.
@@ -221,7 +224,7 @@ matter to the application, then verify that design. The
 <a id="check-2-4"></a>
 
 <!-- builder: embedded -->
-- Check 2.4 — Visible outcomes. Exercise a multi-step job and undo. Check saved state and every visible representation, then repeat with the result offscreen and unsaved edits present. Explain unfinished work without obscuring the result or stealing focus.
+- Check 2.4 — Visible outcomes. Exercise a multi-step job and undo. Check saved state and every visible representation, then repeat with the result offscreen and unsaved edits present. Explain unfinished work without hiding the result or unexpectedly moving keyboard focus.
 
 <a id="check-2-5"></a>
 
@@ -236,12 +239,12 @@ matter to the application, then verify that design. The
 <a id="check-2-7"></a>
 
 <!-- builder: -->
-- Check 2.7 — Repair after a wrong turn. Include an actual mistaken assistant response before a user correction. Verify the correction updates the original request rather than the mistaken substitute. Score resulting state or calculation, answer truthfulness, and task completion separately; record a lost reference or metric substitution as a failure reason. Do not grade exact wording.
+- Check 2.7 — Correction after a misunderstanding. Include an actual mistaken assistant response before a user correction. Verify the correction updates the original request rather than the mistaken substitute. Score resulting state or calculation, answer truthfulness, and task completion separately; record a lost reference or metric substitution as a failure reason. Do not grade exact wording.
 
 <a id="check-2-8"></a>
 
 <!-- builder: -->
-- Check 2.8 — Reference evidence and boundaries. Resolve a returned object, then exercise an expired or missing reference, a stale or deleted object, changed selection, a cross-workspace identifier, a failed write, and ambiguous antecedents. Verify scope and current permissions, refresh values when required, and never treat a proposed or rejected action as committed. Export only policy-permitted reference evidence.
+- Check 2.8 — Reference evidence and boundaries. Resolve a returned object, then exercise an expired or missing reference, a stale or deleted object, changed selection, a cross-workspace identifier, a failed write, and references that could identify more than one item. Verify scope and current permissions, refresh values when required, and never treat a proposed or rejected action as committed. Export only policy-permitted reference evidence.
 
 <a id="check-2-9"></a>
 
@@ -252,6 +255,26 @@ matter to the application, then verify that design. The
 
 <!-- builder: -->
 - Check 2.10 — Familiar forms, documents, and spreadsheets. For a job whose data lives in a familiar form, document, spreadsheet, or calendar, have the agent make a change. Verify the change lands in the form, document, or spreadsheet itself, appears the way it already shows changes, and passes its own validation. For a review task, verify the item under review stays primary on screen, the decision is made only through the screen's controls, and the agent points to evidence rather than recommending a verdict unless asked.
+
+#### For applications that retain personal context
+
+Checks 2.11–2.13 apply when the application learns and saves information about the person.
+Use [Learn about me](../guide/onboarding.md) to decide which information the assistance needs.
+
+<a id="check-2-11"></a>
+
+<!-- builder: -->
+- Check 2.11 — Accurate personal context. State a clear fact, a tentative wish, a conditional goal, and a preference limited to one item or occasion. Verify saves follow the application's authorization policy and preserve the statement's uncertainty, conditions, and scope. Confirm the person can inspect, correct, and remove the information, receives confirmation when a save is not otherwise visible, and can undo it where supported. Verify later assistance uses the corrected information and no longer relies on removed facts.
+
+<a id="check-2-12"></a>
+
+<!-- builder: -->
+- Check 2.12 — Current personal context. Give the application an old saved fact and compare requests that depend on it with requests that do not. Verify code supplies the last-confirmed date and elapsed time, and the agent checks relevance rather than treating elapsed time as proof of change. Confirm an answer that leaves the fact unchanged can update its confirmation date, while a correction updates the fact. Verify later assistance receives the current information.
+
+<a id="check-2-13"></a>
+
+<!-- builder: -->
+- Check 2.13 — Relevant questions and remembered answers. Test missing facts that would help the current task alongside unrelated gaps. Verify the agent uses known information, asks only for the precision needed, and continues helping with the task. Include answers, refusals, and requests to stop questions in longer conversations. Check that questions do not repeat without new evidence or another review condition defined by the application, and verify any setup-question limits and stop/resume controls.
 
 ### 3. Enforce permissions, approval and recovery in code
 
@@ -356,7 +379,7 @@ matter to the application, then verify that design. The
 <a id="check-5-2"></a>
 
 <!-- builder: evaluation -->
-- Check 5.2 — Adaptive exploration. Run varied personas and adversarial inputs. Verify the simulated user responds to what actually happens, including refusals and errors. Set turn, time, and spending limits, verify that the harness enforces them, and inspect the saved transcript, tool calls, errors, and state changes.
+- Check 5.2 — Adaptive exploration. Run varied personas and adversarial inputs. Verify the simulated user responds to what actually happens, including refusals and errors. Set turn, time, and spending limits, verify that the test runner enforces them, and inspect the saved transcript, tool calls, errors, and state changes.
 
 <a id="check-5-3"></a>
 
@@ -366,7 +389,7 @@ matter to the application, then verify that design. The
 <a id="check-5-4"></a>
 
 <!-- builder: evaluation -->
-- Check 5.4 — Actions available to simulated users. List the actions the persona harness lets the simulated user take. Each must be one the person could take on the screen (typing, clicking a visible control such as Approve or Deny). Try an action the person could not take, such as approving a request with no approval control shown, and confirm the harness neither performs it nor records it as done.
+- Check 5.4 — Actions available to simulated users. List the actions the persona test runner lets the simulated user take. Each must be one the person could take on the screen (typing, clicking a visible control such as Approve or Deny). Try an action the person could not take, such as approving a request with no approval control shown, and confirm the test runner neither performs it nor records it as done.
 
 ### 6. Evaluate the user's outcome
 
@@ -383,7 +406,7 @@ matter to the application, then verify that design. The
 <a id="check-6-3"></a>
 
 <!-- builder: evaluation -->
-- Check 6.3 — Comparable runs. Compare versions using fixed starting data and criteria. Record model, prompt, tools, costs, latency, and individual failures; report exploratory runs separately.
+- Check 6.3 — Comparable runs. Compare versions using fixed starting data and criteria. Record model, prompt, tools, costs, response time, and individual failures; report exploratory runs separately.
 
 <a id="check-6-4"></a>
 
@@ -398,7 +421,7 @@ matter to the application, then verify that design. The
 <a id="check-6-6"></a>
 
 <!-- builder: evaluation -->
-- Check 6.6 — Checks protect outcomes. For each check in a suite, name what it protects: trust, a policy line, or completion of the job. Run a correct answer phrased differently from the expectation and confirm no check fails it on wording alone. Confirm a check that fails good answers is retired and replaced, not edited in place.
+- Check 6.6 — Checks protect outcomes. For each check in a suite, name what it protects: trust, a policy requirement, or completion of the job. Run a correct answer phrased differently from the expectation and confirm no check fails it on wording alone. Confirm a check that fails good answers is retired and replaced, not edited in place.
 
 <a id="check-6-7"></a>
 
@@ -408,12 +431,12 @@ matter to the application, then verify that design. The
 <a id="check-6-8"></a>
 
 <!-- builder: evaluation -->
-- Check 6.8 — Grader assignment. For each check in a suite, name its grader: code, a model judging one specific criterion (a narrow judge), a model assessing the overall conversation (a broad judge), or a person. Flag any judge deciding something code can compute (state, arithmetic, identifiers, the destination chosen) and any agent-written figure the application could have computed. Confirm persona agents and independent reviewers produce material and second opinions, not pass or fail.
+- Check 6.8 — Grader assignment. For each check in a suite, name its grader: code, a model judging one specific criterion (a narrow judge), a model assessing the overall conversation (a broad judge), or a person. Flag any judge deciding something code can compute (state, arithmetic, identifiers, the destination chosen) and any agent-written figure the application could have computed. Confirm persona agents and models giving second opinions provide exploratory feedback, not pass or fail.
 
 <a id="check-6-9"></a>
 
 <!-- builder: evaluation -->
-- Check 6.9 — Unseen cases for the same kind of task. For each case found in use or by a persona, find a held-out case for the same job with different items and words, written by someone other than the person making the fix, or by a separate session whose cases the fixing session cannot read. Confirm the tooling refuses to run it during fixing unless asked explicitly. Develop the fix against the visible cases, freeze it, and only then run the held-out cases. Confirm that no fix, description, or example copies a held-out case's items or phrasing; vocabulary of the job that any user would use is expected to be shared. A held-out case may already pass before the fix; record that as a result. Keep held-out case contents and detailed results outside the development process. Once that evidence is used to diagnose or improve the system, move the case into the visible set and replace it. Running the case alone does not expose it. The same applies when an automated optimizer, rather than a person, searches over prompts or tool descriptions.
+- Check 6.9 — Unseen cases for the same kind of task. For each case found in use or by a persona, find a held-out case for the same job with different items and words, written by someone other than the person making the fix, or by a separate session whose cases the fixing session cannot read. Confirm the tooling refuses to run it during fixing unless asked explicitly. Develop the fix against the visible cases. Stop changing it before running the held-out cases. Confirm that no fix, description, or example copies a held-out case's items or phrasing; vocabulary of the job that any user would use is expected to be shared. A held-out case may already pass before the fix; record that as a result. Keep held-out case contents and detailed results outside the development process. Once that evidence is used to diagnose or improve the system, move the case into the visible set and replace it. Running a held-out case without reading its contents or results does not use it up. The same applies when an automated optimizer, rather than a person, searches over prompts or tool descriptions.
 
 <a id="check-6-10"></a>
 
@@ -466,9 +489,9 @@ It provides background for Checks 6.2–6.5 and 6.13–6.15 rather than a second
 Select the infrastructure that fits the application and record any additional acceptance
 criteria the team adopts.
 
-Keep the case definitions in the repository and let the observability platform hold the results. Keep each case, its grader, and its starting data in the repository, push what the observability platform needs, and push one way only: a case edited in the platform's interface blocks the next run with a conflict instead of silently changing what was measured. If the platform is stopped, every evaluation still runs and writes the same report; only the shared view is lost (Check 6.4). Keep the number of modules that import the platform's SDK small, so retargeting to another platform touches the recorder, the dataset transfer, and the links a results page writes, and nothing else.
+Keep cases, graders, starting data, and result records in the repository. Send copies to the observability platform in one direction only: a case edited in the platform's interface blocks the next run with a conflict instead of silently changing what was measured. If the platform is stopped, every evaluation still runs and writes the same report; only the shared view is lost (Check 6.4). Keep the number of modules that import the platform's SDK small, so switching to another platform changes the recorder, the dataset transfer, and the links a results page writes, and nothing else.
 
-Define the suite in the repository. Tracing tools organize evidence using concepts such as datasets, runs, sessions, and traces. A team thinks in suites: the cases, the grader and its exact version, the starting data, the spending cap, what triggers a run, and where the report goes. Write that definition once and derive every name the platform sees from it. Define the terms the team uses: an *experiment* compares two or more arms that differ in one thing; the thirtieth execution of a suite on unchanged code is a *run*.
+Define the suite in the repository. Tracing tools organize evidence using concepts such as datasets, runs, sessions, and traces. A team thinks in suites: the cases, the grader and its exact version, the starting data, the spending cap, what triggers a run, and where the report goes. Write that definition once and derive every name the platform sees from it. Define the terms the team uses: an *experiment* compares two or more configurations that differ in one thing; a *run* is one execution of the selected cases and attempts.
 
 Retire a case instead of editing it. A dataset file carries its active cases and a retired list mapping each retired case to its reason. Pushing archives the hosted copy under its own identity; a corrected case joins under a new one. A case listed as both active and retired is an error at load.
 
@@ -476,7 +499,7 @@ Record what actually served the call. A model name is often an alias the provide
 
 Ask for a structured verdict. When a model's entire output is a decision, request a reply in a format the API enforces rather than JSON embedded in prose, and give a simulated user a field to say it is finished rather than a keyword the code searches for. A reply that cannot be read is *unavailable*, never zero and never a failure.
 
-Build narrow checks as data. A fabrication check is a question, a feedback template, and the cases it must and must not trip. Measure each question's yes-rate on planted failures and on real clean answers before wiring it into the delivery path. Ask each question once unless calibration shows its errors vary between askings; only then vote, asking until a majority is settled (two agreeing answers settle a three-vote check). A judge whose errors repeat gives the same wrong answer every time it is asked. Let code merge the verdicts. Record each check's vote and quoted evidence in the trace, under the review it belongs to.
+Build narrow checks as data. A fabrication check is a question, a feedback template, and the cases it must flag and the cases it must accept. Measure each question's rate of yes answers on deliberately introduced failures and valid answers before using it to check replies. Ask each question once unless calibration shows its errors vary between attempts; only then vote, asking until a majority is settled (two agreeing answers settle a three-vote check). A judge whose errors repeat gives the same wrong answer every time it is asked. Let code merge the verdicts. Record each check's vote and quoted evidence in the trace, under the review it belongs to.
 
 Keep every review's reasons in the record. A review that a later review supersedes must keep its verdict, its flags or failed checks, and its feedback, and every review and rewrite must be recorded, with its text and feedback where the capture policy permits and a mark that the content was left out where it does not. Many observability backends serve verdicts through their APIs but not span contents, so the run report has to carry the reasons itself.
 
@@ -496,7 +519,8 @@ The `based_on` and `changes` fields are one possible interface for revising save
 
 ## Assess test harnesses and deployment risks
 
-Persona runners, evaluators, debuggers, and collectors are part of the system's threat model. A runner that simulates a user may still hold real provider credentials, invoke write capabilities, send context to external services, and save sensitive artifacts; a test-data directory is not a sandbox. For each mode (headless, interactive, live-service), document the identities and credentials used, permitted data and destinations, control endpoints, capture policy, persistence and cleanup, and resource limits. Separate synthetic tests from explicitly authorized live tests.
+Include persona runners, evaluators, debuggers, and data collectors when assessing security
+risks to the system. A runner that simulates a user may still hold real provider credentials, invoke write capabilities, send context to external services, and save sensitive artifacts; putting data in a test directory does not isolate the process from other files or services. For each mode (without an interface, interactive, or connected to a live service), document the identities and credentials used, permitted data and destinations, control endpoints, capture policy, persistence and cleanup, and resource limits. Separate synthetic tests from explicitly authorized live tests.
 
 Report the evidence and its limits, and make no assurances. These principles are engineering guidance, not a certification, a complete threat model, or a guarantee of security, privacy, regulatory compliance, or fitness for a purpose. A passing test establishes only the behavior observed under its recorded conditions. Avoid claims such as "secure" or "fully isolated" based on adopting this architecture. Each organization must assess its own deployment, data, integrations, and obligations, and this guide does not replace qualified security, privacy, or legal review.
 

@@ -1,8 +1,10 @@
-# Todo sample review against Beyond Chat
+<span id="todo-sample-review-against-beyond-chat"></span>
+
+# Sample coverage and limitations
 
 Assessed October 25, 2026 against application commit
 `1b4b3c2b5f62bbd7a2ee7e48e11ff85b3e8cd438` and all 62 acceptance checks in
-[implementation.md](../principles/implementation.md), including its October 19 revision.
+[Implementation and acceptance checks](../principles/implementation.md), including its October 19 revision.
 The working tree was clean when verification began. This page records the assessment;
 application code was not changed during it.
 
@@ -10,13 +12,18 @@ The sample is a local, single-user teaching application. It demonstrates shared 
 execution-time authority, current context, undo, and evaluation. Its strongest current
 evidence is deterministic testing of those boundaries. It does not implement every check.
 
+October 26 applicability update: the checklist now has 65 checks. Checks 2.11–2.13 were
+added for retained personal context. They are Not applicable to the Todo sample, which has
+no personal profile or onboarding. The original 62 ratings and their October 25 verification
+evidence remain unchanged; this update does not claim a new application test run.
+
 ## How to read the assessment
 
 **Pass** means the check was verified within the interface and scope stated in its row.
 **Fail** means inspection or testing found a required part missing.
 **Not run** means the acceptance scenario was not established in this review, even where
 supporting implementation and offline tests exist. **Not applicable** identifies a feature
-outside the sample. A model's fallibility alone is not a reason to mark a mechanism Fail;
+outside the sample. The fact that a model can make mistakes is not a reason to mark a mechanism Fail;
 its measured behavior and the check's requirements decide that result.
 
 The catalog is assessed against the sample's declared contract, rather than every field in
@@ -30,7 +37,7 @@ Verification on the stated commit:
   Tests isolate local provider settings and use model stand-ins; they make no model calls.
 - `python3 -m todo.walkthrough`: all five steps passed using disposable data.
 - Code inspection of the registry, domain/storage, screen adapter, agent and guards,
-  persona harness, usage accounting, graders and report generation.
+  persona runner, usage accounting, graders and report generation.
 
 No paid model evaluations, human judge calibration, real-browser interaction study, or
 live tracing-service outage experiment was run. Earlier development measurements are not
@@ -42,7 +49,7 @@ The [walkthrough](walkthrough.md) follows the application paths. Main evidence s
 - [Registry and execution](../../todo/capabilities.py), [domain and storage](../../todo/todos.py), [view state](../../todo/view.py).
 - [Agent loop](../../todo/agent.py), [screen adapter](../../todo/todo_view.py), [screen](../../todo/app.py).
 - [Evaluation definitions and records](../../evaluations/evals.py), [judges](../../evaluations/judge.py), [report page](../../evaluations/evals_page.py).
-- [Tracing configuration](../../todo/langfuse_setup.py), [persona harness](../../evaluations/personas.py), [token accounting](../../todo/model_usage.py).
+- [Tracing configuration](../../todo/langfuse_setup.py), [persona runner](../../evaluations/personas.py), [token accounting](../../todo/model_usage.py).
 - [Offline tests](../../tests/test_main.py), [recovery tests](../../tests/test_reference.py), [guard tests](../../tests/test_guard_check.py), [screen tests](../../tests/test_app.py).
 
 ## Shared capabilities
@@ -55,7 +62,7 @@ The [walkthrough](walkthrough.md) follows the application paths. Main evidence s
 | 1.4 | Agent | Pass | Inspected the embedded tools built by `Registry.tools_for` from descriptions and declared facts in `todos.py` and `view.py`; tool membership and order tests pass. | Tool-order/membership tests in `test_main.py`; description inspection. | Description inspection does not establish model selection reliability. |
 | 1.5 | UI and agent | Pass | `view.show` changes view state; registered todo actions change saved data; tests and offline walkthrough distinguish them. | `test_show_todos_changes_the_view_only`; walkthrough byte-for-byte save checks. | No separate document editor or CLI adapter. |
 | 1.6 | External clients | Not applicable | No MCP server or external-agent adapter. | Scope inspection; no applicable execution scenario. | Do not infer an external exposure policy from the embedded sample. |
-| 1.7 | Catalog | Pass | Assessed the sample catalog contract: identities, input schemas, handler bindings, policies, guard declarations and content-derived revision. Catalog and registration tests pass. | Catalog revision and duplicate-registration tests in `test_main.py` and `test_reference.py`. | The optional appendix format is not adopted wholesale; result schemas and a support manifest are not claimed. |
+| 1.7 | Catalog | Pass | Assessed the sample catalog contract: identities, input schemas, handler bindings, policies, guard declarations and content-derived revision. Catalog and registration tests pass. | Catalog revision and duplicate-registration tests in `test_main.py` and `test_reference.py`. | The optional appendix format is not adopted in full; result schemas and a support manifest are not claimed. |
 | 1.8 | UI and agent | Fail | Model requests and tool calls can be traced. | Inspected `Agent.run_tool`, `todo_view.apply` and `execute`. | No unified UI invocation records or offered-tool snapshots joined to stable action identity. |
 | 1.9 | UI and agent | Fail | Failure outcomes tested and tool errors recorded in agent traces. | Failure/rollback tests in `test_reference.py`; inspected observation paths. | No shared observation lifecycle for UI, cancellation, or uncertain effects. |
 | 1.10 | Inspection | Not applicable | The sample exposes a serializable registry catalog but does not adopt a portable observation/inspection interface. | Scope inspection; no applicable execution scenario. | An independent inspection consumer and coverage manifest are outside this sample. |
@@ -78,6 +85,9 @@ The [walkthrough](walkthrough.md) follows the application paths. Main evidence s
 | 2.8 | Agent | Not run | Stable todo IDs, stale-read refusal, missing-ID validation and failed-save recovery are tested. | Fresh-read tests in `test_main.py`; missing-ID/save-failure tests. | No full reference scenario was run; expiry and cross-workspace references are outside this single-list application. |
 | 2.9 | Computed plans | Not applicable | No immutable computed-result or hypothetical-plan feature. | Scope inspection; no applicable execution scenario. | Tasks are mutable records, not versioned calculation results. |
 | 2.10 | UI and agent | Pass | Both adapters edit the same displayed task list through shared validation; AppTest and adapter tests. | `test_screen_actions_use_the_list_operations`; shared-owner test. | No document-review decision workflow. |
+| 2.11 | Personal context | Not applicable | No personal-profile storage or learning feature. | Applicability review, October 26; no execution test required. | Task records are not a model of the person. |
+| 2.12 | Personal context | Not applicable | No personal-fact confirmation dates or refresh workflow. | Applicability review, October 26; no execution test required. | Todo due dates are task data, not personal-fact confirmation dates. |
+| 2.13 | Personal context | Not applicable | No onboarding or personal-context questions. | Applicability review, October 26; no execution test required. | Persona testing simulates people; it does not add profile learning to the application. |
 
 ## Execution and recovery
 
@@ -88,11 +98,11 @@ The [walkthrough](walkthrough.md) follows the application paths. Main evidence s
 | 3.3 | UI and agent | Pass | Direct forbidden calls refused; registry rejects malformed policy values; model arguments cannot choose actor. | Direct forbidden-operation and unknown-policy tests. | Python callers are trusted application code, not authenticated remote clients. |
 | 3.4 | UI and agent | Pass | Agent self-approval denied; changed task details and legacy proposals refused across reload. | Bound-approval/reload tests in `test_reference.py`; direct self-approval refusal. | No approval expiry or multi-user identity model. |
 | 3.5 | Agent | Fail | Broad unselected bulk operations are person-only. | Impact-policy registration tests; inspected repeated-call execution. | Repeated named single-item writes can reach broad impact; no cumulative approval threshold. |
-| 3.6 | Agent | Fail | Agent loop is bounded to eight steps. Persona CLI defaults to 100,000 tokens; eval CLI accepts a token allowance but defaults to none. Shared accounting includes guards and stops subsequent calls when usage is exhausted or unknown. Streamlit defaults to loopback. | Budget/unknown-usage tests in `test_persona_headless.py`; inspected runner defaults and `todo/model_usage.py`. | No complete prohibited-data filter or request-wide time/spending/retry budget. Ordinary chat has no token allowance; in-flight calls may exceed an allowance. Loopback binding does not supply those controls. |
-| 3.7 | Declared semantic guards | Not run | Declared evidence, both decision polarities, probability boundaries, concurrent checks, state rechecks and unavailable-answer refusal have offline tests. | `test_guard_check.py`; merge-guard tests in `test_main.py`; native Boolean guard tests in `test_anthropic.py`. | Independent false-refusal/missed-problem measurement and a with/without-guard comparison were not rerun. Guard fallibility alone is not a failed acceptance check. |
+| 3.6 | Agent | Fail | Agent loop is bounded to eight steps. Persona CLI defaults to 100,000 tokens; eval CLI accepts a token allowance but defaults to none. Shared accounting includes guards and stops subsequent calls when usage is exhausted or unknown. Streamlit defaults to loopback. | Budget/unknown-usage tests in `test_persona_headless.py`; inspected runner defaults and `todo/model_usage.py`. | No complete prohibited-data filter or request-wide time/spending/retry budget. Ordinary chat has no token allowance; calls already in progress may exceed an allowance. Loopback binding does not supply those controls. |
+| 3.7 | Declared semantic guards | Not run | Declared evidence, both yes-to-proceed and no-to-proceed rules, probability boundaries, concurrent checks, state rechecks and unavailable-answer refusal have offline tests. | `test_guard_check.py`; merge-guard tests in `test_main.py`; native Boolean guard tests in `test_anthropic.py`. | Independent false-refusal/missed-problem measurement and a with/without-guard comparison were not rerun. Guard fallibility alone is not a failed acceptance check. |
 | 3.8 | UI and agent | Fail | Agent tool records and undo state exist. | Inspected undo persistence and adapter/agent recording paths. | Undo is not an append-only audit log; UI attempts and production outcomes lack complete durable records. |
 | 3.9 | UI and agent | Pass | Shared UI/agent undo and redo tested, including attribution and deletion limit. | Shared undo/redo tests and walkthrough. | External-client behavior is not applicable. |
-| 3.10 | UI and agent | Fail | Provider failure after a known save is reported. | Provider-failure recovery tests; inspected persistence and execution. | No persisted operation/attempt IDs, deduplication receipts, or uncertain-outcome query. |
+| 3.10 | UI and agent | Fail | Provider failure after a known save is reported. | Provider-failure recovery tests; inspected persistence and execution. | No persisted operation/attempt IDs, stored results for repeated requests, or uncertain-outcome query. |
 | 3.11 | Agent | Fail | Persona Play/Pause stops queued persona turns. | Queued-persona pause test in `test_app.py`; inspected agent loop. | It does not cancel an active agent request between writes. |
 
 ## Tools and context
@@ -111,9 +121,9 @@ The [walkthrough](walkthrough.md) follows the application paths. Main evidence s
 | Check | Interface | Result | Implemented | Tested or inspected in this review | Remaining limit |
 | --- | --- | --- | --- | --- | --- |
 | 5.1 | Personas | Not run | Distinct starting states and goals tested. | Persona starting-state tests; no human plausibility study. | Plausibility needs human observation; simulations do not establish demand. |
-| 5.2 | Personas | Fail | Adaptive persona harness has turn limits, token accounting, interruption checkpoints and saved judgments; offline harness tests pass. | `test_persona_headless.py`, `test_personas.py` and visible-player AppTest tests. | No harness-wide time limit or hard spending cap, and no fresh live adaptive exploration. |
+| 5.2 | Personas | Fail | Adaptive persona runner has turn limits, token accounting, interruption checkpoints and saved judgments; offline runner tests pass. | `test_persona_headless.py`, `test_personas.py` and visible-player AppTest tests. | No runner-wide time limit or hard spending cap, and no fresh live adaptive exploration. |
 | 5.3 | Evaluation | Not run | Regression scenarios and saved persona records are supported. | Code inspection only; acceptance scenario not run. | No new persona finding was independently confirmed and promoted to a regression in this follow-up. |
-| 5.4 | Personas/UI | Pass | Tests restrict the harness to typing and available approval controls; separate test lists are separate. | Persona click/approval and scratch-list tests in `test_personas.py` and `test_app.py`. | Harness is a subset of human controls, not a full UI automation model. |
+| 5.4 | Personas/UI | Pass | Tests restrict the runner to typing and available approval controls; each persona uses its own test list. | Persona click/approval and scratch-list tests in `test_personas.py` and `test_app.py`. | The runner supports only some of the controls available to a person, not a full UI automation model. |
 
 ## Evaluating outcomes
 
@@ -121,7 +131,7 @@ The [walkthrough](walkthrough.md) follows the application paths. Main evidence s
 | --- | --- | --- | --- | --- | --- |
 | 6.1 | Evaluation | Pass | Code graders tested on correct/incorrect outcomes and side effects; claims and completeness assessed separately. | Grader good/bad fixtures and `test_clarification_sequence.py`. | Validates grader behavior, not current model success rates. |
 | 6.2 | Judges | Not run | Labelled sets and calibration tooling exist; missing-judgment reporting corrected. | Calibration fixture-integrity tests; no new model calibration. | No new calibration or human-label review. |
-| 6.3 | Evaluation | Pass | Configuration fingerprints, source hashes, package/model settings, usage, latency and separate persona records have offline tests. Reader-supplied rates retain their date; absent rates leave costs unknown. | `test_eval_monitor.py`, `test_model_rates.py`; guard-configuration fingerprint test. | Tests establish recording/comparison behavior with fixtures, not current model outcomes or actual provider charges. |
+| 6.3 | Evaluation | Pass | Configuration fingerprints, source hashes, package/model settings, usage, response time and separate persona records have offline tests. Reader-supplied rates retain their date; absent rates leave costs unknown. | `test_eval_monitor.py`, `test_model_rates.py`; guard-configuration fingerprint test. | Tests establish recording/comparison behavior with fixtures, not current model outcomes or actual provider charges. |
 | 6.4 | Evaluation | Not run | Offline tests exercise disabled tracing and an unreachable-server app configuration; local run/report paths exist. | Unreachable/disabled tracing AppTest tests; no live platform-outage run. | No live suite with the platform stopped or exporter outage was run. Hosted case editing/conflict detection is not verified. |
 | 6.5 | Model calls | Not run | Shared instrumentation records requested and returned model IDs separately; report tests distinguish changed and missing served IDs. | Requested/served metadata and comparability tests in `test_eval_monitor.py`; inspected `call_model`. | No live alias-versus-snapshot request was made in this review. |
 | 6.6 | Graders | Not run | Correct/incorrect grader fixtures pass. `receipts_repeated` now checks delivery of code-written receipts, not model copying. | Offline grader fixtures; inspected receipt-delivery check. | No check-by-check outcome/wording audit or retirement-and-replacement exercise was completed. |

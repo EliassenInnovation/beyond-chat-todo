@@ -44,7 +44,7 @@ Registries will need different data elements according to their applications. Th
 principle is to keep capability-specific information with the capability it describes.
 When adding information or behavior that belongs to a particular tool or capability, ask
 how the registry can incorporate it. A guard, a fact to learn, guidance, or a presentation
-hint can live with the capability it describes, and the relevant code can consume that
+hint can live with the capability it describes, and the relevant code can read that
 declaration. This keeps additions discoverable and avoids maintaining a parallel catalog
 of the same tools. Choose fields because code will use them. Separately reviewed access
 policy can remain separate, as in Advisor's policy lists described below.
@@ -54,7 +54,7 @@ policy can remain separate, as in Advisor's policy lists described below.
 The following categories distinguish the information from the code that uses it. An adapter is
 code that turns a declaration into a tool definition for one kind of caller and routes its calls
 back to the application. The save path is the code every change goes through for checks and
-execution. A receipt is a short confirmation of what changed.
+execution.
 
 | Declaration | What it contains | What uses it | Add when… |
 | --- | --- | --- | --- |
@@ -66,7 +66,7 @@ execution. A receipt is a short confirmation of what changed.
 | Recovery and impact | How to undo a change, if possible, and how far it reaches | The save path applies the relevant policy. | Before allowing changes. |
 | Version | An identifier for the declaration being used | Evaluation records identify the behavior tested. | When changes affect the behavior you evaluate. |
 | Input normalization | Corrections for known formatting mistakes | The save path corrects inputs before validation. | When repeated input mistakes have an unambiguous correction. |
-| Application facts | Maintained statements about behavior and limitations | Tool descriptions and response checks use the same facts. | When agents explain application behavior or responses are checked. |
+| Application facts | Maintained statements about behavior and limitations | Tool descriptions and answer checks use the same facts. | When agents explain application behavior or responses are checked. |
 | Agent guidance | Usage instructions and their intended audience | Code assembles instructions for each agent. | When external agents connect or tool choice needs guidance. |
 | Profile facts | Stored fact, how code tells whether it is known, and how to record it | Onboarding code calculates progress and relevant gaps. | When assistance depends on learning about the person. |
 | Named agent actions | Operations such as stopping setup questions | Tool-building code exposes the supported actions. | When the person should control a workflow through conversation. |
@@ -82,7 +82,7 @@ declaration does not mean every host can render it.
 ## Expose the same capability to an embedded agent and through MCP
 
 Here is one complete declaration for this worked example. The function names refer to code in
-the shopping application; the following sections show what the consumers produce from it.
+the shopping application; the following sections show what the code reading the declaration produces from it.
 
 ```yaml
 operation: orders.place
@@ -274,33 +274,35 @@ For a provider returning a probability, it compares the score with the declared 
 Test the threshold boundary as well as values on either side; Boolean answers use the
 answer rule directly.
 
-## Give response checks evidence about the application
+<span id="give-response-checks-evidence-about-the-application"></span>
 
-A response reviewer is a stage that checks a proposed answer before it reaches the person. It
-may use deterministic code, another model, or both. A guard checks a proposed action before
-execution; a response reviewer checks what the agent is about to tell the person.
+## Give answer checks evidence about the application
 
-Use the facts in the worked declaration both in the tool description and in the reviewer's
+An answer check examines a proposed reply before the person sees it. Use code, a model,
+or both according to the claim being checked. Keep this separate from a guard, which
+checks a proposed action before execution.
+
+Use the facts in the worked declaration both in the tool description and in the answer check's
 evidence. If the agent says "I'll watch your order and tell you if anything changes," the fact
 that the application does not monitor orders in the background gives the check a reason to flag
 the claim.
 
-Keep the application facts available to the agent available to its checkers too. Otherwise, a
-reviewer may flag a true statement simply because it did not receive the supporting fact.
+Keep the application facts available to the agent available to its answer checks too. Otherwise, an
+answer check may flag a true statement simply because it did not receive the supporting fact.
 Advisor follows this rule by supplying the registered application facts to its review stages.
 
 Application facts describe behavior and limitations. They do not prove that a particular
-operation succeeded. To check "Your order was placed," a reviewer also needs the result of that
+operation succeeded. To check "Your order was placed," an answer check also needs the result of that
 call—for example, an application-generated order ID and status. To check an amount, it needs the
 relevant returned data, not just a general statement about the application.
 
 If a check finds a problem, the application may send the answer back for revision with the
 specific issue and supporting evidence. Define a retry limit and what happens if the revised
-answer still fails; do not assume another pass guarantees correctness. Test reviewers on
+answer still fails; do not assume another pass guarantees correctness. Test answer checks on
 acceptable answers as well as incorrect ones.
 
 Update the facts when application behavior changes, and verify that both the agent and its
-checkers receive the new version.
+answer checks receive the new version.
 
 The [evaluation chapters](../guide/evaluation.md) explain how to examine these checks and the
 agent's results.
@@ -313,7 +315,7 @@ Some applications become more useful as they learn relevant information about th
 Advisor, for example, records financial goals and other planning context. A profile declaration
 can identify the stored fact, how code determines whether it is known, which operation records
 it, and whether it is one of the few facts onboarding asks for first. These declarations
-can support both initial learning and keeping the person's model current during later use.
+can support both initial learning and keeping the application's understanding of the person current during later use.
 
 For ongoing maintenance, consider declaring how to retrieve a fact's last-confirmed date,
 which events make it worth reviewing, and which operation records a confirmation or correction.
@@ -345,8 +347,8 @@ is not the person's comfort with risk overall. Checks on the proposed save shoul
 distinction.
 
 Named actions such as `stop_asking` and `resume` can let the person control the experience
-through conversation. The application implements their state changes. Code counts conversations
-so onboarding stops after a set number of conversations, even if some facts are still missing.
+through conversation. The application implements their state changes. Code counts app sessions in which the person sends a message
+so onboarding stops after a set number of sessions, even if some facts are still missing.
 See [Learn about me](../guide/onboarding.md).
 
 ## Describe results, recovery, and presentation
@@ -362,7 +364,7 @@ that limitation belongs both in the declared policy and in the implementation's 
 
 A presentation declaration can connect a capability to a card showing its result in a host that
 supports it. The adapter must handle hosts without that presentation support, for example by
-returning an understandable text result. Presentation does not confer permission to read or
+returning an understandable text result. Presentation does not grant permission to read or
 change the underlying data.
 
 ## Check that the declarations work together
@@ -375,12 +377,12 @@ Use focused checks for the connections your application implements:
 - Check that normalization fixes supported formatting mistakes without inventing intent.
 - Exercise guards with both acceptable and unacceptable requests, including missing evidence.
 - Ask to see a control and confirm navigation does not execute the business operation.
-- Check response reviewers against both unsupported claims and accurate answers.
+- Test answer checks against both unsupported claims and accurate answers.
 - Save, correct, or remove a profile fact and verify onboarding progress reflects the saved state.
 - Verify receipts describe committed changes and that any declared recovery actually works.
 - Check that guidance names only tools available to its audience, and reconnect external hosts
   when testing updated server instructions.
-- Verify that response checkers receive the application facts supplied to the agent.
+- Verify that response answer checks receive the application facts supplied to the agent.
 
 As the registry grows, check for declarations that no code uses and lists kept by hand
 elsewhere, such as which tools external agents may call. Advisor deliberately keeps four
@@ -399,4 +401,4 @@ The Todo sample's [registry code](../../todo/capabilities.py) defines actions, g
 registration checks, and shared execution. The
 [walkthrough](../guides/walkthrough.md#follow-a-declaration-through-the-registry) follows a
 declaration through the working application. Use those to understand the smaller design, then
-add only the consumers and declarations justified by your application.
+add only the declarations and supporting code your application needs.

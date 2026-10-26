@@ -9,7 +9,7 @@ has evidence for interpreting the reference. Ask when materially different meani
 
 The model interprets the reference. Application code checks the selected object or operation,
 its current permissions, and the validity of the requested change. Keep the original request
-separate from the agent's interpretation so a later correction can recover from a wrong turn.
+separate from the agent's interpretation so a later correction can recover from a misunderstanding.
 
 Todo illustrates this at a small scale. Its [task operations](../../todo/todos.py) return
 structured results, and its [agent runtime](../../todo/agent.py) retains conversation and tool
@@ -24,16 +24,16 @@ operations with a request or action-group identifier. "Undo that" can then refer
 Code checks which operations completed, whether later edits affect recovery, and what can
 safely be reversed.
 
-Decide separately whether the group commits atomically and whether one Undo reverses the
-whole group. Several separately committed operations can still belong to one undo group.
+Decide separately whether the group must be saved completely or not at all, and whether
+one Undo reverses the whole group. Several separately committed operations can still belong to one undo group.
 Explain partial recovery when some effects cannot be reversed. Todo demonstrates request-level grouping with its before-turn list state and a single
 checkpoint. A named group with per-operation outcomes and recovery across later edits is
 a further design choice for workflows that need it.
 
 ## Revise a saved calculation when reproducibility matters
 
-A person asks Advisor's coach for a Treasury ladder that pays out each month. Advisor
-returns schedule A. The person says "keep everything to 12 months or less." The coach
+A person asks Advisor's coach for a Treasury ladder that pays out each month. This is a set
+of government securities chosen to mature on those dates. Advisor returns schedule A. The person says "keep everything to 12 months or less." The coach
 sends this revision, with `A` standing for the earlier result's ID:
 
 ```json
@@ -54,10 +54,10 @@ revision, or `result_id` for retrieval. Code rejects mixed shapes and either rev
 on its own. An existing scenario or calculation model in your application may already
 provide the necessary state.
 
-Advisor's results are immutable and addressed by ID within the caller's owner and workspace.
+Advisor's results cannot be changed and are retrieved by ID within the caller's owner and workspace.
 Each revision names the result it changes; there is no "latest result" lookup. Results
 expire after 90 days, and each scope holds at most 500. A full store refuses new results
-while preserving live ones. The schedule is a calculation: revising it changes no portfolio
+while preserving results that have not expired. The schedule is a calculation: revising it changes no portfolio
 setting and places no order.
 
 Resolve the selected result under current access rules, combine the revised inputs, validate
