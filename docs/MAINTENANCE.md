@@ -17,9 +17,13 @@ site and exports.
 1. Replace "All rights reserved. Confidential draft." in `LICENSE` and in the README's License
    section with the MIT license text, "Copyright (c) 2026 Eliassen Group". Keep the TodoMVC
    CSS credit and `licenses/todomvc-app-css.txt`.
-2. Transfer the repository to the Eliassen Innovations organization. Update every
-   `bobfischer` address: `site_url` and `repo_url` in `mkdocs.yml`, the README, and the clone
-   command in `docs/guide/start.md`. Code links in the checklist builder follow `repo_url`.
+2. Transfer the repository to the Eliassen Innovations organization. Update the `bobfischer`
+   addresses: `site_url` and `repo_url` in `mkdocs.yml` (the guide's navigation, source links,
+   build scripts and release workflow follow them; a fork's release workflow sets its own through
+   `DOCS_SITE_URL` and `DOCS_REPO_URL`). Edit by hand the links written into Markdown: the README,
+   the clone command in `docs/guide/start.md`, the example-report links in
+   `docs/guides/evaluation-results.md` and `examples/evaluation-review/README.md`, and
+   `docs/README.md`. Code links in the checklist builder follow `repo_url`.
 3. Make the repository public. Turn on GitHub secret scanning and push protection, and
    Dependabot alerts.
 4. Optional: ask GitHub Support to purge cached views of commits from before the October 24,

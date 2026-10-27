@@ -67,7 +67,7 @@ nav:
     - Explore the experience: guide/exploration.md
     - Evaluate outcomes: guide/evaluation.md
     - Review results and understand variation: guides/evaluation-results.md
-    - Example evaluation report: https://bobfischer.github.io/beyond-chat-todo/
+    - Example evaluation report: "{site}"
     - Optional tracing: guides/langfuse.md
   - Apply it to your app: guide/apply.md
   - Build your coding-agent handoff: guide/checklist-builder.md
@@ -79,5 +79,5 @@ nav:
     - Implementation and acceptance checks: principles/implementation.md
     - Sample coverage and limitations: guides/sample-assessment.md
     - Sources and further reading: reference/sources.md
-  - Download last PDF export: https://bobfischer.github.io/beyond-chat-todo/guide/guide.pdf
-  - Read as one page: https://bobfischer.github.io/beyond-chat-todo/guide/print.html
+  - Download last PDF export: "{site}guide/guide.pdf"
+  - Read as one page: "{site}guide/print.html"

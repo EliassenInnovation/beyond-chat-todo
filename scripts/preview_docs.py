@@ -5,11 +5,12 @@ import sys
 from urllib.request import urlopen
 from livereload import Server
 from prepare_docs_site import prepare
+import site_urls
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site/preview"
 PDF = ROOT / "site/preview-last-export.pdf"
-PUBLIC = "https://bobfischer.github.io/beyond-chat-todo/"
+PUBLIC = site_urls.site_root()
 
 
 def build():

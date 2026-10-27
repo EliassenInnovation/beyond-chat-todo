@@ -59,7 +59,7 @@ Documentation edits do not require paid model evaluations.
 Also check the coding-agent export against the built site and repository:
 
 ```bash
-python3 .github/check_agent_export.py site/guide https://bobfischer.github.io/beyond-chat-todo/guide/ https://github.com/bobfischer/beyond-chat-todo
+python3 .github/check_agent_export.py site/guide "$(python3 scripts/site_urls.py site)" "$(python3 scripts/site_urls.py repo)"
 ```
 
 Use the configured `site_url` and `repo_url` if those addresses change. The checker validates
