@@ -1,8 +1,8 @@
 site_name: Build better agents
 site_description: A practical guide to building and evaluating agents inside applications.
-site_url: https://bobfischer.github.io/beyond-chat-todo/guide/
-repo_url: https://github.com/bobfischer/beyond-chat-todo
-repo_name: bobfischer/beyond-chat-todo
+site_url: https://eliasseninnovation.github.io/beyond-chat-todo/guide/
+repo_url: https://github.com/EliassenInnovation/beyond-chat-todo
+repo_name: EliassenInnovation/beyond-chat-todo
 edit_uri: edit/main/docs/
 docs_dir: docs
 site_dir: site/guide

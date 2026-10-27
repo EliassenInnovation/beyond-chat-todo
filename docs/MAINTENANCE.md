@@ -9,18 +9,18 @@ site and exports.
 - Test the checklist builder in Chrome and Safari: keyboard navigation through the checks,
   the partly selected state of group checkboxes, both downloads, and loading a downloaded
   `agent-checks.md` back in.
-- Confirm approval to publish in the Eliassen Innovations GitHub organization. Approval to
-  release under the MIT license is recorded in `LICENSE`.
+- Approval to release under the MIT license is recorded in `LICENSE`. The repository is
+  in the Eliassen Innovations GitHub organization.
 
 ## On release day
 
-1. Transfer the repository to the Eliassen Innovations organization. Update the `bobfischer`
-   addresses: `site_url` and `repo_url` in `mkdocs.yml` (the guide's navigation, source links,
-   build scripts and release workflow follow them; a fork's release workflow sets its own through
-   `DOCS_SITE_URL` and `DOCS_REPO_URL`). Edit by hand the links written into Markdown: the README,
-   the clone command in `docs/guide/start.md`, the example-report links in
-   `docs/guides/evaluation-results.md` and `examples/evaluation-review/README.md`, and
-   `docs/README.md`. Code links in the checklist builder follow `repo_url`.
+1. The repository is at `EliassenInnovation/beyond-chat-todo`. Its addresses are `site_url` and
+   `repo_url` in `mkdocs.yml` (the guide's navigation, source links, build scripts and release
+   workflow follow them; a fork's release workflow sets its own through `DOCS_SITE_URL` and
+   `DOCS_REPO_URL`). The links written into Markdown are edited by hand: the README, the clone
+   command in `docs/guide/start.md`, the example-report links in `docs/guides/evaluation-results.md`
+   and `examples/evaluation-review/README.md`, and `docs/README.md`. Code links in the checklist
+   builder follow `repo_url`.
 2. Make the repository public. Turn on GitHub secret scanning and push protection, and
    Dependabot alerts.
 3. Optional: ask GitHub Support to purge cached views of commits from before the October 24,

@@ -10,7 +10,7 @@ an unfamiliar capability, understand what they are seeing, and carry out work wi
 A poor one can change the wrong thing or make claims the application cannot support.
 This project shows how to build useful assistance and examine whether it works.
 
-**[Read the complete illustrated guide](https://bobfischer.github.io/beyond-chat-todo/guide/)** —
+**[Read the complete illustrated guide](https://eliasseninnovation.github.io/beyond-chat-todo/guide/)** —
 from motivation and architecture through the working implementation, model choices and evaluation.
 You can also [read it as Markdown](docs/index.md) or [run it locally](#read-the-guide-locally).
 
@@ -106,7 +106,7 @@ conversation proves the application worked. [Run and review personas](docs/guide
 
 ## Read the report
 
-**[Open the evaluation report](https://bobfischer.github.io/beyond-chat-todo/)** without a key,
+**[Open the evaluation report](https://eliasseninnovation.github.io/beyond-chat-todo/)** without a key,
 account, or running Langfuse server. It contains 20 real historical runs and selected conversations.
 Its candidate control limits are illustrative, not an accepted quality baseline; original
 grading concerns remain visible. [Understand what it measures](examples/evaluation-review/README.md).

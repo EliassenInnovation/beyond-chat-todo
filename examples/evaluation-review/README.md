@@ -1,6 +1,6 @@
 # Open the example without running anything
 
-[View the report online](https://bobfischer.github.io/beyond-chat-todo/), or download this
+[View the report online](https://eliasseninnovation.github.io/beyond-chat-todo/), or download this
 repository and open `index.html` in a browser. It is a self-contained report from 20 real runs
 of this repo's synthetic todo evaluations. No server, API key, internet connection, or
 Langfuse instance is required. The page includes a chart, exact counts, and eight selected
