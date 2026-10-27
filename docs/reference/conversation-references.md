@@ -1,4 +1,4 @@
-# Support references to earlier work
+# Resolve references to earlier requests
 
 People return to previous topics with phrases such as "undo that" or "try six years."
 The [request chapter](../guide/requests.md#interpret-follow-up-requests) explains the principle:
