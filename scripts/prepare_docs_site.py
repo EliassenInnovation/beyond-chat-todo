@@ -3,6 +3,8 @@ from pathlib import Path
 import shutil
 import sys
 
+import site_urls
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -13,7 +15,7 @@ def prepare(destination):
         shutil.copy2(ROOT / "examples/evaluation-review" / name, destination / name)
     page = destination / "index.html"
     text = page.read_text()
-    base = "https://github.com/bobfischer/beyond-chat-todo/blob/main/"
+    base = site_urls.source_url()
     text = text.replace('href="../../docs/guides/evaluation-results.md"',
                         'href="guide/guides/evaluation-results.html"')
     text = text.replace('href="README.md#what-this-example-measures"',

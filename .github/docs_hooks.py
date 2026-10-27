@@ -5,7 +5,29 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
-REPO = "https://github.com/bobfischer/beyond-chat-todo/blob/main/"
+
+
+def on_config(config):
+    """Resolve the guide's addresses once: mkdocs.yml, or DOCS_* overrides (a fork's release)."""
+    import sys
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import site_urls
+    config["site_url"] = site_urls.site_url()
+    config["repo_url"] = site_urls.repo_url()
+    config["repo_name"] = config["repo_url"].split("github.com/")[-1]
+    root = site_urls.site_root()
+
+    def resolve(item):
+        if isinstance(item, str):
+            return item.replace("{site}", root)
+        if isinstance(item, list):
+            return [resolve(entry) for entry in item]
+        if isinstance(item, dict):
+            return {key: resolve(value) for key, value in item.items()}
+        return item
+
+    config["nav"] = resolve(config["nav"])
+    return config
 
 
 def on_page_markdown(markdown, page, config, files):
@@ -21,7 +43,7 @@ def on_page_markdown(markdown, page, config, files):
             return match.group(0)
         if not target.is_relative_to(ROOT) or not target.exists():
             raise ValueError(f"Invalid repository link in {source}: {href}")
-        url = REPO + target.relative_to(ROOT).as_posix()
+        url = config["repo_url"] + "/blob/main/" + target.relative_to(ROOT).as_posix()
         if parsed.fragment:
             url += "#" + parsed.fragment
         return "](" + url + ")"
@@ -264,7 +286,7 @@ def export_agent_markdown(config):
                     url += "?" + parsed.query
                 return url + ("#" + parsed.fragment if parsed.fragment else "")
             if target.is_relative_to(ROOT):
-                return REPO + target.relative_to(ROOT).as_posix() + ("#" + parsed.fragment if parsed.fragment else "")
+                return config["repo_url"] + "/blob/main/" + target.relative_to(ROOT).as_posix() + ("#" + parsed.fragment if parsed.fragment else "")
             raise ValueError(f"Export link leaves the repository: {source}: {value}")
 
         # Rewrite links outside code fences; code examples remain byte-for-byte intact.

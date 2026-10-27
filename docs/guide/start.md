@@ -19,7 +19,7 @@ Use Python 3.11 or later. The commands below are for macOS and Linux.
 Clone the sample repository:
 
 ```bash
-git clone https://github.com/bobfischer/beyond-chat-todo.git
+git clone https://github.com/EliassenInnovation/beyond-chat-todo.git
 cd beyond-chat-todo
 ```
 

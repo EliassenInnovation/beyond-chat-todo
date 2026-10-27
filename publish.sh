@@ -40,4 +40,4 @@ for attempt in {1..20}; do
 done
 [[ -n "$run_id" ]] || { echo 'Could not find release run. Check gh run list.' >&2; exit 1; }
 gh run watch "$run_id" --exit-status
-echo 'Published website and fresh PDF: https://bobfischer.github.io/beyond-chat-todo/guide/'
+echo "Published website and fresh PDF: $(python3 scripts/site_urls.py site)"

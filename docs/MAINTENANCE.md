@@ -9,25 +9,26 @@ site and exports.
 - Test the checklist builder in Chrome and Safari: keyboard navigation through the checks,
   the partly selected state of group checkboxes, both downloads, and loading a downloaded
   `agent-checks.md` back in.
-- Obtain approval to release under the MIT license and to publish in the Eliassen Innovations
-  GitHub organization.
+- Approval to release under the MIT license is recorded in `LICENSE`. The repository is
+  in the Eliassen Innovations GitHub organization.
 
 ## On release day
 
-1. Replace "All rights reserved. Confidential draft." in `LICENSE` and in the README's License
-   section with the MIT license text, "Copyright (c) 2026 Eliassen Group". Keep the TodoMVC
-   CSS credit and `licenses/todomvc-app-css.txt`.
-2. Transfer the repository to the Eliassen Innovations organization. Update every
-   `bobfischer` address: `site_url` and `repo_url` in `mkdocs.yml`, the README, and the clone
-   command in `docs/guide/start.md`. Code links in the checklist builder follow `repo_url`.
-3. Make the repository public. Turn on GitHub secret scanning and push protection, and
+1. The repository is at `EliassenInnovation/beyond-chat-todo`. Its addresses are `site_url` and
+   `repo_url` in `mkdocs.yml` (the guide's navigation, source links, build scripts and release
+   workflow follow them; a fork's release workflow sets its own through `DOCS_SITE_URL` and
+   `DOCS_REPO_URL`). The links written into Markdown are edited by hand: the README, the clone
+   command in `docs/guide/start.md`, the example-report links in `docs/guides/evaluation-results.md`
+   and `examples/evaluation-review/README.md`, and `docs/README.md`. Code links in the checklist
+   builder follow `repo_url`.
+2. Make the repository public. Turn on GitHub secret scanning and push protection, and
    Dependabot alerts.
-4. Optional: ask GitHub Support to purge cached views of commits from before the October 24,
+3. Optional: ask GitHub Support to purge cached views of commits from before the October 24,
    2026 history rewrite, which removed an earlier persona-runner screenshot.
-5. Rebuild the site, the PDF, and the Word exports from the released commit. Refresh dated
+4. Rebuild the site, the PDF, and the Word exports from the released commit. Refresh dated
    statements that should read as of release, such as "no release as of October 3, 2026"
    for the OpenTelemetry GenAI conventions in `docs/reference/inspection.md`.
-6. Decide who answers issues and pull requests.
+5. Decide who answers issues and pull requests.
 
 ## With every change
 

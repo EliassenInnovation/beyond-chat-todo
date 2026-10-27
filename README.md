@@ -10,9 +10,9 @@ an unfamiliar capability, understand what they are seeing, and carry out work wi
 A poor one can change the wrong thing or make claims the application cannot support.
 This project shows how to build useful assistance and examine whether it works.
 
-**[Read the complete illustrated guide](https://bobfischer.github.io/beyond-chat-todo/guide/)** —
+**[Read the complete illustrated guide](https://eliasseninnovation.github.io/beyond-chat-todo/guide/)** —
 from motivation and architecture through the working implementation, model choices and evaluation.
-You can also [read it as Markdown](docs/index.md).
+You can also [read it as Markdown](docs/index.md) or [run it locally](#read-the-guide-locally).
 
 ## Contents
 
@@ -106,10 +106,25 @@ conversation proves the application worked. [Run and review personas](docs/guide
 
 ## Read the report
 
-**[Open the evaluation report](https://bobfischer.github.io/beyond-chat-todo/)** without a key,
+**[Open the evaluation report](https://eliasseninnovation.github.io/beyond-chat-todo/)** without a key,
 account, or running Langfuse server. It contains 20 real historical runs and selected conversations.
 Its candidate control limits are illustrative, not an accepted quality baseline; original
 grading concerns remain visible. [Understand what it measures](examples/evaluation-review/README.md).
+
+## Read the guide locally
+
+The guide, including its interactive checklist builder, runs from a clone with no API key:
+
+```bash
+./preview.sh
+```
+
+Then open <http://127.0.0.1:8000/guide/>. The first run creates an isolated documentation
+environment (Python 3 and an internet connection to install packages). Stop it with Ctrl-C.
+Serve it this way rather than opening the built HTML files directly: the checklist builder
+loads its data over HTTP, which browsers block for files opened from disk. On GitHub, the
+builder appears only as plain Markdown. [Build and maintain the guide](docs/BUILDING.md) covers
+editing and releases; a fork publishes under its own address when its release workflow runs.
 
 ## Follow the implementation
 
@@ -130,7 +145,8 @@ not a complete production architecture. [See its coverage and limitations](docs/
 
 ## License
 
-The sample's original code and accompanying documentation are © Eliassen Group. All rights reserved. Confidential draft.
+The sample's original code and accompanying documentation are released under the [MIT License](LICENSE),
+Copyright (c) 2026 Eliassen Group.
 The styling in [todo_view.css](todo/assets/todo_view.css) is adapted from
 [TodoMVC app CSS](https://github.com/tastejs/todomvc-app-css), copyright Sindre Sorhus,
 under [CC BY 4.0](licenses/todomvc-app-css.txt). We changed its layout and sizing and added
