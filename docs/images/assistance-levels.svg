@@ -1,1 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="676" height="420" viewBox="0 0 676 420" role="img" aria-label="Six levels of assistance, with levels two through six supported by learning about the person and noticing when their information may be out of date."><title>Levels of assistance and support across them</title><desc>The six levels are help search, help search with AI, tell me how, show me how, do it for me, and do something new. One unnumbered band spans levels two through six: Learn about me builds context about goals, preferences, and circumstances, and notices when they may be out of date.</desc><g font-family="Arial,sans-serif" fill="#1a1e33"><rect x="8" y="10" width="526" height="59" rx="6" fill="#f5f1ee"/><rect x="8" y="10" width="34" height="59" rx="6" fill="#2e4294"/><text x="18" y="47" fill="white" font-size="20">1</text><text x="54" y="45" font-size="17">Help search</text><text x="244" y="34" font-size="16">Keywords and a search box.</text><text x="244" y="56" font-size="16">The person does the work.</text><rect x="8" y="75" width="526" height="59" rx="6" fill="#f5f1ee"/><rect x="8" y="75" width="34" height="59" rx="6" fill="#2e4294"/><text x="18" y="112" fill="white" font-size="20">2</text><text x="54" y="110" font-size="17">Help search with AI</text><text x="244" y="99" font-size="16">Find relevant instructions.</text><text x="244" y="121" font-size="16">The person does the work.</text><rect x="8" y="140" width="526" height="59" rx="6" fill="#f5f1ee"/><rect x="8" y="140" width="34" height="59" rx="6" fill="#2e4294"/><text x="18" y="177" fill="white" font-size="20">3</text><text x="54" y="175" font-size="17">Tell me how</text><text x="244" y="164" font-size="16">Use the application&#x27;s words:</text><text x="244" y="186" font-size="16">&quot;Click Active below the list.&quot;</text><rect x="8" y="205" width="526" height="59" rx="6" fill="#f5f1ee"/><rect x="8" y="205" width="34" height="59" rx="6" fill="#2e4294"/><text x="18" y="242" fill="white" font-size="20">4</text><text x="54" y="240" font-size="17">Show me how</text><text x="244" y="229" font-size="16">Point to the control</text><text x="244" y="251" font-size="16">on the screen.</text><rect x="8" y="270" width="526" height="59" rx="6" fill="#f5f1ee"/><rect x="8" y="270" width="34" height="59" rx="6" fill="#2e4294"/><text x="18" y="307" fill="white" font-size="20">5</text><text x="54" y="305" font-size="17">Do it for me</text><text x="244" y="294" font-size="16">Perform an authorized action.</text><text x="244" y="316" font-size="16">Confirm what changed.</text><rect x="8" y="335" width="526" height="59" rx="6" fill="#f5f1ee"/><rect x="8" y="335" width="34" height="59" rx="6" fill="#2e4294"/><text x="18" y="372" fill="white" font-size="20">6</text><text x="54" y="370" font-size="17">Do something new</text><text x="244" y="359" font-size="16">Combine capabilities into a</text><text x="244" y="381" font-size="16">workflow with no dedicated button.</text><rect x="550" y="75" width="118" height="319" rx="6" fill="#8ebfb3"/><text x="560" y="131" font-size="17">Learn</text><text x="560" y="154" font-size="17">about me</text><text x="560" y="200" font-size="16">Understand</text><text x="560" y="222" font-size="16">my goals,</text><text x="560" y="244" font-size="16">preferences,</text><text x="560" y="266" font-size="16">and situation.</text><text x="560" y="304" font-size="16">Notice when</text><text x="560" y="326" font-size="16">they may be</text><text x="560" y="348" font-size="16">out of date.</text><text x="668" y="413" text-anchor="end" font-size="14">Support across levels 2–6</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1392" height="880" viewBox="0 0 1392 880" role="img" aria-labelledby="title description">
+  <title id="title">Levels of assistance</title>
+  <desc id="description">Six levels, from help search to combining capabilities into a new workflow. A green Learn about me column supports levels two through six: understand the person's goals, preferences, and situation, and notice when they may be out of date.</desc>
+  <rect width="1392" height="880" fill="#ffffff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#252629">
+    <g>
+      <rect x="40" y="40" width="1040" height="120" rx="12" fill="#f2efec"/>
+      <path d="M52 40 H128 V160 H52 Q40 160 40 148 V52 Q40 40 52 40 Z" fill="#343f92"/>
+      <text x="84" y="115" text-anchor="middle" font-size="44" fill="#ffffff">1</text>
+      <text x="160" y="111" font-size="34">Help search</text>
+      <text x="508" y="89" font-size="32">Keywords and a search box.</text>
+      <text x="508" y="131" font-size="32">The person does the work.</text>
+    </g>
+    <g>
+      <rect x="40" y="176" width="1040" height="120" rx="12" fill="#f2efec"/>
+      <path d="M52 176 H128 V296 H52 Q40 296 40 284 V188 Q40 176 52 176 Z" fill="#343f92"/>
+      <text x="84" y="251" text-anchor="middle" font-size="44" fill="#ffffff">2</text>
+      <text x="160" y="247" font-size="34">Help search with AI</text>
+      <text x="508" y="225" font-size="32">Find relevant instructions.</text>
+      <text x="508" y="267" font-size="32">The person does the work.</text>
+    </g>
+    <g>
+      <rect x="40" y="312" width="1040" height="120" rx="12" fill="#f2efec"/>
+      <path d="M52 312 H128 V432 H52 Q40 432 40 420 V324 Q40 312 52 312 Z" fill="#343f92"/>
+      <text x="84" y="387" text-anchor="middle" font-size="44" fill="#ffffff">3</text>
+      <text x="160" y="383" font-size="34">Tell me how</text>
+      <text x="508" y="361" font-size="32">Use the application&#x27;s words:</text>
+      <text x="508" y="403" font-size="32">&quot;Click Active below the list.&quot;</text>
+    </g>
+    <g>
+      <rect x="40" y="448" width="1040" height="120" rx="12" fill="#f2efec"/>
+      <path d="M52 448 H128 V568 H52 Q40 568 40 556 V460 Q40 448 52 448 Z" fill="#343f92"/>
+      <text x="84" y="523" text-anchor="middle" font-size="44" fill="#ffffff">4</text>
+      <text x="160" y="519" font-size="34">Show me how</text>
+      <text x="508" y="497" font-size="32">Point to the control</text>
+      <text x="508" y="539" font-size="32">on the screen.</text>
+    </g>
+    <g>
+      <rect x="40" y="584" width="1040" height="120" rx="12" fill="#f2efec"/>
+      <path d="M52 584 H128 V704 H52 Q40 704 40 692 V596 Q40 584 52 584 Z" fill="#343f92"/>
+      <text x="84" y="659" text-anchor="middle" font-size="44" fill="#ffffff">5</text>
+      <text x="160" y="655" font-size="34">Do it for me</text>
+      <text x="508" y="633" font-size="32">Perform an authorized action.</text>
+      <text x="508" y="675" font-size="32">Confirm what changed.</text>
+    </g>
+    <g>
+      <rect x="40" y="720" width="1040" height="120" rx="12" fill="#f2efec"/>
+      <path d="M52 720 H128 V840 H52 Q40 840 40 828 V732 Q40 720 52 720 Z" fill="#343f92"/>
+      <text x="84" y="795" text-anchor="middle" font-size="44" fill="#ffffff">6</text>
+      <text x="160" y="791" font-size="34">Do something new</text>
+      <text x="508" y="769" font-size="32">Combine capabilities into a</text>
+      <text x="508" y="811" font-size="32">workflow with no dedicated button.</text>
+    </g>
+    <text x="1120" y="95" font-size="32" font-weight="700" fill="#244f46">Learn</text>
+    <text x="1120" y="135" font-size="32" font-weight="700" fill="#244f46">about me</text>
+    <rect x="1096" y="176" width="256" height="664" rx="12" fill="#8ebfb3"/>
+    <text x="1120" y="236" font-size="32" fill="#24423b">
+      <tspan x="1120">Understand my</tspan>
+      <tspan x="1120" dy="44">goals,</tspan>
+      <tspan x="1120" dy="44">preferences,</tspan>
+      <tspan x="1120" dy="44">and situation.</tspan>
+      <tspan x="1120" dy="60">Notice when</tspan>
+      <tspan x="1120" dy="44">they may be</tspan>
+      <tspan x="1120" dy="44">out of date.</tspan>
+    </text>
+  </g>
+</svg>
