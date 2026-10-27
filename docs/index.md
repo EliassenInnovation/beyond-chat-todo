@@ -56,7 +56,9 @@ concern about a holding. Select the image to see it at full size.*
     security policies.
 
 !!! note "AI and data scope"
-    Follow your organization's policies on which data may be used with AI, for what
+    Using AI in an application carries the usual responsibilities, including protecting
+    personal information (PII) and using AI ethically. Follow your organization's policies
+    on which data may be used with AI, for what
     purposes, with which tools and providers, and where it may be processed and stored.
     These policies apply during development and testing as well as everyday use,
     including evaluation and tracing. This guide does not determine which uses are
