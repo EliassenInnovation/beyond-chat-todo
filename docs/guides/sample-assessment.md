@@ -154,9 +154,7 @@ The [walkthrough](walkthrough.md) follows the application paths. Main evidence s
 
 ## Publication preparation
 
-The repository's current [license](../../LICENSE) identifies it as an Eliassen Group
-confidential draft with all rights reserved. An open-source license and public repository
-remain publication decisions; this assessment does not grant permission to redistribute it.
+The repository's [license](../../LICENSE) is the MIT License, Copyright (c) 2026 Eliassen Group.
 Adapted TodoMVC styling has separate [CC BY 4.0 attribution](../../README.md#license).
 The [curated evaluation example](../../examples/evaluation-review/README.md) contains
 synthetic conversations and retains its historical grades. It is useful for learning to

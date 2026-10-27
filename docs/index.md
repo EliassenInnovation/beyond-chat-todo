@@ -161,4 +161,4 @@ because they come from the product's requirements.
 
 [Sources and further reading](reference/sources.md) provide additional background.
 
-© Eliassen Group. All rights reserved. Confidential draft.
+© 2026 Eliassen Group. Released under the [MIT License](../LICENSE).

@@ -145,7 +145,8 @@ not a complete production architecture. [See its coverage and limitations](docs/
 
 ## License
 
-The sample's original code and accompanying documentation are © Eliassen Group. All rights reserved. Confidential draft.
+The sample's original code and accompanying documentation are released under the [MIT License](LICENSE),
+Copyright (c) 2026 Eliassen Group.
 The styling in [todo_view.css](todo/assets/todo_view.css) is adapted from
 [TodoMVC app CSS](https://github.com/tastejs/todomvc-app-css), copyright Sindre Sorhus,
 under [CC BY 4.0](licenses/todomvc-app-css.txt). We changed its layout and sizing and added
