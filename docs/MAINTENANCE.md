@@ -6,7 +6,6 @@ site and exports.
 
 ## Before release
 
-- Review "Sources and further reading" (`docs/reference/sources.md`), the last page not yet reviewed.
 - Test the checklist builder in Chrome and Safari: keyboard navigation through the checks,
   the partly selected state of group checkboxes, both downloads, and loading a downloaded
   `agent-checks.md` back in.
