@@ -7,12 +7,16 @@ People come to your application to get something done. An embedded agent can hel
 an unfamiliar capability, understand what they are seeing, and carry out work with them.
 A poor one can change the wrong thing or make claims the application cannot support.
 This project shows how to build useful assistance and examine whether it works.
+The working example is a small todo app with an embedded assistant.
 
 **[Read the complete illustrated guide](https://eliasseninnovation.github.io/beyond-chat-todo/guide/)** —
 from motivation and architecture through the working implementation, model choices and evaluation.
 You can also [read it as Markdown](docs/index.md) or [browse it locally](#read-the-guide-locally).
 
-[<img src="docs/images/guide-cover-thumbnail.png" alt="Cover of the guide: Build better agents. Help your users get things done." width="220">](https://eliasseninnovation.github.io/beyond-chat-todo/guide/)
+<p>
+<a href="https://eliasseninnovation.github.io/beyond-chat-todo/guide/"><img src="docs/images/guide-cover-thumbnail.png" alt="Cover of the guide: Build better agents. Help your users get things done." width="220"></a>
+<a href="docs/images/exploratory-tester.png"><img src="docs/images/exploratory-tester.png" alt="The todo application with its embedded assistant and exploratory tester." width="520"></a>
+</p>
 
 ## Contents
 
@@ -34,8 +38,6 @@ The familiar [TodoMVC](https://todomvc.com/)-style list keeps the example small 
 It demonstrates **one implementation of each capability, shared by the UI and agent**, with
 permissions appropriate to each caller. The destination is your application; todo management
 is simply a teaching domain.
-
-![The todo application with its embedded assistant and exploratory tester.](docs/images/exploratory-tester.png)
 
 **Todo deletion stands in for an irreversible action.** Its approval gate demonstrates how
 application code can require a person's approval for consequential actions the application
