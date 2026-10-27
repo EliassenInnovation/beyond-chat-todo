@@ -14,6 +14,8 @@ This project shows how to build useful assistance and examine whether it works.
 from motivation and architecture through the working implementation, model choices and evaluation.
 You can also [read it as Markdown](docs/index.md) or [run it locally](#read-the-guide-locally).
 
+[<img src="docs/images/guide-cover-thumbnail.png" alt="Cover of the guide: Build better agents. Help your users get things done." width="220">](docs/index.md)
+
 ## Contents
 
 - [What the sample demonstrates](#help-people-get-the-job-done)
