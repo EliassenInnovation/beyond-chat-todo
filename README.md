@@ -8,11 +8,11 @@ an unfamiliar capability, understand what they are seeing, and carry out work wi
 A poor one can change the wrong thing or make claims the application cannot support.
 This project shows how to build useful assistance and examine whether it works.
 
-**[Read the complete illustrated guide](docs/index.md)** —
+**[Read the complete illustrated guide](https://eliasseninnovation.github.io/beyond-chat-todo/guide/)** —
 from motivation and architecture through the working implementation, model choices and evaluation.
-For chapter navigation, search and the checklist builder, [run it locally](#read-the-guide-locally).
+You can also [read it as Markdown](docs/index.md) or [run it locally](#read-the-guide-locally).
 
-[<img src="docs/images/guide-cover-thumbnail.png" alt="Cover of the guide: Build better agents. Help your users get things done." width="220">](docs/index.md)
+[<img src="docs/images/guide-cover-thumbnail.png" alt="Cover of the guide: Build better agents. Help your users get things done." width="220">](https://eliasseninnovation.github.io/beyond-chat-todo/guide/)
 
 ## Contents
 
