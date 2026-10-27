@@ -10,7 +10,7 @@ This project shows how to build useful assistance and examine whether it works.
 
 **[Read the complete illustrated guide](https://eliasseninnovation.github.io/beyond-chat-todo/guide/)** —
 from motivation and architecture through the working implementation, model choices and evaluation.
-You can also [read it as Markdown](docs/index.md) or [run it locally](#read-the-guide-locally).
+You can also [read it as Markdown](docs/index.md) or [browse it locally](#read-the-guide-locally).
 
 [<img src="docs/images/guide-cover-thumbnail.png" alt="Cover of the guide: Build better agents. Help your users get things done." width="220">](https://eliasseninnovation.github.io/beyond-chat-todo/guide/)
 
@@ -113,7 +113,7 @@ grading concerns remain visible. [Understand what it measures](examples/evaluati
 
 ## Read the guide locally
 
-The guide, including its interactive checklist builder, runs from a clone with no API key:
+You can build and browse the guide, including its interactive checklist builder, from a clone with no API key:
 
 ```bash
 ./preview.sh
