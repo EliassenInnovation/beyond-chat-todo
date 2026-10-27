@@ -62,6 +62,16 @@ concern about a holding. Select the image to see it at full size.*
     including evaluation and tracing. This guide does not determine which uses are
     permitted or replace your organization's review and approval process.
 
+!!! note "Data privacy"
+    With a model key configured, the sample sends conversation text and list data to the
+    provider you choose (OpenAI or Anthropic). This includes the calls made by guards,
+    evaluation judges, and simulated personas. If you turn on Langfuse tracing, synthetic
+    persona and exploratory-test traces go to the Langfuse server you choose; ordinary
+    app chats are not exported. Use fictional or sample data. Do not enter personal,
+    customer, or confidential information. The provider's and Langfuse's terms govern how
+    they handle what you send; review them, with your organization's data policies, before
+    sending anything else.
+
 ## Choose a way through the guide
 
 You do not need prior experience with agents. The design chapters assume

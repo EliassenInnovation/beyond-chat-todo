@@ -50,7 +50,8 @@ Setup preserves an existing `.env`. Edit it before starting the app:
 
 The provider setting chooses a model for each job: the assistant, guards that check proposed
 changes, evaluation judges, and simulated personas. One provider key covers all these jobs.
-Conversation and list data are sent to that provider when you use the live assistant.
+Conversation and list data are sent to that provider when you use the live assistant,
+so enter only fictional or non-sensitive data.
 Guards are enabled by default and make additional model calls to check proposed changes;
 these calls add to usage costs. `EVALBASICS_GUARDS` in `.env` lists the enabled guards.
 Keep the defaults for the first run.
