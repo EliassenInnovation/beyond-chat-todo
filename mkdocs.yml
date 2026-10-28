@@ -74,7 +74,7 @@ nav:
   - Appendices:
     - How to build and extend your registry: reference/capability-declarations.md
     - Inspect capabilities and execution: reference/inspection.md
-    - Support references to earlier work: reference/conversation-references.md
+    - Resolve references to earlier requests: reference/conversation-references.md
   - Review references:
     - Implementation and acceptance checks: principles/implementation.md
     - Sample coverage and limitations: guides/sample-assessment.md
