@@ -177,6 +177,37 @@ describes when the conversation stays minimized.
 After `point_at`, the Todo sample's result says that the control is highlighted now. An
 earlier version of the agent highlighted a control and then offered to highlight it.
 
+### Return a refusal with its reason
+
+The agent also needs to hear when the action did not happen, and why. How that reaches
+the agent depends on which code carries out the action.
+
+When the agent's tool call goes directly to `execute`, the outcome is the function's
+result. A refusal is an error that states the reason, and the agent code returns it to the
+model: "The agent cannot todos.approve; only the person can."
+
+When the screen carries out the action, the answer has to be sent back. A button's own
+code usually shows an error to the person and returns nothing. Advisor's navigation
+request carries an ID. The screen code replies under that ID with what was opened, or with
+the reason it was not: "Finish or cancel your research edits before navigating." The
+agent's tool waits for that reply.
+
+The Todo sample's page draws after the agent's turn has ended, so the page cannot answer
+during the turn. `point_at` therefore decides in server code whether the page is drawing
+the control. Clear completed appears only when a todo is done, and Approve appears only
+when a delete request is waiting. When the control is not on the screen, the tool is
+refused:
+
+```text
+Clear completed is not on the screen now: it appears when at least one todo is done.
+Nothing is highlighted.
+```
+
+The agent can tell the person that, and what would make the control appear. Before this
+check, the tool answered that the control was highlighted when the page had nothing to
+highlight. The check restates the conditions under which the page draws each control, so
+a change to the page's drawing code needs the same change in `not_on_screen`.
+
 ## Check the request against the current screen
 
 The screen can change between the person's message and the agent's action. The person may
@@ -212,7 +243,9 @@ delete anything.
 
 When the page cannot find the control, the browser-based application shows a message
 saying so. It does not highlight a nearby element. The Todo sample refuses a control name
-that is not in its table and lists the names that are.
+that is not in its table and lists the names that are. It also refuses a control that the
+page is not drawing now, as described under
+[Return a refusal with its reason](#return-a-refusal-with-its-reason).
 
 ## Record who made each request
 

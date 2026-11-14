@@ -1017,9 +1017,56 @@ def test_a_control_on_each_todo_is_said_to_be_lit_on_every_todo(tmp_path):
     # It once said "the grip on Book the dentist" is highlighted while every grip was.
     from todo.view import View
     todos, view = TodoList(tmp_path / 'todos.json'), View()
+    todos.add('Book the dentist')
     ctx = SimpleNamespace(todos=todos, view=view)
     assert 'every todo' in execute(REGISTRY, 'view.point_at', {'control': 'grip', 'todo_id': None}, actor='agent', ctx=ctx)['lit_on']
     assert 'lit_on' not in execute(REGISTRY, 'view.point_at', {'control': 'filter-active', 'todo_id': None}, actor='agent', ctx=ctx)
+
+
+def test_pointing_at_a_control_the_page_is_not_drawing_is_refused_with_what_makes_it_appear(tmp_path):
+    # The reply is written before the page draws. It said "highlighted now" when nothing lit.
+    from todo.view import View
+    todos, view = TodoList(tmp_path / 'todos.json'), View()
+    ctx = SimpleNamespace(todos=todos, view=view)
+    point = lambda control, todo_id=None: execute(REGISTRY, 'view.point_at', {'control': control, 'todo_id': todo_id},
+                                                  actor='agent', ctx=ctx)
+    def refused(control, why, todo_id=None):
+        before = (view.pointed_at, view.pointed_n)
+        with pytest.raises(TodoError, match=why):
+            point(control, todo_id)
+        assert (view.pointed_at, view.pointed_n) == before  # nothing was highlighted
+
+    assert point('new-todo')['highlighted'] == 'new-todo'  # always drawn
+    for control, why in [('grip', 'no todo is on the screen'), ('filter-active', 'once the list has a todo'),
+                         ('clear-completed', 'at least one todo is done'), ('show-all', 'only some chosen todos'),
+                         ('approve-card', 'a delete request is waiting'), ('undo', 'after a change')]:
+        refused(control, why)
+
+    first, second = todos.add('Pay rent'), todos.add('Book flights')
+    assert point('grip')['lit_on'] == 'every todo' and point('filter-active')['highlighted'] == 'filter-active'
+    refused('clear-completed', 'at least one todo is done')
+    todos.complete(first.id)
+    assert point('clear-completed')['highlighted'] == 'clear-completed'
+    view.show('active')  # the done todo is hidden now
+    refused('checkbox', 'hidden by what the screen is showing', todo_id=first.id)
+    assert 'Book flights' in point('checkbox', second.id)['lit_on']
+    view.show('only', [second.id])
+    assert point('show-all')['highlighted'] == 'show-all'
+    todos.request_delete(second.id)
+    assert point('approve-card')['highlighted'] == 'approve-card'
+
+
+def test_undo_can_be_pointed_at_once_this_request_has_changed_the_list(tmp_path):
+    from todo.view import View
+    todos = TodoList(tmp_path / 'todos.json')
+    ctx = SimpleNamespace(todos=todos, view=View())
+    begin_request(ctx)
+    with pytest.raises(TodoError, match='after a change'):
+        execute(REGISTRY, 'view.point_at', {'control': 'undo', 'todo_id': None}, actor='agent', ctx=ctx)
+    execute(REGISTRY, 'todos.add', {'todos': [{'title': 'Call mom', 'due': None}]}, actor='agent', ctx=ctx)
+    assert execute(REGISTRY, 'view.point_at', {'control': 'undo', 'todo_id': None}, actor='agent', ctx=ctx)['highlighted'] == 'undo'
+    end_request(ctx)
+    assert [entry['by'] for entry in todos.undo_stack] == ['agent']  # the Undo the page then draws
 
 
 def test_several_items_may_be_one_todo_that_names_them_all():
