@@ -9,7 +9,7 @@ principles and evaluation bodies are no longer maintained; their old URLs point 
 | --- | --- |
 | Design | Why an embedded agent? Shared capabilities and the registry; understanding requests and follow-ups; authority and recovery; tools and current evidence; interfaces and views; how the agent observes and operates the screen. |
 | Implementation | Run the sample, follow a request through shared execution, and choose models for the different roles. |
-| Evaluation | Explore with people and personas; define outcomes and calibrate judges; run evaluations and interpret complete evidence and variation; add optional tracing. |
+| Evaluation | Explore with people and personas. One essentials chapter: define outcomes, judge replies, read results, and check that a fix generalizes. The recorded evaluation report. A "Detailed method" group for readers who run evaluations: judges, test cases and experiments; reviewing results, complete evidence and variation; optional tracing. |
 | Application | Choose one useful job in an existing product, preserve its behavior, share its operation, and measure the benefit. |
 | Review references | Adaptable implementation checks, the sample's coverage and limitations, and sources supporting the guidance. |
 
