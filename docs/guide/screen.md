@@ -2,15 +2,52 @@
 
 # How the agent observes and operates the screen
 
-A person asks, "Where do I change a due date?" Then, "Show me." Then, "Show only what is
-still open." The first request needs the name and location of a control. The second needs
-the application to highlight that control on the person's screen. The third changes which
-items the screen shows. None of the three changes saved data.
+The earlier chapters describe how an agent reads and changes the application's saved data
+through shared capabilities. A person talking to an embedded agent is also looking at the
+application's screen. The list is filtered a certain way, one item is selected, and a
+field may be open for editing. People refer to that screen when they ask for help: "this
+one," "what I'm looking at," "where is that?" Some requests are about the screen itself:
+"take me there," "show me where," "show only what is still open."
 
-An embedded agent can serve these requests when application code gives it a description of
-what the person currently sees, a list of the controls and destinations on the screen, and
-tools that change the view. This chapter shows how the Todo sample and Advisor provide each
-of these, with some techniques from a third application that runs in a browser.
+An agent that knows nothing about the screen cannot tell which item "this one" is. It can
+describe how to do something only in the model's own words, which may not match the labels
+the person sees. It cannot open a screen or point to a control. Two of the
+[assistance levels](why.md#from-finding-help-to-doing-the-job-together) depend on the
+screen: "Tell me how," which uses the application's own words, and "Show me how," which
+points to the control. "Do it for me" depends on it too when the request is to open a
+place or change the view.
+
+## An example from the Todo sample
+
+The Todo sample has one screen: a list of todos, with the buttons All, Active and
+Completed under it. Three requests in a row get three different kinds of help.
+
+| The person asks | What happens |
+| --- | --- |
+| "How do I hide completed todos?" | The agent answers with directions that use the screen's own labels: the Active button, under the list. |
+| "Show me where to do that." | The Active button is highlighted on the person's screen for a few seconds. The list does not change. |
+| "Do it for me." | The filter changes to Active, as if the person had clicked the button. The list now shows only the open todos. |
+
+No todo was added, changed or deleted. Everything that happened was on the screen.
+
+## What application code supplies
+
+The agent can do this because application code gives it three things:
+
+1. A description of what the person currently sees, sent with each request.
+2. A list of the controls and destinations on the screen, with the labels people see.
+3. Tools that change the view, which run the same code as the person's clicks.
+
+The rest of this chapter describes each of these, then three situations that need a rule:
+the screen has changed since the person asked, the person asks to be shown a control whose
+operation changes data, and the person has an edit in progress.
+
+The examples come from three applications. The Todo sample accompanies this guide and has
+one screen. Advisor, the desktop investment application
+[introduced on the cover page](../index.md), has tabs, a settings drawer and menus, so its
+agent navigates between places. The third is an application that runs in a browser, with
+its agent running on a server. It appears here for the techniques a browser application
+needs.
 
 [![Shared screen state connects the interface, the agent's observations and screen actions.](../images/screen-context.svg)](../images/screen-context.svg)
 
