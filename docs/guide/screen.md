@@ -38,9 +38,10 @@ The agent can do this because application code gives it three things:
 2. A list of the controls and destinations on the screen, with the labels people see.
 3. Tools that change the view, which run the same code as the person's clicks.
 
-The rest of this chapter describes each of these, then three situations that need a rule:
+The rest of this chapter describes each of these, then four situations that need a rule:
 the screen has changed since the person asked, the person asks to be shown a control whose
-operation changes data, and the person has an edit in progress.
+operation changes data, the same control gives a different result for the person and for
+the agent, and the person has an edit in progress.
 
 The examples come from three applications. The Todo sample accompanies this guide and has
 one screen. Advisor, the desktop investment application
@@ -213,6 +214,81 @@ When the page cannot find the control, the browser-based application shows a mes
 saying so. It does not highlight a nearby element. The Todo sample refuses a control name
 that is not in its table and lists the names that are.
 
+## Record who made each request
+
+A control on the screen and an agent tool can run the same operation with different
+results. In the Todo sample, a person who clicks × on a todo deletes it. The agent's
+delete tool creates a request that the person approves or denies. The screen code and the
+agent code do not decide this. Every request carries the caller, and the shared execution
+function applies the policy declared for that caller.
+
+[![A click on the delete control and the agent's delete tool both run the todos.delete action. The click is marked as the person's and deletes the todo. The tool call is marked as the agent's and creates a request that waits for the person's approval.](../images/screen-caller.svg)](../images/screen-caller.svg)
+
+*The same action runs for both callers. The caller passed with the request selects the policy.*
+
+The caller is a required argument of the one function that runs an action:
+
+```python
+def execute(registry, action_id, args, *, actor, ctx):
+    action = registry.get(action_id)
+    policy = action.policy.get(actor, 'forbidden')
+    ...
+    result = action.propose(ctx, **args) if policy == 'approval' else action.handler(ctx, **args)
+```
+
+The sample calls it from two places, and each one states the caller in code:
+
+```python
+# todo/todo_view.py: a click on the screen
+execute(REGISTRY, action_id, args, actor='person', ctx=...)
+
+# todo/agent.py: a tool call requested by the model
+self.call(REGISTRY, action.id, args, actor='agent', ctx=self)
+```
+
+The caller is passed to `execute`, not to the operation. The handler for `todos.delete`
+receives the todo IDs and has no code that asks who is calling. `execute` reads the policy
+and then runs the handler, runs the approval request in its place, or refuses. An operation
+written this way cannot apply the rule differently from another operation, and a new
+operation gets the check without writing it.
+
+The caller is not one of a tool's inputs, so the model cannot supply it, and `execute`
+rejects any field an action does not declare. Each action declares its policy for both
+callers once:
+
+```python
+@REGISTRY.action('todos.delete', tool='request_delete',
+                 policy={'person': 'allow', 'agent': 'approval'}, propose=request_delete, ...)
+
+PERSON_ONLY = dict(surfaces=('ui',), policy={'person': 'allow', 'agent': 'forbidden'})
+
+@REGISTRY.action('todos.approve', **PERSON_ONLY, ...)
+```
+
+| Action | Control | When the person clicks it | When the agent requests it |
+| --- | --- | --- | --- |
+| `view.show` | All, Active, Completed | The view changes | The view changes |
+| `todos.delete` | × on a todo | The todo is deleted | An approval request is created, and nothing is deleted |
+| `todos.approve` | Approve on the request card | The requested delete is carried out | Refused: "The agent cannot todos.approve; only the person can." |
+
+The sample's change history stores the same value with each change.
+
+Because the caller travels with every request, the screen code holds no list of controls
+the agent may not use, and no rule is written twice. To let an agent operate a control,
+map the control to its registered action and run that action as the agent. The policy
+already declared for the agent then applies.
+
+Avoid a tool that sends a click or a keystroke into the page. That request would arrive
+through the screen's own code and be executed as the person's. The agent could then delete
+without approval, or approve its own request.
+
+In a hosted application, server code establishes the caller from the authenticated session
+and from the route the request arrived on. It does not accept the caller from the request
+body. [Authority and recovery](authority.md#limit-operations-and-their-scope) covers the
+policies themselves. The sample's test
+`test_execution_refuses_the_agent_what_only_a_person_may_do` calls each person-only action
+as the agent and checks the refusal.
+
 ## Decide what happens to an edit in progress
 
 The agent may be asked to navigate while the person has a field open for editing.
@@ -233,6 +309,8 @@ controls. The agent cannot supply that confirmation for the person.
   `test_show_todos_changes_the_view_only` checks this for the filter.
 - **Showing does not run.** Ask to be shown a control that deletes, and verify nothing was
   deleted.
+- **The caller is recorded.** Call each person-only action as the agent and verify it is
+  refused. Verify no agent tool accepts the caller as an input.
 - **The right kind of help.** Advisor's navigation evaluation has 22 cases. Each names
   the action expected, the tools that must not be called, and the tab that should be open
   afterward. "How do I" should produce directions; "show me where" should open the

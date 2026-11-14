@@ -209,7 +209,7 @@ matter to the application, then verify that design. The
 <a id="check-1-15"></a>
 
 <!-- builder: embedded -->
-- Check 1.15 — Showing a control does not run it, and screen actions apply to the current screen. Ask to be shown a control whose operation changes or deletes data. Verify the control is revealed and highlighted, its operation did not run, and saved data is unchanged. Request a control that is not declared, or one the screen cannot find, and verify the application reports that instead of highlighting something else. Move, rename, or delete the item in view between the request and the action; verify the action applies to the intended item, found by its ID, or is refused. Verify the tool result states what the screen shows after the action.
+- Check 1.15 — Showing a control does not run it, and screen actions apply to the current screen. Ask to be shown a control whose operation changes or deletes data. Verify the control is revealed and highlighted, its operation did not run, and saved data is unchanged. Request a control that is not declared, or one the screen cannot find, and verify the application reports that instead of highlighting something else. Move, rename, or delete the item in view between the request and the action; verify the action applies to the intended item, found by its ID, or is refused. Verify the tool result states what the screen shows after the action. Trace each route from an agent tool to an operation; verify the request reaches shared execution marked as the agent's, that application code sets the caller and no tool input can, and that the agent cannot run the approval control's operation for its own request.
 
 ### 2. Help users finish the job
 
