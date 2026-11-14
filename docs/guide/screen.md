@@ -341,6 +341,27 @@ PERSON_ONLY = dict(surfaces=('ui',), policy={'person': 'allow', 'agent': 'forbid
 | `todos.delete` | × on a todo | The todo is deleted | An approval request is created, and nothing is deleted |
 | `todos.approve` | Approve on the request card | The requested delete is carried out | Refused: "The agent cannot todos.approve; only the person can." |
 
+The controls that need this protection are the ones whose operations have a large effect
+or cannot be undone. The registry uses those two properties to decide. Each write declares
+how many items it touches and which action takes it back. When an action is registered,
+the sample refuses to let the agent run a write directly unless it can be undone and
+touches one item:
+
+```python
+if 'write' in action.effects and action.policy.get('agent') == 'allow':
+    if action.undone_by is None:
+        raise ValueError(f"{action.id} cannot be taken back, so the agent may not simply do it: ...")
+    if action.impact != 'one':
+        raise ValueError(f"{action.id} touches many items: make its agent policy 'approval' or 'forbidden'.")
+```
+
+Delete cannot be undone, so the agent's policy for it is approval. Clear completed and
+the mark-all arrow touch many items, so they are for the person only. Ticking a todo,
+renaming it and changing the view can be undone or change nothing saved, so the agent may
+do them. Every request still carries the caller, including these. Attaching it costs
+nothing, and an operation nobody has classified is refused to the agent instead of being
+allowed by default.
+
 The change history takes the caller from the same argument. `execute` writes the undo
 entry for each change, so the screen code and the agent code do not record who made it. A
 click is one entry. Everything the agent changes in one request is one entry.
