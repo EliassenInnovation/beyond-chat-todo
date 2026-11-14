@@ -359,8 +359,9 @@ Delete cannot be undone, so the agent's policy for it is approval. Clear complet
 the mark-all arrow touch many items, so they are for the person only. Ticking a todo,
 renaming it and changing the view can be undone or change nothing saved, so the agent may
 do them. Every request still carries the caller, including these. Attaching it costs
-nothing, and an operation nobody has classified is refused to the agent instead of being
-allowed by default.
+nothing, and it means a new write is covered without anyone deciding that it matters: if
+no undo is declared for it, it fails to register until the agent's policy is set to
+approval or forbidden.
 
 The change history takes the caller from the same argument. `execute` writes the undo
 entry for each change, so the screen code and the agent code do not record who made it. A
