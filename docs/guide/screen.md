@@ -215,6 +215,28 @@ its own, so what the agent is told about the screen and what the page draws cann
 differ. A filter button reports the click to the application and is redrawn from the
 application's answer.
 
+### Decide which screen state the application owns
+
+The Todo sample is small, so the application decides everything about its declared
+controls. A larger application does not need to send every show-or-hide decision through
+its server. Sort screen state into three kinds:
+
+| Kind of screen state | Examples | Where it is decided |
+| --- | --- | --- |
+| State the agent is told about or can change | Which items are shown, which declared controls are drawn, which screen or tab is open | Application code, in one place. The screen draws from it and the agent's tools read it. |
+| State the screen owns that the agent needs to know | The selected item, a field open for editing, the position in a long document | The screen. It reports the state with each message, as part of the screen context. |
+| State the agent is never told about | Hover effects, drag feedback, animations, which menu is open while the person browses | The screen alone. |
+
+The rule that carries over is about the first kind: whatever the agent is told about the
+screen comes from the same source the screen draws from. In the Todo sample that is the
+14 declared controls and the list filter. The page still keeps the third kind to itself,
+such as which todo is being dragged.
+
+The sample does not report the second kind. An inline edit that is open in the page is
+not sent to the application, which is why the sample fails Check 1.13. Advisor does
+report it: its screen context says whether an edit is in progress, and navigation is
+refused while one is.
+
 ## Check the request against the current screen
 
 The screen can change between the person's message and the agent's action. The person may
