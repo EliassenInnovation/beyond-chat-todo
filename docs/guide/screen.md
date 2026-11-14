@@ -216,11 +216,19 @@ that is not in its table and lists the names that are.
 
 ## Record who made each request
 
-A control on the screen and an agent tool can run the same operation with different
-results. In the Todo sample, a person who clicks × on a todo deletes it. The agent's
-delete tool creates a request that the person approves or denies. The screen code and the
-agent code do not decide this. Every request carries the caller, and the shared execution
-function applies the policy declared for that caller.
+The registry declares which callers may run each operation: the person through the
+screen, the embedded agent, an external agent through MCP, or a combination. This keeps
+consequential and hard-to-undo operations away from an agent.
+
+An agent that can operate the screen adds a risk. If the agent can send the application
+the event that a button sends, it can press the button for an operation the registry does
+not allow it. The operation would then run as if the person had pressed it.
+
+The fix is that every action on a control states who is acting. The registry stays the
+single source of authority. In the Todo sample, a person who clicks × on a todo deletes it.
+The agent's delete tool creates a request that the person approves or denies. The screen
+code and the agent code do not decide this. Every request carries the caller, and the
+shared execution function applies the policy declared for that caller.
 
 [![A click on the delete control and the agent's delete tool both run the todos.delete action. The click is marked as the person's and deletes the todo. The tool call is marked as the agent's and creates a request that waits for the person's approval.](../images/screen-caller.svg)](../images/screen-caller.svg)
 
@@ -276,13 +284,15 @@ entry for each change, so the screen code and the agent code do not record who m
 click is one entry. Everything the agent changes in one request is one entry.
 
 Because the caller travels with every request, the screen code holds no list of controls
-the agent may not use, and no rule is written twice. To let an agent operate a control,
-map the control to its registered action and run that action as the agent. The policy
-already declared for the agent then applies.
+the agent may not use, and no rule is written twice. An agent can be allowed to operate
+any control. The control maps to its registered action, that action runs with the agent as
+the caller, and the policy declared for the agent applies. The agent is refused any
+operation the registry does not permit it.
 
-Avoid a tool that sends a click or a keystroke into the page. That request would arrive
-through the screen's own code and be executed as the person's. The agent could then delete
-without approval, or approve its own request.
+What the agent sends must be an application event that names the agent as the caller. A
+simulated mouse click or keystroke in the page carries no caller, so the application would
+treat it as the person's. The agent could then delete without approval, or approve its own
+request. Do not give the agent a tool that sends clicks or keystrokes into the page.
 
 In a hosted application, server code establishes the caller from the authenticated session
 and from the route the request arrived on. It does not accept the caller from the request
@@ -290,6 +300,35 @@ body. [Authority and recovery](authority.md#limit-operations-and-their-scope) co
 policies themselves. The sample's test
 `test_execution_refuses_the_agent_what_only_a_person_may_do` calls each person-only action
 as the agent and checks the refusal.
+
+### Why the agent still sees the control
+
+It may seem simpler to hide from the agent every control it may not operate. The Todo
+sample hides less than that, for four reasons.
+
+- **Hiding does not enforce anything.** The sample does leave forbidden operations out of
+  the agent's tool list. The list is built from the same policy in the registry, so it is
+  not a second set of rules. A request for an unlisted operation can still arrive, through
+  a model's mistake, text that instructs the model, or a programming error. `execute`
+  checks the policy again when the call arrives, and that check is the one that counts.
+  [Interfaces and views](interfaces.md#offer-tools-that-fit-each-interface) makes the same
+  distinction between the tools offered and the calls permitted.
+- **The agent needs the control to help the person use it.** The person may do what the
+  agent may not. "How do I delete the done ones?" is answered with the Clear completed
+  button, which only the person can use. After the agent asks to delete a todo, it tells
+  the person to choose Approve or Deny on the card. The sample's screen description
+  includes those controls, and `point_at` can highlight them.
+- **Some operations are allowed to the agent in a different form.** Delete is not
+  forbidden to the agent. It becomes a request for approval. Hiding the control would
+  remove that route.
+- **A refusal with a reason is more useful than silence.** When the agent requests a
+  forbidden operation, it receives "only the person can," and it can tell the person so.
+  An agent that has never been told the control exists may say the application cannot do
+  the job.
+
+Hide an operation from the agent's tool list when the agent can never run it, so the model
+does not attempt it. Keep the control in the agent's description of the screen. Rely on
+the check in `execute` for safety.
 
 ## Decide what happens to an edit in progress
 
