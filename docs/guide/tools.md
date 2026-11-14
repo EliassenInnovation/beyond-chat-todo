@@ -38,7 +38,7 @@ Tools are read together, so one change can affect other jobs. The model receives
 In Advisor testing, adding onboarding guidance led the external host to read onboarding
 progress even for a question about a single holding. The extra read was harmless in that
 case, but showed why guidance needs testing across jobs beyond the one it was written for.
-Follow the [testing schedule](evaluation.md#scale-testing-to-the-change) when changing tools
+Follow the [testing schedule](../guides/evaluation-results.md#everyday-checks-are-not-a-new-baseline) when changing tools
 or instructions.
 
 Tool order may change which tool the agent picks. Studies find that some models prefer tools listed earlier, especially when several tools fit a request about equally well. [Blankenstein et al.: tool selection bias](https://arxiv.org/abs/2510.00307) Model vendors do not document this, so it can change with any new model or update. Do not depend on it: keep the set of tools small, avoid tools that overlap, and write descriptions that make the right choice clear. [Anthropic: writing effective tools](https://www.anthropic.com/engineering/writing-tools-for-agents) [OpenAI: function-calling best practices](https://developers.openai.com/api/docs/guides/function-calling#best-practices-for-defining-functions) Reorder tools only if clearer descriptions and a smaller tool set do not resolve the problem.

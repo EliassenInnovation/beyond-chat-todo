@@ -26,6 +26,18 @@ and having no clear way to continue.
 If your users experience these frustrations—or never discover capabilities that could
 make their work easier—building an embedded agent may be worth the investment.
 
+The guide makes four recommendations:
+
+- The UI and the agent call the same application operations, so a rule or a fix applies
+  to both. See [Shared capabilities and the registry](guide/design.md).
+- Application code decides what each caller may do and when a person must approve. The
+  model's instructions are not relied on for those decisions. See
+  [Authority and recovery](guide/authority.md).
+- The agent reads current data through tools, and the application writes the confirmation
+  of each saved change. See [Tools and current evidence](guide/tools.md).
+- Evaluation checks whether the person got the result they asked for, using the saved
+  application state as well as the reply. See [Evaluate outcomes](guide/evaluation.md).
+
 This guide explains how to approach that work. It is for developers, architects, and
 product teams adding an agent to an application or website—or improving one they already
 have. A small todo-list application, based on TodoMVC, illustrates the design choices without
@@ -76,7 +88,7 @@ Python and API details; you can read the examples without running them.
 | --- | --- |
 | Decide where an agent could help | [Why an embedded agent?](guide/why.md) — Consider where users struggle in your applications today and how an agent could help them get things done. |
 | See how to build one | [Run the sample](guide/start.md) and [Follow a request](guides/walkthrough.md) — See how the UI and agent use the same application capabilities, with different permissions. |
-| Evaluate and improve an agent | [Evaluate outcomes](guide/evaluation.md) and [Review results and understand variation](guides/evaluation-results.md) — Evaluate how well it helps users, review failures, and distinguish normal variation from changes that need investigation. Use what you learn to improve the agent and evaluate it again. |
+| Evaluate and improve an agent | [Evaluate outcomes](guide/evaluation.md) — Evaluate how well it helps users, check the saved result, repeat runs, and review failures and successes. Use what you learn to improve the agent and evaluate it again. [Judges, test cases and experiments](guides/evaluation-method.md) and [Review results and understand variation](guides/evaluation-results.md) give the detailed method, including how to distinguish normal variation from changes that need investigation. |
 | Apply this to your application | [Apply it to your app](guide/apply.md) — Choose a first capability, define its safeguards, and decide how to test it. |
 
 </div>

@@ -12,10 +12,9 @@ Each application sets its approval policy for the operation, caller, and consequ
 ## Enforce policy and approval
 
 Application code decides whether a change may run. A prompt that says "ask before large changes" leaves the decision to the model, and the model can get it wrong. Each capability should declare what it changes and how much. The shared execution code
-should decide whether the request may proceed, needs approval, or is forbidden. Apply this
-check to every request, regardless of its interface or model.
+should decide whether the request may proceed, needs approval, or is forbidden.
 
-Check authority on every request, whatever a tool's description says. This rests on two long-standing security principles: least privilege, giving each caller only the access it needs, and complete mediation, checking authority on every access. [Saltzer and Schroeder: protection principles](https://web.mit.edu/Saltzer/www/publications/protection/Basic.html) The Model Context Protocol takes the same position on its tool annotations, which say whether a tool only reads, may destroy data, can be repeated safely, or reaches outside systems: they are hints, and a client must treat them as untrusted unless they come from a trusted server. [MCP specification: tools](https://modelcontextprotocol.io/specification/2026-07-28/server/tools)
+Check authority on every request, whatever its interface or model and whatever a tool's description says. This rests on two long-standing security principles: least privilege, giving each caller only the access it needs, and complete mediation, checking authority on every access. [Saltzer and Schroeder: protection principles](https://web.mit.edu/Saltzer/www/publications/protection/Basic.html) The Model Context Protocol takes the same position on its tool annotations, which say whether a tool only reads, may destroy data, can be repeated safely, or reaches outside systems: they are hints, and a client must treat them as untrusted unless they come from a trusted server. [MCP specification: tools](https://modelcontextprotocol.io/specification/2026-07-28/server/tools)
 
 Tie each approval to the exact change proposed. When the agent asks for approval, show exactly what will happen: the action, the items it affects, and the consequences, such as "Cancel order 4417: two items, $86.40 refunded to your card." When policy requires a separate confirmation, accept it only through a control the person uses, such as an Approve button, and check it just before the change runs, including when it is retried. If any detail changes after approval, such as an item added to the order, ask again. The agent cannot approve its own request, and the agent writing "the user agreed" in the chat does not count as approval.
 
@@ -107,6 +106,33 @@ Each operation declares the checks it needs, including the question, evidence, a
 that permits execution. Evaluate candidate questions against correct and incorrect actions
 to choose wording that distinguishes them.
 
+### Decide whether a guard is needed
+
+A model-based guard has costs. It adds one or more model calls before each guarded action,
+which takes time and money. It refuses some requests that were clear. It needs its own
+labeled cases, covering wrong actions it should stop and correct actions it should allow.
+When a required guard cannot answer, the action is refused.
+
+These alternatives use no model. Prefer them where they apply:
+
+- **Explicit selection.** The person selects the item on the screen and the tool receives
+  that selection, so no reference has to be interpreted.
+- **Deterministic validation.** When an input matches more than one record, the tool
+  rejects it and returns the candidates, and the agent asks which one the person means.
+- **Workflow state.** The application already records which item or step is in progress,
+  and the operation applies to it.
+- **Confirmation.** The application shows the proposed change and the person approves it.
+  This costs the person one step each time, so it suits consequential or infrequent actions.
+
+Use a guard when all of these hold: the request arrives in free language, several records
+could match, validation cannot tell which one was meant, the mistake is hard to notice or
+undo, the job is too frequent to confirm each time, and evaluations show the agent makes
+the mistake without the guard. The Todo sample added its merge guard after the agent, asked
+"Can you do it for me?", sometimes chose the items to merge itself; see
+[the recorded example](../guides/evaluation-results.md#follow-a-result-into-the-models-input).
+The sample's [guard selection settings](../guides/models.md#guards) let you run the same
+cases with a guard disabled and compare the results.
+
 ### Two guard questions from Todo
 
 The [Todo registry](../../todo/todos.py) registers guards with `REGISTRY.guard(...)`.
@@ -147,8 +173,8 @@ Treat stored and retrieved text as data, never as instructions. A customer note 
 ## Handle failures, interruptions, and limits
 
 Report only what actually happened. A tool should report success only after the change is saved, and a failed save must never look like a saved one. Work that has been queued is pending until its outcome is known. If a request is retried, it must not make the same change twice. When part of a request succeeded and part failed, report both parts. The application
-writes the confirmation from the saved result, following the
-[shared-capability reporting principle](design.md#report-facts-from-the-application-and-plan-for-failure).
+writes the confirmation from the saved result, as
+[Tools and current evidence](tools.md#show-application-written-text) describes.
 The model's claim that an operation succeeded is not evidence of a save.
 
 Check the outcome before retrying a change. A change can be saved even though the reply saying so never arrives: the connection drops, or the caller stops waiting. Retrying without checking can then make the change twice, and reporting a failure would be wrong too. Give each requested change an identifier that stays the same across retries, separate from the identifier of each attempt, so the application can recognize a repeat and return the first result. When the outcome is unknown, look it up before trying again, and tell the user the change is pending until the outcome is known.

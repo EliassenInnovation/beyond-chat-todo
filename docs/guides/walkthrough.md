@@ -71,10 +71,9 @@ Use the exploratory tester's test list for the interactive exercises below.
 
 ## Build the capability once; control who can use it
 
-Suppose you add an agent to an existing application. Implementing its actions separately
-would give you two places to maintain validation, data access, and business rules. Instead,
-connect both callers to the same capability. They follow the same underlying process and
-use the same data, with restrictions appropriate to the caller.
+The person's controls and the agent connect to one capability, with restrictions appropriate
+to each caller. [Build the capability once](../guide/design.md#build-the-capability-once)
+explains why.
 
 In the app, type a todo in What needs to be done? and press Enter. With chat configured, ask the assistant to add another todo. The language model's wording and choice of calls can vary; inspect the saved result rather than expecting an exact transcript.
 
@@ -140,17 +139,12 @@ user authentication, or every check of meaning or intent: those have explicit ow
 
 [![The agent proposes deletion, the person approves through the screen, and code checks the proposal before deleting. Agent approval and changed proposals are refused.](../images/todo-approval-flow.svg)](../images/todo-approval-flow.svg)
 
-Todo deletion stands in for an irreversible action. The purpose is to demonstrate how
-application code requires a person's approval before an agent executes that action. In a real
-application, this might be transferring money, placing a trade, or deleting a repository—
-consequential actions the application cannot undo.
-Ordinary todo deletion would rarely warrant this approval gate; here it provides a small
-example whose authority rules can be inspected and tested.
-
-Separate two questions when adapting this pattern: does the mechanism enforce authority?
-And do this action's consequences and recoverability justify approval? The walkthrough tests
-the first; the second is a product decision. Match safeguards to consequences rather than requiring approval for
-every write.
+Todo deletion stands in for an irreversible action, such as transferring money, placing a
+trade, or deleting a repository. Ordinary todo deletion would rarely warrant approval; here
+it gives a small example whose authority rules can be inspected and tested. The walkthrough
+tests whether the mechanism enforces authority. Whether an action's consequences justify
+approval in your application is a product decision, which
+[Authority and recovery](../guide/authority.md#limit-operations-and-their-scope) discusses.
 
 Ask the assistant to delete a named todo. It calls the `request_delete` tool, which resolves to the `todos.delete` action. For the agent, that action's policy is `approval`, so `execute` runs its proposal function. The task remains, and an Approve/Deny card appears.
 
@@ -233,9 +227,8 @@ This is distinct from losing the response to the write itself. The sample has no
 ## Find out whether the agent understood and helped
 
 So far, the walkthrough has examined what application code guarantees. The model's choices
-need a different kind of evidence. A tool can execute correctly while acting on the wrong
-task, and a reply can sound helpful while omitting part of the request. Evaluate the request,
-actions, saved result, and explanation together.
+need a different kind of evidence. [Evaluate outcomes](../guide/evaluation.md) explains why
+the request, actions, saved result, and explanation are evaluated together.
 
 The [evaluation definitions](../../evaluations/evals.py) give each case a question, starting state, steps, expected outcome, and grading rules. Each attempt starts on a new temporary list. Code checks state; separate judges assess claims and answers. [tests/test_main.py](../../tests/test_main.py) exercises graders on both correct and incorrect outcomes.
 
@@ -253,7 +246,7 @@ and `--held-out`. Keep their contents out of development feedback; the
 
 Open the generated `runs/evals.html`. Start with a case's question, expand an attempt, and compare the actual state and tool results with the reply. Follow the trace link when available for the full model request. Sample passing cases too.
 
-A missing judge is missing evidence. All required truthfulness checks must return before an attempt can pass. A known failed check remains a failure even if another check is missing. Run records retain individual check verdicts and reasons; incomplete attempts must not inflate a pass rate.
+The sample treats a [missing judgment as missing evidence](../guide/evaluation.md#how-to-judge): all required truthfulness checks must return before an attempt can pass. Run records retain individual check verdicts and reasons.
 
 These tests demonstrate that reporting rule without a model call:
 
@@ -305,10 +298,9 @@ for interpreting persona reactions and checking the recorded outcomes.
 
 ## Take one capability back to your application
 
-Choose a useful job your users struggle to accomplish. Identify the existing operations
-that do it, and give the UI and agent access through the same implementation. Decide what
-the agent needs to observe, what it may execute, and what requires a person's approval.
-Then test the code's boundaries and evaluate whether the agent does the intended work.
+[Apply it to your app](../guide/apply.md) describes how to choose a job your users struggle
+to accomplish, share its operation between the UI and the agent, set each caller's
+authority, and test the result.
 
 Use the guide's [design chapters](../guide/design.md) to examine those choices and the
 [implementation checks](../principles/implementation.md) to scope and review the work.

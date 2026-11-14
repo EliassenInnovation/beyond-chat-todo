@@ -86,7 +86,7 @@ support. These additional sources were consulted October 18, 2026.
 
 ## Evaluation-driven improvement
 
-The [evaluation chapter](../guide/evaluation.md#let-a-coding-agent-run-budgeted-experiments)
+The [evaluation chapter](../guides/evaluation-method.md#let-a-coding-agent-run-budgeted-experiments)
 uses these sources for automated improvement and the limits of its scoring. Consulted
 October 25, 2026.
 

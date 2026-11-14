@@ -39,11 +39,9 @@ alone does not determine where the MCP server belongs.
 
 ## Decide which code handles each responsibility
 
-The [shared-capability diagram](design.md#build-the-capability-once) shows the common
-foundation. A capability defines an operation's inputs, validation, changes, and result.
-Shared execution enforces permissions and approval, coordinates changes that must succeed
-together, and records the outcome. Each interface translates requests into that shared
-code and presents its results. This separation follows the
+Capabilities and shared execution hold each operation with its validation, permissions and
+approval, as the [shared-capability diagram](design.md#build-the-capability-once) shows.
+Each interface translates requests into that shared code and presents its results. This separation follows the
 [ports-and-adapters pattern](https://alistair.cockburn.us/hexagonal-architecture).
 
 Interfaces can group actions differently while preserving their meaning. The screen may
