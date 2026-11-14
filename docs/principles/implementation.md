@@ -45,8 +45,8 @@ against the applicable acceptance checks.
 - The capability owns what an operation is: its purpose, actions, inputs, checks on those inputs, what it changes, its limits, the names and meanings of its inputs, and results that later requests can refer to.
 - The model interprets what the user is referring to and what a correction changes.
 - The code that runs the agent keeps the user's requests and tool history. Application code stores inputs and results and recalculates. Start with conversation and tool history; add explicit task state when the workflow or evaluation evidence calls for it.
-- Shared execution, the code every operation runs through, owns policy, approval, saving, history, undo, and reporting what actually happened.
-- Each interface owns how a caller finds and reaches an operation, and how the result is shown. Screen controls, agent tools, and command-line commands are each designed for their caller and share the same behavior underneath; one capability need not be one tool.
+- Shared execution, the code every operation runs through, owns policy, approval, saving, history, undo, and reporting what actually happened. Every request reaches it with the caller (the person, the embedded agent, or an external agent) set by application code. The model cannot set the caller, and the operation's own code does not decide by it.
+- Each interface owns how a caller finds and reaches an operation, and how the result is shown. Screen controls, agent tools, and command-line commands are each designed for their caller and share the same behavior underneath; one capability need not be one tool. What an agent is told about the screen comes from the same source the screen draws from.
 
 A user's job may need several capabilities. The agent combines them; application code owns any steps that must happen in order, or all together, and how to recover when one fails.
 
