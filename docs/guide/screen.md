@@ -46,9 +46,9 @@ the agent, and the person has an edit in progress.
 The examples come from three applications. The Todo sample accompanies this guide and has
 one screen. Advisor, the desktop investment application
 [introduced on the cover page](../index.md), has tabs, a settings drawer and menus, so its
-agent navigates between places. The third is an application that runs in a browser, with
-its agent running on a server. It appears here for the techniques a browser application
-needs.
+agent navigates between places. The third is an application for creating presentations. It runs in a
+browser, with its agent running on a server, and it appears here for the techniques a
+browser application needs. This chapter calls it the presentation application.
 
 [![Shared screen state connects the interface, the agent's observations and screen actions.](../images/screen-context.svg)](../images/screen-context.svg)
 
@@ -73,7 +73,7 @@ in the change history and no undo step.
 | Point at a control | "Show me where" | Highlights the control for a few seconds and runs nothing | Todo sample, `point_at` |
 | Open a destination | "Take me to where I can edit the thesis for MU" | Selects the holding, opens its Settings tab, puts the cursor in the Thesis field and scrolls the field into view | Advisor, `navigate_ui` |
 | Reveal a menu command | "Where is the import command?" | Opens the menu with the command highlighted and does not run it | Advisor, `navigate_ui` |
-| Move the view to an item | "Go to the third section" | Scrolls the document to that item, as a click in the outline does | The browser-based application |
+| Move the view to an item | "Go to the third slide" | Scrolls to that slide, as a click in the outline does | The presentation application |
 
 Offer screen actions only to an agent that shares the person's screen. The Todo sample
 offers `point_at` to the embedded agent alone, and Advisor withholds both of its screen
@@ -97,10 +97,10 @@ Advisor labels this block as application state, not instructions, and places it 
 conversation. The agent reads figures and settings through read tools when a request needs
 them. The description says where the person is and what is selected.
 
-The browser-based application sends the item the person has in view with each message.
+The presentation application sends the slide the person has in view with each message.
 The person can remove it before sending when the question is about something else. The
 server turns it into a sentence placed before the person's words, such as "I am looking at
-item 4."
+slide 4."
 
 None of the three applications sends a screenshot or the values of every visible field.
 
@@ -129,7 +129,7 @@ description and whether a holding must be named. The agent fetches the list with
 `get_ui_actions` when a request needs it. A destination is listed only when the capability
 that owns it names it in the registry.
 
-In the browser-based application, each entry also holds the selector the page uses to find
+In the presentation application, each entry also holds the selector the page uses to find
 the control and the phrases people use for it. A test fails when a declared selector does
 not exist in the page, so a renamed or removed control is caught before release.
 
@@ -154,7 +154,7 @@ so the call is passed to the interface thread and waits up to 10 seconds for the
 Selecting a holding then sends `SelectSymbol`, the event a click on the holdings list
 sends, through the same state machine.
 
-In the browser-based application, the agent's tool loop runs on the server. The tool
+In the presentation application, the agent's tool loop runs on the server. The tool
 handler records the requested view change and increases a version number. The page
 receives the change over the event stream it already listens to and calls the function
 that a click in the outline calls. When no page is open, the tool call is refused and the
@@ -232,7 +232,7 @@ application can support:
 | What the result establishes | What it means | Which application |
 | --- | --- | --- |
 | The view state was changed | The owner of the state now holds the new value. The screen will draw from it. | Todo sample |
-| The screen was sent the change | An event went to the page. Nothing has come back. | The browser-based application |
+| The screen was sent the change | An event went to the page. Nothing has come back. | The presentation application |
 | The screen confirmed the change | The screen code applied it and replied. | Advisor |
 
 In the Todo sample the page draws after the agent's turn has ended, so no result can say
@@ -284,15 +284,15 @@ Advisor checks the live state when the action arrives: the holding must still be
 the destination must exist. A request that has already timed out is dropped when it reaches
 the interface.
 
-In the browser-based application, items can be reordered, so each item has a lasting ID
-separate from its position. Before the model sees the screen context, the server looks the
-item up by that ID. If the item has moved, the model is told both its earlier and its
-current position. If the item was deleted, the model is told not to act on whatever now
-has that position.
+In the presentation application, slides can be reordered, so each slide has a lasting ID
+separate from its number. Before the model sees the screen context, the server looks the
+slide up by that ID. If the slide has moved, the model is told both its earlier and its
+current number. If the slide was deleted, the model is told not to act on whatever slide
+now has that number.
 
-[![When the person asked, Budget with ID 7 was item 3. When the agent acts, a new item has been added and Budget is item 4. The application finds Budget by ID 7.](../images/screen-item-moved.svg)](../images/screen-item-moved.svg)
+[![When the person asked, the Budget slide with ID 7 was slide 3. When the agent acts, a new slide has been added and Budget is slide 4. The application finds Budget by ID 7.](../images/screen-item-moved.svg)](../images/screen-item-moved.svg)
 
-*An item added during the conversation moves Budget from position 3 to position 4. Its ID stays 7.*
+*A slide added during the conversation moves Budget from slide 3 to slide 4. Its ID stays 7.*
 
 Refer to items by ID in screen context and in tool inputs. Positions and titles can change
 during a conversation. [Resolve references to earlier requests](../reference/conversation-references.md)
@@ -305,10 +305,10 @@ delete anything.
 
 - The Todo sample's `point_at` changes only the highlight.
 - Advisor opens a menu with the command highlighted and leaves the person to choose it.
-- The browser-based application opens the menu or panel that contains the control, scrolls
+- The presentation application opens the menu or panel that contains the control, scrolls
   to it, waits for the layout to settle, and then outlines it.
 
-When the page cannot find the control, the browser-based application shows a message
+When the page cannot find the control, the presentation application shows a message
 saying so. It does not highlight a nearby element. The Todo sample refuses a control name
 that is not in its table and lists the names that are. It also refuses a control that the
 page is not drawing now, as described under
@@ -425,7 +425,7 @@ drafts before it changes the selection. While a research edit or a settings-draw
 open, it refuses the agent's navigation and returns the reason: "Finish or cancel your
 research edits before navigating." The agent can pass that on to the person.
 
-The Todo sample and the browser-based application save each completed change as it is
+The Todo sample and the presentation application save each completed change as it is
 made, and undo covers a completed change that was a mistake. That does not cover text the
 person is still typing. In the Todo sample, an inline edit that is open in the page is not
 reported to the application, so a view change by the agent is not held back while the
@@ -456,7 +456,7 @@ controls. The agent cannot supply that confirmation for the person.
 - **An edit in progress.** Navigate while a field is open, and verify the draft is saved,
   kept, or the navigation is refused.
 
-The Todo sample and the browser-based application test these paths in Python. Neither
+The Todo sample and the presentation application test these paths in Python. Neither
 tests the highlight in a real browser, so neither confirms what the browser displayed.
 
 !!! practice "Practice — list the screen actions for one job"

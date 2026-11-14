@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="330" viewBox="0 0 800 330" role="img" aria-label="When the person asked, Budget with ID 7 was item 3. When the agent acts, a new item has been added and Budget is item 4. The application finds Budget by ID 7."><desc>When the person asked, Budget with ID 7 was item 3. When the agent acts, a new item has been added and Budget is item 4. The application finds Budget by ID 7.</desc><style>text{font-family:Arial,sans-serif;fill:#1A1E33;font-size:18px}.label{font-weight:700;font-size:20px}.on{fill:white;font-weight:700}.id{text-anchor:end}</style><rect width="800" height="330" fill="white"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="330" viewBox="0 0 800 330" role="img" aria-label="When the person asked, the Budget slide with ID 7 was slide 3. When the agent acts, a new slide has been added and Budget is slide 4. The application finds Budget by ID 7."><desc>When the person asked, the Budget slide with ID 7 was slide 3. When the agent acts, a new slide has been added and Budget is slide 4. The application finds Budget by ID 7.</desc><style>text{font-family:Arial,sans-serif;fill:#1A1E33;font-size:18px}.label{font-weight:700;font-size:20px}.on{fill:white;font-weight:700}.id{text-anchor:end}</style><rect width="800" height="330" fill="white"/>
 <rect x="16" y="12" width="340" height="256" rx="6" fill="#F5F1EE"/>
 <rect x="444" y="12" width="340" height="256" rx="6" fill="#F5F1EE"/>
 <text x="32" y="42" class="label">When the person asked</text>
@@ -15,4 +15,4 @@
 <path d="M340 153H400V193H452" stroke="#8EBFB3" stroke-width="3" fill="none"/>
 <path d="M444 187L452 193L444 199" stroke="#8EBFB3" stroke-width="3" fill="none"/>
 <text x="400" y="140" style="text-anchor:middle;font-weight:700">ID 7</text>
-<text x="16" y="304">The application finds Budget by its ID. Item 3 is now a different item.</text></svg>
+<text x="16" y="304">The application finds Budget by its ID. Slide 3 is now a different slide.</text></svg>
