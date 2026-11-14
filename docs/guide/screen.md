@@ -271,7 +271,9 @@ PERSON_ONLY = dict(surfaces=('ui',), policy={'person': 'allow', 'agent': 'forbid
 | `todos.delete` | × on a todo | The todo is deleted | An approval request is created, and nothing is deleted |
 | `todos.approve` | Approve on the request card | The requested delete is carried out | Refused: "The agent cannot todos.approve; only the person can." |
 
-The sample's change history stores the same value with each change.
+The change history takes the caller from the same argument. `execute` writes the undo
+entry for each change, so the screen code and the agent code do not record who made it. A
+click is one entry. Everything the agent changes in one request is one entry.
 
 Because the caller travels with every request, the screen code holds no list of controls
 the agent may not use, and no rule is written twice. To let an agent operate a control,

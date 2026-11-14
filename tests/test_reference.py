@@ -9,7 +9,7 @@ import evaluations.evals as evals
 import evaluations.evals_page as evals_page
 import todo.todo_view as todo_view
 from todo.capabilities import REGISTRY, Action, ActionError, Registry, execute
-from todo.todos import TodoList
+from todo.todos import TodoList, begin_request
 from todo.view import View
 
 
@@ -175,7 +175,7 @@ def test_unexpected_failure_keeps_undo_for_saved_work(tmp_path, monkeypatch):
     ctx = context(tmp_path)
     agent = agent_module.Agent(ctx.todos)
     def interrupted(text):
-        agent.turn_before = ctx.todos.state()
+        begin_request(agent)
         execute(REGISTRY, 'todos.add', {'todos': [{'title': 'Saved before interruption', 'due': None}]},
                 actor='agent', ctx=agent)
         raise RuntimeError('interrupted')

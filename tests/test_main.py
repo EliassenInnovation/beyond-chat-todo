@@ -10,7 +10,7 @@ from todo.agent import TOOLS
 from todo.capabilities import REGISTRY, Action, ActionError, Registry, execute
 from evaluations.evals import CASES, grade
 from todo.langfuse_setup import load_env
-from todo.todos import PendingDelete, Todo, TodoError, TodoList
+from todo.todos import PendingDelete, Todo, TodoError, TodoList, begin_request, end_request
 
 
 def test_todo_list_saves_and_validates(tmp_path):
@@ -58,10 +58,11 @@ def test_the_agent_is_offered_these_tools_in_this_order():
 
 def as_agent(todos, *calls):
     """One request to the agent: its calls, then one entry on the undo stack, as Agent.ask records it."""
-    ctx, before = caller(todos), todos.state()
+    ctx = caller(todos)
+    begin_request(ctx)
     for action_id, args in calls:
         execute(REGISTRY, action_id, args, actor='agent', ctx=ctx)
-    todos.checkpoint('agent', before)
+    end_request(ctx)
     return ctx
 
 
@@ -217,6 +218,18 @@ def test_an_interfaces_tool_order_must_name_exactly_what_it_may_be_offered():
         REGISTRY.tools_for('embedded_agent', 'agent', order=['list_todos'])
     with pytest.raises(ValueError, match='must name exactly'):  # approve is the person's: never offered
         REGISTRY.tools_for('embedded_agent', 'agent', order=[t['function']['name'] for t in TOOLS] + ['approve'])
+
+
+def test_execute_writes_the_undo_entry_for_the_caller_it_was_given(tmp_path):
+    """No adapter records who made a change: the history takes the caller from execute."""
+    todos = TodoList(tmp_path / 'todos.json')
+    execute(REGISTRY, 'todos.add', {'todos': [{'title': 'Call mom', 'due': None}]}, actor='person', ctx=caller(todos))
+    assert [entry['by'] for entry in todos.undo_stack] == ['person']
+    as_agent(todos, ('todos.add', {'todos': [{'title': 'Pay rent', 'due': None}]}),
+             ('todos.add', {'todos': [{'title': 'Book flights', 'due': None}]}))
+    assert [entry['by'] for entry in todos.undo_stack] == ['person', 'agent']  # one entry for the whole request
+    execute(REGISTRY, 'view.show', {'showing': 'active', 'ids': None}, actor='person', ctx=caller(todos))
+    assert len(todos.undo_stack) == 2  # a view change is not an entry
 
 
 @pytest.mark.parametrize('action_id, args', [('todos.approve', {'id': 1}), ('todos.deny', {'id': 1}),

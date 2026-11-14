@@ -143,10 +143,7 @@ def click(todos, choice):
     It runs the same action the app's buttons run, as the person."""
     action_id = {'approve': 'todos.approve', 'deny': 'todos.deny'}.get(choice)
     for pending in list(todos.pending) if action_id else []:
-        with todos.transaction():
-            before = todos.state()
-            execute(REGISTRY, action_id, {'id': pending.id}, actor='person', ctx=SimpleNamespace(todos=todos, view=None))
-            todos.checkpoint('person', before)
+        execute(REGISTRY, action_id, {'id': pending.id}, actor='person', ctx=SimpleNamespace(todos=todos, view=None))
 
 
 class PersonaStopped(Exception):

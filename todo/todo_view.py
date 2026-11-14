@@ -66,9 +66,5 @@ def apply(todos: TodoList, view: View, action):
     if op not in calls:
         raise ValueError(f'Unknown action from the screen: {action!r}')
     action_id, args = calls[op]
-    with todos.transaction():
-        before = todos.state()
-        result = execute(REGISTRY, action_id, args, actor='person', ctx=SimpleNamespace(todos=todos, view=view))
-        if op not in ('undo', 'redo'):  # the change and its undo entry commit together
-            todos.checkpoint('person', before)
-        return result
+    # execute saves the change and its undo entry together, named for this caller.
+    return execute(REGISTRY, action_id, args, actor='person', ctx=SimpleNamespace(todos=todos, view=view))
