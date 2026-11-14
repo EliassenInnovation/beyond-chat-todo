@@ -124,7 +124,8 @@ def shown(ctx, showing, ids):
                              'is not on the screen now is refused, with what makes it appear.')
 def point_at(ctx, control, todo_id=None):
     # Said in the result, where the reply is drafted: it had highlighted a control and then offered
-    # "I can highlight it for you if you want".
+    # "I can highlight it for you if you want". The app has set the highlight and the page draws it
+    # with the reply; nothing here confirms what the browser displayed, so the note does not say so.
     todo = ctx.todos.get(todo_id) if todo_id is not None else None
     # The reply is written before the page draws, so the answer about the screen is decided here.
     # It had said "it is highlighted now" for Clear completed when no todo was done and nothing lit.
@@ -133,7 +134,8 @@ def point_at(ctx, control, todo_id=None):
         if missing:
             raise TodoError(f'{SCREEN[control][0]} is not on the screen now: {missing}. Nothing is highlighted.')
     result = {'highlighted': ctx.view.point(control, todo_id).pointed_at,
-              'note': "It is highlighted on the user's screen now; say so, rather than offering to."}
+              'note': 'The page highlights it when it shows your reply; tell the user it is highlighted, '
+                      'rather than offering to.'}
     # A control on each todo lights on every todo. It once said "the grip on Book the dentist" is
     # highlighted while every grip was; the result says what is lit, where the reply is drafted.
     # (Pointing at one todo's control was tried twice, as a todo_id and as its own tool; each broke

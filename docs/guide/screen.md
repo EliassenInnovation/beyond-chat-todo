@@ -160,19 +160,36 @@ receives the change over the event stream it already listens to and calls the fu
 that a click in the outline calls. When no page is open, the tool call is refused and the
 agent is told why.
 
-### Where the view state is kept
+### Give each piece of screen state one owner
 
-How the agent reads and changes the view depends on where your interface framework keeps
-its view state. The agent's own loop runs on the server in both cases below, because the
-model's API key and the checks on consequential operations must be there.
+Each piece of screen state that the agent can observe or change needs one owner: one
+piece of code that holds it. The screen draws from that owner, the agent's observations
+read it, and both clicks and the agent's actions change it there. The agent and the
+screen then cannot hold different versions of the filter, the selection or the open tab.
+
+State the agent is never told about can stay with the screen alone: hover effects, drag
+feedback, animations. In the Todo sample the owned state is the list filter and whether
+each of the 14 declared controls is drawn. One function, `not_on_screen` in
+`todo/view.py`, decides the second. Before each draw, the application sends the page the
+IDs of the visible todos and a true or false value for every control, and the page shows
+or hides each control from those values. The page script has no conditions of its own. It
+still keeps to itself which todo is being dragged.
+
+Where the owner runs is a separate decision, and it depends on your interface framework.
 
 [![Two arrangements. On the left the view state is on the server with the agent: the browser sends clicks and receives the new view. On the right the view state is in the browser: the page sends a snapshot, the server sends an event, and the page sends a reply. In both, the server checks deletes, trades and payments.](../images/screen-state-location.svg)](../images/screen-state-location.svg)
 
-*The view state is on the server in a Streamlit application and in the browser in a React application.*
+*In a hosted web application, the view state is on the server with Streamlit and in the browser with React.*
+
+The figure shows a hosted web application. There the agent's loop runs on the server,
+because the model's API key and the checks on consequential operations have to be kept out
+of the browser. A desktop application such as Advisor runs the agent and the interface in
+one process, and the same two questions apply: which code owns the view state, and how the
+agent reaches it.
 
 **View state on the server.** Streamlit works this way, and so does the Todo sample. The
-server holds the filter and the selection, and the page draws what it is sent. For the
-request "Show only what is still open":
+server holds the filter, and the page draws what it is sent. For the request "Show only
+what is still open":
 
 1. The agent reads the current filter from the server's memory.
 2. The agent calls `show_todos`, and the server changes the filter.
@@ -193,27 +210,42 @@ the server. For the same request:
    not make the change. The agent's tool waits for that reply.
 
 The three numbered arrows in the figure are these three steps. A snapshot, an event and a
-reply are the parts a browser-held design needs and a server-held design does not.
+reply are the parts a browser-held design needs and a server-held design does not. The
+Todo sample shows the first arrangement only. Advisor is the closer model for the second:
+its view state is in the interface, and its navigation request waits for the interface's
+reply.
 
-The Todo sample shows the first arrangement only. Advisor is the closer model for the
-second: its view state is in the interface, and its navigation request waits for the
-interface's reply.
+The snapshot from the browser helps interpret the request and nothing more. The server
+establishes the person's identity and checks consequential operations itself, from trusted
+records.
 
-In both arrangements, the snapshot from the browser helps interpret the request and
-nothing more. The server establishes the person's identity and checks consequential
-operations itself, from trusted records.
-
-### Return what the screen now shows
+### Report what the application did, and what is confirmed
 
 The tool result should describe the screen after the action, so the agent's reply about it
 is accurate. `show_todos` returns the filter, the titles now visible and the titles now
 hidden. `navigate_ui` returns what was opened and where, with a confirmation written by
-application code, such as "Opened Thesis for MU." Advisor shows that confirmation in its
-status bar; [The agent in the UI](agent-experience.md#how-advisor-makes-the-choice)
-describes when the conversation stays minimized.
+application code, such as "Opened Thesis for MU."
 
-After `point_at`, the Todo sample's result says that the control is highlighted now. An
-earlier version of the agent highlighted a control and then offered to highlight it.
+A result can mean three different things, and the agent should claim only the one the
+application can support:
+
+| What the result establishes | What it means | Which application |
+| --- | --- | --- |
+| The view state was changed | The owner of the state now holds the new value. The screen will draw from it. | Todo sample |
+| The screen was sent the change | An event went to the page. Nothing has come back. | The browser-based application |
+| The screen confirmed the change | The screen code applied it and replied. | Advisor |
+
+In the Todo sample the page draws after the agent's turn has ended, so no result can say
+what the browser displayed. `show_todos` reports the filter the application set and the
+todos that filter selects. `point_at` reports that the highlight was requested for a
+control the page is told to draw. Its result tells the model that the page highlights the
+control when it shows the reply. An earlier version of the agent highlighted a control and
+then offered to highlight it.
+
+Because the page draws from the same state, the difference is small in the sample, but it
+is not zero. A fault in the page script could leave a control undrawn. A test checks that
+every declared control has a selector in the page script. No test runs the highlight in a
+browser. When the difference matters, have the screen reply, as Advisor's does.
 
 ### Return a refusal with its reason
 
@@ -230,11 +262,9 @@ request carries an ID. The screen code replies under that ID with what was opene
 the reason it was not: "Finish or cancel your research edits before navigating." The
 agent's tool waits for that reply.
 
-The Todo sample's page draws after the agent's turn has ended, so the page cannot answer
-during the turn. `point_at` therefore decides in server code whether the page is drawing
-the control. Clear completed appears only when a todo is done, and Approve appears only
-when a delete request is waiting. When the control is not on the screen, the tool is
-refused:
+In the Todo sample, `point_at` asks `not_on_screen` whether the page is told to draw the
+control. Clear completed is drawn only when a todo is done, and Approve only when a delete
+request is waiting. When the control is not drawn, the tool is refused:
 
 ```text
 Clear completed is not on the screen now: it appears when at least one todo is done.
@@ -244,36 +274,6 @@ Nothing is highlighted.
 The agent can tell the person that, and what would make the control appear. Before this
 check, the tool answered that the control was highlighted when the page had nothing to
 highlight.
-
-The page draws from the same decision. One function, `not_on_screen` in `todo/view.py`,
-decides whether each control is on the screen. Before each draw, the application sends the
-page the IDs of the visible todos and a true or false value for every control, and the
-page shows or hides each control from those values. The page script has no conditions of
-its own, so what the agent is told about the screen and what the page draws cannot
-differ. A filter button reports the click to the application and is redrawn from the
-application's answer.
-
-### Decide which screen state the application owns
-
-The Todo sample is small, so the application decides everything about its declared
-controls. A larger application does not need to send every show-or-hide decision through
-its server. Sort screen state into three kinds:
-
-| Kind of screen state | Examples | Where it is decided |
-| --- | --- | --- |
-| State the agent is told about or can change | Which items are shown, which declared controls are drawn, which screen or tab is open | Application code, in one place. The screen draws from it and the agent's tools read it. |
-| State the screen owns that the agent needs to know | The selected item, a field open for editing, the position in a long document | The screen. It reports the state with each message, as part of the screen context. |
-| State the agent is never told about | Hover effects, drag feedback, animations, which menu is open while the person browses | The screen alone. |
-
-The rule that carries over is about the first kind: whatever the agent is told about the
-screen comes from the same source the screen draws from. In the Todo sample that is the
-14 declared controls and the list filter. The page still keeps the third kind to itself,
-such as which todo is being dragged.
-
-The sample does not report the second kind. An inline edit that is open in the page is
-not sent to the application, which is why the sample fails Check 1.13. Advisor does
-report it: its screen context says whether an edit is in progress, and navigation is
-refused while one is.
 
 ## Check the request against the current screen
 
@@ -355,23 +355,8 @@ self.call(REGISTRY, action.id, args, actor='agent', ctx=self)
 ```
 
 The caller is passed to `execute`, not to the operation. The handler for `todos.delete`
-receives the todo IDs and has no code that asks who is calling. `execute` reads the policy
-and then runs the handler, runs the approval request in its place, or refuses. An operation
-written this way cannot apply the rule differently from another operation, and a new
-operation gets the check without writing it.
-
-The caller is not one of a tool's inputs, so the model cannot supply it, and `execute`
-rejects any field an action does not declare. Each action declares its policy for both
-callers once:
-
-```python
-@REGISTRY.action('todos.delete', tool='request_delete',
-                 policy={'person': 'allow', 'agent': 'approval'}, propose=request_delete, ...)
-
-PERSON_ONLY = dict(surfaces=('ui',), policy={'person': 'allow', 'agent': 'forbidden'})
-
-@REGISTRY.action('todos.approve', **PERSON_ONLY, ...)
-```
+receives the todo IDs and has no code that asks who is calling. The caller is also not one
+of a tool's inputs, so the model cannot supply it.
 
 | Action | Control | When the person clicks it | When the agent requests it |
 | --- | --- | --- | --- |
@@ -380,78 +365,44 @@ PERSON_ONLY = dict(surfaces=('ui',), policy={'person': 'allow', 'agent': 'forbid
 | `todos.approve` | Approve on the request card | The requested delete is carried out | Refused: "The agent cannot todos.approve; only the person can." |
 
 The controls that need this protection are the ones whose operations have a large effect
-or cannot be undone: deleting a file, placing a trade, sending money to a bank. A placed
-trade and a sent payment take effect outside the application, so the application cannot
-take them back. For operations like these, the button on the screen is for the person. An
-agent that asks for one gets an approval request for the person to decide, or a refusal.
-
-The registry uses those two properties to decide. Each write declares
-how many items it touches and which action takes it back. When an action is registered,
-the sample refuses to let the agent run a write directly unless it can be undone and
-touches one item:
-
-```python
-if 'write' in action.effects and action.policy.get('agent') == 'allow':
-    if action.undone_by is None:
-        raise ValueError(f"{action.id} cannot be taken back, so the agent may not simply do it: ...")
-    if action.impact != 'one':
-        raise ValueError(f"{action.id} touches many items: make its agent policy 'approval' or 'forbidden'.")
-```
-
-Delete cannot be undone, so the agent's policy for it is approval. Clear completed and
-the mark-all arrow touch many items, so they are for the person only. Ticking a todo,
-renaming it and changing the view can be undone or change nothing saved, so the agent may
-do them. Every request still carries the caller, including these. Attaching it costs
-nothing, and it means a new write is covered without anyone deciding that it matters: if
-no undo is declared for it, it fails to register until the agent's policy is set to
-approval or forbidden.
-
-The change history takes the caller from the same argument. `execute` writes the undo
-entry for each change, so the screen code and the agent code do not record who made it. A
-click is one entry. Everything the agent changes in one request is one entry.
+or cannot be undone: deleting a file, placing a trade, sending money to a bank. For
+operations like these, the button on the screen is for the person. An agent that asks for
+one gets an approval request for the person to decide, or a refusal.
+[Authority and recovery](authority.md#enforce-policy-and-approval) explains how to set
+that policy from an operation's impact and whether it can be undone, and shows the rule
+the Todo sample applies.
 
 Because the caller travels with every request, the screen code holds no list of controls
 the agent may not use, and no rule is written twice. An agent can be allowed to operate
 any control. The control maps to its registered action, that action runs with the agent as
-the caller, and the policy declared for the agent applies. The agent is refused any
-operation the registry does not permit it.
+the caller, and the policy declared for the agent applies.
 
 What the agent sends must be an application event that names the agent as the caller. A
 simulated mouse click or keystroke in the page carries no caller, so the application would
 treat it as the person's. The agent could then delete without approval, or approve its own
 request. Do not give the agent a tool that sends clicks or keystrokes into the page.
 
-In a hosted application, server code establishes the caller from the authenticated session
-and from the route the request arrived on. It does not accept the caller from the request
-body. [Authority and recovery](authority.md#limit-operations-and-their-scope) covers the
-policies themselves. The sample's test
-`test_execution_refuses_the_agent_what_only_a_person_may_do` calls each person-only action
-as the agent and checks the refusal.
+The change history takes the caller from the same argument: `execute` writes the undo
+entry, so the screen code and the agent code do not record who made a change. The sample's
+test `test_execution_refuses_the_agent_what_only_a_person_may_do` calls each person-only
+action as the agent and checks the refusal.
 
 ### Why the agent still sees the control
 
-It may seem simpler to hide from the agent every control it may not operate. The Todo
-sample hides less than that, for four reasons.
+It may seem simpler to hide from the agent every control it may not operate. There are
+four reasons to keep the control in the agent's description of the screen.
 
-- **Hiding does not enforce anything.** The sample does leave forbidden operations out of
-  the agent's tool list. The list is built from the same policy in the registry, so it is
-  not a second set of rules. A request for an unlisted operation can still arrive, through
-  a model's mistake, text that instructs the model, or a programming error. `execute`
-  checks the policy again when the call arrives, and that check is the one that counts.
-  [Interfaces and views](interfaces.md#offer-tools-that-fit-each-interface) makes the same
-  distinction between the tools offered and the calls permitted.
-- **The agent needs the control to help the person use it.** The person may do what the
-  agent may not. "How do I delete the done ones?" is answered with the Clear completed
-  button, which only the person can use. After the agent asks to delete a todo, it tells
-  the person to choose Approve or Deny on the card. The sample's screen description
-  includes those controls, and `point_at` can highlight them.
-- **Some operations are allowed to the agent in a different form.** Delete is not
-  forbidden to the agent. It becomes a request for approval. Hiding the control would
-  remove that route.
-- **A refusal with a reason is more useful than silence.** When the agent requests a
-  forbidden operation, it receives "only the person can," and it can tell the person so.
-  An agent that has never been told the control exists may say the application cannot do
-  the job.
+- **Hiding does not enforce anything.** The sample leaves forbidden operations out of the
+  agent's tool list, and builds that list from the registry's policy. A request for an
+  unlisted operation can still arrive, so `execute` checks the policy again when the call
+  arrives.
+- **The agent needs the control to help the person use it.** "How do I delete the done
+  ones?" is answered with the Clear completed button, which only the person can use.
+- **Some operations are allowed to the agent in a different form.** Delete becomes a
+  request for approval. Hiding the control would remove that route.
+- **A refusal with a reason is more useful than silence.** The agent receives "only the
+  person can" and can say so. An agent that was never told the control exists may say the
+  application cannot do the job.
 
 Consider an application where deleting a project is a menu command that the registry
 allows only to the person. The agent's part differs with what the person asks:
@@ -463,22 +414,24 @@ allows only to the person. The agent's part differs with what the person asks:
 | "Do it for me." | Explains that only the person can delete a project, and offers to show where the command is. |
 
 If the registry allowed the agent to delete with approval, the third answer would be an
-approval request shown to the person. In each case the agent's answer follows from the
-policy declared for the operation.
-
-Hide an operation from the agent's tool list when the agent can never run it, so the model
-does not attempt it. Keep the control in the agent's description of the screen. Rely on
-the check in `execute` for safety.
+approval request shown to the person.
 
 ## Decide what happens to an edit in progress
 
 The agent may be asked to navigate while the person has a field open for editing.
 
-Advisor saves thesis and notes drafts before it changes the selection. While a research
-edit or a settings-drawer edit is open, it refuses the agent's navigation and returns the
-reason: "Finish or cancel your research edits before navigating." The agent can pass that
-on to the person. The Todo sample and the browser-based application save each change as it
-is made, and undo covers mistakes.
+Advisor's screen context says whether an edit is in progress. It saves thesis and notes
+drafts before it changes the selection. While a research edit or a settings-drawer edit is
+open, it refuses the agent's navigation and returns the reason: "Finish or cancel your
+research edits before navigating." The agent can pass that on to the person.
+
+The Todo sample and the browser-based application save each completed change as it is
+made, and undo covers a completed change that was a mistake. That does not cover text the
+person is still typing. In the Todo sample, an inline edit that is open in the page is not
+reported to the application, so a view change by the agent is not held back while the
+person types. The sample fails [Check 1.13](../principles/implementation.md#check-1-13)
+for this reason. To close the gap, the page would report an open edit with the screen
+context, and the view action would be refused while one is open, as in Advisor.
 
 An application with Save and Cancel buttons needs its own rule. It can refuse navigation
 as Advisor does, keep the draft, or ask the person to confirm through one of its own
@@ -497,12 +450,14 @@ controls. The agent cannot supply that confirmation for the person.
   afterward. "How do I" should produce directions; "show me where" should open the
   destination.
 - **Declared controls exist.** Check each declared selector or widget against the screen.
+- **One owner.** For each state of the list, verify the agent's tool and the page are given
+  the same answer about which controls are drawn.
 - **A changed screen.** Move or delete the item in view between the request and the action.
 - **An edit in progress.** Navigate while a field is open, and verify the draft is saved,
   kept, or the navigation is refused.
 
 The Todo sample and the browser-based application test these paths in Python. Neither
-tests the highlight in a real browser; that part is checked by hand.
+tests the highlight in a real browser, so neither confirms what the browser displayed.
 
 !!! practice "Practice — list the screen actions for one job"
     For your chosen job, write down what the person would ask to see, to be taken to, and

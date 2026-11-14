@@ -337,3 +337,14 @@ def test_the_page_script_draws_controls_from_the_apps_answer():
         assert read in script, read
     for own_condition in ('todos.some(', "ui.filter === 'only'", "ui.filter === 'active'", 'todos.length === 0'):
         assert own_condition not in script, own_condition
+
+
+def test_every_declared_control_has_a_selector_in_the_page_script():
+    """point_at can only light what the page can find: the script maps each SCREEN id to an element."""
+    import re
+    from todo.view import SCREEN
+    script = (todo_view.HERE / 'todo_view.js').read_text()
+    table = script[script.index('const CONTROLS = {'):]
+    table = table[:table.index('};')]
+    keys = {a or b for a, b in re.findall(r"'([a-z-]+)':|\b([a-z]+):", table)}
+    assert keys == set(SCREEN)
