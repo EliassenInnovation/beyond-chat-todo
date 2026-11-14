@@ -96,8 +96,11 @@ python3 -m todo.walkthrough
 ```
 
 The second command makes paid calls. A token allowance is not a hard dollar billing cap.
-The guide explains [evaluation](docs/guide/evaluation.md),
-[evidence completeness and control charts](docs/guides/evaluation-results.md), and how much testing a change needs.
+The guide's [evaluation chapter](docs/guide/evaluation.md) covers defining success, judging
+replies, reading results and checking that a fix generalizes. Two detailed-method pages follow it:
+[judges, test cases and experiments](docs/guides/evaluation-method.md), and
+[reviewing results](docs/guides/evaluation-results.md), which covers evidence completeness,
+control charts and how much testing a change needs.
 
 ## Watch personas or run them unattended
 

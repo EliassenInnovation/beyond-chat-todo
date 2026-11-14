@@ -54,7 +54,7 @@ nav:
     - Why an embedded agent?: guide/why.md
     - Shared capabilities and the registry: guide/design.md
     - Understand and complete the request: guide/requests.md
-    - Learn about me: guide/onboarding.md
+    - Learn about me (optional): guide/onboarding.md
     - Authority and recovery: guide/authority.md
     - Tools and current evidence: guide/tools.md
     - Interfaces and views: guide/interfaces.md
@@ -67,9 +67,11 @@ nav:
   - Evaluation:
     - Explore the experience: guide/exploration.md
     - Evaluate outcomes: guide/evaluation.md
-    - Review results and understand variation: guides/evaluation-results.md
     - Example evaluation report: "{site}"
-    - Optional tracing: guides/langfuse.md
+    - Detailed method:
+      - Judges, test cases and experiments: guides/evaluation-method.md
+      - Review results and understand variation: guides/evaluation-results.md
+      - Optional tracing: guides/langfuse.md
   - Apply it to your app: guide/apply.md
   - Build your coding-agent handoff: guide/checklist-builder.md
   - Appendices:

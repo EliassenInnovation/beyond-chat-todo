@@ -54,8 +54,13 @@ application code. Both use the same trading operation; their permissions differ.
 The UI and the agent's tools translate user requests into calls to shared operations.
 Because both use the same implementation, fixing an issue fixes it for both the UI and the agent.
 
-If your application already has a service layer, keep using it. If operations currently live
-inside UI event handlers, move them into code that both the UI and agent can use. The UI
+Callers do not need identical sets of operations. An agent may have read tools or summaries
+that no screen uses; those reads still apply the application's data-access permissions and
+return the figures the screen would show.
+[Interfaces and views](interfaces.md#offer-tools-that-fit-each-interface) gives an example.
+
+[Start with shared operations](#start-with-shared-operations) describes how to move an
+operation out of a UI event handler. The UI
 and agent also need one shared description of what each operation does and how to use it.
 
 <span id="declare-what-the-application-can-do"></span>
@@ -113,12 +118,11 @@ operation, whether the agent must read current data first, which guards to invok
 version identifying the declaration used during an evaluation. The
 [walkthrough](../guides/walkthrough.md#follow-a-declaration-through-the-registry) follows those fields in the actual code.
 
-The Todo sample also checks the declarations when they are registered. For example, an
-operation requiring approval must provide code to create the approval request. An operation
-that an agent may execute directly must meet the sample's recovery and impact requirements.
-Application code checks permissions on every call, including calls made directly by name.
-In a deployed application, trusted code establishes the caller's identity before passing
-the request to the shared operation, which applies existing user and data-access permissions.
+The Todo sample also checks the declarations when they are registered. An operation
+requiring approval must provide code to create the approval request, and an operation the
+agent may execute directly must be undoable and touch one item.
+[Authority and recovery](authority.md#limit-operations-and-their-scope) shows that rule and
+explains how permissions and caller identity are checked on every call.
 
 ### Use declarations beyond tool calls
 

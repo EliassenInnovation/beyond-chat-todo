@@ -14,13 +14,13 @@ Improve an existing application one job at a time. Trace the current behavior, i
 
 ## Make one operation shared
 
-Find the existing business operation behind the UI. If its rules live in an event handler,
-move them into shared application code and use tests to preserve the existing behavior. Connect the
-agent to that operation; do not implement a parallel version for chat.
+Find the existing business operation behind the UI and connect the agent to it, following
+[Start with shared operations](design.md#start-with-shared-operations). Do not implement a
+second version for chat.
 
-Decide the authority of each caller explicitly. Ask whether the action has consequences
-the application cannot undo, whether approval is justified, and how to bind that approval
-to the exact proposal. Do not copy the sample's deletion policy without considering your domain.
+Decide the authority of each caller explicitly, using
+[Enforce policy and approval](authority.md#enforce-policy-and-approval). Do not copy the
+sample's deletion policy without considering your domain.
 
 ## Give the agent current data and useful tool results
 
@@ -41,9 +41,8 @@ answers when checking a judge. Explore with people and personas, then preserve c
 findings as cases. Keep held-out cases separate from development.
 
 Run focused evals while changing a capability, then a broader suite before accepting it.
-Repeated baseline collection serves a different purpose: estimating ordinary variation in
-a fixed configuration. Changing the model, grader or cases requires a new comparison period,
-rather than updating the old chart's limits without identifying the change.
+[Everyday checks are not a new baseline](../guides/evaluation-results.md#everyday-checks-are-not-a-new-baseline)
+gives the schedule and explains when a change starts a new comparison period.
 
 ## Keep a record of attempted work
 
@@ -68,6 +67,37 @@ to the embedded agent. Tool listing and permission to execute remain separate de
 Across applications, also establish identity, consent, data movement and recovery when only
 some steps succeed. The Todo sample does not implement an MCP server or cross-app workflow.
 
+## Decide which mechanisms to add
+
+The guide describes more mechanisms than most applications need. Every agent that changes
+data needs shared operations, permissions and approval enforced in application code,
+confirmations written from the saved result, offline tests of those rules, and a few
+evaluation cases that check the outcome. For each further mechanism, answer five questions:
+
+1. What does an error cost, and would the person see it and be able to undo it?
+2. How often do people do this job, and how much depends on it?
+3. How many steps, records and screens does the workflow involve?
+4. Would a deterministic check, an explicit selection on the screen, or a confirmation
+   prevent the same error?
+5. Do recorded failures show that the simpler version makes this error?
+
+Add a mechanism when the answers meet the condition in the third column of this table.
+
+| Mechanism | What it costs | Add it when | Until then |
+| --- | --- | --- | --- |
+| [Model-based intent guard](authority.md#decide-whether-a-guard-is-needed) | A model call before each guarded action, some clear requests refused, and labeled cases to evaluate it | Evaluations show the agent acting on the wrong item, the error is hard to notice or undo, and validation cannot catch it | Validate inputs, return the candidates when several records match, and ask the person |
+| [Answer check](evaluation.md#decide-which-failures-to-prevent-before-showing-a-reply) before a reply is shown | A model call and a delay on each checked reply, and some good replies stopped | A wrong reply would break a policy or mislead the person about something consequential | Show application-written text for facts and measure reply quality in evaluation |
+| [Personal context and onboarding](onboarding.md) | Stored personal data, with rules for saving, correcting, removing and reading it | The right answer differs from person to person and the application lacks the facts | Use the data the application already holds and ask during the conversation |
+| [Screen state and screen actions](screen.md) | One owner for each piece of view state, declared controls, and tests for both | People ask about what they are looking at, or ask to be shown or taken to a control | Give the agent data tools only |
+| [Audit records](authority.md#record-changes-and-make-undo-safe) | Storage, access rules and a retention policy | The agent changes data other people rely on, or policy requires a record of who changed what | Keep the change history that undo needs |
+| [Tracing](../guides/langfuse.md) | A tool to run, and conversation data held in a second place | A report does not explain a failure and you need the exact model input | Read the local run records and reports |
+| [Records for references to earlier results](../reference/conversation-references.md) | Additional saved records to maintain | People revise or undo earlier multi-step work, and evaluations show the conversation history is not enough | Keep the person's words, tool calls and results in the history |
+| [Persona testing](exploration.md#broaden-the-exploration-with-personas) | Model calls for each simulated conversation, and human review of the findings | Fixed cases pass but people still meet problems, or conversations run for many turns | Explore the application yourself and add a case for each confirmed problem |
+| [Baselines and control charts](../guides/evaluation-results.md) | 20 or more comparable full runs on a fixed configuration | The same suite runs repeatedly on an unchanged version and you need to separate ordinary variation from a change | Read every failure, repeat the affected cases, and compare old and new results case by case |
+
+Record the mechanisms you set aside and the reason. Reconsider one when its answers change,
+for example when a new job has costlier errors or evaluations start showing the error.
+
 ## Use this guide with a coding agent
 
 Give the agent the complete guide and access to the application it will assess. Begin by
@@ -88,7 +118,7 @@ adapt, or set aside and why. The Todo code demonstrates implementations the agen
 inspect; the examples provide starting points for your application's design.
 
 Use the [acceptance checks](../principles/implementation.md) to verify the agreed behavior.
-[Reassess added mechanisms after substantial model changes](evaluation.md#reassess-added-mechanisms-after-substantial-model-changes),
+[Reassess added mechanisms after substantial model changes](../guides/evaluation-method.md#reassess-added-mechanisms-after-substantial-model-changes),
 and simplify when evaluation shows the intended behavior is preserved.
 
 ## Write a brief for the first change

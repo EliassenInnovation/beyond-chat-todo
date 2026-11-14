@@ -1,5 +1,9 @@
 # Learn about me
 
+This chapter is optional. Read it if your application's assistance depends on facts about
+the person, such as goals, preferences or circumstances, that the application must learn
+and keep. An application that keeps no personal profile can skip it.
+
 Useful assistance often depends on knowing something about the person. A financial
 application needs context about goals, circumstances, and when the person expects to use
 their money. A personal shopper needs preferences, sizes, and budget. What matters depends

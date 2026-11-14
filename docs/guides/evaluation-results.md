@@ -68,8 +68,7 @@ result. Select the image to view it at full size.*
 
 Generate this view from the saved records so summaries and individual results stay
 connected. Show missing judgments and incomplete runs alongside failures, and make passing
-conversations available for sampling too. The repository continues to own the cases,
-graders, records, and decision rules. The review page makes that evidence easier to use.
+conversations available for sampling too.
 
 ### Follow a result into the model's input
 
@@ -152,9 +151,9 @@ unwanted change, a false claim, or an important part of the request left unresol
 
 When a reasonable human reply fails, inspect the grading criteria and the evidence before changing
 the application to satisfy the grader. Exact wording checks need an explicit product reason;
-they should not be presented as general measures of helpfulness. The sample delivers application-written receipts directly and checks their delivery separately
-from the model's explanation. Exact delivery checks belong to that contract; they are not
-a reason to require fixed wording in the model's own prose.
+they should not be presented as general measures of helpfulness. The sample checks exact delivery only for
+[receipts that application code writes](../guide/tools.md#show-application-written-text).
+It does not require fixed wording in the model's own prose.
 
 ## Different failures need different decisions
 
@@ -173,7 +172,7 @@ repeated evaluations have found none.
 
 One agent may need several charts—for different jobs or different kinds of failure—with
 separate targets and comparison periods. Keep the underlying case groups and attempt counts
-clear. A high overall pass rate must not hide a failure in a critical category. For a rare,
+clear. For a rare,
 prohibited event, a visible incident count and an immediate investigation rule may be more
 useful than a control chart.
 
@@ -218,8 +217,7 @@ judge's grades are correct.
 | Has behavior changed unusually? | Comparable runs assessed against a reviewed, frozen baseline. | Investigate an unexpected change, including an improvement. |
 | Is performance good enough? | Acceptance criteria chosen by the application owner. | Address unacceptable performance even when it is statistically stable. |
 
-A known failure remains a failure if another judge is unavailable. Missing evidence never
-becomes a pass. Missing attempts, outcomes, or judgments prevent a run from contributing a
+[Missing judgment is missing evidence](../guide/evaluation.md#how-to-judge). Missing attempts, outcomes, or judgments prevent a run from contributing a
 failure-rate observation to the control calculation. Its record remains visible. Repeated
 missing evidence can indicate a problem in the evaluation system itself.
 
@@ -232,7 +230,8 @@ its findings need human review and do not enter the fixed-suite chart.
 Twenty full runs after every edit would be impractical. Building a baseline and checking a
 change serve different purposes: a baseline describes variation under an unchanged configuration;
 a change evaluation asks whether a proposed version improves behavior or introduces regressions.
-Neither replaces application-owner acceptance criteria.
+Neither replaces application-owner acceptance criteria. Record which cases ran, so the
+evidence for each change is clear.
 
 For this sample, use the following starting workflow. The amount of evidence should grow with
 the consequences of a mistake and the uncertainty of the result; these are not universal sample sizes.
@@ -389,7 +388,7 @@ failure always needs attention, then pass it explicitly:
 can name the existing check IDs listed in `evaluations/evals.py`, such as `claims_real_approvals`.
 A designated failure raises a concern even when other evidence is missing. Meeting an
 observed pass-rate target is not a confidence claim about the true rate or an automatic
-release approval. Important failures deserve review without waiting for a chart signal.
+release approval.
 
 ## When the provider changes the model
 
@@ -486,9 +485,7 @@ Most calibration examples were initially marked correct or incorrect by a coding
 Agreement with those judgments is development evidence. Review disagreements and sample
 apparent successes before relying on the judge for a new application.
 
-Real browser chat and all five exploratory personas have also been exercised. Persona
-satisfaction is exploratory feedback, not a pass score. Application code delivers action
-confirmations directly; the model's additional explanation remains separately assessed.
+Real browser chat and all five exploratory personas have also been exercised.
 
 Retain earlier results when changing the judge, and compare the configurations separately.
 Tracing was disabled for these checks: native usage is recorded locally, but exported
