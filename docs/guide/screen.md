@@ -326,6 +326,19 @@ sample hides less than that, for four reasons.
   An agent that has never been told the control exists may say the application cannot do
   the job.
 
+Consider an application where deleting a project is a menu command that the registry
+allows only to the person. The agent's part differs with what the person asks:
+
+| The person asks | What the agent does |
+| --- | --- |
+| "How do I delete this project?" | Gives directions from the declared control: the menu it is in and the command's label. |
+| "Show me where." | Opens the menu with the command highlighted. The command does not run. |
+| "Do it for me." | Explains that only the person can delete a project, and offers to show where the command is. |
+
+If the registry allowed the agent to delete with approval, the third answer would be an
+approval request shown to the person. In each case the agent's answer follows from the
+policy declared for the operation.
+
 Hide an operation from the agent's tool list when the agent can never run it, so the model
 does not attempt it. Keep the control in the agent's description of the screen. Rely on
 the check in `execute` for safety.
