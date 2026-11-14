@@ -17,6 +17,12 @@ added for retained personal context. They are Not applicable to the Todo sample,
 no personal profile or onboarding. The original 62 ratings and their October 25 verification
 evidence remain unchanged; this update does not claim a new application test run.
 
+November 14 applicability update: the checklist now has 66 checks. Check 1.15 was added
+for pointing at controls and for screen actions after the screen has changed; it is rated
+Not run below. Check 1.13 now also accepts refusing the agent's navigation while an edit
+is in progress. The sample does neither that nor the earlier alternatives, so its Fail
+rating is unchanged. This update does not claim a new application test run.
+
 ## How to read the assessment
 
 **Pass** means the check was verified within the interface and scope stated in its row.
@@ -70,6 +76,7 @@ The [walkthrough](walkthrough.md) follows the application paths. Main evidence s
 | 1.12 | Agent | Not run | Dedicated merge action and historical experiments exist alongside general tools. | Code inspection only; acceptance scenario not run. | No new paid whole-suite comparison. |
 | 1.13 | UI and agent | Fail | Shared View and named actions; no synthetic mouse events. | View/adapter tests in `test_app.py`; inspected inline editor in `todo/assets/todo_view.js`. | Unsaved inline edits are not protected against a concurrent agent view change; directions remain model-written from screen descriptions. |
 | 1.14 | MCP Apps | Not applicable | No MCP view transport. | Scope inspection; no applicable execution scenario. | The Streamlit component is not an MCP Apps view. |
+| 1.15 | UI and agent | Not run | `point_at` is declared as a presentation action and changes only the highlight; a control name outside the `SCREEN` table is refused with the valid names; `show_todos` returns the visible and hidden titles. | Inspected `todo/view.py`; no acceptance scenario run. | No test that pointing leaves saved data unchanged, none for a control the page cannot find, and no scenario that changes the list between the request and the action. |
 
 ## Helping users finish jobs
 

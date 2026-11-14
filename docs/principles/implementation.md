@@ -64,7 +64,7 @@ optional record formats. Adapt Checks 2.8–2.9 when adopting those features.
 
 ### Check index
 
-- [1.1](#check-1-1) Shared behavior; [1.2](#check-1-2) Shared validation; [1.3](#check-1-3) Adapter boundaries; [1.4](#check-1-4) Purpose in the tool's description; [1.5](#check-1-5) Interfaces fit their callers; [1.6](#check-1-6) Screen actions fit the caller; [1.7](#check-1-7) Inspectable catalog; [1.8](#check-1-8) Offered versus executed; [1.9](#check-1-9) Records match what happened; [1.10](#check-1-10) Portable inspection; [1.11](#check-1-11) Protected observation; [1.12](#check-1-12) Tools for repeated jobs; [1.13](#check-1-13) Screen actions run through the application's own state; [1.14](#check-1-14) Views supplement a complete text answer.
+- [1.1](#check-1-1) Shared behavior; [1.2](#check-1-2) Shared validation; [1.3](#check-1-3) Adapter boundaries; [1.4](#check-1-4) Purpose in the tool's description; [1.5](#check-1-5) Interfaces fit their callers; [1.6](#check-1-6) Screen actions fit the caller; [1.7](#check-1-7) Inspectable catalog; [1.8](#check-1-8) Offered versus executed; [1.9](#check-1-9) Records match what happened; [1.10](#check-1-10) Portable inspection; [1.11](#check-1-11) Protected observation; [1.12](#check-1-12) Tools for repeated jobs; [1.13](#check-1-13) Screen actions run through the application's own state; [1.14](#check-1-14) Views supplement a complete text answer; [1.15](#check-1-15) Showing a control does not run it.
 - [2.1](#check-2-1) Subject and task; [2.2](#check-2-2) Context corrections; [2.3](#check-2-3) Complete scope; [2.4](#check-2-4) Visible outcomes; [2.5](#check-2-5) Jobs in ordinary language; [2.6](#check-2-6) Additive references; [2.7](#check-2-7) Correction after a misunderstanding; [2.8](#check-2-8) Reference evidence and boundaries; [2.9](#check-2-9) Revise a named result without changing the original; [2.10](#check-2-10) Familiar forms, documents, and spreadsheets; [2.11](#check-2-11) Accurate personal context; [2.12](#check-2-12) Current personal context; [2.13](#check-2-13) Relevant questions and remembered answers.
 - [3.1](#check-3-1) Atomic outcomes; [3.2](#check-3-2) Recovery; [3.3](#check-3-3) Enforced authority; [3.4](#check-3-4) Approval applies to this exact change; [3.5](#check-3-5) Combined impact; [3.6](#check-3-6) Data and resource boundaries; [3.7](#check-3-7) Guards; [3.8](#check-3-8) Audit record; [3.9](#check-3-9) Undo scope; [3.10](#check-3-10) Uncertain outcomes; [3.11](#check-3-11) Stopping a request.
 - [4.1](#check-4-1) Relevant reads; [4.2](#check-4-2) Current evidence; [4.3](#check-4-3) Delivered history; [4.4](#check-4-4) Application-written text; [4.5](#check-4-5) Whole-suite rerun; [4.6](#check-4-6) One current copy.
@@ -108,8 +108,10 @@ Include the test harnesses and stored evidence in the deployment review; see
 
 ## Acceptance checks
 
-Check revision note — October 26, 2026: Added optional Checks 2.11–2.13 for applications
-that retain personal context. Language clarified without changing existing requirements.
+Check revision note — November 14, 2026: Added Check 1.15 for pointing at controls and for
+screen actions after the screen has changed. Check 1.13 now also accepts refusing the
+agent's navigation, with the reason, while an edit is in progress. The October 26 revision
+added optional Checks 2.11–2.13 for applications that retain personal context.
 The October 19 revision remains in effect: Checks 1.7 and 1.10 apply to the adopted inspection
 contract; 1.13 requires person-confirmed discard through application-owned controls;
 2.9 applies to saved-calculation workflows; 3.7 follows the guard's declared decision rule;
@@ -187,7 +189,7 @@ matter to the application, then verify that design. The
 <a id="check-1-13"></a>
 
 <!-- builder: embedded -->
-- Check 1.13 — Screen actions run through the application's own state. Verify agent screen actions use application-owned navigation and controls, and that the visible screen and recorded state agree. Verify directions come from the actual controls. Navigate with a partial edit present: preserve the draft where supported; if leaving would discard it, require the person's confirmation before navigating. Test canceling and confirming, and verify the agent cannot supply that confirmation.
+- Check 1.13 — Screen actions run through the application's own state. Verify agent screen actions use application-owned navigation and controls, and that the visible screen and recorded state agree. Verify directions come from the actual controls. Navigate with a partial edit present: save or preserve the draft where supported. If leaving would discard it, either refuse the agent's navigation and return the reason, or require the person's confirmation before navigating. Where confirmation is used, test canceling and confirming, and verify the agent cannot supply that confirmation.
 
 <a id="check-1-14"></a>
 
@@ -203,6 +205,11 @@ matter to the application, then verify that design. The
   - When a view is supplied, the accompanying text tells the model to add useful interpretation rather than repeat what the view shows.
 
   Verify the resulting conversation in both clients; an instruction to avoid repetition does not prove that the model follows it. Also make the view fail to display in a client that announced support, and confirm the conversation still makes sense from the text answer alone.
+
+<a id="check-1-15"></a>
+
+<!-- builder: embedded -->
+- Check 1.15 — Showing a control does not run it, and screen actions apply to the current screen. Ask to be shown a control whose operation changes or deletes data. Verify the control is revealed and highlighted, its operation did not run, and saved data is unchanged. Request a control that is not declared, or one the screen cannot find, and verify the application reports that instead of highlighting something else. Move, rename, or delete the item in view between the request and the action; verify the action applies to the intended item, found by its ID, or is refused. Verify the tool result states what the screen shows after the action.
 
 ### 2. Help users finish the job
 

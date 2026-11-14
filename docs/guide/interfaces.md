@@ -76,41 +76,17 @@ checks that need that conversation; see [authority and recovery](authority.md#ac
 
 ## Observe and operate the screen
 
-[![Shared screen state connects the interface, the agent's observations and screen actions.](../images/screen-context.svg)](../images/screen-context.svg)
-
-*Shared view state connects the screen, the agent's observations, and actions such as
-changing a filter.*
-
-In the Todo sample, the agent receives a structured description of the active filter and
-visible task IDs. The screen controls and agent change that view state through shared
-dispatch: code that routes both kinds of request to the same operation. Filtering changes which tasks are shown while preserving the underlying list.
-
 For jobs that involve the screen, give the embedded agent both an observation of what the
-person sees and named actions that can change that view. A central state store or state
-machine can coordinate selection, navigation and filters. Each screen component declares the
-actions it owns; clicks and agent calls use the same dispatch. Keep screen state distinct
-from saved application data.
-
-In a hosted web application, the browser can send the current view, selection, and unsaved-work
-state with each message. Server-side application code runs the agent's tool loop and enforces
-permissions against trusted records. Screen actions return to the browser as named requests
-that use the same dispatch as screen controls. Check that the intended view is still current
-before applying them. Browser-supplied context helps interpret the request; the server
-establishes identity and authority independently.
+person sees and named actions that can change that view. Screen controls and the agent
+change the view through the same code, and screen state stays distinct from saved
+application data. [How the agent observes and operates the screen](screen.md) describes
+the screen context, the declared controls, the path from a tool call to the screen, and
+what happens to an edit in progress.
 
 Assistance can include explaining a control, pointing to it, opening its screen, and
 performing its operation, as illustrated by the
 [assistance levels](why.md#from-finding-help-to-doing-the-job-together). Build directions
 from actual control labels.
-
-Preserve partial work and conversation when navigating. If leaving a screen would discard
-work, application code asks the person to confirm before navigating. The person supplies
-that confirmation through the application's control; the agent cannot supply it on their
-behalf. An application that preserves the draft can navigate while keeping the work available.
-
-Applications that save each edit as it is made, as Advisor does, have no unsaved work
-to protect when navigating; undo covers mistakes instead. Applications with Save and
-Cancel need the confirmation above.
 
 <span id="separate-listing-from-execution"></span>
 
@@ -190,5 +166,5 @@ affect another's result.
     If there is, list which data and screen operations that caller actually needs.
 
 The [acceptance checks](../principles/implementation.md) provide a review reference.
-Continue with [The agent in the UI](agent-experience.md) to decide where the conversation
-belongs and how it stays connected to the person's work.
+Continue with [How the agent observes and operates the screen](screen.md) for the
+embedded agent's view of the screen and the actions it can take there.

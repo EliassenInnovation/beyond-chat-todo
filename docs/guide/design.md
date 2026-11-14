@@ -218,7 +218,8 @@ the same tool.
 
 The following chapters explain how to [interpret requests](requests.md),
 [check intent, enforce permissions, and recover from failures](authority.md),
-[return accurate results](tools.md), and [share screen state and actions](interfaces.md).
+[return accurate results](tools.md), [connect other interfaces](interfaces.md), and
+[share screen state and actions](screen.md).
 Together, these show how the shared operations support the complete interaction.
 
 !!! practice "Practice — trace the existing operation"

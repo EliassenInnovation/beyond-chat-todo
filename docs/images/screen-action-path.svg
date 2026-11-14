@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-label="A person's click and an agent's screen tool call both run the same view code. The screen shows the new view, and the tool result tells the agent what is visible."><desc>A person's click and an agent's screen tool call both run the same view code. The screen shows the new view, and the tool result tells the agent what is visible.</desc><style>text{font-family:Arial,sans-serif;fill:#1A1E33;font-size:20px}.head{fill:white;font-weight:700}.label{font-weight:700}.small{font-size:18px}</style><rect width="800" height="360" fill="white"/>
+<rect x="16" y="12" width="368" height="84" rx="6" fill="#F5F1EE"/>
+<rect x="416" y="12" width="368" height="84" rx="6" fill="#F5F1EE"/>
+<text x="32" y="44" class="label">The person clicks a control</text>
+<text x="32" y="74" class="small">For example, the Active filter button</text>
+<text x="432" y="44" class="label">The agent calls a screen tool</text>
+<text x="432" y="74" class="small">For example, show_todos</text>
+<path d="M200 96V116H400V136 M600 96V116H400" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<path d="M394 128L400 136L406 128" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<rect x="180" y="140" width="440" height="72" rx="6" fill="#2E4294"/>
+<text x="200" y="169" class="head">The same view code runs</text>
+<text x="200" y="195" style="fill:white;font-size:18px">It sets the filter, selection or open tab</text>
+<path d="M400 212V232H200V252 M400 232H600V252" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<path d="M194 244L200 252L206 244 M594 244L600 252L606 244" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<rect x="16" y="256" width="368" height="88" rx="6" fill="#F5F1EE"/>
+<rect x="416" y="256" width="368" height="88" rx="6" fill="#F5F1EE"/>
+<text x="32" y="288" class="label">The screen</text>
+<text x="32" y="318" class="small">Shows the new view to the person</text>
+<text x="432" y="288" class="label">The tool result</text>
+<text x="432" y="318" class="small">Tells the agent what is visible now</text></svg>
