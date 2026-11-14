@@ -7,7 +7,7 @@ principles and evaluation bodies are no longer maintained; their old URLs point 
 
 | Part | Chapters and reader's questions |
 | --- | --- |
-| Design | Why an embedded agent? Shared capabilities and the registry; understanding requests and follow-ups; authority and recovery; tools and current evidence; interfaces and views. |
+| Design | Why an embedded agent? Shared capabilities and the registry; understanding requests and follow-ups; authority and recovery; tools and current evidence; interfaces and views; how the agent observes and operates the screen. |
 | Implementation | Run the sample, follow a request through shared execution, and choose models for the different roles. |
 | Evaluation | Explore with people and personas; define outcomes and calibrate judges; run evaluations and interpret complete evidence and variation; add optional tracing. |
 | Application | Choose one useful job in an existing product, preserve its behavior, share its operation, and measure the benefit. |

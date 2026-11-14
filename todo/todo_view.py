@@ -14,25 +14,34 @@ from streamlit.components.v2 import component
 
 from todo.capabilities import REGISTRY, execute
 from todo.todos import TodoList
-from todo.view import View
+from todo.view import SCREEN, View, not_on_screen
 
 HERE = Path(__file__).parent / 'assets'
 
-def show(todos: TodoList, view: View, key='todo-list', today=None):
-    """Draw the list; return what the person just did (an action dict), or None.
-    today: the date the list colors overdue against, the one the agent has (a persona's fixed day); default the real one."""
-    data = {
+def screen_data(todos: TodoList, view: View, today=None):
+    """Everything the page draws from. Which todos are visible and which controls are drawn are
+    decided here, by the code point_at asks (view.not_on_screen): the page holds no conditions of
+    its own, so what the agent is told about the screen and what the page draws cannot differ."""
+    ctx = SimpleNamespace(todos=todos, view=view)
+    return {
         'today': (today or date.today()).isoformat(),
         'todos': [{'id': t.id, 'title': t.title, 'done': t.done, 'due': t.due}
                   for t in todos.todos],
         'pending': [{'id': p.id, 'title': p.title} for p in todos.pending],
         'filter': view.showing,  # the app owns the filter, so the agent can change it too
-        'only': view.only_ids,
+        'visible': [t.id for t in view.visible(todos)],  # the rows to draw, in order
+        'drawn': {control: not_on_screen(ctx, control) is None for control in SCREEN},
         'highlight': view.pointed_at,  # a control the agent pointed at: flashed once
         'highlight_n': view.pointed_n,
         'highlight_todo': view.pointed_todo,  # for a control on each todo: just this todo's, or every one
         'can_undo': bool(todos.undo_stack), 'can_redo': bool(todos.redo_stack),
     }
+
+
+def show(todos: TodoList, view: View, key='todo-list', today=None):
+    """Draw the list; return what the person just did (an action dict), or None.
+    today: the date the list colors overdue against, the one the agent has (a persona's fixed day); default the real one."""
+    data = screen_data(todos, view, today)
     # Registered on every run, as Streamlit's own examples do: the registry belongs to the
     # running app, and a registration made at import time is missed by a second app (AppTest).
     # The files are read each run too, so an edit to them shows on the next rerun.
@@ -66,9 +75,5 @@ def apply(todos: TodoList, view: View, action):
     if op not in calls:
         raise ValueError(f'Unknown action from the screen: {action!r}')
     action_id, args = calls[op]
-    with todos.transaction():
-        before = todos.state()
-        result = execute(REGISTRY, action_id, args, actor='person', ctx=SimpleNamespace(todos=todos, view=view))
-        if op not in ('undo', 'redo'):  # the change and its undo entry commit together
-            todos.checkpoint('person', before)
-        return result
+    # execute saves the change and its undo entry together, named for this caller.
+    return execute(REGISTRY, action_id, args, actor='person', ctx=SimpleNamespace(todos=todos, view=view))

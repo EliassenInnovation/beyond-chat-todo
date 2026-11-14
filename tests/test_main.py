@@ -10,7 +10,7 @@ from todo.agent import TOOLS
 from todo.capabilities import REGISTRY, Action, ActionError, Registry, execute
 from evaluations.evals import CASES, grade
 from todo.langfuse_setup import load_env
-from todo.todos import PendingDelete, Todo, TodoError, TodoList
+from todo.todos import PendingDelete, Todo, TodoError, TodoList, begin_request, end_request
 
 
 def test_todo_list_saves_and_validates(tmp_path):
@@ -58,10 +58,11 @@ def test_the_agent_is_offered_these_tools_in_this_order():
 
 def as_agent(todos, *calls):
     """One request to the agent: its calls, then one entry on the undo stack, as Agent.ask records it."""
-    ctx, before = caller(todos), todos.state()
+    ctx = caller(todos)
+    begin_request(ctx)
     for action_id, args in calls:
         execute(REGISTRY, action_id, args, actor='agent', ctx=ctx)
-    todos.checkpoint('agent', before)
+    end_request(ctx)
     return ctx
 
 
@@ -217,6 +218,18 @@ def test_an_interfaces_tool_order_must_name_exactly_what_it_may_be_offered():
         REGISTRY.tools_for('embedded_agent', 'agent', order=['list_todos'])
     with pytest.raises(ValueError, match='must name exactly'):  # approve is the person's: never offered
         REGISTRY.tools_for('embedded_agent', 'agent', order=[t['function']['name'] for t in TOOLS] + ['approve'])
+
+
+def test_execute_writes_the_undo_entry_for_the_caller_it_was_given(tmp_path):
+    """No adapter records who made a change: the history takes the caller from execute."""
+    todos = TodoList(tmp_path / 'todos.json')
+    execute(REGISTRY, 'todos.add', {'todos': [{'title': 'Call mom', 'due': None}]}, actor='person', ctx=caller(todos))
+    assert [entry['by'] for entry in todos.undo_stack] == ['person']
+    as_agent(todos, ('todos.add', {'todos': [{'title': 'Pay rent', 'due': None}]}),
+             ('todos.add', {'todos': [{'title': 'Book flights', 'due': None}]}))
+    assert [entry['by'] for entry in todos.undo_stack] == ['person', 'agent']  # one entry for the whole request
+    execute(REGISTRY, 'view.show', {'showing': 'active', 'ids': None}, actor='person', ctx=caller(todos))
+    assert len(todos.undo_stack) == 2  # a view change is not an entry
 
 
 @pytest.mark.parametrize('action_id, args', [('todos.approve', {'id': 1}), ('todos.deny', {'id': 1}),
@@ -1004,9 +1017,56 @@ def test_a_control_on_each_todo_is_said_to_be_lit_on_every_todo(tmp_path):
     # It once said "the grip on Book the dentist" is highlighted while every grip was.
     from todo.view import View
     todos, view = TodoList(tmp_path / 'todos.json'), View()
+    todos.add('Book the dentist')
     ctx = SimpleNamespace(todos=todos, view=view)
     assert 'every todo' in execute(REGISTRY, 'view.point_at', {'control': 'grip', 'todo_id': None}, actor='agent', ctx=ctx)['lit_on']
     assert 'lit_on' not in execute(REGISTRY, 'view.point_at', {'control': 'filter-active', 'todo_id': None}, actor='agent', ctx=ctx)
+
+
+def test_pointing_at_a_control_the_page_is_not_drawing_is_refused_with_what_makes_it_appear(tmp_path):
+    # The reply is written before the page draws. It said "highlighted now" when nothing lit.
+    from todo.view import View
+    todos, view = TodoList(tmp_path / 'todos.json'), View()
+    ctx = SimpleNamespace(todos=todos, view=view)
+    point = lambda control, todo_id=None: execute(REGISTRY, 'view.point_at', {'control': control, 'todo_id': todo_id},
+                                                  actor='agent', ctx=ctx)
+    def refused(control, why, todo_id=None):
+        before = (view.pointed_at, view.pointed_n)
+        with pytest.raises(TodoError, match=why):
+            point(control, todo_id)
+        assert (view.pointed_at, view.pointed_n) == before  # nothing was highlighted
+
+    assert point('new-todo')['highlighted'] == 'new-todo'  # always drawn
+    for control, why in [('grip', 'no todo is on the screen'), ('filter-active', 'once the list has a todo'),
+                         ('clear-completed', 'at least one todo is done'), ('show-all', 'only some chosen todos'),
+                         ('approve-card', 'a delete request is waiting'), ('undo', 'after a change')]:
+        refused(control, why)
+
+    first, second = todos.add('Pay rent'), todos.add('Book flights')
+    assert point('grip')['lit_on'] == 'every todo' and point('filter-active')['highlighted'] == 'filter-active'
+    refused('clear-completed', 'at least one todo is done')
+    todos.complete(first.id)
+    assert point('clear-completed')['highlighted'] == 'clear-completed'
+    view.show('active')  # the done todo is hidden now
+    refused('checkbox', 'hidden by what the screen is showing', todo_id=first.id)
+    assert 'Book flights' in point('checkbox', second.id)['lit_on']
+    view.show('only', [second.id])
+    assert point('show-all')['highlighted'] == 'show-all'
+    todos.request_delete(second.id)
+    assert point('approve-card')['highlighted'] == 'approve-card'
+
+
+def test_undo_can_be_pointed_at_once_this_request_has_changed_the_list(tmp_path):
+    from todo.view import View
+    todos = TodoList(tmp_path / 'todos.json')
+    ctx = SimpleNamespace(todos=todos, view=View())
+    begin_request(ctx)
+    with pytest.raises(TodoError, match='after a change'):
+        execute(REGISTRY, 'view.point_at', {'control': 'undo', 'todo_id': None}, actor='agent', ctx=ctx)
+    execute(REGISTRY, 'todos.add', {'todos': [{'title': 'Call mom', 'due': None}]}, actor='agent', ctx=ctx)
+    assert execute(REGISTRY, 'view.point_at', {'control': 'undo', 'todo_id': None}, actor='agent', ctx=ctx)['highlighted'] == 'undo'
+    end_request(ctx)
+    assert [entry['by'] for entry in todos.undo_stack] == ['agent']  # the Undo the page then draws
 
 
 def test_several_items_may_be_one_todo_that_names_them_all():

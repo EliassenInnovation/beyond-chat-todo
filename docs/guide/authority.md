@@ -37,9 +37,33 @@ Let group operations show the full scope of a change. If the only tool moves one
 
 The group operation makes the scope visible, but on its own it does not stop the agent from moving the appointments one call at a time. If your policy says changes above a certain size need approval, enforce that size in code as well, for example by counting the changes one request makes and asking the person before the count exceeds the limit.
 
+Deleting a file, placing a trade and sending money to a bank are operations of this kind.
+A placed trade and a sent payment take effect outside the application, so the application
+cannot take them back. A delete can sometimes be given an undo, with a trash or a
+retention period, and can then be treated as a reversible change.
+
 In the Todo sample, deletion stands in for an irreversible action. Its approval requirement lets
 readers inspect how the application enforces a person's decision. Choose safeguards for
-the consequences in your own product. The Todo sample binds approval to the proposed
+the consequences in your own product.
+
+The sample states its own policy as a rule that is checked when each action is registered.
+Every write declares how many items it touches and which action takes it back. The agent
+may run a write directly only if it can be undone and touches one item:
+
+```python
+if 'write' in action.effects and action.policy.get('agent') == 'allow':
+    if action.undone_by is None:
+        raise ValueError(f"{action.id} cannot be taken back, so the agent may not simply do it: ...")
+    if action.impact != 'one':
+        raise ValueError(f"{action.id} touches many items: make its agent policy 'approval' or 'forbidden'.")
+```
+
+Delete cannot be undone, so the agent may only request it. Clear completed and the
+mark-all arrow touch many items, so they are for the person only. A new write with no
+declared undo fails to register until someone sets the agent's policy. This is the
+sample's policy, and another application may draw the line elsewhere.
+[How the agent observes and operates the screen](screen.md#record-who-made-each-request)
+shows how the caller reaches this check when the agent operates a control. The Todo sample binds approval to the proposed
 deletion and checks it before applying it.
 
 [![The Todo sample keeps a deletion pending until the person approves; agent approval and changed proposals are refused.](../images/todo-approval-flow.svg)](../images/todo-approval-flow.svg)

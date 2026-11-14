@@ -58,6 +58,7 @@ nav:
     - Authority and recovery: guide/authority.md
     - Tools and current evidence: guide/tools.md
     - Interfaces and views: guide/interfaces.md
+    - How the agent observes and operates the screen: guide/screen.md
     - The agent in the UI: guide/agent-experience.md
   - Implementation:
     - Run the sample: guide/start.md

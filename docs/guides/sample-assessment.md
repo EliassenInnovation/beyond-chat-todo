@@ -2,6 +2,11 @@
 
 # Sample coverage and limitations
 
+Coverage as of November 14, 2026: the checklist has 66 checks. 62 were verified on
+October 25, 2026. The 4 added since then were rated without a new test run: Checks
+2.11–2.13 are Not applicable and Check 1.15 is Not run. The application code has changed
+since October 25, so the 62 ratings describe the earlier commit named below.
+
 Assessed October 25, 2026 against application commit
 `1b4b3c2b5f62bbd7a2ee7e48e11ff85b3e8cd438` and all 62 acceptance checks in
 [Implementation and acceptance checks](../principles/implementation.md), including its October 19 revision.
@@ -16,6 +21,12 @@ October 26 applicability update: the checklist now has 65 checks. Checks 2.11–
 added for retained personal context. They are Not applicable to the Todo sample, which has
 no personal profile or onboarding. The original 62 ratings and their October 25 verification
 evidence remain unchanged; this update does not claim a new application test run.
+
+November 14 applicability update: the checklist now has 66 checks. Check 1.15 was added
+for pointing at controls and for screen actions after the screen has changed; it is rated
+Not run below. Check 1.13 now also accepts refusing the agent's navigation while an edit
+is in progress. The sample does neither that nor the earlier alternatives, so its Fail
+rating is unchanged. This update does not claim a new application test run.
 
 ## How to read the assessment
 
@@ -70,6 +81,7 @@ The [walkthrough](walkthrough.md) follows the application paths. Main evidence s
 | 1.12 | Agent | Not run | Dedicated merge action and historical experiments exist alongside general tools. | Code inspection only; acceptance scenario not run. | No new paid whole-suite comparison. |
 | 1.13 | UI and agent | Fail | Shared View and named actions; no synthetic mouse events. | View/adapter tests in `test_app.py`; inspected inline editor in `todo/assets/todo_view.js`. | Unsaved inline edits are not protected against a concurrent agent view change; directions remain model-written from screen descriptions. |
 | 1.14 | MCP Apps | Not applicable | No MCP view transport. | Scope inspection; no applicable execution scenario. | The Streamlit component is not an MCP Apps view. |
+| 1.15 | UI and agent | Not run | `point_at` is declared as a presentation action and changes only the highlight; a control name outside the `SCREEN` table is refused with the valid names; `show_todos` returns the visible and hidden titles; `execute` requires the caller and refuses person-only actions to the agent. | Inspected `todo/view.py` and `todo/capabilities.py`; `test_execution_refuses_the_agent_what_only_a_person_may_do`; no acceptance scenario run. | `point_at` refuses a control the page is not drawing, with the reason (`test_pointing_at_a_control_the_page_is_not_drawing_is_refused_with_what_makes_it_appear`); the page draws each control from the same function (`test_the_page_is_given_the_same_answer_point_at_gets_about_each_control`). No test that pointing leaves saved data unchanged, and no scenario that changes the list between the request and the action. |
 
 ## Helping users finish jobs
 

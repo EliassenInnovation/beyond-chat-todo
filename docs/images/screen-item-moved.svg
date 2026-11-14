@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="330" viewBox="0 0 800 330" role="img" aria-label="When the person asked, the Budget slide with ID 7 was slide 3. When the agent acts, a new slide has been added and Budget is slide 4. The application finds Budget by ID 7."><desc>When the person asked, the Budget slide with ID 7 was slide 3. When the agent acts, a new slide has been added and Budget is slide 4. The application finds Budget by ID 7.</desc><style>text{font-family:Arial,sans-serif;fill:#1A1E33;font-size:18px}.label{font-weight:700;font-size:20px}.on{fill:white;font-weight:700}.id{text-anchor:end}</style><rect width="800" height="330" fill="white"/>
+<rect x="16" y="12" width="340" height="256" rx="6" fill="#F5F1EE"/>
+<rect x="444" y="12" width="340" height="256" rx="6" fill="#F5F1EE"/>
+<text x="32" y="42" class="label">When the person asked</text>
+<text x="460" y="42" class="label">When the agent acts</text>
+<rect x="32" y="56" width="308" height="34" rx="4" fill="white"/><text x="44" y="79">1  Summary</text><text x="328" y="79" class="id">ID 4</text>
+<rect x="32" y="96" width="308" height="34" rx="4" fill="white"/><text x="44" y="119">2  Goals</text><text x="328" y="119" class="id">ID 9</text>
+<rect x="32" y="136" width="308" height="34" rx="4" fill="#2E4294"/><text x="44" y="159" class="on">3  Budget</text><text x="328" y="159" class="on id">ID 7</text>
+<rect x="32" y="176" width="308" height="34" rx="4" fill="white"/><text x="44" y="199">4  Timeline</text><text x="328" y="199" class="id">ID 2</text>
+<rect x="460" y="56" width="308" height="34" rx="4" fill="white"/><text x="472" y="79">1  Summary</text><text x="756" y="79" class="id">ID 4</text>
+<rect x="460" y="96" width="308" height="34" rx="4" fill="white"/><text x="472" y="119">2  Goals</text><text x="756" y="119" class="id">ID 9</text>
+<rect x="460" y="136" width="308" height="34" rx="4" fill="white" stroke="#8EBFB3" stroke-width="3"/><text x="472" y="159">3  Risks (new)</text><text x="756" y="159" class="id">ID 12</text>
+<rect x="460" y="176" width="308" height="34" rx="4" fill="#2E4294"/><text x="472" y="199" class="on">4  Budget</text><text x="756" y="199" class="on id">ID 7</text>
+<rect x="460" y="216" width="308" height="34" rx="4" fill="white"/><text x="472" y="239">5  Timeline</text><text x="756" y="239" class="id">ID 2</text>
+<path d="M340 153H400V193H452" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<path d="M444 187L452 193L444 199" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<text x="400" y="140" style="text-anchor:middle;font-weight:700">ID 7</text>
+<text x="16" y="304">The application finds Budget by its ID. Slide 3 is now a different slide.</text></svg>

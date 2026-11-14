@@ -78,8 +78,8 @@ function build(root) {
   ui.undo.addEventListener('click', () => ui.send({ op: 'undo' }));
   ui.redo.addEventListener('click', () => ui.send({ op: 'redo' }));
   for (const b of ui.filters) {
-    // Shown at once, then reported: the app owns the filter, so the agent can change it too.
-    b.addEventListener('click', () => { ui.filter = b.dataset.filter; render(ui); ui.send({ op: 'filter', filter: ui.filter }); });
+    // Reported, then drawn from the app's answer: the app owns the filter, so the agent can change it too.
+    b.addEventListener('click', () => ui.send({ op: 'filter', filter: b.dataset.filter }));
   }
   return ui;
 }
@@ -201,32 +201,34 @@ function render(ui) {
   const { todos, pending } = ui.data;
   const order = todos.map((t) => t.id);
   const left = todos.filter((t) => !t.done).length;
-  const only = ui.data.only || [];
-  const shown = todos.filter((t) => ui.filter === 'all' || (ui.filter === 'only' ? only.includes(t.id)
-    : ui.filter === 'active' ? !t.done : t.done));
+  // Which rows and which controls are drawn is the app's decision (screen_data in todo_view.py),
+  // the one the assistant's point_at asks too: there are no conditions here to drift from it.
+  const visible = ui.data.visible || [];
+  const drawn = ui.data.drawn || {};
+  const shown = todos.filter((t) => visible.includes(t.id));
   const note = ui.root.querySelector('.custom-note');  // a chosen set: say so, and offer the way back
-  note.hidden = ui.filter !== 'only';
-  if (ui.filter === 'only') {
+  note.hidden = !drawn['show-all'];
+  if (drawn['show-all']) {
     note.replaceChildren(`Showing ${shown.length} of ${todos.length} ·`, el('button', { type: 'button', class: 'show-all',
-      text: 'Show all', onclick: () => { ui.filter = 'all'; render(ui); ui.send({ op: 'filter', filter: 'all' }); } }));
+      text: 'Show all', onclick: () => ui.send({ op: 'filter', filter: 'all' }) }));
   }
 
   ui.list.replaceChildren(...shown.map((t) => row(ui, t, order)));
   ui.empty.hidden = todos.length > 0;
-  ui.footer.hidden = todos.length === 0;
+  ui.footer.hidden = !drawn['filter-all'];
   ui.toggleAll.classList.toggle('all-done', todos.length > 0 && left === 0);
   ui.toggleAll.setAttribute('aria-label', left === 0 ? 'Mark all as not done' : 'Mark all as done');
   ui.count.replaceChildren(el('strong', { text: String(left) }), ` ${left === 1 ? 'item' : 'items'} left`);
-  ui.clear.hidden = !todos.some((t) => t.done);
+  ui.clear.hidden = !drawn['clear-completed'];
   ui.undo.hidden = !ui.data.can_undo;
   ui.redo.hidden = !ui.data.can_redo;
-  ui.history.hidden = !ui.data.can_undo && !ui.data.can_redo;
+  ui.history.hidden = !drawn.undo;
   for (const b of ui.filters) {
     b.classList.toggle('selected', b.dataset.filter === ui.filter);
     b.setAttribute('aria-pressed', String(b.dataset.filter === ui.filter));
   }
 
-  ui.pending.replaceChildren(...pending.map((p) => el('div', { class: 'request', role: 'group', 'aria-label': 'Delete request' }, [
+  ui.pending.replaceChildren(...(drawn['approve-card'] ? pending : []).map((p) => el('div', { class: 'request', role: 'group', 'aria-label': 'Delete request' }, [
     el('span', {}, ['The assistant asks to delete ', el('strong', { text: p.title }), '. A delete can\u2019t be undone.']),
     el('button', { type: 'button', class: 'deny', text: 'Deny', onclick: () => ui.send({ op: 'deny', id: p.id }) }),
     el('button', { type: 'button', class: 'approve', text: 'Approve', onclick: () => ui.send({ op: 'approve', id: p.id }) }),
@@ -268,7 +270,7 @@ export default function (component) {
   const existing = parentElement.querySelector('.todo-root');
   const ui = existing && existing.ui ? existing.ui : build(parentElement);
   ui.send = (action) => setTriggerValue('action', action);
-  ui.data = data || { todos: [], pending: [], today: '', filter: 'all' };
+  ui.data = data || { todos: [], pending: [], today: '', filter: 'all', visible: [], drawn: {} };
   ui.filter = ui.data.filter || 'all';
   render(ui);
   flash(ui, parentElement);

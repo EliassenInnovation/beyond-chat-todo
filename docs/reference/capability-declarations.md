@@ -6,6 +6,11 @@ command-line interface. This appendix gives practical options for your own regis
 the [order-placement example](../guide/design.md#example-placing-an-order) and explains how to
 extend that pattern.
 
+A registry is a set of declarations laid over operations your application already
+implements. It does not replace your services or hold business logic. The fields in this
+appendix are options, each read by a specific piece of code. Most applications need only
+a few of them, and none of them requires building a framework first.
+
 The shopping examples use illustrative declarations and outputs; the implementation notes refer
 to the smaller Todo sample and to Advisor, a separate financial application with an embedded
 agent (its coach). An embedded agent runs inside the application; an external agent connects

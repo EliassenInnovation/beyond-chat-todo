@@ -31,6 +31,33 @@ SCREEN = {
     'approve-card': ('Approve / Deny', 'the card under the list, when the assistant asks to delete', 'approves or refuses that delete'),
 }
 ON_EACH_TODO = ('checkbox', 'todo-text', 'due-date', 'grip', 'delete')  # one per row
+FILTER_BUTTONS = ('filter-all', 'filter-active', 'filter-completed')
+
+
+def not_on_screen(ctx, control, todo_id=None):
+    """Why the page is not drawing this control now, or None when it is. This is the one place
+    that decides it: the page draws each control from this answer (todo_view.screen_data), and
+    point_at asks it during the agent's turn, before the page has drawn."""
+    todos, view = ctx.todos, ctx.view
+    if control in ON_EACH_TODO:
+        visible = view.visible(todos)
+        if todo_id is not None and all(t.id != todo_id for t in visible):
+            return 'that todo is hidden by what the screen is showing'
+        return None if visible else 'no todo is on the screen'
+    if control in FILTER_BUTTONS and not todos.todos:
+        return 'the filter buttons appear once the list has a todo'
+    if control == 'clear-completed' and not any(t.done for t in todos.todos):
+        return 'it appears when at least one todo is done'
+    if control == 'show-all' and view.showing != 'only':
+        return 'it appears when the screen shows only some chosen todos'
+    if control == 'approve-card' and not todos.pending:
+        return 'it appears when a delete request is waiting'
+    if control == 'undo':
+        request = getattr(ctx, 'request', None)  # this request's own changes get their Undo when it ends
+        changed = request is not None and request['before'] != todos.state()
+        if not (todos.undo_stack or todos.redo_stack or changed):
+            return 'it appears after a change to the list'
+    return None
 
 
 class View:
@@ -93,13 +120,22 @@ def shown(ctx, showing, ids):
                          'todo_id': {'type': ['integer', 'null'],
                                      'description': "to highlight it on one todo only, that todo's id; otherwise null"}},
                  description="Highlight a control on the user's screen for a few seconds, so they can see where it is. "
-                             'Changes nothing. Use it when the user asks to be shown how or where.')
+                             'Changes nothing. Use it when the user asks to be shown how or where. A control that '
+                             'is not on the screen now is refused, with what makes it appear.')
 def point_at(ctx, control, todo_id=None):
     # Said in the result, where the reply is drafted: it had highlighted a control and then offered
-    # "I can highlight it for you if you want".
+    # "I can highlight it for you if you want". The app has set the highlight and the page draws it
+    # with the reply; nothing here confirms what the browser displayed, so the note does not say so.
     todo = ctx.todos.get(todo_id) if todo_id is not None else None
+    # The reply is written before the page draws, so the answer about the screen is decided here.
+    # It had said "it is highlighted now" for Clear completed when no todo was done and nothing lit.
+    if control in SCREEN and (todo_id is None or control in ON_EACH_TODO):
+        missing = not_on_screen(ctx, control, todo_id)
+        if missing:
+            raise TodoError(f'{SCREEN[control][0]} is not on the screen now: {missing}. Nothing is highlighted.')
     result = {'highlighted': ctx.view.point(control, todo_id).pointed_at,
-              'note': "It is highlighted on the user's screen now; say so, rather than offering to."}
+              'note': 'The page highlights it when it shows your reply; tell the user it is highlighted, '
+                      'rather than offering to.'}
     # A control on each todo lights on every todo. It once said "the grip on Book the dentist" is
     # highlighted while every grip was; the result says what is lit, where the reply is drafted.
     # (Pointing at one todo's control was tried twice, as a todo_id and as its own tool; each broke

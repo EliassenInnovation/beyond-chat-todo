@@ -23,6 +23,40 @@ from todo.capabilities import REGISTRY, ActionError, Guard
 REGISTRY.transaction = lambda ctx: ctx.todos.transaction()
 
 
+@contextmanager
+def history(ctx, actor, action):
+    """Put what one action changed on the undo stack, named for the caller execute was given.
+    This is the only place a caller is written into the history. A click is one entry. A caller
+    that has begun a request (the agent, for a whole turn) gets one entry for everything in
+    it, written by end_request."""
+    moves = action.id in ('todos.undo', 'todos.redo')  # they move along the stack: not entries of their own
+    request = getattr(ctx, 'request', None)
+    before = None if moves or request is not None else ctx.todos.state()
+    yield
+    if request is not None:
+        request['by'] = actor
+        if moves:  # what follows an undo or redo is a new change
+            request['before'] = ctx.todos.state()
+    elif not moves:
+        ctx.todos.checkpoint(actor, before)
+
+
+REGISTRY.history = history
+
+
+def begin_request(ctx):
+    """Start one request: every change until end_request becomes one undo entry."""
+    ctx.request = {'before': ctx.todos.state(), 'by': None}
+
+
+def end_request(ctx):
+    """Write the request's one undo entry, for the caller its actions were executed as."""
+    request, ctx.request = getattr(ctx, 'request', None), None
+    if request and request['by']:
+        with ctx.todos.transaction():
+            ctx.todos.checkpoint(request['by'], request['before'])
+
+
 @dataclass
 class Todo:
     id: int

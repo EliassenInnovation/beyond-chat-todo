@@ -22,9 +22,10 @@ People use both [the words of the job and the words of the application](why.md#t
 Read the whole request and the preceding conversation to determine what assistance they want
 now. "Where do I change my cancellation policy?" calls for directions and an offer to open
 the setting. "Take me there" requests navigation. "Set the fee to twenty dollars" requests
-a change. Preserve the conversation and unsaved work when navigating, and confirm that the
-screen opened before reporting it. If navigation would discard partial work, the application
-asks the person to confirm before leaving. [Horvitz: mixed-initiative interfaces](https://www.microsoft.com/en-us/research/publication/principles-mixed-initiative-user-interfaces/)
+a change. Preserve the conversation when navigating, and confirm that the screen opened
+before reporting it. Application code decides what happens to
+[an edit in progress](screen.md#decide-what-happens-to-an-edit-in-progress): it can save
+the draft, keep it, or refuse the navigation and say why. [Horvitz: mixed-initiative interfaces](https://www.microsoft.com/en-us/research/publication/principles-mixed-initiative-user-interfaces/)
 
 Ask a question when possible readings would lead to different results that matter. If the
 agent offered two options and the person says "sure," ask which option they mean. When the

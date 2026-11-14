@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="372" viewBox="0 0 800 372" role="img" aria-label="A click on the delete control and the agent's delete tool both run the todos.delete action. The click is marked as the person's and deletes the todo. The tool call is marked as the agent's and creates a request that waits for the person's approval."><desc>A click on the delete control and the agent's delete tool both run the todos.delete action. The click is marked as the person's and deletes the todo. The tool call is marked as the agent's and creates a request that waits for the person's approval.</desc><style>text{font-family:Arial,sans-serif;fill:#1A1E33;font-size:20px}.head{fill:white;font-weight:700}.label{font-weight:700}.small{font-size:18px}.code{font-family:Menlo,Consolas,monospace;font-size:16px}</style><rect width="800" height="372" fill="white"/>
+<rect x="16" y="12" width="368" height="88" rx="6" fill="#F5F1EE"/>
+<rect x="416" y="12" width="368" height="88" rx="6" fill="#F5F1EE"/>
+<text x="32" y="44" class="label">The person clicks × on a todo</text>
+<text x="32" y="76" class="code">actor='person'</text>
+<text x="432" y="44" class="label">The agent calls request_delete</text>
+<text x="432" y="76" class="code">actor='agent'</text>
+<path d="M200 100V120H400V140 M600 100V120H400" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<path d="M394 132L400 140L406 132" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<rect x="140" y="144" width="520" height="76" rx="6" fill="#2E4294"/>
+<text x="160" y="174" class="head">execute runs the action todos.delete</text>
+<text x="160" y="201" style="fill:white;font-size:18px">It looks up the policy declared for that caller</text>
+<path d="M400 220V240H200V260 M400 240H600V260" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<path d="M194 252L200 260L206 252 M594 252L600 260L606 252" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<rect x="16" y="264" width="368" height="92" rx="6" fill="#F5F1EE"/>
+<rect x="416" y="264" width="368" height="92" rx="6" fill="#F5F1EE"/>
+<text x="32" y="296" class="label">Policy for the person: allow</text>
+<text x="32" y="328" class="small">The todo is deleted</text>
+<text x="432" y="296" class="label">Policy for the agent: approval</text>
+<text x="432" y="328" class="small">A request waits for the person</text></svg>

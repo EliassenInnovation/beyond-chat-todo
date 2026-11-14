@@ -13,12 +13,7 @@ def run():
     with tempfile.TemporaryDirectory(prefix='todo-walkthrough-') as folder:
         ctx = SimpleNamespace(todos=TodoList(Path(folder) / 'todos.json'), view=View())
         def call(action, args, actor='agent'):
-            before = ctx.todos.state()
-            with ctx.todos.transaction():
-                result = execute(REGISTRY, action, args, actor=actor, ctx=ctx)
-                if action not in ('todos.undo', 'todos.redo'):
-                    ctx.todos.checkpoint(actor, before)
-            return result
+            return execute(REGISTRY, action, args, actor=actor, ctx=ctx)
 
         print('1. Shared action and a saved result')
         added = call('todos.add', {'todos': [{'title': 'Read the guide', 'due': None},

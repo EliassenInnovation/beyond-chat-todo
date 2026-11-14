@@ -1,5 +1,8 @@
 import renderTodos from './todo_view.js';
 // Playback only: snapshots are displayed, never executed as application commands.
+// A recording made before the app sent "drawn" has only the list and the view. The live app decides
+// what is drawn in view.not_on_screen; this restates it for those recordings, which have no app to ask.
+function drawnFrom(state,index){const some=state.todos.length>0;return{'new-todo':true,'toggle-all':true,'filter-all':some,'filter-active':some,'filter-completed':some,'clear-completed':state.todos.some(t=>t.done),'show-all':state.screen_shows==='only','approve-card':state.waiting_for_approval.length>0,undo:index>1};}
 export function makeFrames(record) {
   const messages = [], frames = [];
   const add = (state, event, selection = null, end = false) => frames.push({state, event, selection, end, messages: [...messages]});
@@ -60,7 +63,7 @@ async function start(){
  }
  function restart(){pause();index=0;render();}
  function render(){const frame=frames[index],state=frame.state;
-  renderTodos({parentElement:list,setTriggerValue:()=>{},data:{todos:state.todos,pending:state.waiting_for_approval,today:record.today,filter:state.screen_shows,only:state.todos.filter(t=>state.visible.includes(t.title)).map(t=>t.id),can_undo:index>1,can_redo:false}});
+  renderTodos({parentElement:list,setTriggerValue:()=>{},data:{todos:state.todos,pending:state.waiting_for_approval,today:record.today,filter:state.screen_shows,visible:state.todos.filter(t=>state.visible.includes(t.title)).map(t=>t.id),drawn:drawnFrom(state,index),can_undo:index>1,can_redo:false}});
   list.inert=true; // Saved states cannot be edited or executed.
   if(frame.selection){const cards=list.querySelectorAll('.request');state.waiting_for_approval.forEach((request,i)=>{if(frame.selection.ids.includes(request.id))cards[i].querySelector('.'+frame.selection.action).classList.add('flash');});}
   $('chat').replaceChildren();

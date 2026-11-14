@@ -92,6 +92,7 @@ class Registry:
     def __init__(self, app_id):
         self.app_id = app_id
         self.transaction = lambda ctx: nullcontext()  # the application supplies its storage boundary
+        self.history = lambda ctx, actor, action: nullcontext()  # and its record of who changed what
         self._by_id, self._by_tool, self._guards = {}, {}, {}
 
     def guard(self, guard):
@@ -201,7 +202,8 @@ def execute(registry, action_id, args, *, actor, ctx):
         raise ActionError(f'The {actor} cannot {action_id}; only the {" or the ".join(can) or "nobody"} can.')
     validate(action, args)
     # The owning store supplies the transaction; the registry knows no domain fields.
-    with registry.transaction(ctx):
+    # The caller named here is the one written into the history: no adapter records it again.
+    with registry.transaction(ctx), registry.history(ctx, actor, action):
         result = action.propose(ctx, **args) if policy == 'approval' else action.handler(ctx, **args)
         # Evidence belongs to this invocation, not to mutable objects changed by later calls.
         return deepcopy(result)

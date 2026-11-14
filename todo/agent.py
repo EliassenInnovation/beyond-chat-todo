@@ -24,7 +24,7 @@ from langfuse.openai import OpenAI  # was: from openai import OpenAI
 
 from todo.capabilities import REGISTRY, ActionError, execute, validate
 from todo.guard_check import check_guards
-from todo.todos import TARGET_GUARDS
+from todo.todos import TARGET_GUARDS, begin_request, end_request
 from todo.view import SCREEN, View  # importing view registers its actions, after todos.py's
 
 MODEL = model_for('agent')
@@ -131,7 +131,7 @@ class Agent:
         self.seen = None  # the list as the agent last read it
         self.list_message = None  # this turn's copy of the list, and what it told: (message, told)
         self.tool_log = []  # this turn's tool calls, for the eval report's outline
-        self.turn_before, self.undid, self.redid = None, False, False  # the list before this request, for the undo stack
+        self.request, self.undid, self.redid = None, False, False  # this request's undo entry (todos.begin_request)
         self.guards = set(GUARDS)  # the configured guards this agent enforces
         self.guard_answers, self.guard_client = {}, None  # cache is scoped to exact evidence within a turn
         self.served = set()  # the models that actually answered, for the run record
@@ -141,10 +141,7 @@ class Agent:
         what was said, what the person saw, and what the list became. Deliver application receipts
         followed by the model explanation; keep the raw explanation for evaluation. Everything
         the request changed is one entry on the undo stack."""
-        if self.turn_before is not None:
-            with self.todos.transaction():
-                self.todos.checkpoint('agent', self.turn_before)
-            self.turn_before = None
+        end_request(self)
         self.last_model_reply = reply or ''
         receipts = [t['result']['receipt'] for t in self.tool_log
                     if isinstance(t.get('result'), dict) and t['result'].get('receipt')]
@@ -175,10 +172,7 @@ class Agent:
             return self.record_turn(reply)
         finally:
             # Unexpected failures still preserve recovery for work already saved.
-            if self.turn_before is not None:
-                with self.todos.transaction():
-                    self.todos.checkpoint('agent', self.turn_before)
-                self.turn_before = None
+            end_request(self)
 
     def _ask(self, text):
         get_client().update_current_span(input=text)
@@ -207,7 +201,8 @@ class Agent:
         self.seen = self.todos.snapshot()  # sending the list counts as reading it
         self.messages.append({'role': 'user', 'content': text})
         self.tool_log = [{'tool': 'list_todos', 'args': '', 'given': True, 'result': given}]
-        self.turn_before, self.undid, self.redid = self.todos.state(), False, False
+        begin_request(self)
+        self.undid, self.redid = False, False
         self.guard_answers = {}
         self.client = self.client or (anthropic_agent.Anthropic() if self.provider == 'anthropic' else OpenAI())
         for _ in range(MAX_STEPS):
@@ -289,8 +284,6 @@ class Agent:
             return {'error': message}
         self.tool_log.append({'tool': name, 'args': arguments, 'result': result,
                               **({'guard_checks': guard_results} if guard_results else {})})
-        if action.id in ('todos.undo', 'todos.redo'):  # not changes of their own to undo later; what follows is
-            self.turn_before = self.todos.state()
         if 'read' in action.effects or self.seen == current:  # a read, or a change made on an up-to-date view
             self.seen = self.todos.snapshot()
         return result
