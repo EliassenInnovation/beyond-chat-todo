@@ -205,8 +205,15 @@ Nothing is highlighted.
 
 The agent can tell the person that, and what would make the control appear. Before this
 check, the tool answered that the control was highlighted when the page had nothing to
-highlight. The check restates the conditions under which the page draws each control, so
-a change to the page's drawing code needs the same change in `not_on_screen`.
+highlight.
+
+The page draws from the same decision. One function, `not_on_screen` in `todo/view.py`,
+decides whether each control is on the screen. Before each draw, the application sends the
+page the IDs of the visible todos and a true or false value for every control, and the
+page shows or hides each control from those values. The page script has no conditions of
+its own, so what the agent is told about the screen and what the page draws cannot
+differ. A filter button reports the click to the application and is redrawn from the
+application's answer.
 
 ## Check the request against the current screen
 

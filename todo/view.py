@@ -35,9 +35,9 @@ FILTER_BUTTONS = ('filter-all', 'filter-active', 'filter-completed')
 
 
 def not_on_screen(ctx, control, todo_id=None):
-    """Why the page is not drawing this control now, or None when it is. The page draws after the
-    agent's turn, so it cannot answer during one: this states the page's own conditions
-    (render() in todo_view.js), from the list and the view as they are now."""
+    """Why the page is not drawing this control now, or None when it is. This is the one place
+    that decides it: the page draws each control from this answer (todo_view.screen_data), and
+    point_at asks it during the agent's turn, before the page has drawn."""
     todos, view = ctx.todos, ctx.view
     if control in ON_EACH_TODO:
         visible = view.visible(todos)

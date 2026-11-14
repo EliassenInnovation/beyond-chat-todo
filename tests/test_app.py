@@ -289,3 +289,51 @@ def test_untraced_exploratory_tester_does_not_claim_export(app, monkeypatch):
     captions=' '.join(c.value for c in at.caption)
     assert 'Trace export is off.' in captions
     assert 'this chat is recorded to langfuse' not in captions.lower()
+
+
+def test_the_page_is_given_the_same_answer_point_at_gets_about_each_control(tmp_path):
+    """One decision about what is on screen: the page draws from it and point_at refuses by it."""
+    from types import SimpleNamespace
+    from todo.capabilities import REGISTRY, ActionError, execute
+    from todo.view import SCREEN, ON_EACH_TODO
+    todos, view = TodoList(tmp_path / 'todos.json'), View()
+
+    def agree():
+        data = todo_view.screen_data(todos, view)
+        assert set(data['drawn']) == set(SCREEN)
+        for control, drawn in data['drawn'].items():
+            ctx = SimpleNamespace(todos=todos, view=View(view.showing))
+            ctx.view.only_ids = list(view.only_ids)
+            try:
+                execute(REGISTRY, 'view.point_at', {'control': control, 'todo_id': None}, actor='agent', ctx=ctx)
+                pointed = True
+            except ActionError:
+                pointed = False
+            assert pointed == drawn, control
+        return data
+
+    data = agree()  # an empty list
+    assert data['visible'] == [] and [c for c, d in data['drawn'].items() if d] == ['new-todo', 'toggle-all']
+    first = todo_view.apply(todos, view, {'op': 'add', 'title': 'Pay rent', 'due': None})
+    todo_view.apply(todos, view, {'op': 'add', 'title': 'Book flights', 'due': None})
+    data = agree()
+    assert data['visible'] == [1, 2] and data['drawn']['undo'] and not data['drawn']['clear-completed']
+    todo_view.apply(todos, view, {'op': 'complete', 'id': 1})
+    todo_view.apply(todos, view, {'op': 'filter', 'filter': 'active'})
+    data = agree()
+    assert data['visible'] == [2] and data['drawn']['clear-completed'] and not data['drawn']['show-all']
+    view.show('only', [1])
+    todos.request_delete(2)
+    data = agree()
+    assert data['visible'] == [1] and data['drawn']['show-all'] and data['drawn']['approve-card']
+    assert all(data['drawn'][c] for c in ON_EACH_TODO)
+
+
+def test_the_page_script_draws_controls_from_the_apps_answer():
+    """The page has no conditions of its own for what is drawn: it reads drawn and visible."""
+    script = (todo_view.HERE / 'todo_view.js').read_text()
+    for read in ("drawn['show-all']", "drawn['filter-all']", "drawn['clear-completed']", 'drawn.undo',
+                 "drawn['approve-card']", 'visible.includes(t.id)'):
+        assert read in script, read
+    for own_condition in ('todos.some(', "ui.filter === 'only'", "ui.filter === 'active'", 'todos.length === 0'):
+        assert own_condition not in script, own_condition
