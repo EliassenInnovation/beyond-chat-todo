@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="424" viewBox="0 0 800 424" role="img" aria-label="Two arrangements. On the left the view state is on the server with the agent: the browser sends clicks and receives the new view. On the right the view state is in the browser: the page sends a snapshot, the server sends an event, and the page sends a reply. In both, the server checks deletes, trades and payments."><desc>Two arrangements. On the left the view state is on the server with the agent: the browser sends clicks and receives the new view. On the right the view state is in the browser: the page sends a snapshot, the server sends an event, and the page sends a reply. In both, the server checks deletes, trades and payments.</desc><style>text{font-family:Arial,sans-serif;fill:#1A1E33;font-size:18px}.label{font-weight:700;font-size:20px}.b{font-weight:700}.head{fill:white;font-weight:700;font-size:20px}.state{fill:#2E4294;font-weight:700}</style><rect width="800" height="424" fill="white"/>
+<rect x="16" y="12" width="368" height="332" rx="6" fill="#F5F1EE"/>
+<rect x="416" y="12" width="368" height="332" rx="6" fill="#F5F1EE"/>
+<text x="32" y="42" class="label">View state on the server</text>
+<text x="32" y="66">Streamlit, as in the Todo sample</text>
+<text x="432" y="42" class="label">View state in the browser</text>
+<text x="432" y="66">React and similar frameworks</text>
+
+<rect x="32" y="82" width="336" height="68" rx="4" fill="white"/>
+<text x="46" y="108" class="b">Browser</text>
+<text x="46" y="134">The page draws what it is sent</text>
+<rect x="32" y="252" width="336" height="76" rx="4" fill="white"/>
+<text x="46" y="278" class="b">Server</text>
+<text x="46" y="304">The agent  +  <tspan class="state">the view state</tspan></text>
+<path d="M110 150V248 M250 252V154" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<path d="M104 240L110 248L116 240 M244 162L250 154L256 162" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<text x="120" y="207">clicks</text>
+<text x="260" y="207">new view</text>
+
+<rect x="432" y="82" width="336" height="68" rx="4" fill="white"/>
+<text x="446" y="108" class="b">Browser</text>
+<text x="446" y="134">The page  +  <tspan class="state">the view state</tspan></text>
+<rect x="432" y="252" width="336" height="76" rx="4" fill="white"/>
+<text x="446" y="278" class="b">Server</text>
+<text x="446" y="304">The agent</text>
+<path d="M456 150V248 M576 252V154 M690 150V248" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<path d="M450 240L456 248L462 240 M570 162L576 154L582 162 M684 240L690 248L696 240" stroke="#8EBFB3" stroke-width="3" fill="none"/>
+<text x="466" y="207">1 snapshot</text>
+<text x="586" y="207">2 event</text>
+<text x="700" y="207">3 reply</text>
+
+<rect x="16" y="356" width="768" height="54" rx="6" fill="#2E4294"/>
+<text x="32" y="390" class="head">In both, the server checks deletes, trades and payments</text></svg>

@@ -160,10 +160,48 @@ receives the change over the event stream it already listens to and calls the fu
 that a click in the outline calls. When no page is open, the tool call is refused and the
 agent is told why.
 
-In a hosted web application, the browser can send the current view and selection with each
-message, and screen actions return to the browser as named requests. Browser-supplied
-context helps interpret the request. The server establishes identity and authority
-independently, from trusted records.
+### Where the view state is kept
+
+How the agent reads and changes the view depends on where your interface framework keeps
+its view state. The agent's own loop runs on the server in both cases below, because the
+model's API key and the checks on consequential operations must be there.
+
+[![Two arrangements. On the left the view state is on the server with the agent: the browser sends clicks and receives the new view. On the right the view state is in the browser: the page sends a snapshot, the server sends an event, and the page sends a reply. In both, the server checks deletes, trades and payments.](../images/screen-state-location.svg)](../images/screen-state-location.svg)
+
+*The view state is on the server in a Streamlit application and in the browser in a React application.*
+
+**View state on the server.** Streamlit works this way, and so does the Todo sample. The
+server holds the filter and the selection, and the page draws what it is sent. For the
+request "Show only what is still open":
+
+1. The agent reads the current filter from the server's memory.
+2. The agent calls `show_todos`, and the server changes the filter.
+3. The server sends the new view to the page, and the page draws it.
+
+The agent and the view state are in one place, so nothing has to be sent between them.
+
+**View state in the browser.** React and similar frameworks work this way. The page holds
+the filter and the selection in its own store, and a click changes them without calling
+the server. For the same request:
+
+1. The page sends the person's message together with a snapshot of its view state: the
+   filter, the selection and the open screen.
+2. The agent calls its screen tool, and the server sends the page a named event, such as
+   "set the filter to active."
+3. The page passes the event to its store, through the code a filter click runs, and
+   redraws. It then replies with what the screen now shows, or with the reason it could
+   not make the change. The agent's tool waits for that reply.
+
+The three numbered arrows in the figure are these three steps. A snapshot, an event and a
+reply are the parts a browser-held design needs and a server-held design does not.
+
+The Todo sample shows the first arrangement only. Advisor is the closer model for the
+second: its view state is in the interface, and its navigation request waits for the
+interface's reply.
+
+In both arrangements, the snapshot from the browser helps interpret the request and
+nothing more. The server establishes the person's identity and checks consequential
+operations itself, from trusted records.
 
 ### Return what the screen now shows
 
