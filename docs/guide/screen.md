@@ -342,7 +342,12 @@ PERSON_ONLY = dict(surfaces=('ui',), policy={'person': 'allow', 'agent': 'forbid
 | `todos.approve` | Approve on the request card | The requested delete is carried out | Refused: "The agent cannot todos.approve; only the person can." |
 
 The controls that need this protection are the ones whose operations have a large effect
-or cannot be undone. The registry uses those two properties to decide. Each write declares
+or cannot be undone: deleting a file, placing a trade, sending money to a bank. A placed
+trade and a sent payment take effect outside the application, so the application cannot
+take them back. For operations like these, the button on the screen is for the person. An
+agent that asks for one gets an approval request for the person to decide, or a refusal.
+
+The registry uses those two properties to decide. Each write declares
 how many items it touches and which action takes it back. When an action is registered,
 the sample refuses to let the agent run a write directly unless it can be undone and
 touches one item:
