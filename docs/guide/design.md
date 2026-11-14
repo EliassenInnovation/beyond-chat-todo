@@ -75,7 +75,9 @@ person. If permissions are checked only in a screen's event handler, another cal
 bypass them. Separate descriptions and checks make those inconsistencies harder to find.
 
 A capability registry brings each operation's description, inputs, rules, and implementation
-together. Code reads these declarations to build tool definitions and check requests before
+together. It describes capabilities the application already has and adds no business
+logic of its own: your services keep the implementation, and each declaration points to
+it. A registry can start with a few operations and a few fields for each. Code reads these declarations to build tool definitions and check requests before
 calling the implementation. The declarations can live beside the implementations in separate
 modules. The registry collects them into one set that application code can read.
 

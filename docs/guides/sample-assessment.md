@@ -2,6 +2,11 @@
 
 # Sample coverage and limitations
 
+Coverage as of November 14, 2026: the checklist has 66 checks. 62 were verified on
+October 25, 2026. The 4 added since then were rated without a new test run: Checks
+2.11–2.13 are Not applicable and Check 1.15 is Not run. The application code has changed
+since October 25, so the 62 ratings describe the earlier commit named below.
+
 Assessed October 25, 2026 against application commit
 `1b4b3c2b5f62bbd7a2ee7e48e11ff85b3e8cd438` and all 62 acceptance checks in
 [Implementation and acceptance checks](../principles/implementation.md), including its October 19 revision.
